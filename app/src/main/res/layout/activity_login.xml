@@ -33,6 +33,7 @@ android:background="#000000"> <!-- 검정 배경 -->
     android:hint="ID"
     android:textColor="#A6A6A6"
     android:textColorHint="#A6A6A6"
+    android:fontFamily="@font/pretendard_medium"
     android:background="@android:color/transparent"
     android:inputType="textEmailAddress"/>
 
