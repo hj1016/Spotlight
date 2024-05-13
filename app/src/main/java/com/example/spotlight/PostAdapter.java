@@ -39,6 +39,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         holder.content.setText(post.getContent());
         holder.scrap.setText(String.valueOf(post.getScrap()));
         holder.hashtag.setText(post.getHashtag());
+        Glide.with(context).load(post.getScrapImageUrl()).into(holder.image);
     }
 
     @Override
@@ -47,13 +48,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
     }
 
     public static class PostViewHolder extends RecyclerView.ViewHolder {
-        public ImageView team_image, image;
+        public ImageView team_image, image, scrap_selection;
         public TextView title, category, content, scrap, hashtag;
 
         public PostViewHolder(View itemView) {
             super(itemView);
             team_image = itemView.findViewById(R.id.team_image);
             image = itemView.findViewById(R.id.image);
+            scrap_selection = itemView.findViewById(R.id.image);
             title = itemView.findViewById(R.id.title);
             category = itemView.findViewById(R.id.category);
             content = itemView.findViewById(R.id.content);

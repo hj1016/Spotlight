@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setTitle("Spotlight");
 
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        //NavigationView navigationView = findViewById(R.id.nav_view);
 
         // Initialize the RecyclerView
         recyclerView = findViewById(R.id.recyclerView);
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         // Setup the adapter with sample posts
         posts = new ArrayList<>();
         posts.add(new Post("@drawable/image_basic", "You little human", "사진/영상", "@drawable/image_ex1",
-                "On a blazingly sunny morning in March, the 22-year-old Italian tennis star...", 1700, "#A.E.S"));
+                " On a blazingly sunny morning in March, the 22-year-old Italian tennis star Jannik Sinner could be found on the sprawling grounds of a ranch-style home he’d rented in the Coachella Valley... read more", 132, "#A.E.S","@drawable/scrap_no"));
 
         adapter = new PostAdapter(this, posts);
         recyclerView.setAdapter(adapter);

@@ -7,10 +7,14 @@ public class Post {
     private String imageUrl;
     private String content;
     private int scrap;
+
+    private String scrapImageUrl;
     private String hashtag;
 
+
+
     // Constructor
-    public Post(String teamImageUrl, String title, String category, String imageUrl, String content, int scrap, String hashtag) {
+    public Post(String teamImageUrl, String title, String category, String imageUrl, String content, int scrap, String hashtag, String scrapImageUrl) {
         this.teamImageUrl = teamImageUrl;
         this.title = title;
         this.category = category;
@@ -18,6 +22,7 @@ public class Post {
         this.content = content;
         this.scrap = scrap;
         this.hashtag = hashtag;
+        this.scrapImageUrl = scrapImageUrl;
     }
 
     // Getters
@@ -47,5 +52,9 @@ public class Post {
 
     public String getHashtag() {
         return hashtag;
+    }
+
+    public String getScrapImageUrl() {
+        return scrapImageUrl;
     }
 }
