@@ -3,4 +3,17 @@
     <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="android:textColorPrimary">@android:color/white</item>
     </style>
+
+        <!-- Base application theme. -->
+        <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+            <!-- Customize your theme here. -->
+            <!-- Other theme properties -->
+        </style>
+
+        <!-- Toolbar title text appearance -->
+        <style name="ToolbarTitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+            <item name="android:textSize">30sp</item>
+            <item name="android:textColor">@android:color/white</item>
+        </style>
+
 </resources>

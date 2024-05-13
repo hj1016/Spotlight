@@ -1,118 +1,55 @@
 package com.example.spotlight;
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
+import android.view.Menu;
 import android.widget.Toast;
-
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.navigation.NavigationView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    private RecyclerView recyclerView;
+    private PostAdapter adapter;
+    private List<Post> posts;
 
-    private EditText usernameEditText;
-    private EditText passwordEditText;
-    //private Button loginButton;
-    private Button signupButton;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_login);
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
-        // 뷰 초기화
-        usernameEditText = findViewById(R.id.username);
-        passwordEditText = findViewById(R.id.password);
-        //loginButton = findViewById(R.id.loginButton); 로그인 버튼 따로 없이 ID/비번 맞으면 바로 넘어가게 하고픔
-        signupButton = findViewById(R.id.signupButton);
-
-        // 로그인 버튼 리스너
-        //loginButton.setOnClickListener(new View.OnClickListener() {
-           // @Override
-            //public void onClick(View v) {
-                // 로그인 로직 실행
-               // performLogin(usernameEditText.getText().toString(), passwordEditText.getText().toString());
-           // }
-        //});
-
-        // 회원가입 버튼 리스너
-        signupButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // 회원가입 로직 실행
-                performSignUp();
-            }
-        });
-    }
-    private void performLogin(String username, String password) {
-        // TODO: 실제 로그인 로직 구현
-        Toast.makeText(this, "Login Attempt with Username: " + username, Toast.LENGTH_SHORT).show();
-    }
-
-    private void performSignUp() {
-        // TODO: 실제 회원가입 로직 구현
-        Toast.makeText(this, "Sign Up Button Clicked", Toast.LENGTH_SHORT).show();
-    }
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
-        return true;
-    }
-}
-public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Setup Toolbar and Drawer Layout
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Spotlight");
+        getSupportActionBar().setDisplayShowTitleEnabled(false); // Disable default title
+        toolbar.setTitle("Spotlight");
 
-        // 메뉴 아이콘 추가
-        toolbar.setNavigationIcon(R.drawable.ic_menu); // 메뉴 아이콘 리소스
-        toolbar.setNavigationOnClickListener(view -> {
-            // 메뉴 버튼 클릭 이벤트 처리
-        });
+        DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+
+        // Initialize the RecyclerView
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        // Setup the adapter with sample posts
+        posts = new ArrayList<>();
+        posts.add(new Post("@drawable/image_basic", "You little human", "사진/영상", "@drawable/image_ex1",
+                "On a blazingly sunny morning in March, the 22-year-old Italian tennis star...", 1700, "#A.E.S"));
+
+        adapter = new PostAdapter(this, posts);
+        recyclerView.setAdapter(adapter);
     }
 
-        private DrawerLayout drawerLayout;
-        private ActionBarDrawerToggle toggle;
-
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_main);
-
-            drawerLayout = findViewById(R.id.drawer_layout);
-            NavigationView navigationView = findViewById(R.id.nav_view);
-
-            toggle = new ActionBarDrawerToggle(
-                    this, drawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-            drawerLayout.addDrawerListener(toggle);
-            toggle.syncState();
-
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
-
-        @Override
-        public boolean onOptionsItemSelected(MenuItem item) {
-            if (toggle.onOptionsItemSelected(item)) {
-                return true;
-            }
-            return super.onOptionsItemSelected(item);
-        }
-
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+        return true;
+    }
 }

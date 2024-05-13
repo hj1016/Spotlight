@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+
+    <ImageView
+        android:id="@+id/stage_scrap_no"
+        android:layout_width="24dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="600dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.07999998"
+        app:srcCompat="@drawable/stage_scrap_no"
+        tools:layout_editor_absoluteX="350dp" />
+
+    <TextView
+        android:id="@+id/stage_scrap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:fontFamily="@font/pretendard_semibold"
+        android:text="231"
+        android:textColor="#A6A6A6"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="50dp" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="19dp"
+        android:layout_height="19dp"
+        app:srcCompat="@drawable/stage_back"
+        tools:layout_editor_absoluteX="17dp"
+        tools:layout_editor_absoluteY="52dp" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/stage_floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="330dp"
+        android:layout_marginBottom="100dp"
+        android:clickable="true"
+        android:visibility="visible"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2"
+        app:layout_constraintVertical_bias="0.53"
+        app:srcCompat="@drawable/up_button"
+        app:tint="@null" />
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="413dp"
+        android:layout_height="674dp"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="78dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/stage_detail_main"
+                android:layout_width="match_parent"
+                android:layout_height="411dp"
+                android:layout_marginTop="30dp"
+                app:srcCompat="@drawable/stage_detail_main" />
+
+            <TextView
+                android:id="@+id/stage_detail_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/pretendard_bold"
+                android:text="Beauty of small things"
+                android:textColor="#000000"
+                android:textSize="34sp" />
+
+            <TextView
+                android:id="@+id/stage_detail_title2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:fontFamily="@font/pretendard_semibold"
+                android:text="Small things    |    미술"
+                android:textColor="#A6A6A6"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/stage_detail_interview"
+                android:layout_width="match_parent"
+                android:layout_height="1074dp"
+                android:layout_marginTop="70dp"
+                android:layout_marginBottom="50dp"
+                app:srcCompat="@drawable/stage_detail_interview" />
+
+            <TextView
+                android:id="@+id/stage_detail_team"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:fontFamily="@font/pretendard_bold"
+                android:text="팀원정보"
+                android:textColor="#000000"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/stage_team_image"
+                android:layout_width="97dp"
+                android:layout_height="56dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="10dp"
+                app:srcCompat="@drawable/team_image" />
+
+            <TextView
+                android:id="@+id/stage_team_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginBottom="2dp"
+                android:fontFamily="@font/pretendard_semibold"
+                android:text="박성준"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/stage_team_role"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="33dp"
+                android:layout_marginBottom="50dp"
+                android:fontFamily="@font/pretendard_semibold"
+                android:text="작가"
+                android:textColor="#A6A6A6"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/stage_detail_project"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:fontFamily="@font/pretendard_bold"
+                android:text="프로젝트"
+                android:textColor="#000000"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/imageView8"
+                android:layout_width="match_parent"
+                android:layout_height="139dp"
+                android:layout_marginBottom="80dp"
+                app:srcCompat="@drawable/stage_project" />
+
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar2"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:background="@color/black"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
+
+    <TextView
+        android:id="@+id/textView_stage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="35dp"
+        android:fontFamily="@font/pretendard_bold"
+        android:text="Stage"
+        android:textColor="#FFFFFF"
+        android:textSize="34sp"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="28dp" />
+
+    <ScrollView
+        android:id="@+id/scroolView1"
+        android:layout_width="408dp"
+        android:layout_height="645dp"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="91dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/stage_content1"
+                android:layout_width="379dp"
+                android:layout_height="317dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="20dp"
+                app:srcCompat="@drawable/stage_content1" />
+
+            <ImageView
+                android:id="@+id/stage_content2"
+                android:layout_width="379dp"
+                android:layout_height="317dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="20dp"
+                app:srcCompat="@drawable/stage_content2" />
+
+            <ImageView
+                android:id="@+id/stage_content3"
+                android:layout_width="379dp"
+                android:layout_height="317dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="80dp"
+                app:srcCompat="@drawable/stage_content3" />
+
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
