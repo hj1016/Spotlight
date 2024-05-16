@@ -19,11 +19,11 @@ public class StageActivity extends AppCompatActivity {
         stageContent1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                // StageDetailActivity를 시작하는 Intent 생성
                 Intent intent = new Intent(StageActivity.this, StageDetailActivity.class);
+                // Intent를 사용하여 StageDetailActivity 시작
                 startActivity(intent);
             }
         });
     }
 }
-

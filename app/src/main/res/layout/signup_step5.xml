@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000">
+
+    <ImageView
+        android:id="@+id/signup_step_bar5"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:orientation="vertical"
+        app:srcCompat="@drawable/signup_step5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/signup_step_req5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:fontFamily="@font/pretendard_bold"
+        android:text="사용자 유형을\n선택해주세요"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signup_step_bar5" />
+
+    <ImageView
+        android:id="@+id/signup_step_box5"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/signup_box"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signup_step_req5"/>
+
+
+    <RadioButton
+        android:id="@+id/User_selec1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="150dp"
+        android:fontFamily="@font/pretendard_semibold"
+        android:text="졸업예정자"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/signup_step_bar5"
+        app:layout_constraintTop_toBottomOf="@+id/signup_step_req5" />
+
+    <RadioButton
+        android:id="@+id/User_selec2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/pretendard_semibold"
+        android:text="인사담당자"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/signup_step_bar5"
+        app:layout_constraintTop_toBottomOf="@id/User_selec1" />
+
+    <ImageView
+        android:id="@+id/signup_continue5"
+        android:layout_width="170dp"
+        android:layout_height="84dp"
+        android:layout_marginStart="180dp"
+        android:layout_marginTop="150dp"
+        app:layout_constraintStart_toStartOf="@+id/User_selec2"
+        app:layout_constraintTop_toBottomOf="@+id/User_selec2"
+        app:srcCompat="@drawable/continue_active" />
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

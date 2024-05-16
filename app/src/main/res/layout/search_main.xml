@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/search_bar"
-        android:layout_width="337dp"
-        android:layout_height="51dp"
+        android:layout_width="329dp"
+        android:layout_height="49dp"
         android:layout_marginTop="35dp"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/search_bar"
