@@ -61,11 +61,21 @@
         app:layout_constraintTop_toBottomOf="@id/User_selec1" />
 
     <ImageView
+        android:id="@+id/signup_skip"
+        android:layout_width="170dp"
+        android:layout_height="84dp"
+        android:layout_marginStart="180dp"
+        android:layout_marginTop="100dp"
+        app:layout_constraintStart_toStartOf="@+id/User_selec2"
+        app:layout_constraintTop_toBottomOf="@+id/User_selec2"
+        app:srcCompat="@drawable/skip_button" />
+
+    <ImageView
         android:id="@+id/signup_continue5"
         android:layout_width="170dp"
         android:layout_height="84dp"
         android:layout_marginStart="180dp"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="180dp"
         app:layout_constraintStart_toStartOf="@+id/User_selec2"
         app:layout_constraintTop_toBottomOf="@+id/User_selec2"
         app:srcCompat="@drawable/continue_active" />

@@ -30,5 +30,185 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/mypage_alarm"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="210dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintStart_toEndOf="@+id/textView_mypage"
+        app:layout_constraintTop_toTopOf="@+id/textView_mypage"
+        app:srcCompat="@drawable/alarm" />
+
+            <ImageView
+            android:id="@+id/mypage_user_image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:gravity="center"
+            android:layout_marginTop="40dp"
+            app:layout_constraintStart_toEndOf="@+id/textView_mypage"
+            app:layout_constraintTop_toBottomOf="@+id/textView_mypage"
+            app:srcCompat="@drawable/mypage_image" />
+
+        <TextView
+            android:id="@+id/mypage_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/pretendard_bold"
+            android:text="User name"
+            android:gravity="center"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="@+id/mypage_user_image"
+            app:layout_constraintTop_toBottomOf="@+id/mypage_user_image" />
+
+        <TextView
+            android:id="@+id/mypage_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/pretendard_bold"
+            android:text="Account"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="@+id/textView_mypage"
+            app:layout_constraintTop_toBottomOf="@+id/mypage_user_name" />
+
+        <TextView
+            android:id="@+id/mypage_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/pretendard_bold"
+            android:text="내 정보"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/textView_mypage"
+            app:layout_constraintTop_toBottomOf="@+id/mypage_account" />
+
+        <ImageView
+            android:id="@+id/mypage_profile_go"
+            android:layout_width="25dp"
+            android:layout_height="23dp"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="@+id/mypage_alarm"
+            app:layout_constraintTop_toBottomOf="@+id/mypage_account"
+            app:srcCompat="@drawable/mypage_go" />
+
+    <TextView
+        android:id="@+id/mypage_account_manage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/pretendard_bold"
+        android:text="게시물 관리"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/textView_mypage"
+        app:layout_constraintTop_toBottomOf="@+id/mypage_profile" />
+
+    <ImageView
+        android:id="@+id/mypage_account_manage_go"
+        android:layout_width="25dp"
+        android:layout_height="23dp"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="@+id/mypage_alarm"
+        app:layout_constraintTop_toBottomOf="@+id/mypage_profile"
+        app:srcCompat="@drawable/mypage_go" />
+
+    <TextView
+        android:id="@+id/mypage_portfolio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/pretendard_bold"
+        android:text="포트폴리오"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/textView_mypage"
+        app:layout_constraintTop_toBottomOf="@+id/mypage_account_manage" />
+
+    <ImageView
+        android:id="@+id/mypage_portfolio_go"
+        android:layout_width="25dp"
+        android:layout_height="23dp"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="@+id/mypage_alarm"
+        app:layout_constraintTop_toBottomOf="@+id/mypage_account_manage"
+        app:srcCompat="@drawable/mypage_go" />
+
+    <TextView
+        android:id="@+id/mypage_scrap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/pretendard_bold"
+        android:text="Scrap"
+        android:textColor="#FFFFFF"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="@+id/textView_mypage"
+        app:layout_constraintTop_toBottomOf="@+id/mypage_portfolio" />
+
+    <TextView
+        android:id="@+id/mypage_scrap_post"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/pretendard_bold"
+        android:text="스크랩한 게시물"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/textView_mypage"
+        app:layout_constraintTop_toBottomOf="@+id/mypage_scrap" />
+
+    <ImageView
+        android:id="@+id/mypage_scrap_post_go"
+        android:layout_width="25dp"
+        android:layout_height="23dp"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="@+id/mypage_alarm"
+        app:layout_constraintTop_toBottomOf="@+id/mypage_scrap"
+        app:srcCompat="@drawable/mypage_go" />
+
+    <TextView
+        android:id="@+id/mypage_recruit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/pretendard_bold"
+        android:text="Recruit"
+        android:textColor="#FFFFFF"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="@+id/textView_mypage"
+        app:layout_constraintTop_toBottomOf="@+id/mypage_scrap_post" />
+
+    <TextView
+        android:id="@+id/mypage_recruit_post"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/pretendard_bold"
+        android:text="제안 관리"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/textView_mypage"
+        app:layout_constraintTop_toBottomOf="@+id/mypage_recruit" />
+
+    <ImageView
+        android:id="@+id/mypage_recruit_post_go"
+        android:layout_width="25dp"
+        android:layout_height="23dp"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="@+id/mypage_alarm"
+        app:layout_constraintTop_toBottomOf="@+id/mypage_recruit"
+        app:srcCompat="@drawable/mypage_go" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
