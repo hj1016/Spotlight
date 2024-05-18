@@ -50,7 +50,9 @@
                 android:layout_height="317dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="20dp"
-                app:srcCompat="@drawable/stage_content1" />
+                app:srcCompat="@drawable/stage_content1"
+                android:clickable="true"
+                android:onClick="onContinueClicked"/>
 
             <ImageView
                 android:id="@+id/stage_content2"

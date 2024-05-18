@@ -6,37 +6,49 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_stage_detail"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:background="@color/white"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:id="@+id/stage_detail_back"
+        android:layout_width="19dp"
+        android:layout_height="19dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="40dp"
+        app:srcCompat="@drawable/stage_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
     <ImageView
         android:id="@+id/stage_scrap_no"
         android:layout_width="24dp"
         android:layout_height="32dp"
-        android:layout_marginTop="40dp"
         android:layout_marginBottom="600dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.07999998"
-        app:srcCompat="@drawable/stage_scrap_no"
-        tools:layout_editor_absoluteX="350dp" />
+        android:layout_marginLeft="310dp"
+        app:layout_constraintStart_toEndOf="@+id/stage_detail_back"
+        app:layout_constraintTop_toTopOf="@+id/stage_detail_back"
+        app:srcCompat="@drawable/stage_scrap_no" />
 
     <TextView
         android:id="@+id/stage_scrap"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="12dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
         android:fontFamily="@font/pretendard_semibold"
         android:text="231"
         android:textColor="#A6A6A6"
         android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteY="50dp" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="19dp"
-        android:layout_height="19dp"
-        app:srcCompat="@drawable/stage_back"
-        tools:layout_editor_absoluteX="17dp"
-        tools:layout_editor_absoluteY="52dp" />
+        app:layout_constraintStart_toEndOf="@+id/stage_scrap_no"
+        app:layout_constraintTop_toTopOf="@+id/stage_scrap_no" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/stage_floatingActionButton"
@@ -58,8 +70,9 @@
         android:id="@+id/scrollView2"
         android:layout_width="413dp"
         android:layout_height="674dp"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="78dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_stage_detail"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -13,27 +13,31 @@
         android:theme="@style/Theme.Spotlight"
         tools:targetApi="31">
 
+        <!-- LoginActivity를 시작 액티비티로 설정 -->
+        <activity
+            android:name=".LoginActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- MainActivity 설정 -->
         <activity
             android:name=".MainActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="true" />
 
-        <activity android:name=".LoginActivity" />
-
+        <!-- 기타 액티비티 설정 -->
         <activity android:name=".StageActivity" />
-
-        <activity android:name=".StageDetailActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
+        <activity android:name=".StageDetailActivity" android:exported="true"/>
+        <activity android:name=".SignupStep1Activity" />
+        <activity android:name=".SignupStep2Activity" />
+        <activity android:name=".SignupStep3Activity" />
+        <activity android:name=".SignupStep4Activity" />
+        <activity android:name=".SignupStep5Activity" />
+        <activity android:name=".SignupStep6Activity" />
+        <activity android:name=".GraduateStep1Activity" />
 
     </application>
 

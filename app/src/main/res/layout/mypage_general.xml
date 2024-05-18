@@ -85,7 +85,9 @@
             android:textColor="#FFFFFF"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="@+id/textView_mypage"
-            app:layout_constraintTop_toBottomOf="@+id/mypage_account" />
+            app:layout_constraintTop_toBottomOf="@+id/mypage_account"
+            android:clickable="true"
+            android:onClick="onContinueClicked"/>
 
         <ImageView
             android:id="@+id/mypage_profile_go"
@@ -107,7 +109,9 @@
         android:textColor="#FFFFFF"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="@+id/textView_mypage"
-        app:layout_constraintTop_toBottomOf="@+id/mypage_profile" />
+        app:layout_constraintTop_toBottomOf="@+id/mypage_profile"
+        android:clickable="true"
+        android:onClick="onContinueClicked"/>
 
     <ImageView
         android:id="@+id/mypage_account_manage_go"
@@ -129,7 +133,9 @@
         android:textColor="#FFFFFF"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="@+id/textView_mypage"
-        app:layout_constraintTop_toBottomOf="@+id/mypage_account_manage" />
+        app:layout_constraintTop_toBottomOf="@+id/mypage_account_manage"
+        android:clickable="true"
+        android:onClick="onContinueClicked"/>
 
     <ImageView
         android:id="@+id/mypage_portfolio_go"
@@ -163,7 +169,9 @@
         android:textColor="#FFFFFF"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="@+id/textView_mypage"
-        app:layout_constraintTop_toBottomOf="@+id/mypage_scrap" />
+        app:layout_constraintTop_toBottomOf="@+id/mypage_scrap"
+        android:clickable="true"
+        android:onClick="onContinueClicked"/>
 
     <ImageView
         android:id="@+id/mypage_scrap_post_go"
@@ -197,7 +205,9 @@
         android:textColor="#FFFFFF"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="@+id/textView_mypage"
-        app:layout_constraintTop_toBottomOf="@+id/mypage_recruit" />
+        app:layout_constraintTop_toBottomOf="@+id/mypage_recruit"
+        android:clickable="true"
+        android:onClick="onContinueClicked"/>
 
     <ImageView
         android:id="@+id/mypage_recruit_post_go"

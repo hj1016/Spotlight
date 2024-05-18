@@ -5,6 +5,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.content.Intent;
+
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -28,8 +30,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void performSignUp() {
-        // 회원가입 로직
-        Toast.makeText(this, "Sign Up Button Clicked", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, SignupStep1Activity.class);
+        startActivity(intent);
     }
 }
 
