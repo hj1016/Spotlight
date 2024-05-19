@@ -6,10 +6,10 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class GraduateStep1Activity extends AppCompatActivity {
+public class RecruiterStep1Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.graduate_step1);
+        setContentView(R.layout.recruiter_step1);
     }
 
     public void onBackClicked(View view) {
@@ -18,7 +18,7 @@ public class GraduateStep1Activity extends AppCompatActivity {
     }
 
     public void onContinueClicked(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, RecruiterStep2Activity.class);
         startActivity(intent);
     }
 }

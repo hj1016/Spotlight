@@ -7,7 +7,7 @@
     android:background="#FFFFFF">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_graduate_step1"
+        android:id="@+id/toolbar_recruiter_step1"
         android:layout_width="match_parent"
         android:layout_height="90dp"
         android:background="@color/white"
@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <ImageView
-        android:id="@+id/graduate_step1_back"
+        android:id="@+id/recruiter_step1_back"
         android:layout_width="19dp"
         android:layout_height="19dp"
         android:layout_marginStart="16dp"
@@ -30,94 +30,72 @@
         android:onClick="onBackClicked"/>
 
     <TextView
-        android:id="@+id/graduate_step1_small_title"
+        android:id="@+id/recruiter_step1_small_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:fontFamily="@font/pretendard_bold"
-        android:text="Prospective graduate"
+        android:text="Recruiter"
         android:textColor="#000000"
         android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="@id/graduate_step1_back"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_graduate_step1"/>
+        app:layout_constraintStart_toStartOf="@id/recruiter_step1_back"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_recruiter_step1"/>
 
     <TextView
-        android:id="@+id/graduate_step1_title"
+        android:id="@+id/recruiter_step1_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:fontFamily="@font/pretendard_bold"
-        android:text="졸업예정자"
+        android:text="인사담당자"
         android:textColor="#000000"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@id/graduate_step1_back"
-        app:layout_constraintTop_toBottomOf="@id/graduate_step1_small_title"/>
+        app:layout_constraintStart_toStartOf="@id/recruiter_step1_back"
+        app:layout_constraintTop_toBottomOf="@id/recruiter_step1_small_title"/>
 
     <TextView
-        android:id="@+id/graduate_school_check"
+        android:id="@+id/recruiter_company_check"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:fontFamily="@font/pretendard_bold"
         android:text="학교명"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/graduate_step1_title"
-        app:layout_constraintTop_toBottomOf="@+id/graduate_step1_title" />
+        app:layout_constraintStart_toStartOf="@+id/recruiter_step1_title"
+        app:layout_constraintTop_toBottomOf="@+id/recruiter_step1_title" />
 
     <EditText
-        android:id="@+id/graduate_school_check_text"
+        android:id="@+id/recruiter_company_check_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:hint="학교명 검색"
         android:inputType="textEmailAddress"
-        app:layout_constraintStart_toStartOf="@+id/graduate_school_check"
-        app:layout_constraintTop_toBottomOf="@id/graduate_school_check" />
+        app:layout_constraintStart_toStartOf="@+id/recruiter_company_check"
+        app:layout_constraintTop_toBottomOf="@id/recruiter_company_check" />
 
     <TextView
-        android:id="@+id/graduate_major_check"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:fontFamily="@font/pretendard_bold"
-        android:text="학과명"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/graduate_school_check_text"
-        app:layout_constraintTop_toBottomOf="@+id/graduate_school_check_text" />
-
-    <EditText
-        android:id="@+id/graduate_major_check_text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:hint="학과명 검색"
-        android:inputType="textEmailAddress"
-        app:layout_constraintStart_toStartOf="@+id/graduate_major_check"
-        app:layout_constraintTop_toBottomOf="@id/graduate_major_check" />
-
-    <TextView
-        android:id="@+id/graduate_email_check"
+        android:id="@+id/recruiter_email_check"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:fontFamily="@font/pretendard_bold"
         android:text="이메일 인증"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/graduate_major_check_text"
-        app:layout_constraintTop_toBottomOf="@+id/graduate_major_check_text" />
+        app:layout_constraintStart_toStartOf="@+id/recruiter_company_check_text"
+        app:layout_constraintTop_toBottomOf="@+id/recruiter_company_check_text" />
 
     <EditText
-        android:id="@+id/graduate_email_check_text"
+        android:id="@+id/recruiter_email_check_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:hint="이메일 주소를 입력해주세요.."
         android:inputType="textEmailAddress"
-        app:layout_constraintStart_toStartOf="@+id/graduate_email_check"
-        app:layout_constraintTop_toBottomOf="@id/graduate_email_check" />
-
+        app:layout_constraintStart_toStartOf="@+id/recruiter_email_check"
+        app:layout_constraintTop_toBottomOf="@id/recruiter_email_check" />
     <Button
-        android:id="@+id/graduate_email_check_button"
+        android:id="@+id/recruiter_email_check_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="40dp"
@@ -125,11 +103,11 @@
         android:fontFamily="@font/pretendard_bold"
         android:text="확인"
         android:textColor="#FFFFFF"
-        app:layout_constraintStart_toEndOf="@+id/graduate_email_check_text"
-        app:layout_constraintTop_toTopOf="@+id/graduate_email_check_text" />
+        app:layout_constraintStart_toEndOf="@+id/recruiter_email_check_text"
+        app:layout_constraintTop_toTopOf="@+id/recruiter_email_check_text" />
 
     <TextView
-        android:id="@+id/graduate_email_toast"
+        android:id="@+id/recruiter_email_toast"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
@@ -137,18 +115,41 @@
         android:text="*인증 받으실 학교 이메일 주소를 입력해주세요"
         android:textColor="#a6a6a6"
         android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="@+id/graduate_email_check_text"
-        app:layout_constraintTop_toBottomOf="@+id/graduate_email_check_text" />
+        app:layout_constraintStart_toStartOf="@+id/recruiter_email_check_text"
+        app:layout_constraintTop_toBottomOf="@+id/recruiter_email_check_text" />
+
+    <TextView
+        android:id="@+id/recruiter_num_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/pretendard_bold"
+        android:text="인증번호"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/recruiter_email_toast"
+        app:layout_constraintTop_toBottomOf="@+id/recruiter_email_toast" />
+
+    <EditText
+        android:id="@+id/recruiter_num_check_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="받으신 인증 번호를 입력해주세요.."
+        android:inputType="textEmailAddress"
+        app:layout_constraintStart_toStartOf="@+id/recruiter_num_check"
+        app:layout_constraintTop_toBottomOf="@id/recruiter_num_check" />
+
+
 
     <ImageView
-        android:id="@+id/graduate_signup_continue"
+        android:id="@+id/recruiter_signup_continue"
         android:layout_width="170dp"
         android:layout_height="84dp"
         android:layout_marginStart="180dp"
         android:layout_marginTop="70dp"
-        app:layout_constraintStart_toStartOf="@+id/graduate_email_toast"
-        app:layout_constraintTop_toBottomOf="@+id/graduate_email_toast"
-        app:layout_constraintEnd_toEndOf="@+id/graduate_email_check_button"
+        app:layout_constraintStart_toStartOf="@+id/recruiter_num_check_text"
+        app:layout_constraintTop_toBottomOf="@+id/recruiter_num_check_text"
+        app:layout_constraintEnd_toEndOf="@+id/recruiter_email_check_button"
         app:srcCompat="@drawable/continue_active"
         android:clickable="true"
         android:onClick="onContinueClicked"/>

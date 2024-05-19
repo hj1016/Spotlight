@@ -36,8 +36,9 @@
         <activity android:name=".SignupStep3Activity" />
         <activity android:name=".SignupStep4Activity" />
         <activity android:name=".SignupStep5Activity" />
-        <activity android:name=".SignupStep6Activity" />
         <activity android:name=".GraduateStep1Activity" />
+        <activity android:name=".RecruiterStep1Activity" />
+        <activity android:name=".RecruiterStep2Activity" />
 
     </application>
 
