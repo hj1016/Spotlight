@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_new_posting"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:background="@color/white"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:id="@+id/new_posting_back"
+        android:layout_width="19dp"
+        android:layout_height="19dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="40dp"
+        app:srcCompat="@drawable/stage_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:clickable="true"
+        android:onClick="onBackClicked"/>
+
+
+    <ScrollView
+        android:id="@+id/scrollView_new_posting"
+        android:layout_width="413dp"
+        android:layout_height="639dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/toolbar_new_posting"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_new_posting">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/new_posting_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/pretendard_bold"
+                android:text="게시물 작성"
+                android:layout_marginStart="20dp"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@id/new_posting_back"
+                app:layout_constraintTop_toBottomOf="@id/toolbar_new_posting" />
+
+            <TextView
+                android:id="@+id/new_posting_project"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="50dp"
+                android:fontFamily="@font/pretendard_bold"
+                android:text="프로젝트 사진/팀 사진"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/recruiter_email_toast"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="1dp"
+                android:fontFamily="@font/pretendard_regular"
+                android:text="*프로젝트나 팀을 대표할 수 있는 사진을 선택해주세요."
+                android:textColor="#a6a6a6"
+                android:textSize="15sp" />
+
+            <ImageView
+                android:id="@+id/new_posting_image_plus"
+                android:layout_width="153dp"
+                android:layout_height="144dp"
+                android:layout_marginTop="1dp"
+                app:srcCompat="@drawable/image_plus" />
+
+            <TextView
+                android:id="@+id/new_posting_project_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/pretendard_bold"
+                android:text="프로젝트 제목"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/new_posting_project_text"
+                android:layout_width="370dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:hint="프로젝트 제목을 입력해주세요.."
+                android:inputType="text" />
+
+            <TextView
+                android:id="@+id/new_posting_project_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/pretendard_bold"
+                android:text="분야"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:id="@+id/big_category_spinner"
+                    android:layout_width="120dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp" />
+
+                <Spinner
+                    android:id="@+id/small_category_spinner"
+                    android:layout_width="120dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/new_posting_selec_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="50dp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/pretendard_bold"
+                android:text="사진 선택"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/recruiter_selec_image_toast"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="1dp"
+                android:fontFamily="@font/pretendard_regular"
+                android:text="*최대 10장까지 선택 가능해요.\n대표사진으로 설정할 사진을 첫번째로 선택해주세요."
+                android:textColor="#a6a6a6"
+                android:textSize="15sp" />
+
+            <ImageView
+                android:id="@+id/new_posting_selec_image_plus"
+                android:layout_width="153dp"
+                android:layout_height="144dp"
+                android:layout_marginTop="1dp"
+                app:srcCompat="@drawable/image_plus" />
+
+            <TextView
+                android:id="@+id/new_posting_project_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:textColor="@color/black"
+                android:layout_marginTop="50dp"
+                android:fontFamily="@font/pretendard_bold"
+                android:text="프로젝트 설명"
+                android:textSize="18sp" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp">
+
+                <ImageView
+                    android:id="@+id/new_posting_description_box"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/post_box"
+                    android:scaleType="fitXY"/>
+
+                <EditText
+                    android:id="@+id/new_posting_description_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:hint="프로젝트를 설명해주세요.."
+                    android:padding="15dp"
+                    android:textColor="#a6a6a6"
+                    android:textSize="15sp"/>
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/new_posting_hashtag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/pretendard_bold"
+                android:text="해시태그"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/new_posting_hashtag_text"
+                android:layout_width="370dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:hint="#을 입력하고 해시태그를 입력해보세요.."
+                android:inputType="text"
+                 />
+
+            <TextView
+                android:id="@+id/new_posting_team"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="50dp"
+                android:fontFamily="@font/pretendard_bold"
+                android:text="팀원 정보"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/new_posting_team_toast"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="1dp"
+                android:fontFamily="@font/pretendard_regular"
+                android:text="*함께한 팀원 정보를 입력해주세요.\n팀원을 게시물에 초대할 수 있어요."
+                android:textColor="#a6a6a6"
+                android:textSize="15sp" />
+
+            <LinearLayout
+                android:id="@+id/invite_team_member"
+                android:layout_width="match_parent"
+                android:layout_height="107dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/invite_team_member_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/member_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:padding="8dp"
+                        android:src="@drawable/member_image" />
+
+                    <TextView
+                        android:id="@+id/member_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:text="김이름"
+                        android:textColor="#a6a6a6"
+                        android:fontFamily="@font/pretendard_regular"
+                        android:textSize="15dp"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                </LinearLayout>
+
+                <ImageButton
+                    android:id="@+id/add_member_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="@string/add_member"
+                    android:src="@drawable/add_team_member"
+                    android:clickable="true"
+                    android:onClick="onMemberPlusClicked"/>
+            </LinearLayout>
+
+
+            <ImageButton
+                android:id="@+id/add_new_posting_exhibition_info"
+                android:layout_width="wrap_content"
+                android:layout_height="183dp"
+                android:layout_marginTop="5dp"
+                android:background="@android:color/transparent"
+                android:padding="0dp"
+                android:scaleType="centerInside"
+                app:srcCompat="@drawable/add_exhibition_info"
+                android:clickable="true"
+                android:onClick="onExhibitionPlusClicked"/>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

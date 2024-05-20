@@ -44,12 +44,14 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/stage_content1"
                 android:layout_width="379dp"
                 android:layout_height="317dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="20dp"
+                android:scaleType="centerCrop"
+                android:padding="0dp"
                 app:srcCompat="@drawable/stage_content1"
                 android:clickable="true"
                 android:onClick="onStageClicked"/>

@@ -83,16 +83,15 @@
         android:layout_marginTop="1dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recruiter_certificate_toast"
-        app:srcCompat="@drawable/image_plus"
-        tools:layout_editor_absoluteY="293dp" />
+        app:srcCompat="@drawable/image_plus" />
 
     <ImageView
         android:id="@+id/recruiter_signup_continue"
         android:layout_width="170dp"
         android:layout_height="84dp"
-        android:layout_marginStart="220dp"
         android:layout_marginTop="70dp"
-        app:layout_constraintStart_toStartOf="@+id/recruiter_step2_image_plus"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/toolbar_recruiter_step2"
         app:layout_constraintTop_toBottomOf="@+id/recruiter_step2_image_plus"
         app:srcCompat="@drawable/continue_active"
         android:clickable="true"

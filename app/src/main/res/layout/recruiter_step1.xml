@@ -66,11 +66,11 @@
 
     <EditText
         android:id="@+id/recruiter_company_check_text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="330dp"
+        android:layout_height="0dp"
         android:layout_marginTop="10dp"
         android:hint="학교명 검색"
-        android:inputType="textEmailAddress"
+        android:inputType="text"
         app:layout_constraintStart_toStartOf="@+id/recruiter_company_check"
         app:layout_constraintTop_toBottomOf="@id/recruiter_company_check" />
 
@@ -87,8 +87,8 @@
 
     <EditText
         android:id="@+id/recruiter_email_check_text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="330dp"
+        android:layout_height="51dp"
         android:layout_marginTop="10dp"
         android:hint="이메일 주소를 입력해주세요.."
         android:inputType="textEmailAddress"
@@ -98,12 +98,12 @@
         android:id="@+id/recruiter_email_check_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
+        android:layout_marginEnd="16dp"
         android:backgroundTint="#000000"
         android:fontFamily="@font/pretendard_bold"
         android:text="확인"
         android:textColor="#FFFFFF"
-        app:layout_constraintStart_toEndOf="@+id/recruiter_email_check_text"
+        app:layout_constraintEnd_toEndOf="@+id/toolbar_recruiter_step1"
         app:layout_constraintTop_toTopOf="@+id/recruiter_email_check_text" />
 
     <TextView
@@ -131,11 +131,11 @@
 
     <EditText
         android:id="@+id/recruiter_num_check_text"
-        android:layout_width="0dp"
+        android:layout_width="330dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:hint="받으신 인증 번호를 입력해주세요.."
-        android:inputType="textEmailAddress"
+        android:inputType="text"
         app:layout_constraintStart_toStartOf="@+id/recruiter_num_check"
         app:layout_constraintTop_toBottomOf="@id/recruiter_num_check" />
 

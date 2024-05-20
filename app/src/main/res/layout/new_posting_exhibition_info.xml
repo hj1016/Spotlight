@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_new_posting_exhibition"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:background="@color/white"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:id="@+id/new_posting_exhibition_back"
+        android:layout_width="19dp"
+        android:layout_height="19dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="40dp"
+        app:srcCompat="@drawable/stage_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:clickable="true"
+        android:onClick="onBackClicked"/>
+
+    <TextView
+        android:id="@+id/new_posting_exhibition_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/pretendard_bold"
+        android:text="전시 정보"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@id/new_posting_exhibition_back"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_new_posting_exhibition" />
+
+    <TextView
+        android:id="@+id/new_posting_exhibition_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:fontFamily="@font/pretendard_bold"
+        android:text="장소"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@id/new_posting_exhibition_back"
+        app:layout_constraintTop_toBottomOf="@id/new_posting_exhibition_title"/>
+
+    <EditText
+        android:id="@+id/new_posting_exhibition_location_text"
+        android:layout_width="370dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="전시 장소를 입력해주세요.."
+        android:inputType="text"
+        app:layout_constraintStart_toStartOf="@id/new_posting_exhibition_back"
+        app:layout_constraintTop_toBottomOf="@id/new_posting_exhibition_location"/>
+
+    <TextView
+        android:id="@+id/new_posting_exhibition_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/pretendard_bold"
+        android:text="날짜"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@id/new_posting_exhibition_back"
+        app:layout_constraintTop_toBottomOf="@id/new_posting_exhibition_location_text"/>
+
+    <EditText
+        android:id="@+id/new_posting_exhibition_date_text"
+        android:layout_width="370dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="전시 진행 날짜를 알려주세요.."
+        android:inputType="text"
+        app:layout_constraintStart_toStartOf="@id/new_posting_exhibition_back"
+        app:layout_constraintTop_toBottomOf="@id/new_posting_exhibition_date"/>
+
+    <TextView
+        android:id="@+id/new_posting_exhibition_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/pretendard_bold"
+        android:text="시간대"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@id/new_posting_exhibition_back"
+        app:layout_constraintTop_toBottomOf="@id/new_posting_exhibition_date_text"/>
+
+    <EditText
+        android:id="@+id/new_posting_exhibition_time_text"
+        android:layout_width="370dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="전시 진행 시간대를 알려주세요.."
+        android:inputType="text"
+        app:layout_constraintStart_toStartOf="@id/new_posting_exhibition_back"
+        app:layout_constraintTop_toBottomOf="@id/new_posting_exhibition_time"/>
+
+    <ImageButton
+        android:id="@+id/new_posting_exhibition_continue"
+        android:layout_width="170dp"
+        android:layout_height="84dp"
+        android:layout_marginTop="70dp"
+        app:layout_constraintEnd_toEndOf="@+id/new_posting_exhibition_time_text"
+        app:layout_constraintTop_toBottomOf="@+id/new_posting_exhibition_time_text"
+        app:srcCompat="@drawable/continue_active"
+        android:scaleType="centerInside"
+        android:background="@android:color/transparent"
+        android:padding="0dp"
+        android:clickable="true"
+        android:onClick="onContinueClicked"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,113 @@
 <resources>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
     <string name="app_name">Spotlight</string>
+
+    <string-array name="big_categories">
+        <item>인문</item>
+        <item>사회</item>
+        <item>교육</item>
+        <item>자연</item>
+        <item>공학</item>
+        <item>의약</item>
+        <item>예체능</item>
+    </string-array>
+
+    <string-array name="small_categories_humanities">
+        <item>언어</item>
+        <item>문헌정보</item>
+        <item>사학</item>
+        <item>심리학</item>
+        <item>역사</item>
+        <item>문학</item>
+        <item>종교</item>
+        <item>철학</item>
+    </string-array>
+
+    <string-array name="small_categories_social">
+        <item>경영</item>
+        <item>경제</item>
+        <item>광고/홍보</item>
+        <item>행정</item>
+        <item>국제학</item>
+        <item>사회복지</item>
+        <item>무역/교통</item>
+        <item>법학</item>
+        <item>보건행정</item>
+        <item>세무/회계</item>
+        <item>신문방송</item>
+        <item>정치외교</item>
+        <item>지리학</item>
+        <item>관광</item>
+    </string-array>
+
+    <string-array name="small_categories_education">
+
+    </string-array>
+
+    <string-array name="small_categories_nature">
+        <item>농업</item>
+        <item>물리</item>
+        <item>산림/원예</item>
+        <item>생명과학</item>
+        <item>수의학</item>
+        <item>수학</item>
+        <item>식품영양</item>
+        <item>지구과학</item>
+        <item>천문</item>
+        <item>통계</item>
+        <item>화학</item>
+    </string-array>
+
+    <string-array name="small_categories_engineering">
+        <item>기계</item>
+        <item>건축</item>
+        <item>도시</item>
+        <item>반도체</item>
+        <item>신소재</item>
+        <item>생명공학</item>
+        <item>소프트웨어</item>
+        <item>에너지</item>
+        <item>재료/금속</item>
+        <item>전기/전자</item>
+        <item>정보통신</item>
+        <item>정보보안</item>
+        <item>컴퓨터</item>
+        <item>토목</item>
+        <item>환경</item>
+        <item>화학공학</item>
+    </string-array>
+
+    <string-array name="small_categories_medical">
+        <item>보건</item>
+        <item>약학</item>
+        <item>의료공학</item>
+        <item>의학</item>
+        <item>임상병리</item>
+        <item>치의학</item>
+        <item>한의학</item>
+    </string-array>
+
+    <string-array name="small_categories_entertainment">
+        <item>공예</item>
+        <item>무용</item>
+        <item>애니메이션</item>
+        <item>순수미술</item>
+        <item>연극영화</item>
+        <item>뷰티</item>
+        <item>사진/영상</item>
+        <item>산업 디자인</item>
+        <item>시각 디자인</item>
+        <item>실내 디자인</item>
+        <item>패션 디자인</item>
+        <item>실용음악</item>
+        <item>순수음악</item>
+        <item>조형</item>
+        <item>체육</item>
+    </string-array>
+
+    <string name="add_member">Add member</string>
+
+
+
 </resources>

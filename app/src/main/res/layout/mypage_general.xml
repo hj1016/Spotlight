@@ -83,11 +83,11 @@
             android:fontFamily="@font/pretendard_bold"
             android:text="내 정보"
             android:textColor="#FFFFFF"
-            android:textSize="20sp"
+            android:textSize="18sp"
             app:layout_constraintStart_toStartOf="@+id/textView_mypage"
             app:layout_constraintTop_toBottomOf="@+id/mypage_account"
             android:clickable="true"
-            android:onClick="onContinueClicked"/>
+            android:onClick="onContinueClicked" />
 
         <ImageView
             android:id="@+id/mypage_profile_go"
@@ -99,22 +99,24 @@
             app:layout_constraintTop_toBottomOf="@+id/mypage_account"
             app:srcCompat="@drawable/mypage_go" />
 
+
+
     <TextView
-        android:id="@+id/mypage_account_manage"
+        android:id="@+id/mypage_posting_manage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:fontFamily="@font/pretendard_bold"
         android:text="게시물 관리"
         android:textColor="#FFFFFF"
-        android:textSize="20sp"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/textView_mypage"
         app:layout_constraintTop_toBottomOf="@+id/mypage_profile"
         android:clickable="true"
-        android:onClick="onContinueClicked"/>
+        android:onClick="onManagePostingClicked"/>
 
     <ImageView
-        android:id="@+id/mypage_account_manage_go"
+        android:id="@+id/mypage_posting_manage_go"
         android:layout_width="25dp"
         android:layout_height="23dp"
         android:layout_marginTop="15dp"
@@ -122,6 +124,7 @@
         app:layout_constraintEnd_toEndOf="@+id/mypage_alarm"
         app:layout_constraintTop_toBottomOf="@+id/mypage_profile"
         app:srcCompat="@drawable/mypage_go" />
+
 
     <TextView
         android:id="@+id/mypage_portfolio"
@@ -131,9 +134,9 @@
         android:fontFamily="@font/pretendard_bold"
         android:text="포트폴리오"
         android:textColor="#FFFFFF"
-        android:textSize="20sp"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/textView_mypage"
-        app:layout_constraintTop_toBottomOf="@+id/mypage_account_manage"
+        app:layout_constraintTop_toBottomOf="@+id/mypage_posting_manage"
         android:clickable="true"
         android:onClick="onContinueClicked"/>
 
@@ -144,8 +147,9 @@
         android:layout_marginTop="15dp"
         android:gravity="center"
         app:layout_constraintEnd_toEndOf="@+id/mypage_alarm"
-        app:layout_constraintTop_toBottomOf="@+id/mypage_account_manage"
+        app:layout_constraintTop_toBottomOf="@+id/mypage_posting_manage"
         app:srcCompat="@drawable/mypage_go" />
+
 
     <TextView
         android:id="@+id/mypage_scrap"
@@ -167,7 +171,7 @@
         android:fontFamily="@font/pretendard_bold"
         android:text="스크랩한 게시물"
         android:textColor="#FFFFFF"
-        android:textSize="20sp"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/textView_mypage"
         app:layout_constraintTop_toBottomOf="@+id/mypage_scrap"
         android:clickable="true"
@@ -203,7 +207,7 @@
         android:fontFamily="@font/pretendard_bold"
         android:text="제안 관리"
         android:textColor="#FFFFFF"
-        android:textSize="20sp"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/textView_mypage"
         app:layout_constraintTop_toBottomOf="@+id/mypage_recruit"
         android:clickable="true"
@@ -218,7 +222,6 @@
         app:layout_constraintEnd_toEndOf="@+id/mypage_alarm"
         app:layout_constraintTop_toBottomOf="@+id/mypage_recruit"
         app:srcCompat="@drawable/mypage_go" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
