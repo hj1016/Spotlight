@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_manage_posting_not_graduates"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:background="@color/black"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:id="@+id/manage_posting_not_graduates_back"
+        android:layout_width="19dp"
+        android:layout_height="19dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="40dp"
+        app:srcCompat="@drawable/white_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:clickable="true"
+        android:onClick="onBackClicked"/>
+
+    <TextView
+        android:id="@+id/manage_posting_not_graduates_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/pretendard_bold"
+        android:text="게시물 관리"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@id/manage_posting_not_graduates_back"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_manage_posting_not_graduates" />
+
+    <ImageView
+        android:id="@+id/manage_posting_not_graduates_imageView"
+        android:layout_width="235dp"
+        android:layout_height="164dp"
+        android:layout_marginTop="100dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/manage_posting_not_graduates_title"
+        app:srcCompat="@drawable/not_graduates_white" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,4 +10,5 @@ public class StageDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.stage_detail); // stage_detail.xml 파일과 연결
     }
+
 }

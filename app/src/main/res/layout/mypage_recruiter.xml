@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_mypage_recruiter"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:background="@color/black"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/textView_mypage_recruiter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="35dp"
+        android:fontFamily="@font/pretendard_bold"
+        android:text="My page"
+        android:textColor="#FFFFFF"
+        android:textSize="34sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/mypage_alarm_recruiter"
+        android:layout_width="25dp"
+        android:visibility="invisible"
+        android:layout_height="25dp"
+        android:layout_marginStart="210dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintStart_toEndOf="@+id/textView_mypage_recruiter"
+        app:layout_constraintTop_toTopOf="@+id/textView_mypage_recruiter"
+        app:srcCompat="@drawable/alarm" />
+
+    <ImageView
+        android:id="@+id/mypage_recruiter_image"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:gravity="center"
+        android:layout_marginTop="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView_mypage_recruiter"
+        app:layout_constraintTop_toBottomOf="@+id/textView_mypage_recruiter"
+        app:srcCompat="@drawable/mypage_image" />
+
+    <TextView
+        android:id="@+id/mypage_recruiter_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/pretendard_bold"
+        android:text="User name"
+        android:gravity="center"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/mypage_recruiter_image"
+        app:layout_constraintBottom_toTopOf="@id/mypage_recruiter_account"/>
+
+    <TextView
+        android:id="@+id/mypage_recruiter_account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/pretendard_bold"
+        android:text="Account"
+        android:textColor="#FFFFFF"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="@+id/textView_mypage_recruiter"
+        app:layout_constraintTop_toBottomOf="@+id/mypage_recruiter_name" />
+
+    <TextView
+        android:id="@+id/mypage_recruiter_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/pretendard_bold"
+        android:text="내 정보"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/textView_mypage_recruiter"
+        app:layout_constraintTop_toBottomOf="@+id/mypage_recruiter_account"
+        android:clickable="true"
+        android:onClick="onContinueClicked" />
+
+    <ImageView
+        android:id="@+id/mypage_profile_go"
+        android:layout_width="25dp"
+        android:layout_height="23dp"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="@+id/mypage_alarm_recruiter"
+        app:layout_constraintTop_toBottomOf="@+id/mypage_recruiter_account"
+        app:srcCompat="@drawable/mypage_go" />
+
+
+
+
+    <TextView
+        android:id="@+id/mypage_recruiter_scrap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/pretendard_bold"
+        android:text="Scrap"
+        android:textColor="#FFFFFF"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="@+id/textView_mypage_recruiter"
+        app:layout_constraintTop_toBottomOf="@+id/mypage_profile_go" />
+
+    <TextView
+        android:id="@+id/mypage_recruiter_scrap_post"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/pretendard_bold"
+        android:text="스크랩한 게시물"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/textView_mypage_recruiter"
+        app:layout_constraintTop_toBottomOf="@+id/mypage_recruiter_scrap"
+        android:clickable="true"
+        android:onClick="onContinueClicked"/>
+
+    <ImageView
+        android:id="@+id/mypage_recruiter_scrap_post_go"
+        android:layout_width="25dp"
+        android:layout_height="23dp"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="@+id/mypage_alarm_recruiter"
+        app:layout_constraintTop_toBottomOf="@+id/mypage_recruiter_scrap"
+        app:srcCompat="@drawable/mypage_go" />
+
+    <TextView
+        android:id="@+id/mypage_recruiter_scrap_person"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/pretendard_bold"
+        android:text="스크랩한 인재"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/textView_mypage_recruiter"
+        app:layout_constraintTop_toBottomOf="@+id/mypage_recruiter_scrap_post"
+        android:clickable="true"
+        android:onClick="onContinueClicked"/>
+
+    <ImageView
+        android:id="@+id/mypage_recruiter_scrap_person_go"
+        android:layout_width="25dp"
+        android:layout_height="23dp"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="@+id/mypage_alarm_recruiter"
+        app:layout_constraintTop_toBottomOf="@+id/mypage_recruiter_scrap_post"
+        app:srcCompat="@drawable/mypage_go" />
+
+    <TextView
+        android:id="@+id/mypage_recruiter_recruit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/pretendard_bold"
+        android:text="Recruit"
+        android:textColor="#FFFFFF"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="@+id/textView_mypage_recruiter"
+        app:layout_constraintTop_toBottomOf="@+id/mypage_recruiter_scrap_person" />
+
+    <TextView
+        android:id="@+id/mypage_recruiter_recruit_post"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/pretendard_bold"
+        android:text="제안 관리"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/textView_mypage_recruiter"
+        app:layout_constraintTop_toBottomOf="@+id/mypage_recruiter_recruit"
+        android:clickable="true"
+        android:onClick="onContinueClicked"/>
+
+    <ImageView
+        android:id="@+id/mypage_recruiter_recruit_post_go"
+        android:layout_width="25dp"
+        android:layout_height="23dp"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="@+id/mypage_alarm_recruiter"
+        app:layout_constraintTop_toBottomOf="@+id/mypage_recruiter_recruit"
+        app:srcCompat="@drawable/mypage_go" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

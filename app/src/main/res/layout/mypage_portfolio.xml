@@ -7,7 +7,7 @@
     android:background="#FFFFFF">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_new_posting_portfolio"
+        android:id="@+id/toolbar_mypage_portfolio"
         android:layout_width="match_parent"
         android:layout_height="90dp"
         android:background="@color/white"
@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <ImageView
-        android:id="@+id/new_posting_portfolio_back"
+        android:id="@+id/mypage_portfolio_back"
         android:layout_width="19dp"
         android:layout_height="19dp"
         android:layout_marginStart="16dp"
@@ -30,14 +30,89 @@
         android:onClick="onBackClicked"/>
 
     <TextView
-        android:id="@+id/new_posting_portfolio_title"
+        android:id="@+id/mypage_portfolio_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/pretendard_bold"
         android:text="포트폴리오"
         android:textColor="@color/black"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@id/new_posting_portfolio_back"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_new_posting_portfolio" />
+        app:layout_constraintStart_toStartOf="@id/mypage_portfolio_back"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_mypage_portfolio" />
+
+    <TextView
+        android:id="@+id/mypage_portfolio_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:fontFamily="@font/pretendard_bold"
+        android:text="사진 선택"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@id/mypage_portfolio_back"
+        app:layout_constraintTop_toBottomOf="@id/mypage_portfolio_title"/>
+
+    <TextView
+        android:id="@+id/mypage_portfolio_image_toast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:fontFamily="@font/pretendard_regular"
+        android:text="*사진을 순서대로 업로드 해주세요.\n인사 담당자에겐 PDF 형식으로 보여져요."
+        android:textColor="#a6a6a6"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="@id/mypage_portfolio_back"
+        app:layout_constraintTop_toBottomOf="@id/mypage_portfolio_image"/>
+
+    <ImageButton
+        android:id="@+id/mypage_portfolio_selec_image_plus"
+        android:layout_width="153dp"
+        android:layout_height="144dp"
+        android:layout_marginTop="1dp"
+        android:padding="0dp"
+        android:scaleType="centerInside"
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/image_plus"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/mypage_portfolio_image_toast"/>
+
+    <TextView
+        android:id="@+id/mypage_portfolio_open"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/pretendard_bold"
+        android:text="공개 여부"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@id/mypage_portfolio_back"
+        app:layout_constraintTop_toBottomOf="@id/mypage_portfolio_selec_image_plus"/>
+
+    <ToggleButton
+        android:id="@+id/portfolio_toggleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="공개"
+        app:layout_constraintStart_toStartOf="@id/mypage_portfolio_back"
+        app:layout_constraintTop_toBottomOf="@id/mypage_portfolio_open" />
+
+    <ImageButton
+        android:id="@+id/mypage_portfolio_continue"
+        android:layout_width="170dp"
+        android:layout_height="84dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/portfolio_toggleButton"
+        app:srcCompat="@drawable/continue_active"
+        android:scaleType="centerInside"
+        android:background="@android:color/transparent"
+        android:padding="0dp"
+        android:clickable="true"
+        android:onClick="onContinueClicked"/>
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

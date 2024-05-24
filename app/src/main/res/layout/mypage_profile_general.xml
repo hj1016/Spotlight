@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_profile_general"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:background="@color/white"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+
+    <ImageView
+        android:id="@+id/profile_general_back"
+        android:layout_width="19dp"
+        android:layout_height="19dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="40dp"
+        app:srcCompat="@drawable/stage_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:clickable="true"
+        android:onClick="onBackClicked"/>
+
+    <Button
+        android:id="@+id/profile_general_edit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="310dp"
+        android:layout_marginTop="30dp"
+        android:text="Edit"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/pretendard_bold"
+        android:background="@android:color/transparent"
+        app:layout_constraintStart_toStartOf="@+id/profile_general_back"
+        app:layout_constraintTop_toTopOf="@+id/toolbar_profile_general" />
+
+    <ImageView
+        android:id="@+id/profile_general_user_image"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/toolbar_profile_general"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_profile_general"
+        app:srcCompat="@drawable/mypage_image" />
+
+    <TextView
+        android:id="@+id/profile_general_user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/pretendard_bold"
+        android:text="User name"
+        android:gravity="center"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profile_general_user_image"
+        app:layout_constraintBottom_toTopOf="@id/profile_general_ID" />
+
+    <TextView
+        android:id="@+id/profile_general_ID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="50dp"
+        android:fontFamily="@font/pretendard_bold"
+        android:text="아이디"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@id/profile_general_back"
+        app:layout_constraintTop_toBottomOf="@id/profile_general_user_name" />
+
+    <EditText
+        android:id="@+id/profile_general_ID_text"
+        android:layout_width="330dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:hint="e441532"
+        android:inputType="text"
+        app:layout_constraintStart_toStartOf="@id/profile_general_back"
+        app:layout_constraintTop_toBottomOf="@id/profile_general_ID"/>
+
+    <TextView
+        android:id="@+id/profile_general_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/pretendard_bold"
+        android:text="비밀번호"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@id/profile_general_back"
+        app:layout_constraintTop_toBottomOf="@id/profile_general_ID_text" />
+
+    <EditText
+        android:id="@+id/profile_general_password_text"
+        android:layout_width="330dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:hint="*******"
+        android:inputType="text"
+        app:layout_constraintStart_toStartOf="@id/profile_general_back"
+        app:layout_constraintTop_toBottomOf="@id/profile_general_password"/>
+
+    <TextView
+        android:id="@+id/add_school_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="학교 인증하기"
+        android:fontFamily="@font/pretendard_regular"
+        android:textSize="15sp"
+        android:textColor="#a6a6a6"
+        app:layout_constraintTop_toBottomOf="@id/profile_general_password_text"
+        app:layout_constraintEnd_toEndOf="@id/profile_general_ID_text" />
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

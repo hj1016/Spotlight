@@ -305,6 +305,18 @@
                 android:clickable="true"
                 android:onClick="onExhibitionPlusClicked"/>
 
+            <ImageButton
+                android:id="@+id/new_posting_continue"
+                android:layout_width="170dp"
+                android:layout_height="84dp"
+                android:layout_marginStart="224dp"
+                android:layout_marginBottom="50dp"
+                android:background="@android:color/transparent"
+                android:clickable="true"
+                android:onClick="onContinueClicked"
+                android:padding="0dp"
+                android:scaleType="centerInside"
+                app:srcCompat="@drawable/continue_active" />
 
         </LinearLayout>
     </ScrollView>
