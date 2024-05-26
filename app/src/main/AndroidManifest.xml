@@ -29,16 +29,41 @@
             android:exported="true" />
 
         <!-- 기타 액티비티 설정 -->
-        <activity android:name=".StageActivity" />
-        <activity android:name=".StageDetailActivity" android:exported="true"/>
+        <activity android:name=".AlarmActivity" />
+        <activity android:name=".GraduateStep1Activity" />
+        <activity android:name=".ItemDetailActivity" />
+
+        <activity android:name=".ManagePostingActivity" />
+        <activity android:name=".ManagePostingGeneralActivity"/>
+        <activity android:name=".MyPageActivity"/>
+        <activity android:name=".MyPageGeneralPortfolioActivity"/>
+        <activity android:name=".MyPagePortfolioActivity"/>
+        <activity android:name=".MyPageRecruiterActivity"/>
+
+        <activity android:name=".NewPostingActivity"/>
+        <activity android:name=".NewPostingExhibitionActivity"/>
+        <activity android:name=".NewPostingMemberActivity"/>
+
+        <activity android:name=".ProfileGeneralActivity"/>
+        <activity android:name=".ProfileGeneralEditActivity"/>
+        <activity android:name=".ProfileGraduatesActivity"/>
+        <activity android:name=".ProfileGraduatesEditActivity"/>
+        <activity android:name=".ProfileRecruiterActivity"/>
+        <activity android:name=".ProfileRecruiterEditActivity"/>
+
+        <activity android:name=".RecruiterStep1Activity" />
+        <activity android:name=".RecruiterStep2Activity" />
+
         <activity android:name=".SignupStep1Activity" />
         <activity android:name=".SignupStep2Activity" />
         <activity android:name=".SignupStep3Activity" />
         <activity android:name=".SignupStep4Activity" />
         <activity android:name=".SignupStep5Activity" />
-        <activity android:name=".GraduateStep1Activity" />
-        <activity android:name=".RecruiterStep1Activity" />
-        <activity android:name=".RecruiterStep2Activity" />
+        <activity android:name=".StageActivity" />
+        <activity android:name=".StageDetailActivity" android:exported="true"/>
+
+
+
 
     </application>
 

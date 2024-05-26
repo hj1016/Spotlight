@@ -41,7 +41,9 @@
         android:fontFamily="@font/pretendard_bold"
         android:background="@android:color/transparent"
         app:layout_constraintStart_toStartOf="@+id/profile_recruiter_back"
-        app:layout_constraintTop_toTopOf="@+id/toolbar_profile_recruiter" />
+        app:layout_constraintTop_toTopOf="@+id/toolbar_profile_recruiter"
+        android:clickable="true"
+        android:onClick="onEditClicked"/>
 
     <ScrollView
         android:id="@+id/scroolView_profile_recruiter"

@@ -34,7 +34,7 @@
         android:layout_width="24dp"
         android:layout_height="32dp"
         android:layout_marginBottom="600dp"
-        android:layout_marginLeft="310dp"
+        android:layout_marginLeft="300dp"
         app:layout_constraintStart_toEndOf="@+id/stage_detail_back"
         app:layout_constraintTop_toTopOf="@+id/stage_detail_back"
         app:srcCompat="@drawable/stage_scrap_no" />

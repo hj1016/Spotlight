@@ -68,7 +68,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="end|top"
                         android:background="@android:color/transparent"
-                        app:srcCompat="@drawable/edit_image_button" />
+                        app:srcCompat="@drawable/edit_image_button"
+                        android:clickable="true"/>
                 </FrameLayout>
 
                 <LinearLayout
@@ -97,7 +98,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:background="@android:color/transparent"
-                        app:srcCompat="@drawable/edit_icon" />
+                        app:srcCompat="@drawable/edit_icon"
+                        android:clickable="true"/>
                 </LinearLayout>
 
             </LinearLayout>
@@ -106,7 +108,7 @@
                 android:id="@+id/profile_recruiter_edit_ID"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="36dp"
                 android:layout_marginTop="50dp"
                 android:fontFamily="@font/pretendard_bold"
                 android:text="아이디"
@@ -117,7 +119,7 @@
                 android:id="@+id/profile_recruiter_edit_ID_text"
                 android:layout_width="330dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="36dp"
                 android:layout_marginTop="10dp"
                 android:hint="e441532"
                 android:inputType="text" />
@@ -126,7 +128,7 @@
                 android:id="@+id/profile_recruiter_edit_password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="36dp"
                 android:layout_marginTop="30dp"
                 android:fontFamily="@font/pretendard_bold"
                 android:text="비밀번호"
@@ -137,7 +139,7 @@
                 android:id="@+id/profile_recruiter_edit_password_text"
                 android:layout_width="330dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="36dp"
                 android:layout_marginTop="10dp"
                 android:hint="*******"
                 android:inputType="text" />
@@ -146,7 +148,7 @@
                 android:id="@+id/profile_recruiter_edit_company"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="36dp"
                 android:layout_marginTop="30dp"
                 android:fontFamily="@font/pretendard_bold"
                 android:text="기업명"
@@ -157,7 +159,7 @@
                 android:id="@+id/profile_recruiter_edit_company_text"
                 android:layout_width="330dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="36dp"
                 android:layout_marginTop="10dp"
                 android:hint="(주)스포트라이트"
                 android:inputType="text" />

@@ -276,8 +276,8 @@
                         android:text="김이름"
                         android:textColor="#a6a6a6"
                         android:fontFamily="@font/pretendard_regular"
-                        android:textSize="15dp"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                        android:textSize="15dp" />
+
                 </LinearLayout>
 
                 <ImageButton
@@ -316,7 +316,7 @@
                 android:onClick="onContinueClicked"
                 android:padding="0dp"
                 android:scaleType="centerInside"
-                app:srcCompat="@drawable/continue_active" />
+                app:srcCompat="@drawable/complete_button" />
 
         </LinearLayout>
     </ScrollView>

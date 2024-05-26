@@ -42,7 +42,9 @@
         android:fontFamily="@font/pretendard_bold"
         android:background="@android:color/transparent"
         app:layout_constraintStart_toStartOf="@+id/profile_general_back"
-        app:layout_constraintTop_toTopOf="@+id/toolbar_profile_general" />
+        app:layout_constraintTop_toTopOf="@+id/toolbar_profile_general"
+        android:clickable="true"
+        android:onClick="onEditClicked"/>
 
     <ImageView
         android:id="@+id/profile_general_user_image"
