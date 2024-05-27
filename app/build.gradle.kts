@@ -49,6 +49,4 @@ dependencies {
 
     implementation ("com.android.support:design:28.0.0")
 
-    implementation ("com.google.android.flexbox:flexbox:3.0.0")
-
 }

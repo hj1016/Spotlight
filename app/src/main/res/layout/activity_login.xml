@@ -51,16 +51,33 @@ android:background="#000000"> <!-- 검정 배경 -->
         android:textColor="#A6A6A6"
         android:textColorHint="#A6A6A6" />
 
-<Button
-    android:id="@+id/signupButton"
-    android:layout_width="200dp"
-    android:layout_height="wrap_content"
-    android:layout_below="@id/password"
-    android:layout_centerHorizontal="true"
-    android:layout_marginTop="20dp"
-    android:text="Sign up"
-    android:textSize="18sp"
-    android:textColor="#A6A6A6"
-    android:background="@android:color/transparent"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/password"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/loginButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:text="Login"
+            android:textSize="18sp"
+            android:textColor="#A6A6A6"
+            android:background="@android:color/transparent"/>
+
+        <Button
+            android:id="@+id/signupButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="Sign up"
+            android:textSize="18sp"
+            android:textColor="#A6A6A6"
+            android:background="@android:color/transparent"/>
+    </LinearLayout>
 
 </RelativeLayout>
