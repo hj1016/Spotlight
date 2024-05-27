@@ -1,5 +1,7 @@
 package com.example.spotlight;
 
+import java.util.List;
+
 public class Post {
     private String teamImageUrl;
     private String title;
@@ -9,20 +11,20 @@ public class Post {
     private int scrap;
 
     private String scrapImageUrl;
-    private String hashtag;
+    private List<String> hashtags;
 
 
 
     // Constructor
-    public Post(String teamImageUrl, String title, String category, String imageUrl, String content, int scrap, String hashtag, String scrapImageUrl) {
+    public Post(String teamImageUrl, String title, String category, String imageUrl, String content, int scrap, List<String> hashtags, String scrapImageUrl) {
         this.teamImageUrl = teamImageUrl;
         this.title = title;
         this.category = category;
         this.imageUrl = imageUrl;
         this.content = content;
         this.scrap = scrap;
-        this.hashtag = hashtag;
         this.scrapImageUrl = scrapImageUrl;
+        this.hashtags = hashtags;
     }
 
     // Getters
@@ -50,8 +52,8 @@ public class Post {
         return scrap;
     }
 
-    public String getHashtag() {
-        return hashtag;
+    public List<String> getHashtags() {
+        return hashtags;
     }
 
     public String getScrapImageUrl() {

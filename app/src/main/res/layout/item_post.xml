@@ -8,12 +8,12 @@
 
     <ImageButton
         android:id="@+id/item_box"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:background="@android:color/transparent"
         android:padding="0dp"
         android:scaleType="centerInside"
-        app:layout_constraintBottom_toBottomOf="@id/hashtag"
+        app:layout_constraintBottom_toBottomOf="@id/main_flexbox_hashtags"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -74,13 +74,14 @@
 
     <ImageView
         android:id="@+id/image"
-        android:layout_width="380dp"
-        android:layout_height="380dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_marginTop="19dp"
         android:scaleType="centerCrop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/category" />
+        app:layout_constraintEnd_toEndOf="@id/scrap"
+        app:layout_constraintStart_toStartOf="@id/team_image"
+        app:layout_constraintTop_toBottomOf="@id/category"
+        app:layout_constraintDimensionRatio="H,1:1"/>
 
     <TextView
         android:id="@+id/content"
@@ -94,15 +95,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/image" />
 
-    <TextView
-        android:id="@+id/hashtag"
-        android:layout_width="wrap_content"
+    <com.google.android.flexbox.FlexboxLayout
+        android:id="@+id/main_flexbox_hashtags"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:flexWrap="wrap"
+        app:justifyContent="flex_start"
         android:layout_marginTop="10dp"
-        android:fontFamily="@font/pretendard_semibold"
-        android:textSize="15sp"
+        android:padding="8dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/content" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/content">
+
+        <TextView
+            android:id="@+id/hashtag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:text="hashtag"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:fontFamily="@font/pretendard_bold"/>
+
+    </com.google.android.flexbox.FlexboxLayout>
+
 
 
 

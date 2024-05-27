@@ -159,7 +159,7 @@
                 android:textSize="15sp" />
 
             <TextView
-                android:id="@+id/stage_detail_project"
+                android:id="@+id/stage_detail_project_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
@@ -169,7 +169,7 @@
                 android:textSize="20sp" />
 
             <ImageView
-                android:id="@+id/imageView8"
+                android:id="@+id/stage_detail_project"
                 android:layout_width="match_parent"
                 android:layout_height="139dp"
                 android:layout_marginBottom="80dp"

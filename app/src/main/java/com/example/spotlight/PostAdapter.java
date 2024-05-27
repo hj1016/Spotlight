@@ -7,6 +7,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
+import com.google.android.flexbox.FlexboxLayout;
+import android.util.TypedValue;
+import android.view.Gravity;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -38,8 +41,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         Glide.with(context).load(post.getImageUrl()).into(holder.image);
         holder.content.setText(post.getContent());
         holder.scrap.setText(String.valueOf(post.getScrap()));
-        holder.hashtag.setText(post.getHashtag());
-        Glide.with(context).load(post.getScrapImageUrl()).into(holder.image);
+
+
+        addHashtags(post.getHashtags(), holder.flexboxLayout);
     }
 
     @Override
@@ -47,20 +51,44 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         return posts.size();
     }
 
+    // 해시태그를 FlexboxLayout에 추가하는 메소드
+    private void addHashtags(List<String> hashtags, FlexboxLayout flexboxLayout) {
+        flexboxLayout.removeAllViews();  // 이전 뷰들을 제거
+        for (String hashtag : hashtags) {
+            TextView textView = new TextView(context);
+            textView.setText("#" + hashtag);
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+            textView.setTextColor(context.getResources().getColor(R.color.black));
+            textView.setBackground(context.getResources().getDrawable(R.drawable.hashtag_box));
+            textView.setGravity(Gravity.CENTER);
+            textView.setPadding(20, 10, 20, 10);
+
+            FlexboxLayout.LayoutParams layoutParams = new FlexboxLayout.LayoutParams(
+                    FlexboxLayout.LayoutParams.WRAP_CONTENT,
+                    FlexboxLayout.LayoutParams.WRAP_CONTENT
+            );
+            layoutParams.setMargins(10, 5, 10, 5);
+            textView.setLayoutParams(layoutParams);
+
+            flexboxLayout.addView(textView);
+        }
+    }
+
     public static class PostViewHolder extends RecyclerView.ViewHolder {
         public ImageView team_image, image, scrap_selection;
-        public TextView title, category, content, scrap, hashtag;
+        public TextView title, category, content, scrap;
+        public FlexboxLayout flexboxLayout;
 
         public PostViewHolder(View itemView) {
             super(itemView);
             team_image = itemView.findViewById(R.id.team_image);
             image = itemView.findViewById(R.id.image);
-            scrap_selection = itemView.findViewById(R.id.image);
+            scrap_selection = itemView.findViewById(R.id.scrap_selection);
             title = itemView.findViewById(R.id.title);
             category = itemView.findViewById(R.id.category);
             content = itemView.findViewById(R.id.content);
             scrap = itemView.findViewById(R.id.scrap);
-            hashtag = itemView.findViewById(R.id.hashtag);
+            flexboxLayout = itemView.findViewById(R.id.main_flexbox_hashtags);
         }
     }
 }

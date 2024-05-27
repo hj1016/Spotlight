@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_recruiter_propose"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:background="@color/white"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:id="@+id/recruiter_propose_back"
+        android:layout_width="19dp"
+        android:layout_height="19dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="40dp"
+        app:srcCompat="@drawable/stage_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:clickable="true"
+        android:onClick="onBackClicked"/>
+
+
+    <ScrollView
+        android:id="@+id/scrollView_recruiter_propose"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_recruiter_propose"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/recruiter_propose_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/pretendard_bold"
+                android:text="제안하기"
+                android:layout_marginStart="20dp"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@id/recruiter_propose_back"
+                app:layout_constraintTop_toBottomOf="@id/toolbar_recruiter_propose" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="50dp">
+
+                <ImageView
+                    android:id="@+id/recruiter_propose_graduates_image"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    app:srcCompat="@drawable/team_image" />
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/recruiter_propose_graduates_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:text="김학생"
+                        android:fontFamily="@font/pretendard_semibold"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"/>
+
+                    <TextView
+                        android:id="@+id/recruiter_propose_graduates_project"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="You little human"
+                        android:fontFamily="@font/pretendard_semibold"
+                        android:textColor="#a6a6a6"
+                        android:textSize="15sp"/>
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/recruiter_propose_company_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/pretendard_bold"
+                android:text="기업명"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/recruiter_propose_company_text"
+                android:layout_width="370dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:hint="(주)스포트라이트"
+                android:inputType="text" />
+
+            <TextView
+                android:id="@+id/recruiter_propose_job_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/pretendard_bold"
+                android:text="제안 직무"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/recruiter_propose_job_text"
+                android:layout_width="370dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:hint="제안할 직무를 입력해주세요.."
+                android:inputType="text" />
+
+
+
+            <TextView
+                android:id="@+id/recruiter_propose_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:textColor="@color/black"
+                android:layout_marginTop="50dp"
+                android:fontFamily="@font/pretendard_bold"
+                android:text="프로젝트 설명"
+                android:textSize="18sp" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp">
+
+                <ImageView
+                    android:id="@+id/recruiter_propose_description_box"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:src="@drawable/post_box"
+                    android:scaleType="fitXY"/>
+
+                <EditText
+                    android:id="@+id/recruiter_propose_description_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:hint="프로젝트를 설명해주세요.."
+                    android:padding="15dp"
+                    android:textColor="#a6a6a6"
+                    android:textSize="15sp"/>
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/recruiter_propose_contact_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/pretendard_bold"
+                android:text="회신 연락처"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/recruiter_propose_contact_text"
+                android:layout_width="370dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:hint="회신 받으실 연락처를 입력해주세요.."
+                android:inputType="text" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="end">
+
+                <ImageButton
+                    android:id="@+id/recruiter_propose_complete"
+                    android:layout_width="170dp"
+                    android:layout_height="84dp"
+                    android:layout_marginTop="70dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="50dp"
+                    app:srcCompat="@drawable/complete_button"
+                    android:scaleType="centerInside"
+                    android:background="@android:color/transparent"
+                    android:padding="0dp"
+                    android:clickable="true"
+                    android:onClick="onCompleteClicked"/>
+            </LinearLayout>
+
+
+
+
+
+
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
