@@ -2,6 +2,7 @@ package com.example.spotlight;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -13,9 +14,5 @@ public class StageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.stage_main);
-    }
-    public void onStageClicked(View view) {
-        Intent intent = new Intent(this, StageDetailActivity.class);
-        startActivity(intent);
     }
 }
