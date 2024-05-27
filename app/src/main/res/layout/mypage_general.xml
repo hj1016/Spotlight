@@ -34,11 +34,13 @@
         android:id="@+id/mypage_alarm"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_marginStart="210dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginTop="15dp"
-        app:layout_constraintStart_toEndOf="@+id/textView_mypage"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView_mypage"
-        app:srcCompat="@drawable/alarm" />
+        app:srcCompat="@drawable/alarm"
+        android:clickable="true"
+        android:onClick="onAlarmClicked"/>
 
         <ImageView
             android:id="@+id/mypage_user_image"
@@ -91,7 +93,7 @@
             app:layout_constraintStart_toStartOf="@+id/textView_mypage"
             app:layout_constraintTop_toBottomOf="@+id/mypage_account"
             android:clickable="true"
-            android:onClick="onContinueClicked" />
+            android:onClick="onProfileClicked" />
 
         <ImageView
             android:id="@+id/mypage_profile_go"
@@ -142,7 +144,7 @@
         app:layout_constraintStart_toStartOf="@+id/textView_mypage"
         app:layout_constraintTop_toBottomOf="@+id/mypage_posting_manage"
         android:clickable="true"
-        android:onClick="onContinueClicked"/>
+        android:onClick="onPortfolioClicked"/>
 
     <ImageView
         android:id="@+id/mypage_portfolio_go"

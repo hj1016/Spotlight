@@ -16,4 +16,10 @@ public class MyPagePortfolioActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MyPageActivity.class);
         startActivity(intent);
     }
+
+    public void onCompleteClicked(View view) {
+        Intent intent = new Intent(this, MyPagePortfolioActivity.class);
+        startActivity(intent);
+    }
+    
 }

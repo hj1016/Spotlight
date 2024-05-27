@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.ArrayList;
 import java.util.List;
+import android.content.Intent;
+import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
@@ -91,4 +93,58 @@ public class MainActivity extends AppCompatActivity {
             bottomNavigationView.getMenu().findItem(R.id.menu_mypage).setIcon(R.drawable.mypage_no_click);
         }
     }
+    public void onBackClicked(View view) {
+        Intent intent = new Intent(this, MyPageActivity.class);
+        startActivity(intent);
+    }
+
+    public void onStageClicked(View view) {
+        Intent intent = new Intent(this, StageDetailActivity.class);
+        startActivity(intent);
+    }
+
+    public void onAlarmClicked(View view) {
+        Intent intent = new Intent(this, AlarmActivity.class);
+        startActivity(intent);
+    }
+
+
+    public void onProfileClicked(View view) {
+        Intent intent = new Intent(this, ProfileGraduatesActivity.class);
+        startActivity(intent);
+    }
+
+    public void onManagePostingClicked(View view) {
+        Intent intent = new Intent(this, ManagePostingActivity.class);
+        startActivity(intent);
+    }
+
+    public void onPortfolioClicked(View view) {
+        Intent intent = new Intent(this, MyPagePortfolioActivity.class);
+        startActivity(intent);
+    }
+
+    public void onCompleteClicked(View view) {
+        Intent intent = new Intent(this, NewPostingActivity.class);
+        startActivity(intent);
+    }
+
+    public void onInviteClicked(View view) {
+        Intent intent = new Intent(this, NewPostingActivity.class);
+        startActivity(intent);
+    }
+
+    public void onMemberPlusClicked(View view) {
+        Intent intent = new Intent(this, NewPostingMemberActivity.class);
+        startActivity(intent);
+    }
+
+    public void onExhibitionPlusClicked(View view) {
+        Intent intent = new Intent(this, NewPostingExhibitionActivity.class);
+        startActivity(intent);
+    }
+
+
+
+
 }

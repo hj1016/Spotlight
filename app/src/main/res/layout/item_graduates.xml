@@ -1,0 +1,58 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+
+    <ImageView
+        android:layout_width="414dp"
+        android:layout_height="109dp"
+        app:srcCompat="@drawable/scrap_graduates_box"
+        tools:layout_editor_absoluteX="-19dp"
+        tools:layout_editor_absoluteY="-17dp" />
+
+    <ImageView
+        android:id="@+id/imageView_graduates_photo"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        app:srcCompat="@drawable/team_image"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/textView_graduates_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="이름"
+        app:layout_constraintStart_toEndOf="@id/imageView_graduates_photo"
+        app:layout_constraintTop_toTopOf="@id/imageView_graduates_photo"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/pretendard_semibold"
+        android:textSize="18sp"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/textView_project_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="프로젝트"
+        app:layout_constraintStart_toStartOf="@id/textView_graduates_name"
+        app:layout_constraintTop_toBottomOf="@id/textView_graduates_name"
+        android:fontFamily="@font/pretendard_semibold"
+        android:textSize="15sp"
+        android:textColor="#a6a6a6" />
+
+    <ImageView
+        android:id="@+id/scrap_go"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/textView_graduates_name"
+        app:srcCompat="@drawable/scrap_go" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

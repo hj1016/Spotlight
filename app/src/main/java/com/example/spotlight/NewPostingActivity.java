@@ -1,5 +1,6 @@
 package com.example.spotlight;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -101,4 +102,16 @@ public class NewPostingActivity extends AppCompatActivity {
         smallCategoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         smallCategorySpinner.setAdapter(smallCategoryAdapter);
     }
+
+    public void onMemberPlusClicked(View view) {
+        Intent intent = new Intent(this, NewPostingMemberActivity.class);
+        startActivity(intent);
+    }
+
+    public void onExhibitionPlusClicked(View view) {
+        Intent intent = new Intent(this, NewPostingExhibitionActivity.class);
+        startActivity(intent);
+    }
+
+
 }
