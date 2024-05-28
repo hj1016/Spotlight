@@ -6,12 +6,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ScrollView;
 
 public class StageDetailActivity extends AppCompatActivity {
 
     private ScrollView scrollView;
     private ImageButton topButton;
+    private boolean isScrapped = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +30,13 @@ public class StageDetailActivity extends AppCompatActivity {
         });
     }
     public void onBackClicked(View view) {
-        Intent intent = new Intent(this, StageActivity.class);
-        startActivity(intent);
+        finish();
+    }
+
+    public void toggleScrap(View view) {
+        ImageView scrapButton = (ImageView) view;
+        isScrapped = !isScrapped; // Toggle the state
+        scrapButton.setImageResource(isScrapped ? R.drawable.scrap_yes : R.drawable.scrap_no);
     }
 
 }

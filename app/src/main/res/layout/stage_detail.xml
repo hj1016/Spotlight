@@ -32,7 +32,7 @@
         android:onClick="onBackClicked"/>
 
     <ImageView
-        android:id="@+id/stage_scrap_no"
+        android:id="@+id/stage_scrap_button"
         android:layout_width="24dp"
         android:layout_height="32dp"
         android:layout_marginBottom="600dp"
@@ -40,7 +40,9 @@
         app:layout_constraintEnd_toStartOf="@id/stage_scrap"
         app:layout_constraintTop_toTopOf="@id/stage_detail_back"
         app:srcCompat="@drawable/stage_scrap_no"
-        android:clickable="true"/>
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="toggleScrap"/>
 
     <TextView
         android:id="@+id/stage_scrap"
@@ -53,7 +55,7 @@
         android:textColor="#A6A6A6"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/stage_scrap_no" />
+        app:layout_constraintTop_toTopOf="@id/stage_scrap_button" />
 
     <ImageButton
         android:id="@+id/stage_top_Button"

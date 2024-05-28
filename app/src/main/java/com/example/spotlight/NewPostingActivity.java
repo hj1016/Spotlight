@@ -103,6 +103,10 @@ public class NewPostingActivity extends AppCompatActivity {
         smallCategorySpinner.setAdapter(smallCategoryAdapter);
     }
 
+    public void onBackClicked(View view) {
+        finish();
+    }
+
     public void onMemberPlusClicked(View view) {
         Intent intent = new Intent(this, NewPostingMemberActivity.class);
         startActivity(intent);

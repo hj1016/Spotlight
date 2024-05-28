@@ -45,9 +45,9 @@ public class GraduateAdapter extends RecyclerView.Adapter<GraduateAdapter.Gradua
 
         public GraduateViewHolder(View itemView) {
             super(itemView);
-            imageViewGraduatesPhoto = itemView.findViewById(R.id.imageView_graduates_photo);
-            textViewGraduatesName = itemView.findViewById(R.id.textView_graduates_name);
-            textViewProjectName = itemView.findViewById(R.id.textView_project_name);
+            imageViewGraduatesPhoto = itemView.findViewById(R.id.scrap_graduates_photo);
+            textViewGraduatesName = itemView.findViewById(R.id.scrap_graduates_name);
+            textViewProjectName = itemView.findViewById(R.id.scrap_graduates_project_name);
         }
     }
 }

@@ -7,7 +7,7 @@
     android:background="#FFFFFF">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_scrap_graduates_detail"
+        android:id="@+id/toolbar_item_detail_member_general"
         android:layout_width="match_parent"
         android:layout_height="90dp"
         android:background="@color/white"
@@ -20,7 +20,7 @@
 
 
     <ImageView
-        android:id="@+id/scrap_graduates_detail_back"
+        android:id="@+id/item_detail_member_general_back"
         android:layout_width="19dp"
         android:layout_height="19dp"
         android:layout_marginStart="16dp"
@@ -36,8 +36,8 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/toolbar_scrap_graduates_detail"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_scrap_graduates_detail">
+        app:layout_constraintStart_toStartOf="@id/toolbar_item_detail_member_general"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_item_detail_member_general">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -53,7 +53,7 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/scrap_graduates_detail_image"
+                    android:id="@+id/item_detail_member_general_image"
                     android:layout_width="56dp"
                     android:layout_height="56dp"
                     app:srcCompat="@drawable/team_image" />
@@ -65,7 +65,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/scrap_graduates_detail_name"
+                        android:id="@+id/item_detail_member_general_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -76,7 +76,7 @@
                         android:textSize="18sp"/>
 
                     <TextView
-                        android:id="@+id/scrap_graduates_detail_role"
+                        android:id="@+id/item_detail_member_general_role"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -93,25 +93,25 @@
                     android:layout_height="wrap_content">
 
 
-                <ImageView
-                    android:id="@+id/scrap_graduates_detail_scrap_button"
-                    android:layout_width="24dp"
-                    android:layout_height="32dp"
-                    android:layout_weight="1"
-                    android:layout_marginTop="10dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:src="@drawable/scrap_no"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:onClick="toggleScrap"/>
+                    <ImageView
+                        android:id="@+id/item_detail_member_general_scrap_button"
+                        android:layout_width="24dp"
+                        android:layout_height="32dp"
+                        android:layout_weight="1"
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:src="@drawable/scrap_no"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:onClick="toggleScrap"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </LinearLayout>
 
             <TextView
-                android:id="@+id/scrap_graduates_detail_academic_ability"
+                android:id="@+id/item_detail_member_general_academic_ability"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
@@ -121,7 +121,7 @@
                 android:textSize="18sp"/>
 
             <TextView
-                android:id="@+id/scrap_graduates_detail_academic_ability_text"
+                android:id="@+id/item_detail_member_general_academic_ability_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -130,77 +130,10 @@
                 android:textColor="@color/black"
                 android:textSize="18sp"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="30dp">
 
-                <TextView
-                    android:id="@+id/scrap_graduates_detail_portfolio"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="포트폴리오 확인하기"
-                    android:fontFamily="@font/pretendard_bold"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    android:clickable="true"/>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/scrap_graduates_detail_portfolio_go"
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/scrap_go"
-                    android:layout_marginStart="200dp"/>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp">
-
-                <TextView
-                    android:id="@+id/scrap_graduates_detail_propose"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="제안 보내기"
-                    android:fontFamily="@font/pretendard_bold"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    android:clickable="true"
-                    android:onClick="onProposeClicked"/>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:id="@+id/scrap_graduates_detail_propose_go"
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/scrap_go"
-                        android:layout_marginStart="200dp"/>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-            </LinearLayout>
 
             <TextView
-                android:id="@+id/scrap_graduates_detail_project_title"
+                android:id="@+id/item_detail_member_general_project_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
@@ -214,7 +147,7 @@
                 android:layout_height="wrap_content">
 
                 <ImageButton
-                    android:id="@+id/scrap_graduates_detail_project_box"
+                    android:id="@+id/item_detail_member_general_project_box"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
@@ -226,27 +159,27 @@
                     app:layout_constraintTop_toTopOf="parent"/>
 
                 <ImageView
-                    android:id="@+id/scrap_graduates_detail_project_photo"
+                    android:id="@+id/item_detail_member_general_project_photo"
                     android:layout_width="56dp"
                     android:layout_height="56dp"
                     app:srcCompat="@drawable/team_image"
-                    app:layout_constraintTop_toTopOf="@id/scrap_graduates_detail_project_box"
-                    app:layout_constraintStart_toStartOf="@id/scrap_graduates_detail_project_box"
+                    app:layout_constraintTop_toTopOf="@id/item_detail_member_general_project_box"
+                    app:layout_constraintStart_toStartOf="@id/item_detail_member_general_project_box"
                     android:layout_marginTop="45dp"
                     android:layout_marginStart="36dp"/>
 
                 <LinearLayout
-                    android:id="@+id/scrap_graduates_detail_project_text_container"
+                    android:id="@+id/item_detail_member_general_project_text_container"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    app:layout_constraintStart_toEndOf="@id/scrap_graduates_detail_project_photo"
-                    app:layout_constraintTop_toTopOf="@id/scrap_graduates_detail_project_photo"
-                    app:layout_constraintBottom_toBottomOf="@id/scrap_graduates_detail_project_photo"
+                    app:layout_constraintStart_toEndOf="@id/item_detail_member_general_project_photo"
+                    app:layout_constraintTop_toTopOf="@id/item_detail_member_general_project_photo"
+                    app:layout_constraintBottom_toBottomOf="@id/item_detail_member_general_project_photo"
                     android:layout_marginStart="10dp">
 
                     <TextView
-                        android:id="@+id/scrap_graduates_detail_project_name"
+                        android:id="@+id/item_detail_member_general_project_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="You little human"
@@ -255,7 +188,7 @@
                         android:textColor="@color/black"/>
 
                     <TextView
-                        android:id="@+id/scrap_graduates_detail_project_category"
+                        android:id="@+id/item_detail_member_general_project_category"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="사진/영상"
@@ -263,10 +196,6 @@
                         android:textSize="15sp"
                         android:textColor="#a6a6a6" />
                 </LinearLayout>
-
-
-
-
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

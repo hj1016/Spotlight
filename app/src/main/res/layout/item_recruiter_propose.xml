@@ -1,0 +1,107 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <ImageButton
+        android:id="@+id/item_recruiter_propose_box"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:padding="0dp"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/propose_box"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:id="@+id/item_recruiter_propose_photo"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        app:srcCompat="@drawable/team_image"
+        app:layout_constraintTop_toTopOf="@id/item_recruiter_propose_box"
+        app:layout_constraintStart_toStartOf="@id/item_recruiter_propose_box"
+        android:layout_marginTop="25dp"
+        android:layout_marginStart="36dp"/>
+
+    <LinearLayout
+        android:id="@+id/item_recruiter_propose_text_container"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintStart_toEndOf="@id/item_recruiter_propose_photo"
+        app:layout_constraintEnd_toStartOf="@id/item_recruiter_propose_edit"
+        app:layout_constraintTop_toTopOf="@id/item_recruiter_propose_photo"
+        app:layout_constraintBottom_toBottomOf="@id/item_recruiter_propose_photo"
+        android:layout_marginStart="10dp">
+
+        <TextView
+            android:id="@+id/item_recruiter_propose_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="이름"
+            android:fontFamily="@font/pretendard_semibold"
+            android:textSize="18sp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/item_recruiter_propose_project_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="프로젝트"
+            android:fontFamily="@font/pretendard_semibold"
+            android:textSize="15sp"
+            android:textColor="#a6a6a6" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/item_recruiter_propose_edit"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        app:srcCompat="@drawable/edit_icon"
+        app:layout_constraintEnd_toEndOf="@id/item_recruiter_propose_box"
+        app:layout_constraintTop_toTopOf="@id/item_recruiter_propose_text_container"
+        android:layout_marginEnd="36dp"
+        android:clickable="true"
+        android:onClick="onEditClicked"/>
+
+    <TextView
+        android:id="@+id/item_recruiter_propose_company"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="(주)스포트라이트"
+        android:textColor="@color/black"
+        android:fontFamily="@font/pretendard_bold"
+        android:textSize="15sp"
+        app:layout_constraintTop_toBottomOf="@id/item_recruiter_propose_photo"
+        app:layout_constraintStart_toStartOf="@id/item_recruiter_propose_photo"/>
+
+    <TextView
+        android:id="@+id/item_recruiter_propose_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:text="1 day ago"
+        android:textColor="#a6a6a6"
+        android:fontFamily="@font/pretendard_regular"
+        android:textSize="15sp"
+        app:layout_constraintTop_toBottomOf="@id/item_recruiter_propose_photo"
+        app:layout_constraintStart_toEndOf="@id/item_recruiter_propose_company"/>
+
+    <TextView
+        android:id="@+id/item_recruiter_propose_role"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="프리랜서 포토그래퍼"
+        android:textColor="@color/black"
+        android:fontFamily="@font/pretendard_bold"
+        android:textSize="24sp"
+        app:layout_constraintTop_toBottomOf="@id/item_recruiter_propose_company"
+        app:layout_constraintStart_toStartOf="@id/item_recruiter_propose_photo"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

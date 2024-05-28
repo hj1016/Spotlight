@@ -17,7 +17,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/item_box" />
+        app:srcCompat="@drawable/item_box"
+        android:clickable="true"
+        android:onClick="onOpenClicked"/>
 
     <ImageView
         android:id="@+id/team_image"

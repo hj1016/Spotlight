@@ -13,7 +13,6 @@ public class MyPageGeneralPortfolioActivity extends AppCompatActivity {
     }
 
     public void onBackClicked(View view) {
-        Intent intent = new Intent(this, MyPageActivity.class);
-        startActivity(intent);
+        finish();
     }
 }

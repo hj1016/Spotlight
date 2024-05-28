@@ -13,8 +13,7 @@ public class ProfileGeneralActivity extends AppCompatActivity {
     }
 
     public void onBackClicked(View view) {
-        Intent intent = new Intent(this, MyPageActivity.class);
-        startActivity(intent);
+        finish();
     }
 
     public void onEditClicked(View view) {

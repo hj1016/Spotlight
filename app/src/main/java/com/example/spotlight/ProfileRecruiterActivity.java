@@ -13,8 +13,7 @@ public class ProfileRecruiterActivity extends AppCompatActivity {
     }
 
     public void onBackClicked(View view) {
-        Intent intent = new Intent(this, MyPageRecruiterActivity.class);
-        startActivity(intent);
+        finish();
     }
 
     public void onEditClicked(View view) {

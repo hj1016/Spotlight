@@ -14,8 +14,7 @@ public class SearchSchoolActivity  extends AppCompatActivity {
     }
 
     public void onBackClicked(View view) {
-        Intent intent = new Intent(this, SearchFragment.class);
-        startActivity(intent);
+        finish();
     }
 
 }

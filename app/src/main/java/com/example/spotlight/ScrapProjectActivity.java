@@ -6,19 +6,21 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class ManagePostingActivity extends AppCompatActivity{
+public class ScrapProjectActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.manage_posting);
-    }
-
-    public void onNewPostingClicked(View view) {
-        Intent intent = new Intent(this, NewPostingActivity.class);
-        startActivity(intent);
+        setContentView(R.layout.scrap_project);
     }
 
     public void onBackClicked(View view) {
         finish();
     }
+
+    public void onScrapStageClicked(View view) {
+        Intent intent = new Intent(this, ScrapStageActivity.class);
+        startActivity(intent);
+    }
+
+
 }

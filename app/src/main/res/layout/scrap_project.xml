@@ -50,6 +50,8 @@
         android:textColor="#616161"
         android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@id/scrap_project"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_scrap_project"/>
+        app:layout_constraintTop_toBottomOf="@id/toolbar_scrap_project"
+        android:clickable="true"
+        android:onClick="onScrapStageClicked"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

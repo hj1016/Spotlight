@@ -92,7 +92,7 @@
         app:layout_constraintStart_toStartOf="@+id/textView_mypage_recruiter"
         app:layout_constraintTop_toBottomOf="@+id/mypage_recruiter_account"
         android:clickable="true"
-        android:onClick="onContinueClicked" />
+        android:onClick="onProfileClicked" />
 
     <ImageView
         android:id="@+id/mypage_profile_go"
@@ -131,7 +131,7 @@
         app:layout_constraintStart_toStartOf="@+id/textView_mypage_recruiter"
         app:layout_constraintTop_toBottomOf="@+id/mypage_recruiter_scrap"
         android:clickable="true"
-        android:onClick="onContinueClicked"/>
+        android:onClick="onScrapPostingClicked"/>
 
     <ImageView
         android:id="@+id/mypage_recruiter_scrap_post_go"
@@ -155,7 +155,7 @@
         app:layout_constraintStart_toStartOf="@+id/textView_mypage_recruiter"
         app:layout_constraintTop_toBottomOf="@+id/mypage_recruiter_scrap_post"
         android:clickable="true"
-        android:onClick="onContinueClicked"/>
+        android:onClick="onScrapGraduatesClicked"/>
 
     <ImageView
         android:id="@+id/mypage_recruiter_scrap_person_go"
@@ -191,7 +191,7 @@
         app:layout_constraintStart_toStartOf="@+id/textView_mypage_recruiter"
         app:layout_constraintTop_toBottomOf="@+id/mypage_recruiter_recruit"
         android:clickable="true"
-        android:onClick="onContinueClicked"/>
+        android:onClick="onProposeClicked"/>
 
     <ImageView
         android:id="@+id/mypage_recruiter_recruit_post_go"

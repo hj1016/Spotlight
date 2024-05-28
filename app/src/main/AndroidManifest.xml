@@ -34,8 +34,14 @@
 
         <!-- 기타 액티비티 설정 -->
         <activity android:name=".AlarmActivity" />
+
         <activity android:name=".GraduateStep1Activity" />
+
         <activity android:name=".ItemDetailActivity" />
+        <activity android:name=".ItemDetailMemberGeneralActivity"/>
+        <activity android:name=".ItemDetailMemberRecruiterActivity"/>
+        <activity android:name=".ItemPostActivity"/>
+        <activity android:name=".ItemRecruiterProposeActivity"/>
 
         <activity android:name=".ManagePostingActivity" />
         <activity android:name=".ManagePostingGeneralActivity"/>
@@ -55,8 +61,18 @@
         <activity android:name=".ProfileRecruiterActivity"/>
         <activity android:name=".ProfileRecruiterEditActivity"/>
 
+
+        <activity android:name=".RecruiterProposeActivity"/>
+        <activity android:name="RecruiterProposeEditActivity"/>
         <activity android:name=".RecruiterStep1Activity" />
         <activity android:name=".RecruiterStep2Activity" />
+
+        <activity android:name=".ScrapGraduatesActivity"/>
+        <activity android:name=".ScrapGraduatesDetailActivity"/>
+        <activity android:name=".ScrapProjectActivity"/>
+        <activity android:name=".ScrapStageActivity"/>
+        <activity android:name=".SearchActivity"/>
+        <activity android:name=".SearchSchoolActivity"/>
 
         <activity android:name=".SignupStep1Activity" />
         <activity android:name=".SignupStep2Activity" />

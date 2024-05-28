@@ -5,14 +5,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.view.View;
 
-public class AlarmActivity extends AppCompatActivity {
+public class SearchActivity  extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.alarm_graduates);
+        setContentView(R.layout.search_main);
     }
 
-    public void onBackClicked(View view) {
-        finish();
+    public void onSearchSchoolClicked(View view) {
+        Intent intent = new Intent(this, SearchSchoolActivity.class);
+        startActivity(intent);
     }
+
+
 }

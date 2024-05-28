@@ -12,7 +12,6 @@ public class ManagePostingGeneralActivity extends AppCompatActivity {
         setContentView(R.layout.manage_posting_not_graduates);
     }
     public void onBackClicked(View view) {
-        Intent intent = new Intent(this, MyPageActivity.class);
-        startActivity(intent);
+        finish();
     }
 }

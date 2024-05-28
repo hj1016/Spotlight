@@ -8,6 +8,8 @@ import androidx.viewpager2.widget.ViewPager2;
 import java.util.Arrays;
 import java.util.List;
 import com.google.android.flexbox.FlexboxLayout;
+
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -18,6 +20,8 @@ public class ItemDetailActivity extends AppCompatActivity {
 
     private ViewPager2 viewPagerImages;
     private ImageSliderAdapter adapter;
+
+    private boolean isScrapped = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,5 +72,11 @@ public class ItemDetailActivity extends AppCompatActivity {
     public void onBackClicked(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+    }
+
+    public void toggleScrap(View view) {
+        ImageView scrapButton = (ImageView) view;
+        isScrapped = !isScrapped; // Toggle the state
+        scrapButton.setImageResource(isScrapped ? R.drawable.scrap_yes : R.drawable.scrap_no);
     }
 }
