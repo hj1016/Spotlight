@@ -38,7 +38,10 @@
         android:layout_marginLeft="300dp"
         app:layout_constraintStart_toEndOf="@+id/item_detail_back"
         app:layout_constraintTop_toTopOf="@+id/item_detail_back"
-        app:srcCompat="@drawable/stage_scrap_no" />
+        app:srcCompat="@drawable/stage_scrap_no"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="toggleScrap"/>
 
     <TextView
         android:id="@+id/item_scrap"

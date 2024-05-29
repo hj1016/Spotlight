@@ -3,14 +3,10 @@ package com.example.spotlight;
 import android.os.Bundle;
 import android.view.Menu;
 import android.widget.ImageView;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import android.content.SharedPreferences;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,17 +15,20 @@ import android.view.View;
 import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
-    private RecyclerView recyclerView;
-    private PostAdapter adapter;
-    private List<Post> posts;
+
     private BottomNavigationView bottomNavigationView;
     private boolean isScrapped = false;
     private SharedPreferences sharedPreferences;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setupBottomNavigationView();
+
+        sharedPreferences = getSharedPreferences("AppPrefs", MODE_PRIVATE);
+        checkLoginStatus();
 
         sharedPreferences = getSharedPreferences("UserType", MODE_PRIVATE);
 
@@ -37,32 +36,22 @@ public class MainActivity extends AppCompatActivity {
             navigateToMyPage();
         }
 
+        if (getIntent().getBooleanExtra("shouldNavigateToHome", false)) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, new HomeFragment())
+                    .commit();
+            bottomNavigationView.setSelectedItemId(R.id.menu_home);
+        }
 
-        // Initialize RecyclerView
-        recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // Setup the adapter with sample posts
-        posts = new ArrayList<>();
-        posts.add(new Post(
-                "@drawable/image_basic",
-                "You little human",
-                "사진/영상",
-                "@drawable/image_ex1",
-                "On a blazingly sunny morning in March, the 22-year-old Italian tennis star Jannik Sinner could be found on the sprawling grounds of a ranch-style home he’d rented in the Coachella Valley... read more",
-                132,
-                Arrays.asList("#A.E.S"), // 문자열을 리스트로 변환
-                "@drawable/scrap_no"
-        ));
+    }
 
-        adapter = new PostAdapter(this, posts);
-        recyclerView.setAdapter(adapter);
-
-        // Setup BottomNavigationView
+    private void setupBottomNavigationView() {
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             Fragment selectedFragment = null;
             int itemId = item.getItemId();
+
             if (itemId == R.id.menu_home) {
                 selectedFragment = new HomeFragment();
             } else if (itemId == R.id.menu_search) {
@@ -75,28 +64,59 @@ public class MainActivity extends AppCompatActivity {
             }
 
             if (selectedFragment != null) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, selectedFragment)
+                        .commit();
             }
             return true;
         });
-
-        if (savedInstanceState == null) {
-            bottomNavigationView.setSelectedItemId(R.id.menu_home);
-        }
     }
+
+
+    /*private void checkLoginStatus() {
+        // SharedPreferences를 사용하여 로그인 여부 확인
+        boolean isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false);
+
+        if (!isLoggedIn) {
+            // 사용자가 로그인하지 않았다면 로그인 화면으로 이동
+            Intent loginIntent = new Intent(this, LoginActivity.class);
+            startActivity(loginIntent);
+            finish(); // MainActivity 종료
+        } else {
+            // 로그인 상태라면 바로 HomeFragment로
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, new HomeFragment())
+                    .commit();
+        }
+    }*/
+
+    //백엔드 연결 전 확인 용 코드, 백엔드 연결 시 위의 것으로 교체
+    private void checkLoginStatus() {
+    // SharedPreferences를 사용하여 로그인 여부 확인
+    boolean isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false);
+
+        if (!isLoggedIn) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, new HomeFragment())
+                    .commit();
+    } else {
+        // 로그인 상태라면 바로 HomeFragment로
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, new HomeFragment())
+                .commit();
+    }
+}
 
     private void navigateToMyPage() {
-        String userType = sharedPreferences.getString("Type", "Default"); // 기본 유형을 "Default"로 설정
-        Intent intent;
+        String userType = sharedPreferences.getString("Type", "Default");
+        Fragment fragment;
         if (userType.equals("Recruiter")) {
-            intent = new Intent(this, MyPageRecruiterActivity.class);
+            fragment = new MyPageRecruiterFragment();
         } else { // "Default" 포함 나머지 모든 경우
-            intent = new Intent(this, MyPageActivity.class);
+            fragment = new MyPageFragment();
         }
-        startActivity(intent);
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
     }
-
-
 
 
 
@@ -117,8 +137,15 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     public void onBackClicked(View view) {
-        Intent intent = new Intent(this, MyPageActivity.class);
+        String userType = sharedPreferences.getString("userType", "general");
+        Intent intent = new Intent(this, MainActivity.class);
+        if ("Recruiter".equals(userType)) {
+            intent.putExtra("Fragment", "MyPageRecruiterFragment");
+        } else {
+            intent.putExtra("Fragment", "MyPageFragment");
+        }
         startActivity(intent);
+        finish();
     }
 
     public void onStageClicked(View view) {

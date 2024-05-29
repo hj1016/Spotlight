@@ -7,7 +7,7 @@
     android:background="#FFFFFF">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_new_posting"
+        android:id="@+id/toolbar_posting_edit"
         android:layout_width="match_parent"
         android:layout_height="90dp"
         android:background="@color/white"
@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <ImageView
-        android:id="@+id/new_posting_back"
+        android:id="@+id/posting_edit_back"
         android:layout_width="19dp"
         android:layout_height="19dp"
         android:layout_marginStart="16dp"
@@ -31,11 +31,11 @@
 
 
     <ScrollView
-        android:id="@+id/scrollView_new_posting"
+        android:id="@+id/scrollView_posting_edit"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_new_posting"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_posting_edit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -45,19 +45,19 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/new_posting_title"
+                android:id="@+id/posting_edit_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/pretendard_bold"
-                android:text="게시물 작성"
+                android:text="게시물 수정"
                 android:layout_marginStart="20dp"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="@id/new_posting_back"
-                app:layout_constraintTop_toBottomOf="@id/toolbar_new_posting" />
+                app:layout_constraintStart_toStartOf="@id/posting_edit_back"
+                app:layout_constraintTop_toBottomOf="@id/toolbar_posting_edit" />
 
             <TextView
-                android:id="@+id/new_posting_project"
+                android:id="@+id/posting_edit_project"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -68,7 +68,7 @@
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/new_posting_project_toast"
+                android:id="@+id/posting_edit_project_toast"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -78,16 +78,32 @@
                 android:textColor="#a6a6a6"
                 android:textSize="15sp" />
 
-            <ImageView
-                android:id="@+id/new_posting_image_plus"
-                android:layout_width="153dp"
-                android:layout_height="144dp"
-                android:layout_marginTop="1dp"
-                app:srcCompat="@drawable/image_plus"
-                android:clickable="true"/>
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="20dp"
+                android:paddingStart="16dp"
+                android:paddingBottom="20dp">
+
+                <ImageView
+                    android:id="@+id/profile_graduates_edit_user_image"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/mypage_image" />
+
+                <ImageButton
+                    android:id="@+id/profile_graduates_edit_user_image_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|top"
+                    android:background="@android:color/transparent"
+                    app:srcCompat="@drawable/edit_image_button"
+                    android:clickable="true"/>
+            </FrameLayout>
 
             <TextView
-                android:id="@+id/new_posting_project_title"
+                android:id="@+id/posting_edit_project_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -98,7 +114,7 @@
                 android:textSize="18sp" />
 
             <EditText
-                android:id="@+id/new_posting_project_text"
+                android:id="@+id/posting_edit_project_text"
                 android:layout_width="370dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -107,7 +123,7 @@
                 android:inputType="text" />
 
             <TextView
-                android:id="@+id/new_posting_project_category"
+                android:id="@+id/posting_edit_project_category"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -123,7 +139,7 @@
                 android:orientation="horizontal">
 
                 <Spinner
-                    android:id="@+id/big_category_spinner"
+                    android:id="@+id/posting_edit_big_category_spinner"
                     android:layout_width="120dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="16dp"
@@ -131,7 +147,7 @@
                     android:layout_marginEnd="16dp" />
 
                 <Spinner
-                    android:id="@+id/small_category_spinner"
+                    android:id="@+id/posting_edit_small_category_spinner"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:layout_marginStart="30dp"
@@ -140,7 +156,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/new_posting_selec_image"
+                android:id="@+id/posting_edit_selec_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -151,7 +167,7 @@
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/recruiter_selec_image_toast"
+                android:id="@+id/posting_edit_selec_image_toast"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -162,7 +178,7 @@
                 android:textSize="15sp" />
 
             <ImageView
-                android:id="@+id/new_posting_selec_image_plus"
+                android:id="@+id/posting_edit_selec_image_plus"
                 android:layout_width="153dp"
                 android:layout_height="144dp"
                 android:layout_marginTop="1dp"
@@ -170,7 +186,7 @@
                 android:clickable="true"/>
 
             <TextView
-                android:id="@+id/new_posting_project_description"
+                android:id="@+id/posting_edit_project_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -186,7 +202,7 @@
                 android:padding="16dp">
 
                 <ImageView
-                    android:id="@+id/new_posting_description_box"
+                    android:id="@+id/posting_edit_description_box"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="5dp"
@@ -195,7 +211,7 @@
                     android:scaleType="fitXY"/>
 
                 <EditText
-                    android:id="@+id/new_posting_description_text"
+                    android:id="@+id/posting_edit_description_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
@@ -206,7 +222,7 @@
             </FrameLayout>
 
             <TextView
-                android:id="@+id/new_posting_hashtag"
+                android:id="@+id/posting_edit_hashtag"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -217,17 +233,17 @@
                 android:textSize="18sp" />
 
             <EditText
-                android:id="@+id/new_posting_hashtag_text"
+                android:id="@+id/posting_edit_hashtag_text"
                 android:layout_width="370dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
                 android:hint="#을 입력하고 해시태그를 입력해보세요.."
                 android:inputType="text"
-                 />
+                />
 
             <TextView
-                android:id="@+id/new_posting_team"
+                android:id="@+id/posting_edit_team"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -238,7 +254,7 @@
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/new_posting_team_toast"
+                android:id="@+id/posting_edit_team_toast"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -249,14 +265,14 @@
                 android:textSize="15sp" />
 
             <LinearLayout
-                android:id="@+id/invite_team_member"
+                android:id="@+id/posting_edit_invite_team_member"
                 android:layout_width="match_parent"
                 android:layout_height="107dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:id="@+id/invite_team_member_detail"
+                    android:id="@+id/posting_edit_invite_team_member_detail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
@@ -265,7 +281,7 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:id="@+id/member_image"
+                        android:id="@+id/posting_edit_member_image"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
@@ -273,7 +289,7 @@
                         android:src="@drawable/member_image" />
 
                     <TextView
-                        android:id="@+id/member_name"
+                        android:id="@+id/posting_edit_member_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
@@ -285,7 +301,7 @@
                 </LinearLayout>
 
                 <ImageButton
-                    android:id="@+id/add_member_button"
+                    android:id="@+id/posting_edit_add_member_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
@@ -298,17 +314,95 @@
             </LinearLayout>
 
 
-            <ImageButton
-                android:id="@+id/add_new_posting_exhibition_info"
-                android:layout_width="wrap_content"
-                android:layout_height="183dp"
-                android:layout_marginTop="5dp"
-                android:background="@android:color/transparent"
-                android:padding="0dp"
-                android:scaleType="centerInside"
-                app:srcCompat="@drawable/add_exhibition_info"
-                android:clickable="true"
-                android:onClick="onExhibitionPlusClicked"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/posting_edit_exhibition_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="30dp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/pretendard_bold"
+                    android:text="전시 정보"
+                    android:textSize="18sp" />
+
+                <Button
+                    android:id="@+id/posting_edit_exhibition_edit_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginStart="230dp"
+                    android:text="Edit"
+                    android:textSize="18sp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/pretendard_bold"
+                    android:background="@android:color/transparent"
+                    android:clickable="true"
+                    android:onClick="onEditClicked"/>
+
+            </LinearLayout>
+
+
+
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp">
+
+                <ImageView
+                    android:id="@+id/posting_edit_exhibition_box"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="80dp"
+                    android:src="@drawable/exhibit_info_box"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+                <TextView
+                    android:id="@+id/posting_edit_exhibition_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="52dp"
+                    android:text="서울여자대학교 조형예술관 B1"
+                    app:layout_constraintTop_toTopOf="@id/posting_edit_exhibition_box"
+                    app:layout_constraintStart_toStartOf="@id/posting_edit_exhibition_box"
+                    android:fontFamily="@font/pretendard_semibold"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    android:layout_marginTop="28dp"/>
+
+                <TextView
+                    android:id="@+id/posting_edit_exhibition_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2024.04.01~2024.04.08"
+                    app:layout_constraintTop_toBottomOf="@id/posting_edit_exhibition_location"
+                    app:layout_constraintStart_toStartOf="@id/posting_edit_exhibition_location"
+                    android:fontFamily="@font/pretendard_regular"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    android:layout_marginTop="8dp"/>
+
+                <TextView
+                    android:id="@+id/posting_edit_exhibition_time"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="52dp"
+                    android:text="10:00~16:00"
+                    app:layout_constraintTop_toTopOf="@id/posting_edit_exhibition_date"
+                    app:layout_constraintEnd_toEndOf="@id/posting_edit_exhibition_box"
+                    android:fontFamily="@font/pretendard_regular"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -317,7 +411,7 @@
                 android:gravity="end">  <!-- 여기서 우측 정렬 설정 -->
 
                 <ImageButton
-                    android:id="@+id/new_posting_complete"
+                    android:id="@+id/posting_edit_complete"
                     android:layout_width="170dp"
                     android:layout_height="84dp"
                     android:layout_marginTop="70dp"

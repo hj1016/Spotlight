@@ -53,5 +53,14 @@
         android:clickable="true"
         android:onClick="onNewPostingClicked"/>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView_manage_posting"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/manage_posting_title"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:padding="16dp"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

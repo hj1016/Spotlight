@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.flexbox.FlexboxLayout;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.content.Intent;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -44,6 +45,16 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
 
 
         addHashtags(post.getHashtags(), holder.flexboxLayout);
+
+        holder.scrapButton.setImageResource(post.isScrapped() ? R.drawable.scrap_yes : R.drawable.scrap_no);
+
+        // 스크랩 버튼 클릭 리스너 설정
+        holder.scrapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                holder.toggleScrap();
+            }
+        });
     }
 
     @Override
@@ -75,20 +86,33 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
     }
 
     public static class PostViewHolder extends RecyclerView.ViewHolder {
-        public ImageView team_image, image, scrap_selection;
+        public ImageView team_image, image, scrapButton;
         public TextView title, category, content, scrap;
         public FlexboxLayout flexboxLayout;
+        boolean isScrapped = false;
 
         public PostViewHolder(View itemView) {
             super(itemView);
             team_image = itemView.findViewById(R.id.team_image);
             image = itemView.findViewById(R.id.image);
-            scrap_selection = itemView.findViewById(R.id.scrap_selection);
+            scrapButton = itemView.findViewById(R.id.scrap_selection);
             title = itemView.findViewById(R.id.title);
             category = itemView.findViewById(R.id.category);
             content = itemView.findViewById(R.id.content);
             scrap = itemView.findViewById(R.id.scrap);
             flexboxLayout = itemView.findViewById(R.id.main_flexbox_hashtags);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(itemView.getContext(), ItemDetailActivity.class);
+                    itemView.getContext().startActivity(intent);
+                }
+            });
+        }
+        public void toggleScrap() {
+            isScrapped = !isScrapped;
+            scrapButton.setImageResource(isScrapped ? R.drawable.scrap_yes : R.drawable.scrap_no);
         }
     }
 }

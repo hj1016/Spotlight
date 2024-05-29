@@ -9,6 +9,7 @@ public class Post {
     private String imageUrl;
     private String content;
     private int scrap;
+    private boolean isScrapped;
 
     private String scrapImageUrl;
     private List<String> hashtags;
@@ -16,7 +17,7 @@ public class Post {
 
 
     // Constructor
-    public Post(String teamImageUrl, String title, String category, String imageUrl, String content, int scrap, List<String> hashtags, String scrapImageUrl) {
+    public Post(String teamImageUrl, String title, String category, String imageUrl, String content, int scrap, List<String> hashtags, String scrapImageUrl, boolean isScrapped) {
         this.teamImageUrl = teamImageUrl;
         this.title = title;
         this.category = category;
@@ -25,6 +26,7 @@ public class Post {
         this.scrap = scrap;
         this.scrapImageUrl = scrapImageUrl;
         this.hashtags = hashtags;
+        this.isScrapped = isScrapped;
     }
 
     // Getters
@@ -58,5 +60,12 @@ public class Post {
 
     public String getScrapImageUrl() {
         return scrapImageUrl;
+    }
+
+    public boolean isScrapped() {
+        return isScrapped;
+    }
+    public void setScrapped(boolean scrapped) {
+        isScrapped = scrapped;
     }
 }

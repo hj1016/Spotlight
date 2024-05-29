@@ -1,12 +1,14 @@
 package com.example.spotlight;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 public class ScrapStageActivity extends AppCompatActivity {
+
+    private SharedPreferences sharedPreferences;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -14,6 +16,14 @@ public class ScrapStageActivity extends AppCompatActivity {
     }
 
     public void onBackClicked(View view) {
+        String userType = sharedPreferences.getString("userType", "general");
+        Intent intent = new Intent(this, MainActivity.class);
+        if ("Recruiter".equals(userType)) {
+            intent.putExtra("Fragment", "MyPageRecruiterFragment");
+        } else {
+            intent.putExtra("Fragment", "MyPageFragment");
+        }
+        startActivity(intent);
         finish();
     }
 
