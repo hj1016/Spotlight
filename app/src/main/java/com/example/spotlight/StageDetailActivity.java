@@ -1,6 +1,7 @@
 package com.example.spotlight;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,11 +15,13 @@ public class StageDetailActivity extends AppCompatActivity {
     private ScrollView scrollView;
     private ImageButton topButton;
     private boolean isScrapped = false;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.stage_detail); // stage_detail.xml 파일과 연결
+        sharedPreferences = getSharedPreferences("UserType", MODE_PRIVATE);
 
         scrollView = findViewById(R.id.scrollView2);
         topButton = findViewById(R.id.stage_top_Button);
@@ -30,13 +33,25 @@ public class StageDetailActivity extends AppCompatActivity {
         });
     }
     public void onBackClicked(View view) {
-        finish();
+        Intent intent = new Intent(this, StageActivity.class);
+        startActivity(intent);
     }
 
     public void toggleScrap(View view) {
         ImageView scrapButton = (ImageView) view;
         isScrapped = !isScrapped; // Toggle the state
         scrapButton.setImageResource(isScrapped ? R.drawable.scrap_yes : R.drawable.scrap_no);
+    }
+
+    public void onMemberClicked(View view) {
+        String userType = sharedPreferences.getString("Type", "general"); // 기본값을 "general"로 설정
+        Intent intent;
+        if (userType.equals("recruiter")) {
+            intent = new Intent(this, ItemDetailMemberRecruiterActivity.class);
+        } else {
+            intent = new Intent(this, ItemDetailMemberGeneralActivity.class);
+        }
+        startActivity(intent);
     }
 
 }

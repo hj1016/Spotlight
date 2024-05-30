@@ -55,6 +55,16 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
                 holder.toggleScrap();
             }
         });
+
+        // 전체 itemView에 대한 클릭 리스너 설정
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ItemDetailActivity.class);
+                context.startActivity(intent);
+            }
+        });
+
     }
 
     @Override
@@ -69,7 +79,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             TextView textView = new TextView(context);
             textView.setText("#" + hashtag);
             textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
-            textView.setTextColor(context.getResources().getColor(R.color.black));
+            textView.setTextColor(context.getResources().getColor(R.color.white));
             textView.setBackground(context.getResources().getDrawable(R.drawable.hashtag_box));
             textView.setGravity(Gravity.CENTER);
             textView.setPadding(20, 10, 20, 10);
@@ -91,6 +101,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         public FlexboxLayout flexboxLayout;
         boolean isScrapped = false;
 
+        public View itemBox;
+
         public PostViewHolder(View itemView) {
             super(itemView);
             team_image = itemView.findViewById(R.id.team_image);
@@ -102,13 +114,16 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             scrap = itemView.findViewById(R.id.scrap);
             flexboxLayout = itemView.findViewById(R.id.main_flexbox_hashtags);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(itemView.getContext(), ItemDetailActivity.class);
-                    itemView.getContext().startActivity(intent);
-                }
-            });
+            itemBox = itemView.findViewById(R.id.item_box);
+
+            itemBox.setOnClickListener(this::onOpenClicked);
+
+        }
+
+        private void onOpenClicked(View v) {
+            // 아이템 클릭 로직 (상세 화면으로 이동)
+            Intent intent = new Intent(itemView.getContext(), ItemDetailActivity.class);
+            itemView.getContext().startActivity(intent);
         }
         public void toggleScrap() {
             isScrapped = !isScrapped;

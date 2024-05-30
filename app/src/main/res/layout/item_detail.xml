@@ -35,7 +35,7 @@
         android:layout_width="24dp"
         android:layout_height="32dp"
         android:layout_marginBottom="600dp"
-        android:layout_marginLeft="300dp"
+        android:layout_marginLeft="280dp"
         app:layout_constraintStart_toEndOf="@+id/item_detail_back"
         app:layout_constraintTop_toTopOf="@+id/item_detail_back"
         app:srcCompat="@drawable/stage_scrap_no"
@@ -123,7 +123,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
-                            android:layout_marginStart="60dp"
+                            android:layout_marginStart="50dp"
                             android:layout_marginTop="8dp">
 
                             <TextView
@@ -152,7 +152,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
-                            android:layout_marginStart="60dp">
+                            android:layout_marginStart="45dp">
 
                             <TextView
                                 android:id="@+id/item_detail_recruiter"
@@ -207,26 +207,28 @@ Gravida dolor in nibh elementum vulputate. Nullam lobortis nunc ornare montes mo
                 android:textSize="15sp"/>
 
             //hashtag
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
             <com.google.android.flexbox.FlexboxLayout
                 android:id="@+id/flexbox_hashtags"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:flexWrap="wrap"
                 app:justifyContent="flex_start"
+                app:alignItems="flex_start"
                 android:layout_marginTop="10dp"
-                android:padding="8dp">
+                android:padding="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-                <TextView
-                    android:id="@+id/item_detail_hashtag"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="hashtag"
-                    android:textColor="@color/white"
-                    android:textSize="15sp"
-                    android:fontFamily="@font/pretendard_bold"/>
+
 
             </com.google.android.flexbox.FlexboxLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/item_detail_member_text"
@@ -258,7 +260,9 @@ Gravida dolor in nibh elementum vulputate. Nullam lobortis nunc ornare montes mo
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:padding="8dp"
-                    android:src="@drawable/member_image" />
+                    android:src="@drawable/member_image"
+                    android:clickable="true"
+                    android:onClick="onMemberClicked"/>
 
                 <TextView
                     android:id="@+id/item_detail_member_name"

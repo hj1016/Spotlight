@@ -225,6 +225,17 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void onMemberClicked(View view) {
+        String userType = sharedPreferences.getString("Type", "general"); // 기본값을 "general"로 설정
+        Intent intent;
+        if (userType.equals("recruiter")) {
+            intent = new Intent(this, ItemDetailMemberRecruiterActivity.class);
+        } else {
+            intent = new Intent(this, ItemDetailMemberGeneralActivity.class);
+        }
+        startActivity(intent);
+    }
+
 
 
 }

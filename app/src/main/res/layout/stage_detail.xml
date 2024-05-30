@@ -137,7 +137,9 @@
                 android:layout_height="56dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="10dp"
-                app:srcCompat="@drawable/team_image" />
+                app:srcCompat="@drawable/team_image"
+                android:clickable="true"
+                android:onClick="onMemberClicked"/>
 
             <TextView
                 android:id="@+id/stage_team_name"

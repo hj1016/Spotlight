@@ -34,6 +34,9 @@ public class HomeFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        // 아이템 데코레이션 추가
+        recyclerView.addItemDecoration(new VerticalSpaceItemDecoration(8));
+
         // 데이터 목록 생성 및 어댑터 설정
         posts = new ArrayList<>();
         initializeData();
