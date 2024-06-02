@@ -34,7 +34,9 @@
 
         <!-- 기타 액티비티 설정 -->
         <activity android:name=".AlarmActivity" />
+        <activity android:name=".AlarmGeneralActivity"/>
 
+        <activity android:name=".GeneralProposeManageActivity"/>
         <activity android:name=".GraduateStep1Activity" />
 
         <activity android:name=".ItemDetailActivity" />

@@ -1,31 +1,33 @@
 package com.example.spotlight;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import androidx.annotation.NonNull;
-import android.content.SharedPreferences;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import java.util.ArrayList;
-import java.util.List;
-import android.content.Intent;
-import android.view.View;
-import java.util.Arrays;
+import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigationView;
     private boolean isScrapped = false;
     private SharedPreferences sharedPreferences;
-
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setupBottomNavigationView();
+
 
         sharedPreferences = getSharedPreferences("AppPrefs", MODE_PRIVATE);
         checkLoginStatus();
@@ -41,9 +43,12 @@ public class MainActivity extends AppCompatActivity {
                     .replace(R.id.fragment_container, new HomeFragment())
                     .commit();
             bottomNavigationView.setSelectedItemId(R.id.menu_home);
+        } else {
+            // 초기 화면 설정
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, new HomeFragment())
+                    .commit();
         }
-
-
     }
 
     private void setupBottomNavigationView() {
@@ -73,69 +78,31 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    /*private void checkLoginStatus() {
-        // SharedPreferences를 사용하여 로그인 여부 확인
+    private void checkLoginStatus() {
         boolean isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false);
 
         if (!isLoggedIn) {
-            // 사용자가 로그인하지 않았다면 로그인 화면으로 이동
-            Intent loginIntent = new Intent(this, LoginActivity.class);
-            startActivity(loginIntent);
-            finish(); // MainActivity 종료
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, new HomeFragment())
+                    .commit();
         } else {
-            // 로그인 상태라면 바로 HomeFragment로
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, new HomeFragment())
                     .commit();
         }
-    }*/
-
-    //백엔드 연결 전 확인 용 코드, 백엔드 연결 시 위의 것으로 교체
-    private void checkLoginStatus() {
-    // SharedPreferences를 사용하여 로그인 여부 확인
-    boolean isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false);
-
-        if (!isLoggedIn) {
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, new HomeFragment())
-                    .commit();
-    } else {
-        // 로그인 상태라면 바로 HomeFragment로
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, new HomeFragment())
-                .commit();
     }
-}
 
     private void navigateToMyPage() {
         String userType = sharedPreferences.getString("Type", "Default");
         Fragment fragment;
         if (userType.equals("Recruiter")) {
             fragment = new MyPageRecruiterFragment();
-        } else { // "Default" 포함 나머지 모든 경우
+        } else {
             fragment = new MyPageFragment();
         }
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
     }
 
-
-
-    // Method to reset icon state of other items
-    private void resetIconState(int itemId) {
-        // Reset icon state of all items
-        if (itemId != R.id.menu_home) {
-            bottomNavigationView.getMenu().findItem(R.id.menu_home).setIcon(R.drawable.home_no_click);
-        }
-        if (itemId != R.id.menu_search) {
-            bottomNavigationView.getMenu().findItem(R.id.menu_search).setIcon(R.drawable.search_no_click);
-        }
-        if (itemId != R.id.menu_stage) {
-            bottomNavigationView.getMenu().findItem(R.id.menu_stage).setIcon(R.drawable.stage_no_click);
-        }
-        if (itemId != R.id.menu_mypage) {
-            bottomNavigationView.getMenu().findItem(R.id.menu_mypage).setIcon(R.drawable.mypage_no_click);
-        }
-    }
     public void onBackClicked(View view) {
         String userType = sharedPreferences.getString("userType", "general");
         Intent intent = new Intent(this, MainActivity.class);
@@ -157,7 +124,6 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, AlarmActivity.class);
         startActivity(intent);
     }
-
 
     public void onProfileClicked(View view) {
         Intent intent = new Intent(this, ProfileGraduatesActivity.class);
@@ -196,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void toggleScrap(View view) {
         ImageView scrapButton = (ImageView) view;
-        isScrapped = !isScrapped; // Toggle the state
+        isScrapped = !isScrapped;
         scrapButton.setImageResource(isScrapped ? R.drawable.scrap_yes : R.drawable.scrap_no);
     }
 
@@ -226,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onMemberClicked(View view) {
-        String userType = sharedPreferences.getString("Type", "general"); // 기본값을 "general"로 설정
+        String userType = sharedPreferences.getString("Type", "general");
         Intent intent;
         if (userType.equals("recruiter")) {
             intent = new Intent(this, ItemDetailMemberRecruiterActivity.class);
@@ -235,7 +201,4 @@ public class MainActivity extends AppCompatActivity {
         }
         startActivity(intent);
     }
-
-
-
 }

@@ -88,7 +88,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
                     FlexboxLayout.LayoutParams.WRAP_CONTENT,
                     FlexboxLayout.LayoutParams.WRAP_CONTENT
             );
-            layoutParams.setMargins(10, 5, 10, 5);
+            layoutParams.setMargins(10, 5, 10, 20);
             textView.setLayoutParams(layoutParams);
 
             flexboxLayout.addView(textView);

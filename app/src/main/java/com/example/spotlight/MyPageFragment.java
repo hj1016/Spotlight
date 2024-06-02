@@ -30,7 +30,16 @@ public class MyPageFragment extends Fragment {
     }
     public void onAlarmClicked(View view) {
         if (getActivity() != null) {
-            Intent intent = new Intent(getActivity(), AlarmActivity.class);
+            SharedPreferences prefs = getActivity().getSharedPreferences("Alarm", Context.MODE_PRIVATE);
+            String userType = prefs.getString("userType", "general");
+
+            Intent intent;
+            if ("graduates".equals(userType)) {
+                intent = new Intent(getActivity(), AlarmActivity.class);
+            } else {
+                intent = new Intent(getActivity(), AlarmGeneralActivity.class);
+            }
+
             startActivity(intent);
         }
     }
@@ -53,14 +62,32 @@ public class MyPageFragment extends Fragment {
 
     public void onManagePostingClicked(View view) {
         if (getActivity() != null) {
-            Intent intent = new Intent(getActivity(), ManagePostingActivity.class);
+            SharedPreferences prefs = getActivity().getSharedPreferences("ManagePosting", Context.MODE_PRIVATE);
+            String userType = prefs.getString("userType", "general");
+
+            Intent intent;
+            if ("graduates".equals(userType)) {
+                intent = new Intent(getActivity(), ManagePostingActivity.class);
+            } else {
+                intent = new Intent(getActivity(), ManagePostingGeneralActivity.class);
+            }
+
             startActivity(intent);
         }
     }
 
     public void onPortfolioClicked(View view) {
         if (getActivity() != null) {
-            Intent intent = new Intent(getActivity(), MyPagePortfolioActivity.class);
+            SharedPreferences prefs = getActivity().getSharedPreferences("Portfolio", Context.MODE_PRIVATE);
+            String userType = prefs.getString("userType", "general");
+
+            Intent intent;
+            if ("graduates".equals(userType)) {
+                intent = new Intent(getActivity(), MyPagePortfolioActivity.class);
+            } else {
+                intent = new Intent(getActivity(), MyPageGeneralPortfolioActivity.class);
+            }
+
             startActivity(intent);
         }
     }
@@ -74,7 +101,16 @@ public class MyPageFragment extends Fragment {
 
     public void onProposeClicked(View view) {
         if (getActivity() != null) {
-            Intent intent = new Intent(getActivity(), GraduatesProposeActivity.class);
+            SharedPreferences prefs = getActivity().getSharedPreferences("Propose", Context.MODE_PRIVATE);
+            String userType = prefs.getString("userType", "general");
+
+            Intent intent;
+            if ("graduates".equals(userType)) {
+                intent = new Intent(getActivity(), GraduatesProposeActivity.class);
+            } else {
+                intent = new Intent(getActivity(), GeneralProposeManageActivity.class);
+            }
+
             startActivity(intent);
         }
     }

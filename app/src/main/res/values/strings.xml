@@ -3,6 +3,9 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="app_name">Spotlight</string>
 
+    <string-array name="all_categories">
+    </string-array>
+
     <string-array name="big_categories">
         <item>인문</item>
         <item>사회</item>

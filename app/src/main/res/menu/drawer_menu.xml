@@ -2,41 +2,28 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_first"
-
+            android:id="@+id/nav_all"
             android:title="전체" />
         <item
-            android:id="@+id/nav_second"
-
+            android:id="@+id/nav_humanities"
             android:title="인문" />
         <item
-            android:id="@+id/nav_third"
-
-            android:title="인문" />
-        <item
-            android:id="@+id/nav_fourth"
-
+            android:id="@+id/nav_social"
             android:title="사회" />
         <item
-            android:id="@+id/nav_fifth"
-
+            android:id="@+id/nav_education"
             android:title="교육" />
         <item
-            android:id="@+id/nav_sixth"
-
+            android:id="@+id/nav_nature"
             android:title="자연" />
         <item
-            android:id="@+id/nav_seventh"
-
+            android:id="@+id/nav_engineering"
             android:title="공학" />
         <item
-            android:id="@+id/nav_eighth"
-
+            android:id="@+id/nav_medical"
             android:title="의약" />
         <item
-            android:id="@+id/nav_ninth"
-
+            android:id="@+id/nav_entertainment"
             android:title="예체능" />
-
     </group>
 </menu>
