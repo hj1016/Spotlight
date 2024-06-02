@@ -15,7 +15,9 @@
         app:srcCompat="@drawable/scrap_graduates_box"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        android:clickable="true"
+        android:onClick="OnMemberClicked"/>
 
     <ImageView
         android:id="@+id/scrap_graduates_photo"

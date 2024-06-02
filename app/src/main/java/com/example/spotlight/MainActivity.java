@@ -36,18 +36,48 @@ public class MainActivity extends AppCompatActivity {
 
         if (getIntent().getBooleanExtra("navigateToMyPage", false)) {
             navigateToMyPage();
-        }
-
-        if (getIntent().getBooleanExtra("shouldNavigateToHome", false)) {
+        } else if (getIntent().getBooleanExtra("shouldNavigateToHome", false)) {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, new HomeFragment())
                     .commit();
             bottomNavigationView.setSelectedItemId(R.id.menu_home);
         } else {
             // 초기 화면 설정
+            String fragmentToLoad = getIntent().getStringExtra("Fragment");
+            if (fragmentToLoad != null) {
+                loadFragment(fragmentToLoad);
+            } else {
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, new HomeFragment())
+                        .commit();
+                bottomNavigationView.setSelectedItemId(R.id.menu_home);
+            }
+        }
+    }
+
+    private void loadFragment(String fragmentName) {
+        Fragment selectedFragment = null;
+        int selectedMenuItemId = R.id.menu_home; // 기본값으로 홈 메뉴 설정
+        switch (fragmentName) {
+            case "MyPageRecruiterFragment":
+                selectedFragment = new MyPageRecruiterFragment();
+                selectedMenuItemId = R.id.menu_mypage;
+                break;
+            case "MyPageFragment":
+                selectedFragment = new MyPageFragment();
+                selectedMenuItemId = R.id.menu_mypage;
+                break;
+            default:
+                selectedFragment = new HomeFragment();
+                selectedMenuItemId = R.id.menu_home;
+                break;
+        }
+
+        if (selectedFragment != null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, new HomeFragment())
+                    .replace(R.id.fragment_container, selectedFragment)
                     .commit();
+            bottomNavigationView.setSelectedItemId(selectedMenuItemId);
         }
     }
 
@@ -201,4 +231,13 @@ public class MainActivity extends AppCompatActivity {
         }
         startActivity(intent);
     }
+
+    public void onReceivedProposeClicked(View view) {
+        Intent intent = new Intent(this, ItemDetailMemberRecruiterActivity.class);
+        startActivity(intent);
+    }
+
+
+
+
 }

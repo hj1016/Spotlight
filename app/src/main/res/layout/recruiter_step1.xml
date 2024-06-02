@@ -98,11 +98,12 @@
         android:id="@+id/recruiter_email_check_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="20dp"
         android:backgroundTint="#000000"
         android:fontFamily="@font/pretendard_bold"
         android:text="확인"
-        android:textColor="#FFFFFF"
+        android:textColor="#000000"
+        android:background="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="@+id/toolbar_recruiter_step1"
         app:layout_constraintTop_toTopOf="@+id/recruiter_email_check_text" />
 
