@@ -16,8 +16,7 @@ public class ItemDetailMemberRecruiterActivity extends AppCompatActivity {
     }
 
     public void onBackClicked(View view) {
-        Intent intent = new Intent(this, ItemDetailActivity.class);
-        startActivity(intent);
+        finish();
     }
 
     public void toggleScrap(View view) {

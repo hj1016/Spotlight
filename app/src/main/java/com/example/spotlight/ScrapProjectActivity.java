@@ -21,6 +21,8 @@ public class ScrapProjectActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.scrap_project);
 
+        sharedPreferences = getSharedPreferences("UserType", MODE_PRIVATE);
+
         // 리사이클러뷰 초기화
         recyclerView = findViewById(R.id.recyclerView_scrap_project);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

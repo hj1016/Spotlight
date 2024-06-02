@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="16dp">
+    android:padding="0dp">
 
     <ImageButton
         android:id="@+id/item_recruiter_propose_box"
@@ -15,7 +15,9 @@
         app:srcCompat="@drawable/propose_box"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        android:clickable="true"
+        android:onClick="onSendProposeClicked"/>
 
     <ImageView
         android:id="@+id/item_recruiter_propose_photo"
@@ -66,7 +68,7 @@
         app:layout_constraintTop_toTopOf="@id/item_recruiter_propose_text_container"
         android:layout_marginEnd="36dp"
         android:clickable="true"
-        android:onClick="onEditClicked"/>
+        android:onClick="onEditProposeClicked"/>
 
     <TextView
         android:id="@+id/item_recruiter_propose_company"
