@@ -1,6 +1,6 @@
 package com.example.spotlight.network.Response;
 
-import com.example.spotlight.network.DTO.PostDTO;
+import com.example.spotlight.network.DTO.FeedDTO;
 import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
@@ -11,8 +11,8 @@ public class SearchResponse {
     @SerializedName("message")
     private String message;
 
-    @SerializedName("posts")
-    private List<PostDTO> posts;
+    @SerializedName("feeds")
+    private List<FeedDTO> feeds;
 
     // Getters
 
@@ -24,7 +24,7 @@ public class SearchResponse {
         return message;
     }
 
-    public List<PostDTO> getPosts() {
-        return posts;
+    public List<FeedDTO> getFeeds() {
+        return feeds;
     }
 }
