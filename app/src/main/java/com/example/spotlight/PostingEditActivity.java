@@ -43,7 +43,7 @@ public class PostingEditActivity extends AppCompatActivity{
         finish();
     }
 
-    public void onCompleteClicked(View view) {
+    public void onCompletePostingEditClicked(View view) {
         finish();
     }
 }

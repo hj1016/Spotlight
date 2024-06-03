@@ -95,7 +95,7 @@
         app:layout_constraintTop_toBottomOf="@+id/recruiter_step2_image_plus"
         app:srcCompat="@drawable/continue_active"
         android:clickable="true"
-        android:onClick="onContinueClicked"/>
+        android:onClick="onContinueRecruiterSignup2Clicked"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

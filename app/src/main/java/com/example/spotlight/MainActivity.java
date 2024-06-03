@@ -145,6 +145,27 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
+    public void onContinueGraduatesSignupClicked(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    public void onContinueRecruiterSignup1Clicked(View view) {
+        Intent intent = new Intent(this, RecruiterStep2Activity.class);
+        startActivity(intent);
+    }
+
+    public void onContinueRecruiterSignup2Clicked(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("shouldNavigateToHome", true);  // 인텐트에 플래그 추가
+        startActivity(intent);
+    }
+
+    public void onContinueSchoolSearchClicked(View view) {
+        Intent intent = new Intent(this, SearchResultActivity.class);
+        startActivity(intent);
+    }
+
     public void onStageClicked(View view) {
         Intent intent = new Intent(this, StageDetailActivity.class);
         startActivity(intent);
@@ -174,6 +195,10 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, NewPostingActivity.class);
         startActivity(intent);
     }
+    public void onCompletePostingEditClicked(View view) {
+        finish();
+    }
+
 
     public void onInviteClicked(View view) {
         Intent intent = new Intent(this, NewPostingActivity.class);
@@ -236,6 +261,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ItemDetailMemberRecruiterActivity.class);
         startActivity(intent);
     }
+
 
 
 

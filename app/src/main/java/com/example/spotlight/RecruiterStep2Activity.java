@@ -17,7 +17,7 @@ public class RecruiterStep2Activity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void onContinueClicked(View view) {
+    public void onContinueRecruiterSignup2Clicked(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("shouldNavigateToHome", true);  // 인텐트에 플래그 추가
         startActivity(intent);

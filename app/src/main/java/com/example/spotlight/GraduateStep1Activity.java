@@ -17,7 +17,7 @@ public class GraduateStep1Activity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void onContinueClicked(View view) {
+    public void onContinueGraduatesSignupClicked(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }

@@ -17,7 +17,7 @@ public class RecruiterStep1Activity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void onContinueClicked(View view) {
+    public void onContinueRecruiterSignup1Clicked(View view) {
         Intent intent = new Intent(this, RecruiterStep2Activity.class);
         startActivity(intent);
     }

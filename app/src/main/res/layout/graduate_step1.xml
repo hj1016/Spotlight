@@ -152,7 +152,7 @@
         app:layout_constraintEnd_toEndOf="@+id/graduate_email_check_button"
         app:srcCompat="@drawable/continue_active"
         android:clickable="true"
-        android:onClick="onContinueClicked"/>
+        android:onClick="onContinueGraduatesSignupClicked"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

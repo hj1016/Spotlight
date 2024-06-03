@@ -74,6 +74,7 @@
         <activity android:name=".ScrapProjectActivity"/>
         <activity android:name=".ScrapStageActivity"/>
         <activity android:name=".SearchActivity"/>
+        <activity android:name=".SearchResultActivity"/>
         <activity android:name=".SearchSchoolActivity"/>
 
         <activity android:name=".SignupStep1Activity" />

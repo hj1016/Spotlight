@@ -153,7 +153,7 @@
         app:layout_constraintEnd_toEndOf="@+id/recruiter_email_check_button"
         app:srcCompat="@drawable/continue_active"
         android:clickable="true"
-        android:onClick="onContinueClicked"/>
+        android:onClick="onContinueRecruiterSignup1Clicked"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

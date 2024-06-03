@@ -17,4 +17,9 @@ public class SearchSchoolActivity  extends AppCompatActivity {
         finish();
     }
 
+    public void onContinueSchoolSearchClicked(View view) {
+        Intent intent = new Intent(this, SearchResultActivity.class);
+        startActivity(intent);
+    }
+
 }
