@@ -3,16 +3,25 @@ package com.example.spotlight;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
-import androidx.annotation.NonNull;
+import android.widget.*;
+
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+
+import com.example.spotlight.network.API.*;
+import com.example.spotlight.network.Request.FeedRequest;
+import com.example.spotlight.network.Response.FeedResponse;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.Arrays;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
+
+    private ApiService apiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -191,14 +202,106 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    // 게시물 작성
     public void onCompleteClicked(View view) {
-        Intent intent = new Intent(this, NewPostingActivity.class);
-        startActivity(intent);
-    }
-    public void onCompletePostingEditClicked(View view) {
-        finish();
+        // UI에서 데이터 수집
+        String title = ((EditText) findViewById(R.id.new_posting_project_text)).getText().toString();
+        String image = "URL"; // 이미지는 나중에 처리
+        String content = ((EditText) findViewById(R.id.new_posting_description_text)).getText().toString();
+        String bigCategory = ((Spinner) findViewById(R.id.big_category_spinner)).getSelectedItem().toString();
+        String smallCategory = ((Spinner) findViewById(R.id.small_category_spinner)).getSelectedItem().toString();
+        String hashtags = ((EditText) findViewById(R.id.new_posting_hashtag_text)).getText().toString();
+
+        // 요청 객체 생성
+        FeedRequest feedRequest = new FeedRequest();
+        feedRequest.setTitle(title);
+        feedRequest.setImage(image);
+        feedRequest.setContent(content);
+        feedRequest.setScrap(0);  // 기본값
+
+        // 카테고리 설정
+        FeedRequest.Category category = new FeedRequest.Category();
+        category.setMain(bigCategory);
+        category.setSub(smallCategory);
+        feedRequest.setCategory(category);
+
+        // 해시태그 설정
+        List<String> hashtagList = Arrays.asList(hashtags.split(","));
+        feedRequest.setHashtag(hashtagList);
+
+        // 게시물 작성 요청
+        Call<FeedResponse> call = apiService.createFeed(feedRequest);
+        call.enqueue(new Callback<FeedResponse>() {
+            @Override
+            public void onResponse(Call<FeedResponse> call, Response<FeedResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Toast.makeText(MainActivity.this, "게시물이 성공적으로 작성되었습니다!", Toast.LENGTH_SHORT).show();
+
+                    Intent intent = new Intent(MainActivity.this, NewPostingActivity.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(MainActivity.this, "게시물 작성에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<FeedResponse> call, Throwable t) {
+                Toast.makeText(MainActivity.this, "오류가 발생했습니다: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
+    // 게시물 수정
+    public void onCompletePostingEditClicked(View view) {
+        // 게시물 ID 가져오기
+        Intent intent = getIntent();
+        int feedId = intent.getIntExtra("FEED_ID", -1); // -1은 기본값으로 설정하여 만약 ID가 전달되지 않으면 오류를 방지합니다.
+
+        // UI에서 데이터 수집
+        String title = ((EditText) findViewById(R.id.posting_edit_project_text)).getText().toString();
+        String image = "URL"; // 이미지는 나중에 처리
+        String content = ((EditText) findViewById(R.id.posting_edit_description_text)).getText().toString();
+        String bigCategory = ((Spinner) findViewById(R.id.posting_edit_big_category_spinner)).getSelectedItem().toString();
+        String smallCategory = ((Spinner) findViewById(R.id.posting_edit_small_category_spinner)).getSelectedItem().toString();
+        String hashtags = ((EditText) findViewById(R.id.posting_edit_hashtag_text)).getText().toString();
+
+        // 요청 객체 생성
+        FeedRequest feedRequest = new FeedRequest();
+        feedRequest.setTitle(title);
+        feedRequest.setImage(image);
+        feedRequest.setContent(content);
+        feedRequest.setScrap(0);  // 기본값
+
+        // 카테고리 설정
+        FeedRequest.Category category = new FeedRequest.Category();
+        category.setMain(bigCategory);
+        category.setSub(smallCategory);
+        feedRequest.setCategory(category);
+
+        // 해시태그 설정
+        List<String> hashtagList = Arrays.asList(hashtags.split(","));
+        feedRequest.setHashtag(hashtagList);
+
+        // 게시물 수정 요청
+        Call<FeedResponse> call = apiService.updateFeed(feedId, feedRequest);
+        call.enqueue(new Callback<FeedResponse>() {
+            @Override
+            public void onResponse(Call<FeedResponse> call, Response<FeedResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Toast.makeText(MainActivity.this, "게시물이 성공적으로 수정되었습니다!", Toast.LENGTH_SHORT).show();
+                    // 게시물 수정 후 현재 화면 종료
+                    finish();
+                } else {
+                    Toast.makeText(MainActivity.this, "게시물 수정에 실패했습니다", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<FeedResponse> call, Throwable t) {
+                Toast.makeText(MainActivity.this, "오류가 발생했습니다: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
     public void onInviteClicked(View view) {
         Intent intent = new Intent(this, NewPostingActivity.class);
@@ -261,9 +364,5 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ItemDetailMemberRecruiterActivity.class);
         startActivity(intent);
     }
-
-
-
-
 
 }
