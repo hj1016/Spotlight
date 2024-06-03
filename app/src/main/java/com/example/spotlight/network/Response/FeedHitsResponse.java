@@ -4,6 +4,7 @@ public class FeedHitsResponse {
     private boolean success;
     private int hits_user;
     private int hits_recruiter;
+    private String message;
 
     // Getters and Setters
     public boolean isSuccess() {
@@ -28,5 +29,13 @@ public class FeedHitsResponse {
 
     public void setHits_recruiter(int hits_recruiter) {
         this.hits_recruiter = hits_recruiter;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

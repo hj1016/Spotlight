@@ -61,16 +61,18 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@id/toolbar_item_detail"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_item_detail">
+        app:layout_constraintTop_toBottomOf="@id/toolbar_item_detail"
+        app:layout_constraintVertical_bias="0.0">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_marginStart="27dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="27dp"
-            android:layout_marginTop="20dp">
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -84,98 +86,99 @@
                     app:srcCompat="@drawable/team_image" />
 
 
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/item_detail_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/pretendard_semibold"
+                        android:text="You little human"
+                        android:textColor="@color/black"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/item_detail_category"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:fontFamily="@font/pretendard_semibold"
+                        android:text="사진/영상"
+                        android:textColor="#a6a6a6"
+                        android:textSize="15sp" />
+
+
+                </LinearLayout>
+
+                //view count.
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
                     <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="50dp"
+                        android:layout_marginTop="8dp"
+                        android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/item_detail_title"
+                            android:id="@+id/item_detail_general"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="5dp"
-                            android:text="You little human"
                             android:fontFamily="@font/pretendard_semibold"
-                            android:textColor="@color/black"
-                            android:textSize="18sp"/>
-
-                        <TextView
-                            android:id="@+id/item_detail_category"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:text="사진/영상"
-                            android:fontFamily="@font/pretendard_semibold"
+                            android:text="viewer"
                             android:textColor="#a6a6a6"
-                            android:textSize="15sp"/>
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/item_detail_general_view"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:fontFamily="@font/pretendard_semibold"
+                            android:text="523"
+                            android:textColor="#a6a6a6"
+                            android:textSize="15sp" />
 
 
                     </LinearLayout>
 
-                    //view count.
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="45dp"
+                        android:orientation="horizontal">
 
-                        <LinearLayout
+                        <TextView
+                            android:id="@+id/item_detail_recruiter"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_marginStart="50dp"
-                            android:layout_marginTop="8dp">
+                            android:fontFamily="@font/pretendard_semibold"
+                            android:text="recruiter"
+                            android:textColor="#a6a6a6"
+                            android:textSize="15sp" />
 
-                            <TextView
-                                android:id="@+id/item_detail_general"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="viewer"
-                                android:fontFamily="@font/pretendard_semibold"
-                                android:textColor="#a6a6a6"
-                                android:textSize="15sp"/>
-
-                            <TextView
-                                android:id="@+id/item_detail_general_view"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="5dp"
-                                android:text="523"
-                                android:fontFamily="@font/pretendard_semibold"
-                                android:textColor="#a6a6a6"
-                                android:textSize="15sp"/>
-
-
-                        </LinearLayout>
-
-                        <LinearLayout
+                        <TextView
+                            android:id="@+id/item_detail_recruiter_view"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_marginStart="45dp">
-
-                            <TextView
-                                android:id="@+id/item_detail_recruiter"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="recruiter"
-                                android:fontFamily="@font/pretendard_semibold"
-                                android:textColor="#a6a6a6"
-                                android:textSize="15sp"/>
-
-                            <TextView
-                                android:id="@+id/item_detail_recruiter_view"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="5dp"
-                                android:text="124"
-                                android:fontFamily="@font/pretendard_semibold"
-                                android:textColor="#a6a6a6"
-                                android:textSize="15sp"/>
-
-                        </LinearLayout>
+                            android:layout_marginStart="5dp"
+                            android:fontFamily="@font/pretendard_semibold"
+                            android:text="124"
+                            android:textColor="#a6a6a6"
+                            android:textSize="15sp" />
 
                     </LinearLayout>
+
+                </LinearLayout>
             </LinearLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -186,11 +189,11 @@
                     android:id="@+id/viewPagerImages"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintDimensionRatio="H,1:1"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintDimensionRatio="H,1:1" /> <!-- 1:1 비율로 설정 -->
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" /> <!-- 1:1 비율로 설정 -->
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -200,11 +203,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
+                android:fontFamily="@font/pretendard_regular"
                 android:text="Est adipiscing neque pretium natoque nibh a odio. Ut vel enim feugiat odio adipiscing sagittis. Lorem ac nisl eget at. Dolor eu a a massa. Auctor aenean sagittis viverra lectus eu nisl. Senectus amet metus ullamcorper semper in massa placerat facilisis adipiscing. Sagittis vitae ac facilisi fames et vel. Ornare vitae penatibus interdum tellus sed nulla at.
 Gravida dolor in nibh elementum vulputate. Nullam lobortis nunc ornare montes morbi dignissim in ultrices turpis. Arcu etiam ipsum vivamus massa. Metus magnis est ut ultricies. Arcu hac vitae lacinia nam sed gravida. Tristique felis nunc justo senectus amet placerat. Ac vel libero dui ultrices arcu."
-                android:fontFamily="@font/pretendard_regular"
                 android:textColor="@color/black"
-                android:textSize="15sp"/>
+                android:textSize="15sp" />
 
             //hashtag
 
@@ -212,22 +215,21 @@ Gravida dolor in nibh elementum vulputate. Nullam lobortis nunc ornare montes mo
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-            <com.google.android.flexbox.FlexboxLayout
-                android:id="@+id/flexbox_hashtags"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:flexWrap="wrap"
-                app:justifyContent="flex_start"
-                app:alignItems="flex_start"
-                android:layout_marginTop="10dp"
-                android:padding="8dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                <com.google.android.flexbox.FlexboxLayout
+                    android:id="@+id/flexbox_hashtags"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:padding="8dp"
+                    app:alignItems="flex_start"
+                    app:flexWrap="wrap"
+                    app:justifyContent="flex_start"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
 
-
-            </com.google.android.flexbox.FlexboxLayout>
+                </com.google.android.flexbox.FlexboxLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
@@ -235,56 +237,57 @@ Gravida dolor in nibh elementum vulputate. Nullam lobortis nunc ornare montes mo
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
+                android:fontFamily="@font/pretendard_bold"
                 android:text="팀원 정보"
                 android:textColor="@color/black"
-                android:textSize="18sp"
-                android:fontFamily="@font/pretendard_bold"/>
+                android:textSize="18sp" />
 
-        //team info
-        <LinearLayout
-           android:layout_width="match_parent"
-           android:layout_height="match_parent"
-           android:orientation="horizontal">
+            //team info
 
             <LinearLayout
-                android:id="@+id/item_detail_team_member"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:gravity="center_vertical"
-                android:orientation="vertical">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
-                <ImageView
-                    android:id="@+id/item_detail_member_image"
+                <LinearLayout
+                    android:id="@+id/item_detail_team_member"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:padding="8dp"
-                    android:src="@drawable/member_image"
-                    android:clickable="true"
-                    android:onClick="onMemberClicked"/>
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/item_detail_member_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="김이름"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/pretendard_semibold"
-                    android:textSize="15dp" />
+                    <ImageView
+                        android:id="@+id/item_detail_member_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:clickable="true"
+                        android:onClick="onMemberClicked"
+                        android:padding="8dp"
+                        android:src="@drawable/member_image" />
 
-                <TextView
-                    android:id="@+id/item_detail_member_role"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="기획/디렉팅"
-                    android:textColor="#a6a6a6"
-                    android:fontFamily="@font/pretendard_semibold"
-                    android:textSize="15dp" />
+                    <TextView
+                        android:id="@+id/item_detail_member_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:fontFamily="@font/pretendard_semibold"
+                        android:text="김이름"
+                        android:textColor="@color/black"
+                        android:textSize="15dp" />
 
-            </LinearLayout>
+                    <TextView
+                        android:id="@+id/item_detail_member_role"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:fontFamily="@font/pretendard_semibold"
+                        android:text="기획/디렉팅"
+                        android:textColor="#a6a6a6"
+                        android:textSize="15dp" />
+
+                </LinearLayout>
             </LinearLayout>
 
             <TextView
@@ -292,10 +295,10 @@ Gravida dolor in nibh elementum vulputate. Nullam lobortis nunc ornare montes mo
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
+                android:fontFamily="@font/pretendard_bold"
                 android:text="전시 정보"
                 android:textColor="@color/black"
-                android:textSize="18sp"
-                android:fontFamily="@font/pretendard_bold"/>
+                android:textSize="18sp" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -308,51 +311,48 @@ Gravida dolor in nibh elementum vulputate. Nullam lobortis nunc ornare montes mo
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="80dp"
                     android:src="@drawable/exhibit_info_box"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/item_detail_exhibition_location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="25dp"
-                    android:text="서울여자대학교 조형예술관 B1"
-                    app:layout_constraintTop_toTopOf="@+id/item_detail_exhibition_box"
-                    app:layout_constraintStart_toStartOf="@+id/item_detail_exhibition_box"
+                    android:layout_marginTop="28dp"
                     android:fontFamily="@font/pretendard_semibold"
+                    android:text="서울여자대학교 조형예술관 B1"
                     android:textColor="@color/black"
                     android:textSize="15sp"
-                    android:layout_marginTop="28dp"/>
+                    app:layout_constraintStart_toStartOf="@+id/item_detail_exhibition_box"
+                    app:layout_constraintTop_toTopOf="@+id/item_detail_exhibition_box" />
 
                 <TextView
                     android:id="@+id/item_detail_exhibition_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2024.04.01~2024.04.08"
-                    app:layout_constraintTop_toBottomOf="@id/item_detail_exhibition_location"
-                    app:layout_constraintStart_toStartOf="@id/item_detail_exhibition_location"
+                    android:layout_marginTop="8dp"
                     android:fontFamily="@font/pretendard_regular"
+                    android:text="2024.04.01~2024.04.08"
                     android:textColor="@color/black"
                     android:textSize="15sp"
-                    android:layout_marginTop="8dp"/>
+                    app:layout_constraintStart_toStartOf="@id/item_detail_exhibition_location"
+                    app:layout_constraintTop_toBottomOf="@id/item_detail_exhibition_location" />
 
                 <TextView
                     android:id="@+id/item_detail_exhibition_time"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="20dp"
-                    android:text="10:00~16:00"
-                    app:layout_constraintTop_toTopOf="@id/item_detail_exhibition_date"
-                    app:layout_constraintEnd_toEndOf="@id/item_detail_exhibition_box"
                     android:fontFamily="@font/pretendard_regular"
+                    android:text="10:00~16:00"
                     android:textColor="@color/black"
-                    android:textSize="15sp" />
+                    android:textSize="15sp"
+                    app:layout_constraintEnd_toEndOf="@id/item_detail_exhibition_box"
+                    app:layout_constraintTop_toTopOf="@id/item_detail_exhibition_date" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
 
 
         </LinearLayout>
