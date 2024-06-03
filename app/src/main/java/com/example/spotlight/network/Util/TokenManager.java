@@ -3,6 +3,8 @@ package com.example.spotlight.network.Util;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.auth0.android.jwt.JWT;
+
 public class TokenManager {
     private static final String PREFS_NAME = "MyAppPrefs";
     private static final String TOKEN_KEY = "accessToken";
@@ -28,4 +30,50 @@ public class TokenManager {
         editor.remove(TOKEN_KEY);
         editor.apply();
     }
+
+    // 토큰에서 ROLE 추출
+    public String getRole() {
+        String token = getToken();
+        if (token == null) {
+            return null;
+        }
+        try {
+            JWT jwt = new JWT(token);
+            return jwt.getClaim("role").asString();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    // 토큰에서 USER_ID 추출
+    public String getUserId() {
+        String token = getToken();
+        if (token == null) {
+            return null;
+        }
+        try {
+            JWT jwt = new JWT(token);
+            return jwt.getClaim("userId").asString();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    // 토큰에서 ID 추출
+    public String getId() {
+        String token = getToken();
+        if (token == null) {
+            return null;
+        }
+        try {
+            JWT jwt = new JWT(token);
+            return jwt.getClaim("id").asString();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 }
