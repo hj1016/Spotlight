@@ -1,7 +1,6 @@
 package com.example.spotlight;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -9,10 +8,10 @@ import android.content.Intent;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.spotlight.network.ApiClient;
-import com.example.spotlight.network.ApiService;
-import com.example.spotlight.network.LoginRequest;
-import com.example.spotlight.network.LoginResponse;
+import com.example.spotlight.network.API.ApiClient;
+import com.example.spotlight.network.API.ApiService;
+import com.example.spotlight.network.Request.LoginRequest;
+import com.example.spotlight.network.Response.LoginResponse;
 
 import retrofit2.Call;
 import retrofit2.Callback;
