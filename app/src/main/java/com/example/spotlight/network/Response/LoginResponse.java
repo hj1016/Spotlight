@@ -1,16 +1,21 @@
 package com.example.spotlight.network.Response;
 
-public class LoginResponse {
-    private boolean success;
-    private String message;
-    private String accessToken; // Assuming you receive a token upon successful login
+import com.example.spotlight.network.DTO.UserDTO;
 
-    public boolean isSuccess() {
-        return success;
+public class LoginResponse {
+    private int status;
+    private String message;
+    private UserDTO user;
+    private String accesstoken;
+    private String refreshToken;
+
+    // Getters and Setters
+    public int getStatus() {
+        return status;
     }
 
-    public void setSuccess(boolean success) {
-        this.success = success;
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public String getMessage() {
@@ -21,11 +26,27 @@ public class LoginResponse {
         this.message = message;
     }
 
-    public String getAccessToken() {
-        return accessToken;
+    public UserDTO getUser() {
+        return user;
     }
 
-    public void setAccessToken(String accessToken) {
-        this.accessToken = accessToken;
+    public void setUser(UserDTO user) {
+        this.user = user;
+    }
+
+    public String getAccesstoken() {
+        return accesstoken;
+    }
+
+    public void setAccesstoken(String accesstoken) {
+        this.accesstoken = accesstoken;
+    }
+
+    public String getRefreshToken() {
+        return refreshToken;
+    }
+
+    public void setRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
     }
 }

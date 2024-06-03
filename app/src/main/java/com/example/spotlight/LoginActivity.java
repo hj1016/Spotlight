@@ -1,6 +1,8 @@
 package com.example.spotlight;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -12,6 +14,8 @@ import com.example.spotlight.network.API.ApiClient;
 import com.example.spotlight.network.API.ApiService;
 import com.example.spotlight.network.Request.LoginRequest;
 import com.example.spotlight.network.Response.LoginResponse;
+import com.example.spotlight.network.Util.TokenManager;
+import com.google.gson.Gson;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -23,6 +27,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button loginButton;
     private Button signupButton;
     private ApiService apiService;
+    private TokenManager tokenManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +41,7 @@ public class LoginActivity extends AppCompatActivity {
         signupButton = findViewById(R.id.signupButton);
 
         apiService = ApiClient.getClient().create(ApiService.class);
+        tokenManager = new TokenManager(this);
 
         // 로그인 버튼 리스너
         loginButton.setOnClickListener(v -> loginUser());
@@ -60,10 +66,13 @@ public class LoginActivity extends AppCompatActivity {
         apiService.login(loginRequest).enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+
                 if (response.isSuccessful() && response.body() != null) {
                     LoginResponse loginResponse = response.body();
-                    if (loginResponse.isSuccess()) {
+
+                    if (loginResponse.getStatus() == 200) {
                         Toast.makeText(LoginActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
+                        tokenManager.setToken(loginResponse.getAccesstoken());
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);
                         finish();
@@ -80,6 +89,13 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, "로그인 에러: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void saveToken(String token) {
+        SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("auth_token", token);
+        editor.apply();
     }
 
     private void performSignUp() {
