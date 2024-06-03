@@ -88,9 +88,13 @@ public class SignupStep5Activity extends AppCompatActivity {
                         Toast.makeText(SignupStep5Activity.this, "회원가입 성공", Toast.LENGTH_SHORT).show();
                         if ("STUDENT".equals(role)) {
                             Intent intent = new Intent(SignupStep5Activity.this, GraduateStep1Activity.class);
+                            intent.putExtra("email", getIntent().getStringExtra("email"));
+                            intent.putExtra("id", getIntent().getStringExtra("id"));
                             startActivity(intent);
                         } else if ("RECRUITER".equals(role)) {
                             Intent intent = new Intent(SignupStep5Activity.this, RecruiterStep1Activity.class);
+                            intent.putExtra("email", getIntent().getStringExtra("email"));
+                            intent.putExtra("id", getIntent().getStringExtra("id"));
                             startActivity(intent);
                         } else {
                             Intent intent = new Intent(SignupStep5Activity.this, MainActivity.class);
