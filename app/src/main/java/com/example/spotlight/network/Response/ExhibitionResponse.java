@@ -1,5 +1,6 @@
-package com.example.spotlight.network;
+package com.example.spotlight.network.Response;
 
+import com.example.spotlight.network.Request.FeedRequest;
 import com.google.gson.annotations.SerializedName;
 import java.util.Optional;
 

@@ -1,5 +1,8 @@
-package com.example.spotlight.network;
+package com.example.spotlight.network.DTO;
 
+import com.example.spotlight.network.DTO.CategoryDTO;
+import com.example.spotlight.network.DTO.ExhibitionDTO;
+import com.example.spotlight.network.DTO.MemberDTO;
 import com.google.gson.annotations.SerializedName;
 import java.util.List;
 

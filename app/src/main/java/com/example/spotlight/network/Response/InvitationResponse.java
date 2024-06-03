@@ -1,10 +1,11 @@
-package com.example.spotlight.network;
+package com.example.spotlight.network.Response;
 
-public class LoginResponse {
+public class InvitationResponse {
     private boolean success;
     private String message;
-    private String accessToken; // Assuming you receive a token upon successful login
+    private String error;
 
+    // Getters and Setters
     public boolean isSuccess() {
         return success;
     }
@@ -21,11 +22,11 @@ public class LoginResponse {
         this.message = message;
     }
 
-    public String getAccessToken() {
-        return accessToken;
+    public String getError() {
+        return error;
     }
 
-    public void setAccessToken(String accessToken) {
-        this.accessToken = accessToken;
+    public void setError(String error) {
+        this.error = error;
     }
 }

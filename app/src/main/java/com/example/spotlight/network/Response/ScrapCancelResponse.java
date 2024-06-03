@@ -1,11 +1,14 @@
-package com.example.spotlight.network;
+package com.example.spotlight.network.Response;
 
-public class InvitationResponse {
+import com.google.gson.annotations.SerializedName;
+
+public class ScrapCancelResponse {
+    @SerializedName("success")
     private boolean success;
-    private String message;
-    private String error;
 
-    // Getters and Setters
+    @SerializedName("message")
+    private String message;
+
     public boolean isSuccess() {
         return success;
     }
@@ -20,13 +23,5 @@ public class InvitationResponse {
 
     public void setMessage(String message) {
         this.message = message;
-    }
-
-    public String getError() {
-        return error;
-    }
-
-    public void setError(String error) {
-        this.error = error;
     }
 }

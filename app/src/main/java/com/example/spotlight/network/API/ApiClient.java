@@ -1,4 +1,4 @@
-package com.example.spotlight.network;
+package com.example.spotlight.network.API;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

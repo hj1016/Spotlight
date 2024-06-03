@@ -1,4 +1,4 @@
-package com.example.spotlight.network;
+package com.example.spotlight.network.DTO;
 
 import com.google.gson.annotations.SerializedName;
 

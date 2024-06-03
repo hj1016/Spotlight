@@ -1,13 +1,9 @@
-package com.example.spotlight.network;
+package com.example.spotlight.network.Response;
 
-import com.google.gson.annotations.SerializedName;
-
-public class ScrapCancelResponse {
-    @SerializedName("success")
+public class LoginResponse {
     private boolean success;
-
-    @SerializedName("message")
     private String message;
+    private String accessToken; // Assuming you receive a token upon successful login
 
     public boolean isSuccess() {
         return success;
@@ -23,5 +19,13 @@ public class ScrapCancelResponse {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String getAccessToken() {
+        return accessToken;
+    }
+
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
     }
 }

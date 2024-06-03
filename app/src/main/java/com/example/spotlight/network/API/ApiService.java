@@ -1,4 +1,22 @@
-package com.example.spotlight.network;
+package com.example.spotlight.network.API;
+
+import com.example.spotlight.network.DTO.ProposalDTO;
+import com.example.spotlight.network.Request.FeedRequest;
+import com.example.spotlight.network.Request.InvitationRequest;
+import com.example.spotlight.network.Request.LoginRequest;
+import com.example.spotlight.network.Request.ProposalRequest;
+import com.example.spotlight.network.Response.ApiResponse;
+import com.example.spotlight.network.Response.DeleteResponse;
+import com.example.spotlight.network.Response.ExhibitionResponse;
+import com.example.spotlight.network.Response.FeedHitsResponse;
+import com.example.spotlight.network.Response.FeedResponse;
+import com.example.spotlight.network.Response.HashtagHistoryResponse;
+import com.example.spotlight.network.Response.InvitationResponse;
+import com.example.spotlight.network.Response.LoginResponse;
+import com.example.spotlight.network.Response.MemberResponse;
+import com.example.spotlight.network.Response.ScrapCancelResponse;
+import com.example.spotlight.network.Response.ScrapResponse;
+import com.example.spotlight.network.Response.SearchResponse;
 
 import java.util.Map;
 

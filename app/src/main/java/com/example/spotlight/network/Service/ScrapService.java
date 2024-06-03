@@ -1,4 +1,6 @@
-package com.example.spotlight.network;
+package com.example.spotlight.network.Service;
+
+import com.example.spotlight.network.API.ApiService;
 
 import java.util.Map;
 

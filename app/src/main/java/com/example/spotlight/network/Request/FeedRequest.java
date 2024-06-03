@@ -1,4 +1,4 @@
-package com.example.spotlight.network;
+package com.example.spotlight.network.Request;
 
 import java.util.List;
 

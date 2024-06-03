@@ -1,8 +1,8 @@
-package com.example.spotlight.network;
+package com.example.spotlight.network.Response;
 
 import com.google.gson.annotations.SerializedName;
 
-public class ScrapResponse {
+public class UnscrapResponse {
     @SerializedName("success")
     private boolean success;
 
