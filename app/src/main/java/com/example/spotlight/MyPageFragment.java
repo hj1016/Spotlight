@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.content.Intent;
 import androidx.annotation.Nullable;
 
+import com.example.spotlight.network.Util.TokenManager;
+
 public class MyPageFragment extends Fragment {
     @Nullable
     @Override
@@ -62,11 +64,11 @@ public class MyPageFragment extends Fragment {
 
     public void onManagePostingClicked(View view) {
         if (getActivity() != null) {
-            SharedPreferences prefs = getActivity().getSharedPreferences("ManagePosting", Context.MODE_PRIVATE);
-            String userType = prefs.getString("userType", "general");
+            TokenManager tokenManager = new TokenManager(getActivity());
+            String userType = tokenManager.getRole();
 
             Intent intent;
-            if ("graduates".equals(userType)) {
+            if ("STUDENT".equals(userType)) {
                 intent = new Intent(getActivity(), ManagePostingActivity.class);
             } else {
                 intent = new Intent(getActivity(), ManagePostingGeneralActivity.class);
