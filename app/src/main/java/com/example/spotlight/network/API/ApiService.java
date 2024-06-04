@@ -110,19 +110,19 @@ public interface ApiService {
     Call<List<ScrapDTO>> getScrapStudents();
 
     // 공고제안서 목록 조회 (학생) 0
-    @GET("/api/proposal/student")
+    @GET("/api/v1/proposal/student")
     Call<List<ProposalDTO>> getProposalsByStudent(@Header("Authorization") String token);
 
     // 공고제안서 내용 조회 (학생) 0
-    @GET("/api/proposal/student/{proposalId}")
+    @GET("/api/v1/proposal/student/{proposalId}")
     Call<ProposalDTO> getProposalDetailsForStudent(@Path("proposalId") int proposalId, @Header("Authorization") String token);
 
     // 공고제안서 목록 조회 (리크루터) 0
-    @GET("/api/proposal/recruiter")
+    @GET("/api/v1/proposal/recruiter")
     Call<List<ProposalDTO>> getProposalsByRecruiter(@Header("Authorization") String token);
 
     // 공고제안서 내용 조회 (리크루터) 0
-    @GET("/api/proposal/recruiter/{proposalId}")
+    @GET("/api/v1/proposal/recruiter/{proposalId}")
     Call<ProposalDTO> getProposalDetailsForRecruiter(@Path("proposalId") int proposalId, @Header("Authorization") String token);
 
     // 내가 올린 피드 목록 조회 0
@@ -226,13 +226,13 @@ public interface ApiService {
     );
 
     // 공고 제안서 저장
-    @POST("/api/v1/proposal")
+    @POST("/api/v1/proposal/recruiter")
     Call<ApiResponse> createProposal(
             @Header("Authorization") String token,
             @Body ProposalDTO proposalDTO
     );
 
     // 공고 제안서 수정
-    @PUT("/api/v1/proposal/{proposalId}")
+    @PUT("/api/v1/proposal/recruiter/{proposalId}")
     Call<ApiResponse> updateProposal(@Path("proposalId") int proposalId, @Body ProposalRequest updateRequest, @Header("Authorization") String token);
 }
