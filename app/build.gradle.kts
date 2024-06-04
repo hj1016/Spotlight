@@ -57,4 +57,5 @@ dependencies {
     implementation ("com.google.code.gson:gson:2.10.1")
     implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
     implementation("com.google.firebase:firebase-analytics")
+    implementation ("com.auth0.android:jwtdecode:2.0.0")
 }

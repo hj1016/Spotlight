@@ -1,7 +1,11 @@
 package com.example.spotlight.network.DTO;
 
+import com.google.gson.annotations.SerializedName;
+
 public class PasswordValidationResponseDTO {
+    @SerializedName("valid")
     private boolean isValid;
+
     private String message;
 
     // 기본 생성자

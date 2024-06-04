@@ -59,7 +59,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:fontFamily="@font/pretendard_bold"
-        android:text="학교명"
+        android:text="회사명"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/recruiter_step1_title"
         app:layout_constraintTop_toBottomOf="@+id/recruiter_step1_title" />
@@ -69,7 +69,7 @@
         android:layout_width="330dp"
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
-        android:hint="학교명 검색"
+        android:hint="회사명 검색"
         android:inputType="text"
         app:layout_constraintStart_toStartOf="@+id/recruiter_company_check"
         app:layout_constraintTop_toBottomOf="@id/recruiter_company_check" />
@@ -105,7 +105,8 @@
         android:textColor="#000000"
         android:background="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="@+id/toolbar_recruiter_step1"
-        app:layout_constraintTop_toTopOf="@+id/recruiter_email_check_text" />
+        app:layout_constraintTop_toTopOf="@+id/recruiter_email_check_text"
+        android:onClick="onEmailCheckClicked"/>
 
     <TextView
         android:id="@+id/recruiter_email_toast"
@@ -113,7 +114,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
         android:fontFamily="@font/pretendard_regular"
-        android:text="*인증 받으실 학교 이메일 주소를 입력해주세요"
+        android:text="*인증 받으실 회사 이메일 주소를 입력해주세요"
         android:textColor="#a6a6a6"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="@+id/recruiter_email_check_text"
@@ -139,7 +140,6 @@
         android:inputType="text"
         app:layout_constraintStart_toStartOf="@+id/recruiter_num_check"
         app:layout_constraintTop_toBottomOf="@id/recruiter_num_check" />
-
 
 
     <ImageView

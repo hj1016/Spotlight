@@ -7,14 +7,65 @@ public class FeedRequest {
     private String image;
     private String content;
     private int scrap;
-    private Member member;
-    private Exhibition exhibition;
-    private int hits_user;
-    private int hits_recruiter;
     private Category category;
     private List<String> hashtag;
+    private Exhibition exhibition;
 
-    // Getters and Setters
+    // Category 내부 클래스
+    public static class Category {
+        private String main;
+        private String sub;
+
+        public String getMain() {
+            return main;
+        }
+
+        public void setMain(String main) {
+            this.main = main;
+        }
+
+        public String getSub() {
+            return sub;
+        }
+
+        public void setSub(String sub) {
+            this.sub = sub;
+        }
+    }
+
+    // Exhibition 내부 클래스
+    public static class Exhibition {
+        private String location;
+        private String schedule;
+        private String time;
+
+        public String getLocation() {
+            return location;
+        }
+
+        public void setLocation(String location) {
+            this.location = location;
+        }
+
+        public String getSchedule() {
+            return schedule;
+        }
+
+        public void setSchedule(String schedule) {
+            this.schedule = schedule;
+        }
+
+        public String getTime() {
+            return time;
+        }
+
+        public void setTime(String time) {
+            this.time = time;
+        }
+    }
+
+    // Getter와 Setter 메서드들
+    // (모든 속성에 대해 작성해야 합니다)
     public String getTitle() {
         return title;
     }
@@ -47,38 +98,6 @@ public class FeedRequest {
         this.scrap = scrap;
     }
 
-    public Member getMember() {
-        return member;
-    }
-
-    public void setMember(Member member) {
-        this.member = member;
-    }
-
-    public Exhibition getExhibition() {
-        return exhibition;
-    }
-
-    public void setExhibition(Exhibition exhibition) {
-        this.exhibition = exhibition;
-    }
-
-    public int getHits_user() {
-        return hits_user;
-    }
-
-    public void setHits_user(int hits_user) {
-        this.hits_user = hits_user;
-    }
-
-    public int getHits_recruiter() {
-        return hits_recruiter;
-    }
-
-    public void setHits_recruiter(int hits_recruiter) {
-        this.hits_recruiter = hits_recruiter;
-    }
-
     public Category getCategory() {
         return category;
     }
@@ -95,78 +114,11 @@ public class FeedRequest {
         this.hashtag = hashtag;
     }
 
-    public static class Member {
-        private String name;
-        private String role;
-
-        // Getters and Setters
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getRole() {
-            return role;
-        }
-
-        public void setRole(String role) {
-            this.role = role;
-        }
+    public Exhibition getExhibition() {
+        return exhibition;
     }
 
-    public static class Exhibition {
-        private String location;
-        private String schedule;
-        private String time;
-
-        // Getters and Setters
-        public String getLocation() {
-            return location;
-        }
-
-        public void setLocation(String location) {
-            this.location = location;
-        }
-
-        public String getSchedule() {
-            return schedule;
-        }
-
-        public void setSchedule(String schedule) {
-            this.schedule = schedule;
-        }
-
-        public String getTime() {
-            return time;
-        }
-
-        public void setTime(String time) {
-            this.time = time;
-        }
-    }
-
-    public static class Category {
-        private String main;
-        private String sub;
-
-        // Getters and Setters
-        public String getMain() {
-            return main;
-        }
-
-        public void setMain(String main) {
-            this.main = main;
-        }
-
-        public String getSub() {
-            return sub;
-        }
-
-        public void setSub(String sub) {
-            this.sub = sub;
-        }
+    public void setExhibition(Exhibition exhibition) {
+        this.exhibition = exhibition;
     }
 }
