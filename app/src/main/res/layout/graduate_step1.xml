@@ -116,18 +116,6 @@
         app:layout_constraintStart_toStartOf="@+id/graduate_email_check"
         app:layout_constraintTop_toBottomOf="@id/graduate_email_check" />
 
-    <Button
-        android:id="@+id/graduate_email_check_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:backgroundTint="#000000"
-        android:fontFamily="@font/pretendard_bold"
-        android:text="확인"
-        android:textColor="#000000"
-        android:background="@android:color/transparent"
-        app:layout_constraintEnd_toEndOf="@+id/toolbar_graduate_step1"
-        app:layout_constraintTop_toTopOf="@+id/graduate_email_check_text" />
 
     <TextView
         android:id="@+id/graduate_email_toast"
@@ -141,14 +129,49 @@
         app:layout_constraintStart_toStartOf="@+id/graduate_email_check_text"
         app:layout_constraintTop_toBottomOf="@+id/graduate_email_check_text" />
 
+    <TextView
+        android:id="@+id/graduate_num_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/pretendard_bold"
+        android:text="인증번호"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/graduate_email_toast"
+        app:layout_constraintTop_toBottomOf="@+id/graduate_email_toast" />
+
+    <EditText
+        android:id="@+id/graduate_num_check_text"
+        android:layout_width="330dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="받으신 인증 번호를 입력해주세요.."
+        android:inputType="text"
+        app:layout_constraintStart_toStartOf="@+id/graduate_num_check"
+        app:layout_constraintTop_toBottomOf="@id/graduate_num_check" />
+
+    <Button
+        android:id="@+id/graduate_email_check_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:backgroundTint="#000000"
+        android:fontFamily="@font/pretendard_bold"
+        android:text="확인"
+        android:textColor="#000000"
+        android:background="@android:color/transparent"
+        app:layout_constraintEnd_toEndOf="@+id/toolbar_graduate_step1"
+        app:layout_constraintTop_toTopOf="@+id/graduate_email_check_text"
+        android:onClick="onEmailCheckClicked"/>
+
     <ImageView
         android:id="@+id/graduate_signup_continue"
         android:layout_width="170dp"
         android:layout_height="84dp"
         android:layout_marginStart="180dp"
         android:layout_marginTop="70dp"
-        app:layout_constraintStart_toStartOf="@+id/graduate_email_toast"
-        app:layout_constraintTop_toBottomOf="@+id/graduate_email_toast"
+        app:layout_constraintStart_toStartOf="@+id/graduate_num_check"
+        app:layout_constraintTop_toBottomOf="@+id/graduate_num_check"
         app:layout_constraintEnd_toEndOf="@+id/graduate_email_check_button"
         app:srcCompat="@drawable/continue_active"
         android:clickable="true"
