@@ -25,6 +25,9 @@
         app:itemIconSize="50dp"
         app:labelVisibilityMode="unlabeled"
         app:menu="@menu/menu_bottom"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:itemBackground="@android:color/transparent"
+        app:itemRippleColor="@android:color/transparent"
+        style="@style/BottomNavigationViewNoRipple"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

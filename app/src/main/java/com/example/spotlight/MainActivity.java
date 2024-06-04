@@ -19,8 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
     private boolean isScrapped = false;
     private SharedPreferences sharedPreferences;
-    private DrawerLayout drawerLayout;
-    private NavigationView navigationView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,10 +101,34 @@ public class MainActivity extends AppCompatActivity {
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container, selectedFragment)
                         .commit();
+                updateBottomNavigationIcons(itemId);
             }
             return true;
         });
     }
+
+    private void updateBottomNavigationIcons(int selectedItemId) {
+        MenuItem homeItem = bottomNavigationView.getMenu().findItem(R.id.menu_home);
+        MenuItem searchItem = bottomNavigationView.getMenu().findItem(R.id.menu_search);
+        MenuItem stageItem = bottomNavigationView.getMenu().findItem(R.id.menu_stage);
+        MenuItem mypageItem = bottomNavigationView.getMenu().findItem(R.id.menu_mypage);
+
+        homeItem.setIcon(R.drawable.home_no_click);
+        searchItem.setIcon(R.drawable.search_no_click);
+        stageItem.setIcon(R.drawable.stage_no_click);
+        mypageItem.setIcon(R.drawable.mypage_no_click);
+
+        if (selectedItemId == R.id.menu_home) {
+            homeItem.setIcon(R.drawable.home_click);
+        } else if (selectedItemId == R.id.menu_search) {
+            searchItem.setIcon(R.drawable.search_click);
+        } else if (selectedItemId == R.id.menu_stage) {
+            stageItem.setIcon(R.drawable.stage_click);
+        } else if (selectedItemId == R.id.menu_mypage) {
+            mypageItem.setIcon(R.drawable.mypage_click);
+        }
+    }
+
 
 
     private void checkLoginStatus() {
@@ -122,15 +145,22 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
     private void navigateToMyPage() {
         String userType = sharedPreferences.getString("Type", "Default");
-        Fragment fragment;
+        Fragment fragment = null;
         if (userType.equals("Recruiter")) {
             fragment = new MyPageRecruiterFragment();
         } else {
             fragment = new MyPageFragment();
         }
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
+
+        if (fragment != null) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, fragment)
+                    .commit();
+            updateBottomNavigationIcons(R.id.menu_mypage);
+        }
     }
 
     public void onBackClicked(View view) {

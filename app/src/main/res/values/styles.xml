@@ -16,4 +16,14 @@
             <item name="android:textColor">@android:color/white</item>
         </style>
 
+        <style name="NoRippleStyle">
+            <item name="android:foreground">@null</item>
+            <item name="android:background">@null</item>
+        </style>
+
+        <style name="BottomNavigationViewNoRipple" parent="Widget.MaterialComponents.BottomNavigationView.Colored">
+            <item name="itemRippleColor">@android:color/transparent</item>
+            <item name="android:background">@null</item>
+        </style>
+
 </resources>
