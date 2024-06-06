@@ -6,33 +6,47 @@ import android.content.SharedPreferences;
 import com.auth0.android.jwt.JWT;
 
 public class TokenManager {
-    private static final String PREFS_NAME = "MyAppPrefs";
+    private static final String PREFS_NAME = "SPOTLIGHT_PREFS";
     private static final String TOKEN_KEY = "accessToken";
 
-    private SharedPreferences sharedPreferences;
+    private static SharedPreferences sharedPreferences;
 
-    public TokenManager(Context context) {
-        sharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+    public static void initialize(Context context) {
+        if (sharedPreferences == null) {
+            sharedPreferences = context.getApplicationContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        }
     }
 
-    public void setToken(String token) {
+    public static void setToken(String token) {
+        if (sharedPreferences == null) {
+            throw new IllegalStateException("\n" +
+                    "TokenManager가 초기화되지 않았습니다. TokenManager.initialize(context)를 호출하여 초기화하세요.");
+        }
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(TOKEN_KEY, token);
         editor.apply();
     }
 
-    public String getToken() {
+    public static String getToken() {
+        if (sharedPreferences == null) {
+            throw new IllegalStateException("\n" +
+                    "TokenManager가 초기화되지 않았습니다. TokenManager.initialize(context)를 호출하여 초기화하세요.");
+        }
         return sharedPreferences.getString(TOKEN_KEY, null);
     }
 
-    public void clearToken() {
+    public static void clearToken() {
+        if (sharedPreferences == null) {
+            throw new IllegalStateException("\n" +
+                    "TokenManager가 초기화되지 않았습니다. TokenManager.initialize(context)를 호출하여 초기화하세요.");
+        }
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.remove(TOKEN_KEY);
         editor.apply();
     }
 
     // 토큰에서 ROLE 추출
-    public String getRole() {
+    public static String getRole() {
         String token = getToken();
         if (token == null) {
             return null;
@@ -47,7 +61,7 @@ public class TokenManager {
     }
 
     // 토큰에서 USER_ID 추출
-    public String getUserId() {
+    public static String getUserId() {
         String token = getToken();
         if (token == null) {
             return null;
@@ -62,7 +76,7 @@ public class TokenManager {
     }
 
     // 토큰에서 ID 추출
-    public String getId() {
+    public static String getId() {
         String token = getToken();
         if (token == null) {
             return null;
@@ -76,4 +90,17 @@ public class TokenManager {
         }
     }
 
+    public static boolean isLoggedIn() {
+        String token = getToken();
+        if (token != null) {
+            try {
+                JWT jwt = new JWT(token);
+                // 토큰이 만료되지 않았는지 확인
+                return !jwt.isExpired(10); // 유효기간 만료를 확인. 10초 유예기간 줌.
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
 }

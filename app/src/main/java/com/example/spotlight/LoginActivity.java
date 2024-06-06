@@ -41,7 +41,6 @@ public class LoginActivity extends AppCompatActivity {
         signupButton = findViewById(R.id.signupButton);
 
         apiService = ApiClient.getClient().create(ApiService.class);
-        tokenManager = new TokenManager(this);
 
         // 로그인 버튼 리스너
         loginButton.setOnClickListener(v -> loginUser());
@@ -55,7 +54,7 @@ public class LoginActivity extends AppCompatActivity {
         String password = passwordEditText.getText().toString().trim();
 
         if (username.isEmpty() || password.isEmpty()) {
-            Toast.makeText(this, "Please enter both username and password.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "아이디와 패스워드를 입력해 주세요.", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -72,7 +71,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     if (loginResponse.getStatus() == 200) {
                         Toast.makeText(LoginActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
-                        tokenManager.setToken(loginResponse.getAccesstoken());
+                        TokenManager.setToken(loginResponse.getAccesstoken());
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);
                         finish();

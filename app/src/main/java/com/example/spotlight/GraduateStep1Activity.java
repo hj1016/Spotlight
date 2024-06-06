@@ -64,6 +64,8 @@ public class GraduateStep1Activity extends AppCompatActivity {
         EmailSendingRequest request = new EmailSendingRequest();
         request.setId(id);
         request.setRole(role);
+        request.setSchool(schoolEditText.getText().toString().trim());
+        request.setMajor(majorEditText.getText().toString().trim());
         request.setEmail(emailEditText.getText().toString().trim());
         request.setEmailCode(code);
 

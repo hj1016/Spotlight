@@ -8,6 +8,7 @@
 
 
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -19,9 +20,9 @@
         tools:targetApi="31"
         android:networkSecurityConfig="@xml/network_security_config">
 
-        <!-- LoginActivity를 시작 액티비티로 설정 -->
+        <!-- MainActivity를 시작 액티비티로 설정 -->
         <activity
-            android:name=".LoginActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,12 +30,13 @@
             </intent-filter>
         </activity>
 
-        <!-- MainActivity 설정 -->
-        <activity
-            android:name=".MainActivity"
-            android:exported="true" />
+<!--        &lt;!&ndash; MainActivity 설정 &ndash;&gt;-->
+<!--        <activity-->
+<!--            android:name=".MainActivity"-->
+<!--            android:exported="true" />-->
 
         <!-- 기타 액티비티 설정 -->
+        <activity android:name=".LoginActivity" />
         <activity android:name=".AlarmActivity" />
         <activity android:name=".AlarmGeneralActivity"/>
 
@@ -66,7 +68,7 @@
 
 
         <activity android:name=".RecruiterProposeActivity"/>
-        <activity android:name="RecruiterProposeEditActivity"/>
+        <activity android:name=".RecruiterProposeEditActivity"/>
         <activity android:name=".RecruiterStep1Activity" />
         <activity android:name=".RecruiterStep2Activity" />
 

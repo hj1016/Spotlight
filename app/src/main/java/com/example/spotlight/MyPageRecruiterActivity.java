@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.view.View;
 
+import com.example.spotlight.network.Util.TokenManager;
+
 public class MyPageRecruiterActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,10 +17,10 @@ public class MyPageRecruiterActivity extends AppCompatActivity {
 
     public void onProfileClicked(View view) {
         SharedPreferences prefs = getSharedPreferences("UserProfile", MODE_PRIVATE);
-        String userType = prefs.getString("userType", "general"); // 기본값을 'general'로 설정
+        String userType = prefs.getString("userType", "NORMAL"); // 기본값을 'general'로 설정
 
         Intent intent;
-        if ("graduates".equals(userType)) {
+        if ("STUDENT".equals(userType)) {
             intent = new Intent(this, ProfileGraduatesActivity.class);
         } else { // 'general' 또는 그 외의 경우
             intent = new Intent(this, ProfileGeneralActivity.class);

@@ -1,8 +1,8 @@
 package com.example.spotlight;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.*;
 import android.view.MenuItem;
@@ -17,6 +17,7 @@ import com.example.spotlight.network.Request.FeedRequest;
 import com.example.spotlight.network.Request.InvitationRequest;
 import com.example.spotlight.network.Response.FeedResponse;
 import com.example.spotlight.network.Response.InvitationResponse;
+import com.example.spotlight.network.Util.TokenManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
@@ -31,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigationView;
     private boolean isScrapped = false;
-    private SharedPreferences sharedPreferences;
 
     private ApiService apiService;
 
@@ -40,12 +40,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setupBottomNavigationView();
-
-
-        sharedPreferences = getSharedPreferences("AppPrefs", MODE_PRIVATE);
         checkLoginStatus();
 
-        sharedPreferences = getSharedPreferences("UserType", MODE_PRIVATE);
+        apiService = ApiClient.getClientWithToken().create(ApiService.class);
 
         if (getIntent().getBooleanExtra("navigateToMyPage", false)) {
             navigateToMyPage();
@@ -144,12 +141,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void checkLoginStatus() {
-        boolean isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false);
-
+        boolean isLoggedIn = TokenManager.isLoggedIn();
         if (!isLoggedIn) {
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, new HomeFragment())
-                    .commit();
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
         } else {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, new HomeFragment())
@@ -158,9 +153,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void navigateToMyPage() {
-        String userType = sharedPreferences.getString("Type", "Default");
+        String userType = TokenManager.getRole();
+        Log.d("userType", userType);
         Fragment fragment = null;
-        if (userType.equals("Recruiter")) {
+        if (userType.equals("RECRUITER")) {
             fragment = new MyPageRecruiterFragment();
         } else {
             fragment = new MyPageFragment();
@@ -175,9 +171,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onBackClicked(View view) {
-        String userType = sharedPreferences.getString("userType", "general");
+        String userType = TokenManager.getRole();
         Intent intent = new Intent(this, MainActivity.class);
-        if ("Recruiter".equals(userType)) {
+        if ("RECRUITER".equals(userType)) {
             intent.putExtra("Fragment", "MyPageRecruiterFragment");
         } else {
             intent.putExtra("Fragment", "MyPageFragment");
@@ -423,9 +419,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onMemberClicked(View view) {
-        String userType = sharedPreferences.getString("Type", "general");
+        String userType = TokenManager.getRole();
         Intent intent;
-        if (userType.equals("recruiter")) {
+        if (userType.equals("RECRUITER")) {
             intent = new Intent(this, ItemDetailMemberRecruiterActivity.class);
         } else {
             intent = new Intent(this, ItemDetailMemberGeneralActivity.class);
@@ -438,4 +434,10 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void onLogoutClicked(View view) {
+        TokenManager.clearToken();
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        finish();
+    }
 }

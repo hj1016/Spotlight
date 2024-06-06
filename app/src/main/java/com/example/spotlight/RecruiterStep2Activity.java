@@ -45,7 +45,7 @@ public class RecruiterStep2Activity extends AppCompatActivity {
 
         imageView = findViewById(R.id.recruiter_step2_image_plus);
         uploadedImageView = new ImageView(this);
-        apiService = ApiClient.getClientWithToken(this).create(ApiService.class);
+        apiService = ApiClient.getClientWithToken().create(ApiService.class);
 
         id = getIntent().getStringExtra("id");
         email = getIntent().getStringExtra("email");

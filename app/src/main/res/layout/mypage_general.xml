@@ -42,68 +42,68 @@
         android:clickable="true"
         android:onClick="onAlarmClicked"/>
 
-        <ImageView
-            android:id="@+id/mypage_user_image"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:gravity="center"
-            android:layout_marginTop="40dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView_mypage"
-            app:layout_constraintTop_toBottomOf="@+id/textView_mypage"
-            app:srcCompat="@drawable/mypage_image" />
+    <ImageView
+        android:id="@+id/mypage_user_image"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:gravity="center"
+        android:layout_marginTop="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView_mypage"
+        app:layout_constraintTop_toBottomOf="@+id/textView_mypage"
+        app:srcCompat="@drawable/mypage_image" />
 
-        <TextView
-            android:id="@+id/mypage_user_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:fontFamily="@font/pretendard_bold"
-            android:text="User name"
-            android:gravity="center"
-            android:textColor="#FFFFFF"
-            android:textSize="24sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/mypage_user_image"
-            app:layout_constraintBottom_toTopOf="@id/mypage_account" />
+    <TextView
+        android:id="@+id/mypage_user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/pretendard_bold"
+        android:text="User name"
+        android:gravity="center"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/mypage_user_image"
+        app:layout_constraintBottom_toTopOf="@id/mypage_account" />
 
-        <TextView
-            android:id="@+id/mypage_account"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:fontFamily="@font/pretendard_bold"
-            android:text="Account"
-            android:textColor="#FFFFFF"
-            android:textSize="15sp"
-            app:layout_constraintStart_toStartOf="@+id/textView_mypage"
-            app:layout_constraintTop_toBottomOf="@+id/mypage_user_name" />
+    <TextView
+        android:id="@+id/mypage_account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/pretendard_bold"
+        android:text="Account"
+        android:textColor="#FFFFFF"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="@+id/textView_mypage"
+        app:layout_constraintTop_toBottomOf="@+id/mypage_user_name" />
 
-        <TextView
-            android:id="@+id/mypage_profile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/pretendard_bold"
-            android:text="내 정보"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="@+id/textView_mypage"
-            app:layout_constraintTop_toBottomOf="@+id/mypage_account"
-            android:clickable="true"
-            android:onClick="onProfileClicked" />
+    <TextView
+        android:id="@+id/mypage_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/pretendard_bold"
+        android:text="내 정보"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/textView_mypage"
+        app:layout_constraintTop_toBottomOf="@+id/mypage_account"
+        android:clickable="true"
+        android:onClick="onProfileClicked" />
 
-        <ImageView
-            android:id="@+id/mypage_profile_go"
-            android:layout_width="25dp"
-            android:layout_height="23dp"
-            android:layout_marginTop="15dp"
-            android:gravity="center"
-            app:layout_constraintEnd_toEndOf="@+id/mypage_alarm"
-            app:layout_constraintTop_toBottomOf="@+id/mypage_account"
-            app:srcCompat="@drawable/mypage_go" />
+    <ImageView
+        android:id="@+id/mypage_profile_go"
+        android:layout_width="25dp"
+        android:layout_height="23dp"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="@+id/mypage_alarm"
+        app:layout_constraintTop_toBottomOf="@+id/mypage_account"
+        app:srcCompat="@drawable/mypage_go" />
 
 
 
@@ -229,5 +229,19 @@
         app:layout_constraintTop_toBottomOf="@+id/mypage_recruit"
         app:srcCompat="@drawable/mypage_go" />
 
+    <TextView
+        android:id="@+id/mypage_logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/pretendard_bold"
+        android:text="Logout"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mypage_recruit_post"
+        android:clickable="true"
+        android:onClick="onLogoutClicked"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -29,8 +29,6 @@ public class RecruiterStep1Activity extends AppCompatActivity {
     private String role = "RECRUITER";
     private String email;
 
-    private TokenManager tokenManager;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,7 +76,7 @@ public class RecruiterStep1Activity extends AppCompatActivity {
                     TokenResponse tokenResponse = response.body();
                     if (tokenResponse.isSuccess()) {
                         Toast.makeText(RecruiterStep1Activity.this, "인증 성공", Toast.LENGTH_SHORT).show();
-                        tokenManager.setToken(tokenResponse.getAccessToken());
+                        TokenManager.setToken(tokenResponse.getAccessToken());
                         Log.d("RecruiterStep1", "Token set and starting RecruiterStep2Activity");
                         Intent intent = new Intent(RecruiterStep1Activity.this, RecruiterStep2Activity.class);
                         startActivity(intent);
