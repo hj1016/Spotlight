@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
     private boolean isScrapped = false;
     private SharedPreferences sharedPreferences;
 
-
     private ApiService apiService;
 
     @Override
@@ -144,8 +143,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-
     private void checkLoginStatus() {
         boolean isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false);
 
@@ -159,7 +156,6 @@ public class MainActivity extends AppCompatActivity {
                     .commit();
         }
     }
-
 
     private void navigateToMyPage() {
         String userType = sharedPreferences.getString("Type", "Default");
@@ -240,7 +236,6 @@ public class MainActivity extends AppCompatActivity {
     public void onCompleteClicked(View view) {
         // UI에서 데이터 수집
         String title = ((EditText) findViewById(R.id.new_posting_project_text)).getText().toString();
-        String image = "URL"; // 이미지는 나중에 처리
         String content = ((EditText) findViewById(R.id.new_posting_description_text)).getText().toString();
         String bigCategory = ((Spinner) findViewById(R.id.big_category_spinner)).getSelectedItem().toString();
         String smallCategory = ((Spinner) findViewById(R.id.small_category_spinner)).getSelectedItem().toString();
@@ -249,7 +244,6 @@ public class MainActivity extends AppCompatActivity {
         // 요청 객체 생성
         FeedRequest feedRequest = new FeedRequest();
         feedRequest.setTitle(title);
-        feedRequest.setImage(image);
         feedRequest.setContent(content);
         feedRequest.setScrap(0);  // 기본값
 
@@ -293,7 +287,6 @@ public class MainActivity extends AppCompatActivity {
 
         // UI에서 데이터 수집
         String title = ((EditText) findViewById(R.id.posting_edit_project_text)).getText().toString();
-        String image = "URL"; // 이미지는 나중에 처리
         String content = ((EditText) findViewById(R.id.posting_edit_description_text)).getText().toString();
         String bigCategory = ((Spinner) findViewById(R.id.posting_edit_big_category_spinner)).getSelectedItem().toString();
         String smallCategory = ((Spinner) findViewById(R.id.posting_edit_small_category_spinner)).getSelectedItem().toString();
@@ -302,7 +295,6 @@ public class MainActivity extends AppCompatActivity {
         // 요청 객체 생성
         FeedRequest feedRequest = new FeedRequest();
         feedRequest.setTitle(title);
-        feedRequest.setImage(image);
         feedRequest.setContent(content);
         feedRequest.setScrap(0);  // 기본값
 
