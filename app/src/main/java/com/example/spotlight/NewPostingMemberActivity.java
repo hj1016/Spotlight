@@ -52,21 +52,12 @@ public class NewPostingMemberActivity extends AppCompatActivity {
         memberId = memberIdEditText.getText().toString();
         role = roleEditText.getText().toString();
 
-        Intent resultIntent = new Intent();
-        resultIntent.putExtra("memberId", memberId);
-        resultIntent.putExtra("role", role);
-
-        setResult(RESULT_OK, resultIntent);
-        finish();
-    }
-
-    // API 호출 메서드
-    private void inviteMember(String memberId, String memberRole) {
+        // API 호출
         // InvitationRequest 객체 생성 및 값 설정
         InvitationRequest invitationRequest = new InvitationRequest();
-        invitationRequest.setProject_id("your_project_id");
+        invitationRequest.setProject_id("project_id"); // projectId 받아와야 함.
         invitationRequest.setMember_id(memberId);
-        invitationRequest.setRole(memberRole);
+        invitationRequest.setRole(role);
 
         // API 호출
         ApiService apiService = ApiClient.getClientWithToken().create(ApiService.class);
@@ -90,5 +81,12 @@ public class NewPostingMemberActivity extends AppCompatActivity {
                 Toast.makeText(NewPostingMemberActivity.this, "네트워크 오류입니다.", Toast.LENGTH_SHORT).show();
             }
         });
+
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra("memberId", memberId);
+        resultIntent.putExtra("role", role);
+
+        setResult(RESULT_OK, resultIntent);
+        finish();
     }
 }
