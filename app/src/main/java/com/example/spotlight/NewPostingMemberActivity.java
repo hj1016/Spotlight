@@ -24,7 +24,6 @@ public class NewPostingMemberActivity extends AppCompatActivity {
 
     private EditText memberIdEditText;
     private EditText roleEditText;
-    private ApiService apiService;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,9 +31,6 @@ public class NewPostingMemberActivity extends AppCompatActivity {
 
         memberIdEditText = findViewById(R.id.new_posting_member_ID_text);
         roleEditText = findViewById(R.id.new_posting_member_role_text);
-
-        // ApiService 초기화
-        apiService = ApiClient.getClientWithToken().create(ApiService.class);
 
         Intent intent = getIntent();
         if (intent != null) {
@@ -71,6 +67,7 @@ public class NewPostingMemberActivity extends AppCompatActivity {
         invitationRequest.setRole(memberRole);
 
         // API 호출
+        ApiService apiService = ApiClient.getClientWithToken().create(ApiService.class);
         Call<InvitationResponse> call = apiService.inviteMemberToProject(invitationRequest);
         call.enqueue(new Callback<InvitationResponse>() {
             @Override
