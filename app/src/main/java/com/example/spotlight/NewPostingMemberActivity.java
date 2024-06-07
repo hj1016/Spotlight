@@ -24,6 +24,8 @@ public class NewPostingMemberActivity extends AppCompatActivity {
 
     private EditText memberIdEditText;
     private EditText roleEditText;
+    private String memberId;
+    private String role;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,8 +49,8 @@ public class NewPostingMemberActivity extends AppCompatActivity {
     }
 
     public void onInviteMemberClicked(View view) {
-        String memberId = memberIdEditText.getText().toString();
-        String role = roleEditText.getText().toString();
+        memberId = memberIdEditText.getText().toString();
+        role = roleEditText.getText().toString();
 
         Intent resultIntent = new Intent();
         resultIntent.putExtra("memberId", memberId);

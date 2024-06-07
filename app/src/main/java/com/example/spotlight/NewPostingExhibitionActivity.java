@@ -22,6 +22,9 @@ public class NewPostingExhibitionActivity extends AppCompatActivity {
     private EditText locationEditText;
     private EditText scheduleEditText;
     private EditText timeEditText;
+    private String location;
+    private String schedule;
+    private String time;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,11 +42,6 @@ public class NewPostingExhibitionActivity extends AppCompatActivity {
             String hashtag = intent.getStringExtra("hashtag");
             int bigCategoryPosition = intent.getIntExtra("bigCategoryPosition", 0);
             int smallCategoryPosition = intent.getIntExtra("smallCategoryPosition", 0);
-
-            // 유지할 내용을 EditText에 설정
-            locationEditText.setText(title);
-            scheduleEditText.setText(description);
-            timeEditText.setText(hashtag);
         }
     }
 
@@ -52,9 +50,9 @@ public class NewPostingExhibitionActivity extends AppCompatActivity {
     }
 
     public void onExhibitionInfoClicked(View view) {
-        String location = locationEditText.getText().toString();
-        String schedule = scheduleEditText.getText().toString();
-        String time = timeEditText.getText().toString();
+        location = locationEditText.getText().toString();
+        schedule = scheduleEditText.getText().toString();
+        time = timeEditText.getText().toString();
 
         ExhibitionDTO exhibitionDTO = new ExhibitionDTO(location, schedule, time);
         createExhibition(exhibitionDTO);
@@ -69,6 +67,7 @@ public class NewPostingExhibitionActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     // 서버에 전시 정보가 성공적으로 저장되었을 때
                     ExhibitionResponse exhibitionResponse = response.body();
+
                     if (exhibitionResponse != null && exhibitionResponse.isSuccess()) {
                         // 저장된 전시 정보를 받아와서 결과를 처리
                         ExhibitionDTO savedExhibition = exhibitionResponse.getExhibition();

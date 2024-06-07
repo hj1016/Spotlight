@@ -31,22 +31,18 @@ import java.util.List;
 public class NewPostingActivity extends AppCompatActivity {
     private static final int PICK_IMAGE_SINGLE = 1;
     private static final int PICK_IMAGE_PLUS = 2;
-
     private Spinner bigCategorySpinner, smallCategorySpinner;
     private ArrayAdapter<CharSequence> smallCategoryAdapter;
     private ImageView dynamicImage;
     private EditText dynamicText;
     private ImageView[] imageViews = new ImageView[10];
     private ImageView imagePlusButton, imageSelectPlusButton;
-
     private RecyclerView recyclerView;
     private InviteMemberAdapter adapter;
     private List<Member> memberList;
-
     private List<Uri> imageUris = new ArrayList<>();
     private FirebaseStorage firebaseStorage;
     private String imageUrl = "";
-
     private String exhibitionLocation = "";
     private String exhibitionSchedule = "";
     private String exhibitionTime = "";
@@ -74,8 +70,11 @@ public class NewPostingActivity extends AppCompatActivity {
 
         imagePlusButton = findViewById(R.id.new_posting_image_plus);
         imageSelectPlusButton = findViewById(R.id.new_posting_selec_image_plus);
-
         recyclerView = findViewById(R.id.recyclerView_invite_member);
+
+        exhibitionLocation = "";
+        exhibitionSchedule = "";
+        exhibitionTime = "";
 
         setupSpinners();
         setupDynamicImage();
@@ -208,6 +207,8 @@ public class NewPostingActivity extends AppCompatActivity {
                 .addOnSuccessListener(taskSnapshot -> storageReference.getDownloadUrl().addOnSuccessListener(uri -> {
                     imageViews[index].setImageURI(imageUri);
                     Log.d("Image URL", uri.toString());
+                    // 이미지 URL을 저장하고 활용하는 코드 추가
+                    imageUrl = uri.toString();
                 }))
                 .addOnFailureListener(e -> Toast.makeText(NewPostingActivity.this, "이미지 업로드에 실패했습니다. : " + e.getMessage(), Toast.LENGTH_SHORT).show());
     }
