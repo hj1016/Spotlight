@@ -4,10 +4,17 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.content.Intent;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.example.spotlight.network.Util.TokenManager;
 
 public class MyPageRecruiterFragment extends Fragment {
 
@@ -26,23 +33,23 @@ public class MyPageRecruiterFragment extends Fragment {
         view.findViewById(R.id.mypage_recruiter_scrap_person).setOnClickListener(this::onScrapGraduatesClicked);
         view.findViewById(R.id.mypage_recruiter_recruit_post).setOnClickListener(this::onProposeClicked);
 
+        Log.d("MyPageRecruiterFagment", "loaded");
+        ImageView imageViewProfile = view.findViewById(R.id.mypage_recruiter_image);
+        TextView username = view.findViewById(R.id.mypage_recruiter_name);
+        String usernameStr = TokenManager.getUsername();
+        String profileImg = TokenManager.getProfileImage();
+        username.setText(usernameStr);
+        if(profileImg != null && !profileImg.isEmpty()) {
+            Glide.with(this)
+                    .load(profileImg)
+                    .into(imageViewProfile);
+        }
         return view;
     }
 
     private void onProfileClicked(View view) {
-        if (getActivity() != null) {
-            SharedPreferences prefs = getActivity().getSharedPreferences("UserProfile", Context.MODE_PRIVATE);
-            String userType = prefs.getString("userType", "general");
-
-            Intent intent;
-            if ("graduates".equals(userType)) {
-                intent = new Intent(getActivity(), ProfileGraduatesActivity.class);
-            } else {
-                intent = new Intent(getActivity(), ProfileGeneralActivity.class);
-            }
-
-            startActivity(intent);
-        }
+        Intent intent = new Intent(getActivity(), ProfileRecruiterActivity.class);
+        startActivity(intent);
     }
 
     private void onScrapPostingClicked(View view) {

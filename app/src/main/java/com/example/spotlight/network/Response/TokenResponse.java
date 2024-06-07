@@ -1,25 +1,33 @@
 package com.example.spotlight.network.Response;
-
+import com.example.spotlight.network.DTO.UserDTO;
+import com.google.gson.annotations.SerializedName;
 public class TokenResponse {
-    private boolean success;
+    private int status;
     private String message;
+    private UserDTO user;
+    @SerializedName("accessToken")
     private String accessToken;
+    @SerializedName("refreshToken")
     private String refreshToken;
+    private boolean success;
 
-    public TokenResponse(boolean success, String message, String accessToken, String refreshToken) {
-        this.success = success;
+    // Constructor
+    public TokenResponse(int status, String message, UserDTO user, String accessToken, String refreshToken, boolean success) {
+        this.status = status;
         this.message = message;
+        this.user = user;
         this.accessToken = accessToken;
         this.refreshToken = refreshToken;
+        this.success = success;
     }
 
     // Getters and Setters
-    public boolean isSuccess() {
-        return success;
+    public int getStatus() {
+        return status;
     }
 
-    public void setSuccess(boolean success) {
-        this.success = success;
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public String getMessage() {
@@ -28,6 +36,14 @@ public class TokenResponse {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public UserDTO getUser() {
+        return user;
+    }
+
+    public void setUser(UserDTO user) {
+        this.user = user;
     }
 
     public String getAccessToken() {
@@ -44,5 +60,13 @@ public class TokenResponse {
 
     public void setRefreshToken(String refreshToken) {
         this.refreshToken = refreshToken;
+    }
+
+    public boolean isSuccess() {
+        return success;
+    }
+
+    public void setSuccess(boolean success) {
+        this.success = success;
     }
 }

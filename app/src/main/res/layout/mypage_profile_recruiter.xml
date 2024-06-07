@@ -77,7 +77,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:fontFamily="@font/pretendard_bold"
-                    android:text="User name"
                     android:textColor="#000000"
                     android:textSize="24sp" />
 
@@ -94,14 +93,12 @@
                 android:textColor="@color/black"
                 android:textSize="18sp" />
 
-            <EditText
+            <TextView
                 android:id="@+id/profile_recruiter_ID_text"
                 android:layout_width="330dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="10dp"
-                android:hint="e441532"
-                android:inputType="text" />
+                android:layout_marginTop="10dp" />
 
             <TextView
                 android:id="@+id/profile_recruiter_password"
@@ -114,14 +111,13 @@
                 android:textColor="@color/black"
                 android:textSize="18sp" />
 
-            <EditText
+            <TextView
                 android:id="@+id/profile_recruiter_password_text"
                 android:layout_width="330dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
-                android:hint="*******"
-                android:inputType="text" />
+                android:text="*******" />
 
             <TextView
                 android:id="@+id/profile_recruiter_company"
@@ -134,14 +130,12 @@
                 android:textColor="@color/black"
                 android:textSize="18sp" />
 
-            <EditText
+            <TextView
                 android:id="@+id/profile_recruiter_company_text"
                 android:layout_width="330dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="10dp"
-                android:hint="(주)스포트라이트"
-                android:inputType="text" />
+                android:layout_marginTop="10dp" />
 
 
         </LinearLayout>

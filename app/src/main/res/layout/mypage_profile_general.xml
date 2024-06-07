@@ -85,14 +85,12 @@
         app:layout_constraintStart_toStartOf="@id/profile_general_back"
         app:layout_constraintTop_toBottomOf="@id/profile_general_user_name" />
 
-    <EditText
+    <TextView
         android:id="@+id/profile_general_ID_text"
         android:layout_width="330dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
-        android:hint="e441532"
-        android:inputType="text"
         app:layout_constraintStart_toStartOf="@id/profile_general_back"
         app:layout_constraintTop_toBottomOf="@id/profile_general_ID"/>
 
@@ -109,14 +107,13 @@
         app:layout_constraintStart_toStartOf="@id/profile_general_back"
         app:layout_constraintTop_toBottomOf="@id/profile_general_ID_text" />
 
-    <EditText
+    <TextView
         android:id="@+id/profile_general_password_text"
         android:layout_width="330dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
-        android:hint="*******"
-        android:inputType="text"
+        android:text="*******"
         app:layout_constraintStart_toStartOf="@id/profile_general_back"
         app:layout_constraintTop_toBottomOf="@id/profile_general_password"/>
 

@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setupBottomNavigationView();
+
         checkLoginStatus();
 
         apiService = ApiClient.getClientWithToken().create(ApiService.class);
@@ -142,9 +143,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void checkLoginStatus() {
         boolean isLoggedIn = TokenManager.isLoggedIn();
+        Log.d("MainActivity","checkLoginStatus");
+
         if (!isLoggedIn) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
+            finish();
         } else {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, new HomeFragment())
