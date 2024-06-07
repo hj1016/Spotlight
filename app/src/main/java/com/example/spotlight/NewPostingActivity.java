@@ -13,11 +13,17 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.spotlight.network.DTO.MemberDTO;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -29,13 +35,20 @@ import java.util.ArrayList;
 public class NewPostingActivity extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST_1 = 1;
     private static final int PICK_IMAGE_REQUEST_2 = 2;
+    private static final int INVITE_MEMBER_REQUEST = 3;
+
     private Uri imageUri;
     private ArrayList<Uri> imageUris = new ArrayList<>();
+    private ArrayList<MemberDTO> members = new ArrayList<>();
+    private RecyclerView recyclerView;
+    private MemberAdapter adapter;
+
+    private EditText titleEditText;
     private Spinner bigCategorySpinner, smallCategorySpinner;
     private ArrayAdapter<CharSequence> smallCategoryAdapter;
     private ImageView dynamicImage;
     private EditText dynamicText;
-
+    private EditText hashtagEditText;
     private ImageView imageView1;
     private ImageView imageView2;
     private StorageReference storageReference;
@@ -45,10 +58,17 @@ public class NewPostingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_posting);
 
+        titleEditText = findViewById(R.id.new_posting_project_text);
         bigCategorySpinner = findViewById(R.id.big_category_spinner);
         smallCategorySpinner = findViewById(R.id.small_category_spinner);
         dynamicImage = findViewById(R.id.new_posting_description_box);
         dynamicText = findViewById(R.id.new_posting_description_text);
+        hashtagEditText = findViewById(R.id.new_posting_hashtag_text);
+
+        recyclerView = findViewById(R.id.members_recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)); // LinearLayoutManager의 방향을 수평으로 설정
+        adapter = new MemberAdapter(members);
+        recyclerView.setAdapter(adapter);
 
         imageView1 = findViewById(R.id.new_posting_image_plus);
         imageView2 = findViewById(R.id.new_posting_selec_image_plus);
@@ -117,10 +137,15 @@ public class NewPostingActivity extends AppCompatActivity {
                         uploadImageToFirebase(imageUri);
                     }
                 }
+            } else if (requestCode == INVITE_MEMBER_REQUEST) {
+                String memberId = data.getStringExtra("memberId");
+                String role = data.getStringExtra("role");
+                if (memberId != null && role != null) {
+                    addMember(memberId, role);
+                }
             }
         }
     }
-
 
     private void uploadImageToFirebase(Uri imageUri) {
         if (imageUri != null) {
@@ -202,13 +227,32 @@ public class NewPostingActivity extends AppCompatActivity {
         smallCategorySpinner.setAdapter(smallCategoryAdapter);
     }
 
+    private void addMember(String memberId, String role) {
+        // Create a new MemberDTO object
+        MemberDTO newMember = new MemberDTO();
+        newMember.setName(memberId);
+        newMember.setRole(role);
+
+        // Add the new member to the list
+        members.add(newMember);
+        adapter.notifyItemInserted(members.size() - 1); // notifyItemInserted로 변경
+    }
+
     public void onBackClicked(View view) {
         finish();
     }
 
     public void onMemberPlusClicked(View view) {
         Intent intent = new Intent(this, NewPostingMemberActivity.class);
-        startActivity(intent);
+        intent.putExtra("title", titleEditText.getText().toString());
+        intent.putExtra("description", dynamicText.getText().toString());
+        intent.putExtra("hashtag", hashtagEditText.getText().toString());
+        intent.putExtra("bigCategoryPosition", bigCategorySpinner.getSelectedItemPosition());
+        intent.putExtra("smallCategoryPosition", smallCategorySpinner.getSelectedItemPosition());
+        startActivityForResult(intent, INVITE_MEMBER_REQUEST); // startActivity(intent);
+
+        members.add(new MemberDTO("새로운 팀원", "팀원"));
+        adapter.notifyDataSetChanged();
     }
 
     public void onExhibitionPlusClicked(View view) {

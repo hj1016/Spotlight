@@ -224,7 +224,7 @@
                 android:layout_marginTop="10dp"
                 android:hint="#을 입력하고 해시태그를 입력해보세요.."
                 android:inputType="text"
-                 />
+                />
 
             <TextView
                 android:id="@+id/new_posting_team"
@@ -251,52 +251,30 @@
             <LinearLayout
                 android:id="@+id/invite_team_member"
                 android:layout_width="match_parent"
-                android:layout_height="107dp"
-                android:gravity="center_vertical"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
-
-                <LinearLayout
-                    android:id="@+id/invite_team_member_detail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center_vertical"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:id="@+id/member_image"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:padding="8dp"
-                        android:src="@drawable/member_image" />
-
-                    <TextView
-                        android:id="@+id/member_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:text="김이름"
-                        android:textColor="#a6a6a6"
-                        android:fontFamily="@font/pretendard_regular"
-                        android:textSize="15dp" />
-
-                </LinearLayout>
 
                 <ImageButton
                     android:id="@+id/add_member_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginStart="16dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="16dp"
                     android:background="@android:color/transparent"
-                    android:contentDescription="@string/add_member"
-                    android:src="@drawable/add_team_member"
                     android:clickable="true"
-                    android:onClick="onMemberPlusClicked"/>
-            </LinearLayout>
+                    android:contentDescription="@string/add_member"
+                    android:onClick="onMemberPlusClicked"
+                    android:src="@drawable/add_team_member" />
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/members_recycler_view"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="13dp"
+                    android:layout_weight="20"
+                    android:orientation="horizontal" />
+
+            </LinearLayout>
 
             <ImageButton
                 android:id="@+id/add_new_posting_exhibition_info"

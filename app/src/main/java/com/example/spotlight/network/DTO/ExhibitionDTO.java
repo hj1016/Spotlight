@@ -13,6 +13,12 @@ public class ExhibitionDTO {
     @SerializedName("time")
     private String time;
 
+    public ExhibitionDTO(String location, String schedule, String time) {
+        this.location = location;
+        this.schedule = schedule;
+        this.time = time;
+    }
+
     public String getLocation() {
         return location;
     }

@@ -1,5 +1,6 @@
 package com.example.spotlight.network.API;
 
+import com.example.spotlight.network.DTO.ExhibitionDTO;
 import com.example.spotlight.network.DTO.FeedDTO;
 import com.example.spotlight.network.DTO.PasswordValidationDTO;
 import com.example.spotlight.network.DTO.PasswordValidationResponseDTO;
@@ -179,9 +180,16 @@ public interface ApiService {
     @POST("/api/v1/feed/invite-member")
     Call<InvitationResponse> inviteMemberToProject(@Body InvitationRequest invitationRequest);
 
+    // 전시 정보 추가
+    @POST("/api/v1/exhibition")
+    Call<ExhibitionResponse> createExhibition(@Body ExhibitionDTO exhibitionDTO);
+
+    /*
     // 전시 정보 조회
     @GET("/api/v1/feed/exhibition")
     Call<ExhibitionResponse> getExhibition();
+
+     */
 
     // 게시물 스크랩
     @POST("/api/v1/feed/{feedId}/scrap")

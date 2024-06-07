@@ -277,6 +277,7 @@ public class MainActivity extends AppCompatActivity {
 
     // 게시물 수정
     public void onCompletePostingEditClicked(View view) {
+        /*
         // 게시물 ID 가져오기 ,,,
         Intent intent = getIntent();
         int feedId = intent.getIntExtra("FEED_ID", -1); // -1은 기본값으로 설정하여 만약 ID가 전달되지 않으면 오류를 방지합니다.
@@ -323,58 +324,8 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "오류가 발생했습니다: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-    }
 
-    // 팀원 초대
-    public void onInviteClicked(View view) {
-        Intent intent = getIntent();
-        int projectId = intent.getIntExtra("PROJECT_ID", -1); // 프로젝트 아이디 받아오기 ,,,
-
-        String memberId = ((EditText) findViewById(R.id.new_posting_member_ID_text)).getText().toString();
-        String role = ((EditText) findViewById(R.id.new_posting_member_role_text)).getText().toString();
-
-        if (memberId.isEmpty() || role.isEmpty()) {
-            Toast.makeText(this, "아이디와 역할을 모두 입력하세요.", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        InvitationRequest invitationRequest = new InvitationRequest();
-        invitationRequest.setProject_id(String.valueOf(projectId));
-        invitationRequest.setMember_id(memberId);
-        invitationRequest.setRole(role);
-
-        Call<InvitationResponse> call = apiService.inviteMemberToProject(invitationRequest);
-
-        call.enqueue(new Callback<InvitationResponse>() {
-            public void onResponse(Call<InvitationResponse> call, Response<InvitationResponse> response) {
-                if (response.isSuccessful()) {
-                    InvitationResponse invitationResponse = response.body();
-                    if (invitationResponse != null) {
-                        String newMemberName = invitationResponse.getMemberName();
-                        String newMemberRole = invitationResponse.getMemberRole();
-
-                        TextView memberNameTextView = findViewById(R.id.item_detail_member_name);
-                        TextView memberRoleTextView = findViewById(R.id.item_detail_member_role);
-
-                        if (memberNameTextView != null) {
-                            memberNameTextView.setText(newMemberName);
-                        }
-                        if (memberRoleTextView != null) {
-                            memberRoleTextView.setText(newMemberRole);
-                        }
-
-                        Toast.makeText(MainActivity.this, "팀원 초대가 성공적으로 이루어졌습니다.", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    Toast.makeText(MainActivity.this, "초대에 실패했습니다. 다시 시도하세요.", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<InvitationResponse> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "네트워크 오류가 발생했습니다. 다시 시도하세요.", Toast.LENGTH_SHORT).show();
-            }
-        });
+         */
     }
 
     public void onMemberPlusClicked(View view) {
