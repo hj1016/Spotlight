@@ -14,8 +14,6 @@ public class Post {
     private String scrapImageUrl;
     private List<String> hashtags;
 
-
-
     // Constructor
     public Post(String teamImageUrl, String title, String category, String imageUrl, String content, int scrap, List<String> hashtags, String scrapImageUrl, boolean isScrapped) {
         this.teamImageUrl = teamImageUrl;

@@ -21,6 +21,7 @@ import com.example.spotlight.network.Util.TokenManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -32,8 +33,14 @@ public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigationView;
     private boolean isScrapped = false;
-
     private ApiService apiService;
+    private PostDataManager postDataManager;
+
+    private List<Post> posts = new ArrayList<>();
+    private PostAdapter adapter;
+    private String teamImageUrl = "";
+    private String imageUrl = "";
+    private String scrapImageUrl = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
         checkLoginStatus();
 
         apiService = ApiClient.getClientWithToken().create(ApiService.class);
+        postDataManager = new PostDataManager(this);
+        adapter = new PostAdapter(this, posts);
 
         if (getIntent().getBooleanExtra("navigateToMyPage", false)) {
             navigateToMyPage();
@@ -62,6 +71,15 @@ public class MainActivity extends AppCompatActivity {
                         .commit();
                 bottomNavigationView.setSelectedItemId(R.id.menu_home);
             }
+        }
+
+
+        // 저장된 포스트 불러오기
+        List<Post> savedPosts = postDataManager.loadPosts();
+        if (savedPosts != null) {
+            // 저장된 포스트가 있다면 RecyclerView에 추가
+            posts.addAll(savedPosts);
+            adapter.notifyDataSetChanged();
         }
     }
 
@@ -260,6 +278,16 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<FeedResponse> call, Response<FeedResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     Toast.makeText(MainActivity.this, "게시물이 성공적으로 작성되었습니다!", Toast.LENGTH_SHORT).show();
+
+                    // 포스트 객체 생성
+                    Post post = new Post(teamImageUrl, title, bigCategory, imageUrl, content, 0, hashtagList, scrapImageUrl, false);
+                    // 포스트 리스트에 추가
+                    posts.add(post);
+                    // 어댑터에 알림
+                    adapter.notifyDataSetChanged();
+
+                    // 추가된 포스트 저장
+                    postDataManager.savePosts(posts);
 
                     Intent intent = new Intent(MainActivity.this, NewPostingActivity.class);
                     startActivity(intent);
