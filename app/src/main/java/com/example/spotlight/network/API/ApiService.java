@@ -1,5 +1,6 @@
 package com.example.spotlight.network.API;
 
+import com.example.spotlight.network.DTO.ExhibitionDTO;
 import com.example.spotlight.network.DTO.FeedDTO;
 import com.example.spotlight.network.DTO.PasswordValidationDTO;
 import com.example.spotlight.network.DTO.PasswordValidationResponseDTO;
@@ -91,7 +92,7 @@ public interface ApiService {
 
     // 알림 목록 확인 0
     @GET("/api/v1/notification")
-    Call<List<NotificationResponse>> getNotifications(@Header("Authorization") String token);
+    Call<List<NotificationResponse>> getNotifications();
 
     // 알림 읽음 상태 업데이트 0
     @PUT("/api/v1/notification/{notification_id}/status")
@@ -111,19 +112,19 @@ public interface ApiService {
 
     // 공고제안서 목록 조회 (학생) 0
     @GET("/api/v1/proposal/student")
-    Call<List<ProposalDTO>> getProposalsByStudent(@Header("Authorization") String token);
+    Call<List<ProposalDTO>> getProposalsByStudent();
 
     // 공고제안서 내용 조회 (학생) 0
     @GET("/api/v1/proposal/student/{proposalId}")
-    Call<ProposalDTO> getProposalDetailsForStudent(@Path("proposalId") int proposalId, @Header("Authorization") String token);
+    Call<ProposalDTO> getProposalDetailsForStudent(@Path("proposalId") int proposalId);
 
     // 공고제안서 목록 조회 (리크루터) 0
     @GET("/api/v1/proposal/recruiter")
-    Call<List<ProposalDTO>> getProposalsByRecruiter(@Header("Authorization") String token);
+    Call<List<ProposalDTO>> getProposalsByRecruiter();
 
     // 공고제안서 내용 조회 (리크루터) 0
     @GET("/api/v1/proposal/recruiter/{proposalId}")
-    Call<ProposalDTO> getProposalDetailsForRecruiter(@Path("proposalId") int proposalId, @Header("Authorization") String token);
+    Call<ProposalDTO> getProposalDetailsForRecruiter(@Path("proposalId") int proposalId);
 
     // 내가 올린 피드 목록 조회 0
     @GET("/api/v1/user/feed")
@@ -138,7 +139,7 @@ public interface ApiService {
     // 포트폴리오 사진 업로드 (학생) 0
     @POST("/api/v1/user/portfolio")
     @Multipart
-    Call<UploadPortfolioResponse> uploadPortfolio(@PartMap Map<String, RequestBody> uploadPortfolioRequest, @Part List<MultipartBody.Part> images);
+    Call<UploadPortfolioResponse> uploadPortfolio(@Part List<MultipartBody.Part> images);
 
     // 포트폴리오 조회 (리크루터) 0
     @GET("/api/v1/user/{userid}/portfolio")
@@ -179,9 +180,16 @@ public interface ApiService {
     @POST("/api/v1/feed/invite-member")
     Call<InvitationResponse> inviteMemberToProject(@Body InvitationRequest invitationRequest);
 
+    // 전시 정보 추가
+    @POST("/api/v1/exhibition")
+    Call<ExhibitionResponse> createExhibition(@Body ExhibitionDTO exhibitionDTO);
+
+    /*
     // 전시 정보 조회
     @GET("/api/v1/feed/exhibition")
     Call<ExhibitionResponse> getExhibition();
+
+     */
 
     // 게시물 스크랩
     @POST("/api/v1/feed/{feedId}/scrap")

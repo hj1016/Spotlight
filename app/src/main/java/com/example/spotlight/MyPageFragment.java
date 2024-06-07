@@ -32,11 +32,10 @@ public class MyPageFragment extends Fragment {
     }
     public void onAlarmClicked(View view) {
         if (getActivity() != null) {
-            SharedPreferences prefs = getActivity().getSharedPreferences("Alarm", Context.MODE_PRIVATE);
-            String userType = prefs.getString("userType", "general");
+            String userType = TokenManager.getRole();
 
             Intent intent;
-            if ("graduates".equals(userType)) {
+            if ("STUDENT".equals(userType)) {
                 intent = new Intent(getActivity(), AlarmActivity.class);
             } else {
                 intent = new Intent(getActivity(), AlarmGeneralActivity.class);
@@ -48,11 +47,10 @@ public class MyPageFragment extends Fragment {
 
     public void onProfileClicked(View view) {
         if (getActivity() != null) {
-            SharedPreferences prefs = getActivity().getSharedPreferences("UserProfile", Context.MODE_PRIVATE);
-            String userType = prefs.getString("userType", "general");
+            String userType = TokenManager.getRole();
 
             Intent intent;
-            if ("graduates".equals(userType)) {
+            if ("STUDENT".equals(userType)) {
                 intent = new Intent(getActivity(), ProfileGraduatesActivity.class);
             } else {
                 intent = new Intent(getActivity(), ProfileGeneralActivity.class);
@@ -64,8 +62,7 @@ public class MyPageFragment extends Fragment {
 
     public void onManagePostingClicked(View view) {
         if (getActivity() != null) {
-            TokenManager tokenManager = new TokenManager(getActivity());
-            String userType = tokenManager.getRole();
+            String userType = TokenManager.getRole();
 
             Intent intent;
             if ("STUDENT".equals(userType)) {
@@ -80,11 +77,10 @@ public class MyPageFragment extends Fragment {
 
     public void onPortfolioClicked(View view) {
         if (getActivity() != null) {
-            SharedPreferences prefs = getActivity().getSharedPreferences("Portfolio", Context.MODE_PRIVATE);
-            String userType = prefs.getString("userType", "general");
+            String userType = TokenManager.getRole();
 
             Intent intent;
-            if ("graduates".equals(userType)) {
+            if ("STUDENT".equals(userType)) {
                 intent = new Intent(getActivity(), MyPagePortfolioActivity.class);
             } else {
                 intent = new Intent(getActivity(), MyPageGeneralPortfolioActivity.class);
@@ -103,11 +99,10 @@ public class MyPageFragment extends Fragment {
 
     public void onProposeClicked(View view) {
         if (getActivity() != null) {
-            SharedPreferences prefs = getActivity().getSharedPreferences("Propose", Context.MODE_PRIVATE);
-            String userType = prefs.getString("userType", "general");
+            String userType = TokenManager.getRole();
 
             Intent intent;
-            if ("graduates".equals(userType)) {
+            if ("STUDENT".equals(userType)) {
                 intent = new Intent(getActivity(), GraduatesProposeActivity.class);
             } else {
                 intent = new Intent(getActivity(), GeneralProposeManageActivity.class);

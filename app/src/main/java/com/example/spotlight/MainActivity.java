@@ -1,8 +1,8 @@
 package com.example.spotlight;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.*;
 import android.view.MenuItem;
@@ -17,9 +17,11 @@ import com.example.spotlight.network.Request.FeedRequest;
 import com.example.spotlight.network.Request.InvitationRequest;
 import com.example.spotlight.network.Response.FeedResponse;
 import com.example.spotlight.network.Response.InvitationResponse;
+import com.example.spotlight.network.Util.TokenManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -31,22 +33,25 @@ public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigationView;
     private boolean isScrapped = false;
-    private SharedPreferences sharedPreferences;
-
-
     private ApiService apiService;
+    private PostDataManager postDataManager;
+
+    private List<Post> posts = new ArrayList<>();
+    private PostAdapter adapter;
+    private String teamImageUrl = "";
+    private String imageUrl = "";
+    private String scrapImageUrl = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setupBottomNavigationView();
-
-
-        sharedPreferences = getSharedPreferences("AppPrefs", MODE_PRIVATE);
         checkLoginStatus();
 
-        sharedPreferences = getSharedPreferences("UserType", MODE_PRIVATE);
+        apiService = ApiClient.getClientWithToken().create(ApiService.class);
+        postDataManager = new PostDataManager(this);
+        adapter = new PostAdapter(this, posts);
 
         if (getIntent().getBooleanExtra("navigateToMyPage", false)) {
             navigateToMyPage();
@@ -66,6 +71,15 @@ public class MainActivity extends AppCompatActivity {
                         .commit();
                 bottomNavigationView.setSelectedItemId(R.id.menu_home);
             }
+        }
+
+
+        // 저장된 포스트 불러오기
+        List<Post> savedPosts = postDataManager.loadPosts();
+        if (savedPosts != null) {
+            // 저장된 포스트가 있다면 RecyclerView에 추가
+            posts.addAll(savedPosts);
+            adapter.notifyDataSetChanged();
         }
     }
 
@@ -144,15 +158,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-
     private void checkLoginStatus() {
-        boolean isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false);
-
+        boolean isLoggedIn = TokenManager.isLoggedIn();
         if (!isLoggedIn) {
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, new HomeFragment())
-                    .commit();
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
         } else {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, new HomeFragment())
@@ -160,11 +170,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
     private void navigateToMyPage() {
-        String userType = sharedPreferences.getString("Type", "Default");
+        String userType = TokenManager.getRole();
+        Log.d("userType", userType);
         Fragment fragment = null;
-        if (userType.equals("Recruiter")) {
+        if (userType.equals("RECRUITER")) {
             fragment = new MyPageRecruiterFragment();
         } else {
             fragment = new MyPageFragment();
@@ -179,9 +189,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onBackClicked(View view) {
-        String userType = sharedPreferences.getString("userType", "general");
+        String userType = TokenManager.getRole();
         Intent intent = new Intent(this, MainActivity.class);
-        if ("Recruiter".equals(userType)) {
+        if ("RECRUITER".equals(userType)) {
             intent.putExtra("Fragment", "MyPageRecruiterFragment");
         } else {
             intent.putExtra("Fragment", "MyPageFragment");
@@ -240,7 +250,6 @@ public class MainActivity extends AppCompatActivity {
     public void onCompleteClicked(View view) {
         // UI에서 데이터 수집
         String title = ((EditText) findViewById(R.id.new_posting_project_text)).getText().toString();
-        String image = "URL"; // 이미지는 나중에 처리
         String content = ((EditText) findViewById(R.id.new_posting_description_text)).getText().toString();
         String bigCategory = ((Spinner) findViewById(R.id.big_category_spinner)).getSelectedItem().toString();
         String smallCategory = ((Spinner) findViewById(R.id.small_category_spinner)).getSelectedItem().toString();
@@ -249,7 +258,6 @@ public class MainActivity extends AppCompatActivity {
         // 요청 객체 생성
         FeedRequest feedRequest = new FeedRequest();
         feedRequest.setTitle(title);
-        feedRequest.setImage(image);
         feedRequest.setContent(content);
         feedRequest.setScrap(0);  // 기본값
 
@@ -271,6 +279,16 @@ public class MainActivity extends AppCompatActivity {
                 if (response.isSuccessful() && response.body() != null) {
                     Toast.makeText(MainActivity.this, "게시물이 성공적으로 작성되었습니다!", Toast.LENGTH_SHORT).show();
 
+                    // 포스트 객체 생성
+                    Post post = new Post(teamImageUrl, title, bigCategory, imageUrl, content, 0, hashtagList, scrapImageUrl, false);
+                    // 포스트 리스트에 추가
+                    posts.add(post);
+                    // 어댑터에 알림
+                    adapter.notifyDataSetChanged();
+
+                    // 추가된 포스트 저장
+                    postDataManager.savePosts(posts);
+
                     Intent intent = new Intent(MainActivity.this, NewPostingActivity.class);
                     startActivity(intent);
                 } else {
@@ -287,13 +305,13 @@ public class MainActivity extends AppCompatActivity {
 
     // 게시물 수정
     public void onCompletePostingEditClicked(View view) {
+        /*
         // 게시물 ID 가져오기 ,,,
         Intent intent = getIntent();
         int feedId = intent.getIntExtra("FEED_ID", -1); // -1은 기본값으로 설정하여 만약 ID가 전달되지 않으면 오류를 방지합니다.
 
         // UI에서 데이터 수집
         String title = ((EditText) findViewById(R.id.posting_edit_project_text)).getText().toString();
-        String image = "URL"; // 이미지는 나중에 처리
         String content = ((EditText) findViewById(R.id.posting_edit_description_text)).getText().toString();
         String bigCategory = ((Spinner) findViewById(R.id.posting_edit_big_category_spinner)).getSelectedItem().toString();
         String smallCategory = ((Spinner) findViewById(R.id.posting_edit_small_category_spinner)).getSelectedItem().toString();
@@ -302,7 +320,6 @@ public class MainActivity extends AppCompatActivity {
         // 요청 객체 생성
         FeedRequest feedRequest = new FeedRequest();
         feedRequest.setTitle(title);
-        feedRequest.setImage(image);
         feedRequest.setContent(content);
         feedRequest.setScrap(0);  // 기본값
 
@@ -335,58 +352,8 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "오류가 발생했습니다: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-    }
 
-    // 팀원 초대
-    public void onInviteClicked(View view) {
-        Intent intent = getIntent();
-        int projectId = intent.getIntExtra("PROJECT_ID", -1); // 프로젝트 아이디 받아오기 ,,,
-
-        String memberId = ((EditText) findViewById(R.id.new_posting_member_ID_text)).getText().toString();
-        String role = ((EditText) findViewById(R.id.new_posting_member_role_text)).getText().toString();
-
-        if (memberId.isEmpty() || role.isEmpty()) {
-            Toast.makeText(this, "아이디와 역할을 모두 입력하세요.", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        InvitationRequest invitationRequest = new InvitationRequest();
-        invitationRequest.setProject_id(String.valueOf(projectId));
-        invitationRequest.setMember_id(memberId);
-        invitationRequest.setRole(role);
-
-        Call<InvitationResponse> call = apiService.inviteMemberToProject(invitationRequest);
-
-        call.enqueue(new Callback<InvitationResponse>() {
-            public void onResponse(Call<InvitationResponse> call, Response<InvitationResponse> response) {
-                if (response.isSuccessful()) {
-                    InvitationResponse invitationResponse = response.body();
-                    if (invitationResponse != null) {
-                        String newMemberName = invitationResponse.getMemberName();
-                        String newMemberRole = invitationResponse.getMemberRole();
-
-                        TextView memberNameTextView = findViewById(R.id.item_detail_member_name);
-                        TextView memberRoleTextView = findViewById(R.id.item_detail_member_role);
-
-                        if (memberNameTextView != null) {
-                            memberNameTextView.setText(newMemberName);
-                        }
-                        if (memberRoleTextView != null) {
-                            memberRoleTextView.setText(newMemberRole);
-                        }
-
-                        Toast.makeText(MainActivity.this, "팀원 초대가 성공적으로 이루어졌습니다.", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    Toast.makeText(MainActivity.this, "초대에 실패했습니다. 다시 시도하세요.", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<InvitationResponse> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "네트워크 오류가 발생했습니다. 다시 시도하세요.", Toast.LENGTH_SHORT).show();
-            }
-        });
+         */
     }
 
     public void onMemberPlusClicked(View view) {
@@ -431,9 +398,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onMemberClicked(View view) {
-        String userType = sharedPreferences.getString("Type", "general");
+        String userType = TokenManager.getRole();
         Intent intent;
-        if (userType.equals("recruiter")) {
+        if (userType.equals("RECRUITER")) {
             intent = new Intent(this, ItemDetailMemberRecruiterActivity.class);
         } else {
             intent = new Intent(this, ItemDetailMemberGeneralActivity.class);
@@ -446,4 +413,10 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void onLogoutClicked(View view) {
+        TokenManager.clearToken();
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        finish();
+    }
 }

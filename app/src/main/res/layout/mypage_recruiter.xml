@@ -203,5 +203,20 @@
         app:layout_constraintTop_toBottomOf="@+id/mypage_recruiter_recruit"
         app:srcCompat="@drawable/mypage_go" />
 
+    <TextView
+        android:id="@+id/mypage_logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:fontFamily="@font/pretendard_bold"
+        android:text="Logout"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mypage_recruiter_recruit_post"
+        android:clickable="true"
+        android:onClick="onLogoutClicked"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

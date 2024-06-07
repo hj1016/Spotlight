@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mypage_portfolio_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF">
@@ -58,7 +59,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
         android:fontFamily="@font/pretendard_regular"
-        android:text="*사진을 순서대로 업로드 해주세요.\n인사 담당자에겐 PDF 형식으로 보여져요."
+        android:text="*사진을 순서대로 업로드 해주세요.\n공개 설정 시 인사 담당자에게 보여져요."
         android:textColor="#a6a6a6"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="@id/mypage_portfolio_back"
@@ -75,7 +76,8 @@
         app:srcCompat="@drawable/image_plus"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/mypage_portfolio_image_toast"
-        android:clickable="true"/>
+        android:clickable="true"
+        android:onClick="onImagePlusClicked"/>
 
     <TextView
         android:id="@+id/mypage_portfolio_open"
@@ -111,7 +113,7 @@
         android:background="@android:color/transparent"
         android:padding="0dp"
         android:clickable="true"
-        android:onClick="onCompleteClicked"/>
+        android:onClick="onPortfolioCompleteClicked"/>
 
 
 

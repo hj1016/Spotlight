@@ -1,7 +1,6 @@
 package com.example.spotlight;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -13,20 +12,12 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import java.util.ArrayList;
-import java.util.List;
 
 public class NewPostingActivity extends AppCompatActivity {
     private Spinner bigCategorySpinner, smallCategorySpinner;
     private ArrayAdapter<CharSequence> smallCategoryAdapter;
     private ImageView dynamicImage;
     private EditText dynamicText;
-
-    private RecyclerView recyclerView;
-    private InviteMemberAdapter adapter;
-    private List<Member> memberList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +28,9 @@ public class NewPostingActivity extends AppCompatActivity {
         smallCategorySpinner = findViewById(R.id.small_category_spinner);
         dynamicImage = findViewById(R.id.new_posting_description_box);
         dynamicText = findViewById(R.id.new_posting_description_text);
-        recyclerView = findViewById(R.id.recyclerView_invite_member);
 
         setupSpinners();
         setupDynamicImage();
-        setupRecyclerView();
 
         dynamicText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -79,17 +68,6 @@ public class NewPostingActivity extends AppCompatActivity {
 
     private void setupDynamicImage() {
         // You can set up more configurations here if needed
-    }
-
-    private void setupRecyclerView() {
-        memberList = new ArrayList<>();
-        memberList.add(new Member(R.drawable.member_image, "김이름"));
-        memberList.add(new Member(R.drawable.member_image, "이이름"));
-        memberList.add(new Member(R.drawable.member_image, "박이름"));
-
-        adapter = new InviteMemberAdapter(this, memberList);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        recyclerView.setAdapter(adapter);
     }
 
     private void updateSmallCategories(int position) {
@@ -138,4 +116,6 @@ public class NewPostingActivity extends AppCompatActivity {
         Intent intent = new Intent(this, NewPostingExhibitionActivity.class);
         startActivity(intent);
     }
+
+
 }

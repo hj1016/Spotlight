@@ -28,24 +28,22 @@ public class ApiClient {
         return retrofit;
     }
 
-    public static Retrofit getClientWithToken(Context context) {
+    public static Retrofit getClientWithToken() {
         if (retrofitWithToken == null) {
-            TokenManager tokenManager = new TokenManager(context);
-
             OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
             httpClient.addInterceptor(new Interceptor() {
                 @Override
                 public Response intercept(Chain chain) throws IOException {
                     Request original = chain.request();
                     Request.Builder requestBuilder = original.newBuilder()
-                            .header("Authorization", "Bearer " + tokenManager.getToken());
+                            .header("Authorization", "Bearer " + TokenManager.getToken());
                     Request request = requestBuilder.build();
                     return chain.proceed(request);
                 }
             });
 
             retrofitWithToken = new Retrofit.Builder()
-                    .baseUrl(BASE_URL)  // Replace with your actual base URL
+                    .baseUrl(BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(httpClient.build())
                     .build();
