@@ -12,13 +12,23 @@ import com.example.spotlight.network.API.ApiService;
 import com.example.spotlight.network.Response.DeleteResponse;
 import com.example.spotlight.network.Service.DeleteService;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import java.util.ArrayList;
+import java.util.List;
+
 public class PostingEditActivity extends AppCompatActivity{
 
     private ApiService apiService;
+    private RecyclerView recyclerView;
+    private InviteMemberAdapter adapter;
+    private List<Member> memberList;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.posting_edit);
+
+        setupRecyclerView();
     }
 
     // 게시물 삭제
@@ -52,6 +62,17 @@ public class PostingEditActivity extends AppCompatActivity{
                 });
         AlertDialog alert = builder.create();
         alert.show();
+    }
+
+    private void setupRecyclerView() {
+        memberList = new ArrayList<>();
+        memberList.add(new Member(R.drawable.member_image, "김이름"));
+        memberList.add(new Member(R.drawable.member_image, "이이름"));
+        memberList.add(new Member(R.drawable.member_image, "박이름"));
+
+        adapter = new InviteMemberAdapter(this, memberList);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        recyclerView.setAdapter(adapter);
     }
 
     public void onBackClicked(View view) {

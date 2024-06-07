@@ -33,8 +33,7 @@ public class StageDetailActivity extends AppCompatActivity {
         });
     }
     public void onBackClicked(View view) {
-        Intent intent = new Intent(this, StageActivity.class);
-        startActivity(intent);
+        finish();
     }
 
     public void toggleScrap(View view) {

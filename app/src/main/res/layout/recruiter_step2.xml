@@ -82,6 +82,7 @@
         android:layout_width="153dp"
         android:layout_height="144dp"
         android:layout_marginTop="1dp"
+        android:layout_marginStart="12dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recruiter_certificate_toast"
         app:srcCompat="@drawable/image_plus" />
