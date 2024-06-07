@@ -22,11 +22,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.spotlight.network.API.ApiClient;
+import com.example.spotlight.network.API.ApiService;
+import com.example.spotlight.network.Request.FeedRequest;
+import com.example.spotlight.network.Response.FeedResponse;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class NewPostingActivity extends AppCompatActivity {
     private static final int PICK_IMAGE_SINGLE = 1;
@@ -38,11 +47,16 @@ public class NewPostingActivity extends AppCompatActivity {
     private ImageView[] imageViews = new ImageView[10];
     private ImageView imagePlusButton, imageSelectPlusButton;
     private RecyclerView recyclerView;
-    private InviteMemberAdapter adapter;
+    private InviteMemberAdapter invteMemberAdapter;
     private List<Member> memberList;
     private List<Uri> imageUris = new ArrayList<>();
     private FirebaseStorage firebaseStorage;
+    private List<Post> posts = new ArrayList<>();
+    private PostDataManager postDataManager;
+    private PostAdapter postAdapter;
+    private String teamImageUrl = "";
     private String imageUrl = "";
+    private String scrapImageUrl = "";
     private String exhibitionLocation = "";
     private String exhibitionSchedule = "";
     private String exhibitionTime = "";
@@ -97,6 +111,13 @@ public class NewPostingActivity extends AppCompatActivity {
         });
 
         firebaseStorage = FirebaseStorage.getInstance();
+        postDataManager = new PostDataManager(this);
+
+        // 기존 게시물 불러오기
+        posts = postDataManager.loadPosts();
+
+        // 기존 게시물 어댑터 설정
+        postAdapter = new PostAdapter(this, posts);
 
         imagePlusButton.setOnClickListener(view -> pickImage(PICK_IMAGE_PLUS));
         imageSelectPlusButton.setOnClickListener(view -> pickImage(PICK_IMAGE_SINGLE));
@@ -140,9 +161,9 @@ public class NewPostingActivity extends AppCompatActivity {
         // memberList.add(new Member(R.drawable.member_image, "이이름"));
         // memberList.add(new Member(R.drawable.member_image, "박이름"));
 
-        adapter = new InviteMemberAdapter(this, memberList);
+        invteMemberAdapter = new InviteMemberAdapter(this, memberList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(invteMemberAdapter);
     }
 
     private void updateSmallCategories(int position) {
@@ -201,16 +222,19 @@ public class NewPostingActivity extends AppCompatActivity {
         }
     }
 
+    // 이미지 업로드 메소드
     private void uploadImage(Uri imageUri, int index) {
         StorageReference storageReference = firebaseStorage.getReference().child("images/" + imageUri.getLastPathSegment());
         storageReference.putFile(imageUri)
                 .addOnSuccessListener(taskSnapshot -> storageReference.getDownloadUrl().addOnSuccessListener(uri -> {
                     imageViews[index].setImageURI(imageUri);
                     Log.d("Image URL", uri.toString());
-                    // 이미지 URL을 저장하고 활용하는 코드 추가
                     imageUrl = uri.toString();
                 }))
-                .addOnFailureListener(e -> Toast.makeText(NewPostingActivity.this, "이미지 업로드에 실패했습니다. : " + e.getMessage(), Toast.LENGTH_SHORT).show());
+                .addOnFailureListener(e -> {
+                    Toast.makeText(NewPostingActivity.this, "이미지 업로드에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                    Log.e("NewPostingActivity", "이미지 업로드 실패", e);
+                });
     }
 
     private void updateExhibitionTextViews() {
@@ -241,5 +265,58 @@ public class NewPostingActivity extends AppCompatActivity {
     public void onExhibitionPlusClicked(View view) {
         Intent intent = new Intent(this, NewPostingExhibitionActivity.class);
         startActivity(intent);
+    }
+
+    // 게시물 작성
+    public void onCompleteClicked(View view) {
+        // UI에서 데이터 수집
+        String title = ((EditText) findViewById(R.id.new_posting_project_text)).getText().toString();
+        String content = ((EditText) findViewById(R.id.new_posting_description_text)).getText().toString();
+        String bigCategory = ((Spinner) findViewById(R.id.big_category_spinner)).getSelectedItem().toString();
+        String smallCategory = ((Spinner) findViewById(R.id.small_category_spinner)).getSelectedItem().toString();
+        String hashtags = ((EditText) findViewById(R.id.new_posting_hashtag_text)).getText().toString();
+
+        // 요청 객체 생성
+        FeedRequest feedRequest = new FeedRequest();
+        feedRequest.setTitle(title);
+        feedRequest.setContent(content);
+        feedRequest.setScrap(0);  // 기본값
+
+        // 카테고리 설정
+        FeedRequest.Category category = new FeedRequest.Category();
+        category.setMain(bigCategory);
+        category.setSub(smallCategory);
+        feedRequest.setCategory(category);
+
+        // 해시태그 설정
+        List<String> hashtagList = Arrays.asList(hashtags.split("#"));
+        feedRequest.setHashtag(hashtagList);
+
+        // 게시물 작성 요청
+        ApiService apiService = ApiClient.getClientWithToken().create(ApiService.class);
+        Call<FeedResponse> call = apiService.createFeed(feedRequest);
+        call.enqueue(new Callback<FeedResponse>() {
+            @Override
+            public void onResponse(Call<FeedResponse> call, Response<FeedResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Toast.makeText(NewPostingActivity.this, "게시물이 성공적으로 작성되었습니다!", Toast.LENGTH_SHORT).show();
+
+                    Post post = new Post(teamImageUrl, title, bigCategory, imageUrl, content, 0, hashtagList, scrapImageUrl, false);
+                    posts.add(post);
+                    postAdapter.notifyDataSetChanged();
+                    postDataManager.savePosts(posts);
+
+                    // 게시물 작성 후 현재 화면 종료
+                    finish();
+                } else {
+                    Toast.makeText(NewPostingActivity.this, "게시물 작성에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<FeedResponse> call, Throwable t) {
+                Toast.makeText(NewPostingActivity.this, "게시물 작성에 실패했습니다.", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
