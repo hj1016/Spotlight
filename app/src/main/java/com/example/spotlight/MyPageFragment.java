@@ -16,6 +16,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.spotlight.network.Util.TokenManager;
 
 public class MyPageFragment extends Fragment {
@@ -41,8 +42,13 @@ public class MyPageFragment extends Fragment {
         String profileImg = TokenManager.getProfileImage();
         username.setText(usernameStr);
         if(profileImg != null && !profileImg.isEmpty()) {
+            RequestOptions requestOptions = new RequestOptions()
+                    .override(100, 100)
+                    .circleCrop();
+
             Glide.with(this)
                     .load(profileImg)
+                    .apply(requestOptions)
                     .into(imageViewProfile);
         }
 

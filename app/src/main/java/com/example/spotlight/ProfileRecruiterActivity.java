@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.spotlight.network.API.ApiService;
 import com.example.spotlight.network.Util.TokenManager;
 
@@ -40,8 +41,13 @@ public class ProfileRecruiterActivity extends AppCompatActivity {
         textViewId.setText(id);
         textViewCompany.setText(company);
         if(profileImg != null && !profileImg.isEmpty()) {
+            RequestOptions requestOptions = new RequestOptions()
+                    .override(100, 100)
+                    .circleCrop();
+
             Glide.with(ProfileRecruiterActivity.this)
                     .load(profileImg)
+                    .apply(requestOptions)
                     .into(imageViewProfile);
         }
 

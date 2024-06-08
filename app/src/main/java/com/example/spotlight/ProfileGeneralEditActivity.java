@@ -64,6 +64,7 @@ public class ProfileGeneralEditActivity extends AppCompatActivity {
         if(profileImg != null && !profileImg.isEmpty()) {
             Glide.with(this)
                     .load(profileImg)
+                    .circleCrop()
                     .into(imageViewProfile);
         }
         apiService = ApiClient.getClientWithToken().create(ApiService.class);
@@ -161,7 +162,10 @@ public class ProfileGeneralEditActivity extends AppCompatActivity {
 
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             imageUri = data.getData();
-            Glide.with(this).load(imageUri).into(imageViewProfile);
+            Glide.with(this)
+                    .load(imageUri)
+                    .circleCrop()
+                    .into(imageViewProfile);
         }
     }
 

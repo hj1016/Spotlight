@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.request.RequestOptions;
 import com.example.spotlight.network.API.ApiClient;
 import com.example.spotlight.network.API.ApiService;
 import com.example.spotlight.network.Response.UserProfileResponse;
@@ -52,8 +53,13 @@ public class ProfileGraduatesActivity extends AppCompatActivity {
         textViewSchool.setText(school);
         textViewMajor.setText(major);
         if(profileImg != null && !profileImg.isEmpty()) {
+            RequestOptions requestOptions = new RequestOptions()
+                    .override(100, 100)
+                    .circleCrop();
+
             Glide.with(ProfileGraduatesActivity.this)
                     .load(profileImg)
+                    .apply(requestOptions)
                     .into(imageViewProfile);
         }
         //fetchDataFromApi();

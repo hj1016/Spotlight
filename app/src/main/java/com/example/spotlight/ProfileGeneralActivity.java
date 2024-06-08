@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.spotlight.network.Util.TokenManager;
 
 public class ProfileGeneralActivity extends AppCompatActivity {
@@ -34,8 +35,13 @@ public class ProfileGeneralActivity extends AppCompatActivity {
         textViewUsername.setText(username);
         textViewId.setText(id);
         if(profileImg != null && !profileImg.isEmpty()) {
+            RequestOptions requestOptions = new RequestOptions()
+                    .override(100, 100)
+                    .circleCrop();
+
             Glide.with(ProfileGeneralActivity.this)
                     .load(profileImg)
+                    .apply(requestOptions)
                     .into(imageViewProfile);
         }
     }
