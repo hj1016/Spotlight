@@ -12,6 +12,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -94,17 +95,21 @@ public class ProfileGeneralEditActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ProfileGeneralActivity.class);
         startActivity(intent);
     }
-    public void onCompleteClicked(View view) {
+    public void onGeneralEditCompleteClicked(View view) {
+        Log.d("copleteCliked", "help");
         String username = editTextUsername.getText().toString();
         uploadImageAndData(username, imageUri);
     }
 
     private void uploadImageAndData(String username, Uri imageUri) {
+        Log.d("uploadImageAndData", username);
         File file = new File(getPathFromUri(imageUri));
+        Log.d("uploadImageAndData", file.getName());
         RequestBody requestFile = RequestBody.create(MediaType.parse(getContentResolver().getType(imageUri)), file);
         MultipartBody.Part body = MultipartBody.Part.createFormData("profileImage", file.getName(), requestFile);
         Map<String, RequestBody> userProfileUpdateRequest = new HashMap<>();
         userProfileUpdateRequest.put("username", RequestBody.create(MediaType.parse("text/plain"), username));
+        Log.d("uploadImageAndData", imageUri.getPath());
         Call<UserProfileResponse> call = apiService.updateProfile(userProfileUpdateRequest, body);
         call.enqueue(new Callback<UserProfileResponse>() {
             @Override
@@ -151,7 +156,7 @@ public class ProfileGeneralEditActivity extends AppCompatActivity {
     }
 
     private void openFileChooser() {
-        Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         intent.setType("image/*");
         startActivityForResult(intent, PICK_IMAGE_REQUEST);
     }

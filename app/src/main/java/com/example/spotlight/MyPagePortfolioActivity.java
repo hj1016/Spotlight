@@ -7,8 +7,6 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -20,17 +18,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.example.spotlight.network.API.ApiClient;
 import com.example.spotlight.network.API.ApiService;
-import com.example.spotlight.network.Response.LoginResponse;
 import com.example.spotlight.network.Response.PortfolioResponse;
 import com.example.spotlight.network.Response.UploadPortfolioResponse;
-import com.example.spotlight.network.Util.FileUtils;
-import com.example.spotlight.network.Util.TokenManager;
+import com.example.spotlight.network.Util.*;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -92,7 +87,6 @@ public class MyPagePortfolioActivity extends AppCompatActivity {
             }
         });
 
-
     }
     private void updateGridLayout() {
         // 추가 버튼외 그리드 아이템 삭제
@@ -126,7 +120,7 @@ public class MyPagePortfolioActivity extends AppCompatActivity {
         finish();
     }
 
-    public void onCompleteClicked(View view) {
+    public void onPortfolioCompleteClicked(View view) {
         Intent intent = new Intent(this, MyPagePortfolioActivity.class);
         startActivity(intent);
     }
@@ -159,6 +153,7 @@ public class MyPagePortfolioActivity extends AppCompatActivity {
     }
 
     private void uploadImagesToServer(List<Uri> imageUris) {
+        LoadingUtil.showLoading(this);
         try {
             List<MultipartBody.Part> imageParts = new ArrayList<>();
             for (Uri uri : imageUris) {
@@ -180,21 +175,25 @@ public class MyPagePortfolioActivity extends AppCompatActivity {
                             imageUris.add(uri);
                         });
                         runOnUiThread(() -> updateGridLayout());
+                        LoadingUtil.hideLoading();
                         Toast.makeText(MyPagePortfolioActivity.this, "업로드 성공", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(MyPagePortfolioActivity.this, MyPagePortfolioActivity.class);
                         startActivity(intent);
                     } else {
+                        LoadingUtil.hideLoading();
                         Toast.makeText(MyPagePortfolioActivity.this, "업로드 실패: " + response.message(), Toast.LENGTH_SHORT).show();
                     }
                 }
 
                 @Override
                 public void onFailure(Call<UploadPortfolioResponse> call, Throwable t) {
+                    LoadingUtil.hideLoading();
                     Toast.makeText(MyPagePortfolioActivity.this, "업로드 에러: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
         } catch (Exception e) {
             e.printStackTrace();
+            LoadingUtil.hideLoading();
             Toast.makeText(this, "파일 처리 에러: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
