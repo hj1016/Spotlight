@@ -1,11 +1,12 @@
 package com.example.spotlight;
 
-import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.spotlight.network.API.ApiClient;
 import com.example.spotlight.network.API.ApiService;
@@ -21,6 +22,9 @@ public class NewPostingExhibitionActivity extends AppCompatActivity {
     private EditText locationEditText;
     private EditText scheduleEditText;
     private EditText timeEditText;
+    private String location;
+    private String schedule;
+    private String time;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,42 +33,66 @@ public class NewPostingExhibitionActivity extends AppCompatActivity {
         locationEditText = findViewById(R.id.new_posting_exhibition_location_text);
         scheduleEditText = findViewById(R.id.new_posting_exhibition_date_text);
         timeEditText = findViewById(R.id.new_posting_exhibition_time_text);
+
+        // 이전 페이지에서 전달된 내용 유지
+        Intent intent = getIntent();
+        if (intent != null) {
+            String title = intent.getStringExtra("title");
+            String description = intent.getStringExtra("description");
+            String hashtag = intent.getStringExtra("hashtag");
+            int bigCategoryPosition = intent.getIntExtra("bigCategoryPosition", 0);
+            int smallCategoryPosition = intent.getIntExtra("smallCategoryPosition", 0);
+        }
     }
 
     public void onBackClicked(View view) {
-        Intent intent = new Intent(this, NewPostingActivity.class);
-        startActivity(intent);
+        finish();
     }
 
     public void onExhibitionInfoClicked(View view) {
-        String location = locationEditText.getText().toString();
-        String schedule = scheduleEditText.getText().toString();
-        String time = timeEditText.getText().toString();
+        location = locationEditText.getText().toString();
+        schedule = scheduleEditText.getText().toString();
+        time = timeEditText.getText().toString();
 
         ExhibitionDTO exhibitionDTO = new ExhibitionDTO(location, schedule, time);
+        createExhibition(exhibitionDTO);
+    }
 
-        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+    private void createExhibition(ExhibitionDTO exhibitionDTO){
+        ApiService apiService = ApiClient.getClientWithToken().create(ApiService.class);
         Call<ExhibitionResponse> call = apiService.createExhibition(exhibitionDTO);
         call.enqueue(new Callback<ExhibitionResponse>() {
             @Override
             public void onResponse(Call<ExhibitionResponse> call, Response<ExhibitionResponse> response) {
                 if (response.isSuccessful()) {
-                    Intent intent = new Intent();
-                    intent.putExtra("location", location);
-                    intent.putExtra("schedule", schedule);
-                    intent.putExtra("time", time);
-                    setResult(RESULT_OK, intent);
-                    finish();
+                    // 서버에 전시 정보가 성공적으로 저장되었을 때
+                    ExhibitionResponse exhibitionResponse = response.body();
+
+                    if (exhibitionResponse != null && exhibitionResponse.isSuccess()) {
+                        // 저장된 전시 정보를 받아와서 결과를 처리
+                        ExhibitionDTO savedExhibition = exhibitionResponse.getExhibition();
+                        if (savedExhibition != null) {
+                            // 전시 정보를 성공적으로 저장한 경우
+                            Toast.makeText(NewPostingExhibitionActivity.this, "전시 정보가 성공적으로 저장되었습니다.", Toast.LENGTH_SHORT).show();
+                            // 이후 처리
+                        } else {
+                            // 전시 정보가 비어있는 경우
+                            Toast.makeText(NewPostingExhibitionActivity.this, "전시 정보가 비어있습니다.", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        // 서버 응답이 실패한 경우
+                        Toast.makeText(NewPostingExhibitionActivity.this, "전시 정보 저장에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
-                    // 실패 시 처리
-                    Toast.makeText(NewPostingExhibitionActivity.this, "전시 정보 작성에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                    // 서버 응답이 실패한 경우
+                    Toast.makeText(NewPostingExhibitionActivity.this, "서버 응답이 실패했습니다.", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<ExhibitionResponse> call, Throwable t) {
-                // 실패 시 처리
-                Toast.makeText(NewPostingExhibitionActivity.this, "네트워크 오류입니다.", Toast.LENGTH_SHORT).show();
+                // 네트워크 오류 등의 이유로 서버에 요청을 보낼 수 없는 경우
+                Toast.makeText(NewPostingExhibitionActivity.this, "서버에 요청을 보낼 수 없습니다.", Toast.LENGTH_SHORT).show();
             }
         });
     }

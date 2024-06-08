@@ -181,7 +181,7 @@ public interface ApiService {
     Call<InvitationResponse> inviteMemberToProject(@Body InvitationRequest invitationRequest);
 
     // 전시 정보 추가
-    @POST("/api/v1/exhibition")
+    @POST("/api/v1/feed/exhibition")
     Call<ExhibitionResponse> createExhibition(@Body ExhibitionDTO exhibitionDTO);
 
     /*

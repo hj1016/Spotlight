@@ -24,7 +24,8 @@ public class NewPostingMemberActivity extends AppCompatActivity {
 
     private EditText memberIdEditText;
     private EditText roleEditText;
-    private ApiService apiService;
+    private String memberId;
+    private String role;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,9 +33,6 @@ public class NewPostingMemberActivity extends AppCompatActivity {
 
         memberIdEditText = findViewById(R.id.new_posting_member_ID_text);
         roleEditText = findViewById(R.id.new_posting_member_role_text);
-
-        // ApiService 초기화
-        apiService = ApiClient.getClientWithToken().create(ApiService.class);
 
         Intent intent = getIntent();
         if (intent != null) {
@@ -51,26 +49,18 @@ public class NewPostingMemberActivity extends AppCompatActivity {
     }
 
     public void onInviteMemberClicked(View view) {
-        String memberId = memberIdEditText.getText().toString();
-        String role = roleEditText.getText().toString();
-
-        Intent resultIntent = new Intent();
-        resultIntent.putExtra("memberId", memberId);
-        resultIntent.putExtra("role", role);
-
-        setResult(RESULT_OK, resultIntent);
-        finish();
-    }
-
-    // API 호출 메서드
-    private void inviteMember(String memberId, String memberRole) {
-        // InvitationRequest 객체 생성 및 값 설정
-        InvitationRequest invitationRequest = new InvitationRequest();
-        invitationRequest.setProject_id("your_project_id");
-        invitationRequest.setMember_id(memberId);
-        invitationRequest.setRole(memberRole);
+        memberId = memberIdEditText.getText().toString();
+        role = roleEditText.getText().toString();
 
         // API 호출
+        // InvitationRequest 객체 생성 및 값 설정
+        InvitationRequest invitationRequest = new InvitationRequest();
+        invitationRequest.setProject_id("project_id"); // projectId 받아와야 함.
+        invitationRequest.setMember_id(memberId);
+        invitationRequest.setRole(role);
+
+        // API 호출
+        ApiService apiService = ApiClient.getClientWithToken().create(ApiService.class);
         Call<InvitationResponse> call = apiService.inviteMemberToProject(invitationRequest);
         call.enqueue(new Callback<InvitationResponse>() {
             @Override
@@ -91,5 +81,12 @@ public class NewPostingMemberActivity extends AppCompatActivity {
                 Toast.makeText(NewPostingMemberActivity.this, "네트워크 오류입니다.", Toast.LENGTH_SHORT).show();
             }
         });
+
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra("memberId", memberId);
+        resultIntent.putExtra("role", role);
+
+        setResult(RESULT_OK, resultIntent);
+        finish();
     }
 }

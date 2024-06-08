@@ -1,81 +1,98 @@
 package com.example.spotlight;
 
-import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
-import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import androidx.annotation.NonNull;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.spotlight.network.DTO.MemberDTO;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.example.spotlight.network.API.ApiClient;
+import com.example.spotlight.network.API.ApiService;
+import com.example.spotlight.network.Request.FeedRequest;
+import com.example.spotlight.network.Response.FeedResponse;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class NewPostingActivity extends AppCompatActivity {
-    private static final int PICK_IMAGE_REQUEST_1 = 1;
-    private static final int PICK_IMAGE_REQUEST_2 = 2;
-    private static final int INVITE_MEMBER_REQUEST = 3;
-
-    private Uri imageUri;
-    private ArrayList<Uri> imageUris = new ArrayList<>();
-    private ArrayList<MemberDTO> members = new ArrayList<>();
-    private RecyclerView recyclerView;
-    private MemberAdapter adapter;
-
-    private EditText titleEditText;
+    private static final int PICK_IMAGE_SINGLE = 1;
+    private static final int PICK_IMAGE_PLUS = 2;
     private Spinner bigCategorySpinner, smallCategorySpinner;
     private ArrayAdapter<CharSequence> smallCategoryAdapter;
     private ImageView dynamicImage;
     private EditText dynamicText;
-    private EditText hashtagEditText;
-    private ImageView imageView1;
-    private ImageView imageView2;
-    private StorageReference storageReference;
+    private ImageView[] imageViews = new ImageView[10];
+    private ImageView imagePlusButton, imageSelectPlusButton;
+    private RecyclerView recyclerView;
+    private InviteMemberAdapter invteMemberAdapter;
+    private List<Member> memberList;
+    private List<Uri> imageUris = new ArrayList<>();
+    private FirebaseStorage firebaseStorage;
+    private List<Post> posts = new ArrayList<>();
+    private PostDataManager postDataManager;
+    private PostAdapter postAdapter;
+    private String teamImageUrl = "";
+    private String imageUrl = "";
+    private String scrapImageUrl = "";
+    private String exhibitionLocation = "";
+    private String exhibitionSchedule = "";
+    private String exhibitionTime = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_posting);
 
-        titleEditText = findViewById(R.id.new_posting_project_text);
         bigCategorySpinner = findViewById(R.id.big_category_spinner);
         smallCategorySpinner = findViewById(R.id.small_category_spinner);
         dynamicImage = findViewById(R.id.new_posting_description_box);
         dynamicText = findViewById(R.id.new_posting_description_text);
-        hashtagEditText = findViewById(R.id.new_posting_hashtag_text);
 
-        recyclerView = findViewById(R.id.members_recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)); // LinearLayoutManager의 방향을 수평으로 설정
-        adapter = new MemberAdapter(members);
-        recyclerView.setAdapter(adapter);
+        imageViews[0] = findViewById(R.id.new_posting_image1);
+        imageViews[1] = findViewById(R.id.new_posting_image2);
+        imageViews[2] = findViewById(R.id.new_posting_image3);
+        imageViews[3] = findViewById(R.id.new_posting_image4);
+        imageViews[4] = findViewById(R.id.new_posting_image5);
+        imageViews[5] = findViewById(R.id.new_posting_image6);
+        imageViews[6] = findViewById(R.id.new_posting_image7);
+        imageViews[7] = findViewById(R.id.new_posting_image8);
+        imageViews[8] = findViewById(R.id.new_posting_image9);
+        imageViews[9] = findViewById(R.id.new_posting_image10);
 
-        imageView1 = findViewById(R.id.new_posting_image_plus);
-        imageView2 = findViewById(R.id.new_posting_selec_image_plus);
-        storageReference = FirebaseStorage.getInstance().getReference("uploads");
+        imagePlusButton = findViewById(R.id.new_posting_image_plus);
+        imageSelectPlusButton = findViewById(R.id.new_posting_selec_image_plus);
+        recyclerView = findViewById(R.id.recyclerView_invite_member);
+
+        exhibitionLocation = "";
+        exhibitionSchedule = "";
+        exhibitionTime = "";
 
         setupSpinners();
         setupDynamicImage();
+        setupRecyclerView();
 
         dynamicText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -93,84 +110,28 @@ public class NewPostingActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {}
         });
 
-        imageView1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openFileChooser(PICK_IMAGE_REQUEST_1);
-            }
-        });
+        firebaseStorage = FirebaseStorage.getInstance();
+        postDataManager = new PostDataManager(this);
 
-        imageView2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openFileChooser(PICK_IMAGE_REQUEST_2);
-            }
-        });
-    }
+        // 기존 게시물 불러오기
+        posts = postDataManager.loadPosts();
 
-    private void openFileChooser(int requestCode) {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true); // 다중 선택 가능
-        startActivityForResult(intent, requestCode);
-    }
+        // 기존 게시물 어댑터 설정
+        postAdapter = new PostAdapter(this, posts);
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+        imagePlusButton.setOnClickListener(view -> pickImage(PICK_IMAGE_PLUS));
+        imageSelectPlusButton.setOnClickListener(view -> pickImage(PICK_IMAGE_SINGLE));
 
-        if (resultCode == RESULT_OK && data != null) {
-            if (requestCode == PICK_IMAGE_REQUEST_1) {
-                // 이미지가 하나만 선택되었을 때
-                imageUri = data.getData();
-                imageView1.setImageURI(imageUri);
-                uploadImageToFirebase(imageUri);
-            } else if (requestCode == PICK_IMAGE_REQUEST_2) {
-                // 다중 이미지 선택 시
-                if (data.getClipData() != null) {
-                    int count = data.getClipData().getItemCount();
-                    for (int i = 0; i < count; i++) {
-                        Uri imageUri = data.getClipData().getItemAt(i).getUri();
-                        imageUris.add(imageUri);
-                        // 여기에서 imageUris에 대한 UI 업데이트도 수행할 수 있음.
-                        uploadImageToFirebase(imageUri);
-                    }
-                }
-            } else if (requestCode == INVITE_MEMBER_REQUEST) {
-                String memberId = data.getStringExtra("memberId");
-                String role = data.getStringExtra("role");
-                if (memberId != null && role != null) {
-                    addMember(memberId, role);
-                }
-            }
+        // 전시 정보를 받아오는 부분
+        Intent intent = getIntent();
+        if (intent != null) {
+            exhibitionLocation = intent.getStringExtra("location");
+            exhibitionSchedule = intent.getStringExtra("schedule");
+            exhibitionTime = intent.getStringExtra("time");
+
+            // 받아온 전시 정보를 TextView에 설정함.
+            updateExhibitionTextViews();
         }
-    }
-
-    private void uploadImageToFirebase(Uri imageUri) {
-        if (imageUri != null) {
-            StorageReference fileReference = storageReference.child(System.currentTimeMillis() + "." + getFileExtension(imageUri));
-
-            fileReference.putFile(imageUri)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(NewPostingActivity.this, "Upload successful", Toast.LENGTH_LONG).show();
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(NewPostingActivity.this, "Upload failed: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                    });
-        }
-    }
-
-    private String getFileExtension(Uri uri) {
-        ContentResolver cR = getContentResolver();
-        MimeTypeMap mime = MimeTypeMap.getSingleton();
-        return mime.getExtensionFromMimeType(cR.getType(uri));
     }
 
     private void setupSpinners() {
@@ -192,6 +153,17 @@ public class NewPostingActivity extends AppCompatActivity {
 
     private void setupDynamicImage() {
         // You can set up more configurations here if needed
+    }
+
+    private void setupRecyclerView() {
+        memberList = new ArrayList<>();
+        // memberList.add(new Member(R.drawable.member_image, "김이름"));
+        // memberList.add(new Member(R.drawable.member_image, "이이름"));
+        // memberList.add(new Member(R.drawable.member_image, "박이름"));
+
+        invteMemberAdapter = new InviteMemberAdapter(this, memberList);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        recyclerView.setAdapter(invteMemberAdapter);
     }
 
     private void updateSmallCategories(int position) {
@@ -227,15 +199,58 @@ public class NewPostingActivity extends AppCompatActivity {
         smallCategorySpinner.setAdapter(smallCategoryAdapter);
     }
 
-    private void addMember(String memberId, String role) {
-        // Create a new MemberDTO object
-        MemberDTO newMember = new MemberDTO();
-        newMember.setName(memberId);
-        newMember.setRole(role);
+    private void pickImage(int requestCode) {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "이미지를 선택하세요."), requestCode);
+    }
 
-        // Add the new member to the list
-        members.add(newMember);
-        adapter.notifyItemInserted(members.size() - 1); // notifyItemInserted로 변경
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            if (data != null && data.getData() != null) {
+                Uri imageUri = data.getData();
+                if (imageUris.size() < 10) {
+                    imageUris.add(imageUri);
+                    uploadImage(imageUri, imageUris.size() - 1);
+                } else {
+                    Toast.makeText(this, "최대 10장까지 이미지를 선택할 수 있습니다.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+    }
+
+    // 이미지 업로드 메소드
+    private void uploadImage(Uri imageUri, int index) {
+        StorageReference storageReference = firebaseStorage.getReference().child("images/" + imageUri.getLastPathSegment());
+        storageReference.putFile(imageUri)
+                .addOnSuccessListener(taskSnapshot -> storageReference.getDownloadUrl().addOnSuccessListener(uri -> {
+                    imageViews[index].setImageURI(imageUri);
+                    Log.d("Image URL", uri.toString());
+                    imageUrl = uri.toString();
+                }))
+                .addOnFailureListener(e -> {
+                    Toast.makeText(NewPostingActivity.this, "이미지 업로드에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                    Log.e("NewPostingActivity", "이미지 업로드 실패", e);
+                });
+    }
+
+    private void updateExhibitionTextViews() {
+        // 전시 정보를 받아온 경우에만 TextView를 업데이트함.
+        if (exhibitionLocation != null && exhibitionSchedule != null && exhibitionTime != null &&
+                !exhibitionLocation.isEmpty() && !exhibitionSchedule.isEmpty() && !exhibitionTime.isEmpty()) {
+            TextView exhibitionLocationTextView = findViewById(R.id.exhibition_location);
+            TextView exhibitionScheduleTextView = findViewById(R.id.exhibition_schedule);
+            TextView exhibitionTimeTextView = findViewById(R.id.exhibition_time);
+            TextView addNewPostingExhibitionTextView = findViewById(R.id.add_new_posting_exhibition_text);
+
+            exhibitionLocationTextView.setText(exhibitionLocation);
+            exhibitionScheduleTextView.setText(exhibitionSchedule);
+            exhibitionTimeTextView.setText(exhibitionTime);
+            addNewPostingExhibitionTextView.setText("");
+        }
     }
 
     public void onBackClicked(View view) {
@@ -244,19 +259,64 @@ public class NewPostingActivity extends AppCompatActivity {
 
     public void onMemberPlusClicked(View view) {
         Intent intent = new Intent(this, NewPostingMemberActivity.class);
-        intent.putExtra("title", titleEditText.getText().toString());
-        intent.putExtra("description", dynamicText.getText().toString());
-        intent.putExtra("hashtag", hashtagEditText.getText().toString());
-        intent.putExtra("bigCategoryPosition", bigCategorySpinner.getSelectedItemPosition());
-        intent.putExtra("smallCategoryPosition", smallCategorySpinner.getSelectedItemPosition());
-        startActivityForResult(intent, INVITE_MEMBER_REQUEST); // startActivity(intent);
-
-        members.add(new MemberDTO("새로운 팀원", "팀원"));
-        adapter.notifyDataSetChanged();
+        startActivity(intent);
     }
 
     public void onExhibitionPlusClicked(View view) {
         Intent intent = new Intent(this, NewPostingExhibitionActivity.class);
         startActivity(intent);
+    }
+
+    // 게시물 작성
+    public void onCompleteClicked(View view) {
+        // UI에서 데이터 수집
+        String title = ((EditText) findViewById(R.id.new_posting_project_text)).getText().toString();
+        String content = ((EditText) findViewById(R.id.new_posting_description_text)).getText().toString();
+        String bigCategory = ((Spinner) findViewById(R.id.big_category_spinner)).getSelectedItem().toString();
+        String smallCategory = ((Spinner) findViewById(R.id.small_category_spinner)).getSelectedItem().toString();
+        String hashtags = ((EditText) findViewById(R.id.new_posting_hashtag_text)).getText().toString();
+
+        // 요청 객체 생성
+        FeedRequest feedRequest = new FeedRequest();
+        feedRequest.setTitle(title);
+        feedRequest.setContent(content);
+        feedRequest.setScrap(0);  // 기본값
+
+        // 카테고리 설정
+        FeedRequest.Category category = new FeedRequest.Category();
+        category.setMain(bigCategory);
+        category.setSub(smallCategory);
+        feedRequest.setCategory(category);
+
+        // 해시태그 설정
+        List<String> hashtagList = Arrays.asList(hashtags.split("#"));
+        feedRequest.setHashtag(hashtagList);
+
+        // 게시물 작성 요청
+        ApiService apiService = ApiClient.getClientWithToken().create(ApiService.class);
+        Call<FeedResponse> call = apiService.createFeed(feedRequest);
+        call.enqueue(new Callback<FeedResponse>() {
+            @Override
+            public void onResponse(Call<FeedResponse> call, Response<FeedResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Toast.makeText(NewPostingActivity.this, "게시물이 성공적으로 작성되었습니다!", Toast.LENGTH_SHORT).show();
+
+                    Post post = new Post(teamImageUrl, title, bigCategory, imageUrl, content, 0, hashtagList, scrapImageUrl, false);
+                    posts.add(post);
+                    postAdapter.notifyDataSetChanged();
+                    postDataManager.savePosts(posts);
+
+                    // 게시물 작성 후 현재 화면 종료
+                    finish();
+                } else {
+                    Toast.makeText(NewPostingActivity.this, "게시물 작성에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<FeedResponse> call, Throwable t) {
+                Toast.makeText(NewPostingActivity.this, "게시물 작성에 실패했습니다.", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
