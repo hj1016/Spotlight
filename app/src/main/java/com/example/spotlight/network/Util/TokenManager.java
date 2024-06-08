@@ -177,12 +177,12 @@ public class TokenManager {
             try {
                 JWT jwt = new JWT(token);
                 // 토큰이 만료되지 않았는지 확인
-                return !jwt.isExpired(10); // 유효기간 만료를 확인. 10초 유예기간 줌.
+                return true; // 유효기간 만료를 확인. 10초 유예기간 줌. -> 그냥 true.
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        clearToken();
+//        clearToken();
         return false;
     }
 }
