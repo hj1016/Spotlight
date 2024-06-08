@@ -24,8 +24,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.spotlight.network.API.ApiClient;
 import com.example.spotlight.network.API.ApiService;
+import com.example.spotlight.network.DTO.ExhibitionDTO;
 import com.example.spotlight.network.Request.FeedRequest;
 import com.example.spotlight.network.Response.FeedResponse;
+import com.example.spotlight.network.Util.TokenManager;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -57,9 +59,6 @@ public class NewPostingActivity extends AppCompatActivity {
     private String teamImageUrl = "";
     private String imageUrl = "";
     private String scrapImageUrl = "";
-    private String exhibitionLocation = "";
-    private String exhibitionSchedule = "";
-    private String exhibitionTime = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,10 +84,6 @@ public class NewPostingActivity extends AppCompatActivity {
         imagePlusButton = findViewById(R.id.new_posting_image_plus);
         imageSelectPlusButton = findViewById(R.id.new_posting_selec_image_plus);
         recyclerView = findViewById(R.id.recyclerView_invite_member);
-
-        exhibitionLocation = "";
-        exhibitionSchedule = "";
-        exhibitionTime = "";
 
         setupSpinners();
         setupDynamicImage();
@@ -121,17 +116,6 @@ public class NewPostingActivity extends AppCompatActivity {
 
         imagePlusButton.setOnClickListener(view -> pickImage(PICK_IMAGE_PLUS));
         imageSelectPlusButton.setOnClickListener(view -> pickImage(PICK_IMAGE_SINGLE));
-
-        // 전시 정보를 받아오는 부분
-        Intent intent = getIntent();
-        if (intent != null) {
-            exhibitionLocation = intent.getStringExtra("location");
-            exhibitionSchedule = intent.getStringExtra("schedule");
-            exhibitionTime = intent.getStringExtra("time");
-
-            // 받아온 전시 정보를 TextView에 설정함.
-            updateExhibitionTextViews();
-        }
     }
 
     private void setupSpinners() {
@@ -157,9 +141,9 @@ public class NewPostingActivity extends AppCompatActivity {
 
     private void setupRecyclerView() {
         memberList = new ArrayList<>();
-        // memberList.add(new Member(R.drawable.member_image, "김이름"));
-        // memberList.add(new Member(R.drawable.member_image, "이이름"));
-        // memberList.add(new Member(R.drawable.member_image, "박이름"));
+        memberList.add(new Member(R.drawable.member_image, "김이름"));
+        memberList.add(new Member(R.drawable.member_image, "이이름"));
+        memberList.add(new Member(R.drawable.member_image, "박이름"));
 
         invteMemberAdapter = new InviteMemberAdapter(this, memberList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
@@ -224,16 +208,27 @@ public class NewPostingActivity extends AppCompatActivity {
                     uploadImage(imageUri, imageUris.size() - 1);
                 }
             }
-        }
 
-        // 멤버가 추가되었을 때의 처리
-        if (data != null) {
-            String memberId = data.getStringExtra("memberId");
-            String role = data.getStringExtra("role");
-            if (memberId != null && !memberId.isEmpty()) {
-                // Add the new member to the list and update the RecyclerView
-                memberList.add(new Member(R.drawable.member_image, memberId));
-                invteMemberAdapter.notifyDataSetChanged();
+            // 멤버가 추가되었을 때의 처리
+            if (data != null) {
+                String memberId = data.getStringExtra("memberId");
+                String role = data.getStringExtra("role");
+                if (memberId != null && !memberId.isEmpty()) {
+                    // Add the new member to the list and update the RecyclerView
+                    memberList.add(new Member(R.drawable.member_image, memberId));
+                    invteMemberAdapter.notifyDataSetChanged();
+                }
+            }
+
+            // 전시 정보가 저장되었는지 확인
+            String location = data.getStringExtra("location");
+            String schedule = data.getStringExtra("schedule");
+            String time = data.getStringExtra("time");
+
+            if (location != null && schedule != null && time != null) {
+                // 전시 정보가 올바르게 저장되었음을 표시
+                TextView addPostingTextView = findViewById(R.id.add_new_posting_exhibition_text);
+                addPostingTextView.setText("전시 정보 작성 완료");
             }
         }
     }
@@ -251,22 +246,6 @@ public class NewPostingActivity extends AppCompatActivity {
                     Toast.makeText(NewPostingActivity.this, "이미지 업로드에 실패했습니다.", Toast.LENGTH_SHORT).show();
                     Log.e("NewPostingActivity", "이미지 업로드 실패", e);
                 });
-    }
-
-    private void updateExhibitionTextViews() {
-        // 전시 정보를 받아온 경우에만 TextView를 업데이트함.
-        if (exhibitionLocation != null && exhibitionSchedule != null && exhibitionTime != null &&
-                !exhibitionLocation.isEmpty() && !exhibitionSchedule.isEmpty() && !exhibitionTime.isEmpty()) {
-            TextView exhibitionLocationTextView = findViewById(R.id.exhibition_location);
-            TextView exhibitionScheduleTextView = findViewById(R.id.exhibition_schedule);
-            TextView exhibitionTimeTextView = findViewById(R.id.exhibition_time);
-            TextView addNewPostingExhibitionTextView = findViewById(R.id.add_new_posting_exhibition_text);
-
-            exhibitionLocationTextView.setText(exhibitionLocation);
-            exhibitionScheduleTextView.setText(exhibitionSchedule);
-            exhibitionTimeTextView.setText(exhibitionTime);
-            addNewPostingExhibitionTextView.setText("");
-        }
     }
 
     public void onBackClicked(View view) {

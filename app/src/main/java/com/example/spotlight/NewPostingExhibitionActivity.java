@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import com.example.spotlight.network.API.ApiClient;
 import com.example.spotlight.network.API.ApiService;
 import com.example.spotlight.network.DTO.ExhibitionDTO;
 import com.example.spotlight.network.Response.ExhibitionResponse;
+import com.example.spotlight.network.Util.TokenManager;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -26,6 +28,7 @@ public class NewPostingExhibitionActivity extends AppCompatActivity {
     private String schedule;
     private String time;
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_posting_exhibition_info);
@@ -54,8 +57,31 @@ public class NewPostingExhibitionActivity extends AppCompatActivity {
         schedule = scheduleEditText.getText().toString();
         time = timeEditText.getText().toString();
 
-        ExhibitionDTO exhibitionDTO = new ExhibitionDTO(location, schedule, time);
+        // 전시 정보가 올바르게 입력되었는지 확인
+        if (location.isEmpty() || schedule.isEmpty() || time.isEmpty()) {
+            Toast.makeText(this, "전시 정보를 모두 입력해주세요.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Integer userId = TokenManager.getUserId();
+
+        if (userId == null) {
+            Toast.makeText(this, "사용자 ID를 찾을 수 없습니다. 다시 로그인 해주세요.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        ExhibitionDTO exhibitionDTO = new ExhibitionDTO(location, schedule, time, userId);
         createExhibition(exhibitionDTO);
+
+        // 결과 설정
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra("location", location);
+        resultIntent.putExtra("schedule", schedule);
+        resultIntent.putExtra("time", time);
+        setResult(RESULT_OK, resultIntent);
+
+        // 액티비티 종료
+        finish();
     }
 
     private void createExhibition(ExhibitionDTO exhibitionDTO){
@@ -69,31 +95,34 @@ public class NewPostingExhibitionActivity extends AppCompatActivity {
                     ExhibitionResponse exhibitionResponse = response.body();
 
                     if (exhibitionResponse != null && exhibitionResponse.isSuccess()) {
-                        // 저장된 전시 정보를 받아와서 결과를 처리
-                        ExhibitionDTO savedExhibition = exhibitionResponse.getExhibition();
-                        if (savedExhibition != null) {
-                            // 전시 정보를 성공적으로 저장한 경우
-                            Toast.makeText(NewPostingExhibitionActivity.this, "전시 정보가 성공적으로 저장되었습니다.", Toast.LENGTH_SHORT).show();
-                            // 이후 처리
-                        } else {
-                            // 전시 정보가 비어있는 경우
-                            Toast.makeText(NewPostingExhibitionActivity.this, "전시 정보가 비어있습니다.", Toast.LENGTH_SHORT).show();
-                        }
+                        // 전시 정보를 성공적으로 저장한 경우
+                        Toast.makeText(NewPostingExhibitionActivity.this, "전시 정보가 성공적으로 저장되었습니다.", Toast.LENGTH_SHORT).show();
+
+                        // 결과 설정
+                        setResult(RESULT_OK);
                     } else {
                         // 서버 응답이 실패한 경우
                         Toast.makeText(NewPostingExhibitionActivity.this, "전시 정보 저장에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                        setResult(RESULT_CANCELED); // 실패 시 RESULT_CANCELED 전달
                     }
                 } else {
                     // 서버 응답이 실패한 경우
                     Toast.makeText(NewPostingExhibitionActivity.this, "서버 응답이 실패했습니다.", Toast.LENGTH_SHORT).show();
+                    setResult(RESULT_CANCELED); // 실패 시 RESULT_CANCELED 전달
                 }
+                // 액티비티 종료
+                finish();
             }
 
             @Override
             public void onFailure(Call<ExhibitionResponse> call, Throwable t) {
                 // 네트워크 오류 등의 이유로 서버에 요청을 보낼 수 없는 경우
                 Toast.makeText(NewPostingExhibitionActivity.this, "서버에 요청을 보낼 수 없습니다.", Toast.LENGTH_SHORT).show();
+                setResult(RESULT_CANCELED); // 실패 시 RESULT_CANCELED 전달
+                // 액티비티 종료
+                finish();
             }
         });
-    }
+
+}
 }
