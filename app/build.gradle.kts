@@ -59,4 +59,5 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
     implementation("com.google.firebase:firebase-analytics")
     implementation ("com.auth0.android:jwtdecode:2.0.0")
+    implementation ("jp.wasabeef:glide-transformations:4.3.0")
 }

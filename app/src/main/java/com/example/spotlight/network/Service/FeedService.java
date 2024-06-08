@@ -1,5 +1,6 @@
 package com.example.spotlight.network.Service;
 
+import com.example.spotlight.network.API.ApiClient;
 import com.example.spotlight.network.API.ApiService;
 import com.example.spotlight.network.Response.FeedHitsResponse;
 
@@ -16,6 +17,7 @@ public class FeedService {
 
     // 사용자 조회수 조회
     public void getUserHits(int feedId, final UserHitsCallback callback) {
+        ApiService apiService = ApiClient.getClientWithToken().create(ApiService.class);
         apiService.getFeedHits(feedId).enqueue(new Callback<FeedHitsResponse>() {
             @Override
             public void onResponse(Call<FeedHitsResponse> call, Response<FeedHitsResponse> response) {
@@ -35,6 +37,7 @@ public class FeedService {
 
     // 리크루터 조회수 조회
     public void getRecruiterHits(int feedId, final RecruiterHitsCallback callback) {
+        ApiService apiService = ApiClient.getClientWithToken().create(ApiService.class);
         apiService.getFeedHits(feedId).enqueue(new Callback<FeedHitsResponse>() {
             @Override
             public void onResponse(Call<FeedHitsResponse> call, Response<FeedHitsResponse> response) {

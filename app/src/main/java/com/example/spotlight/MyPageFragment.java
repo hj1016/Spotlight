@@ -4,12 +4,19 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.content.Intent;
+import android.widget.ImageView;
+import android.widget.TextView;
+
 import androidx.annotation.Nullable;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.spotlight.network.Util.TokenManager;
 
 public class MyPageFragment extends Fragment {
@@ -27,6 +34,23 @@ public class MyPageFragment extends Fragment {
         view.findViewById(R.id.mypage_portfolio).setOnClickListener(this::onPortfolioClicked);
         view.findViewById(R.id.mypage_scrap_post).setOnClickListener(this::onScrapPostingClicked);
         view.findViewById(R.id.mypage_recruit_post).setOnClickListener(this::onProposeClicked);
+
+        Log.d("MyPageFagment", "loaded");
+        ImageView imageViewProfile = view.findViewById(R.id.mypage_user_image);
+        TextView username = view.findViewById(R.id.mypage_user_name);
+        String usernameStr = TokenManager.getUsername();
+        String profileImg = TokenManager.getProfileImage();
+        username.setText(usernameStr);
+        if(profileImg != null && !profileImg.isEmpty()) {
+            RequestOptions requestOptions = new RequestOptions()
+                    .override(100, 100)
+                    .circleCrop();
+
+            Glide.with(this)
+                    .load(profileImg)
+                    .apply(requestOptions)
+                    .into(imageViewProfile);
+        }
 
         return view;
     }

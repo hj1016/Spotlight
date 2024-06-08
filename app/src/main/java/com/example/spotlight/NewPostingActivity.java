@@ -138,6 +138,4 @@ public class NewPostingActivity extends AppCompatActivity {
         Intent intent = new Intent(this, NewPostingExhibitionActivity.class);
         startActivity(intent);
     }
-
-
 }

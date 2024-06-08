@@ -15,6 +15,7 @@ import com.example.spotlight.network.API.ApiClient;
 import com.example.spotlight.network.API.ApiService;
 import com.example.spotlight.network.DTO.UserRegistrationDto;
 import com.example.spotlight.network.Response.TokenResponse;
+import com.example.spotlight.network.Util.TokenManager;
 import com.google.gson.Gson;
 
 import retrofit2.Call;
@@ -90,14 +91,20 @@ public class SignupStep5Activity extends AppCompatActivity {
                             Intent intent = new Intent(SignupStep5Activity.this, GraduateStep1Activity.class);
                             intent.putExtra("email", getIntent().getStringExtra("email"));
                             intent.putExtra("id", getIntent().getStringExtra("id"));
+                            TokenManager.setToken(tokenResponse.getAccessToken());
+                            TokenManager.setUser(tokenResponse.getUser());
                             startActivity(intent);
                         } else if ("RECRUITER".equals(role)) {
                             Intent intent = new Intent(SignupStep5Activity.this, RecruiterStep1Activity.class);
                             intent.putExtra("email", getIntent().getStringExtra("email"));
                             intent.putExtra("id", getIntent().getStringExtra("id"));
+                            TokenManager.setToken(tokenResponse.getAccessToken());
+                            TokenManager.setUser(tokenResponse.getUser());
                             startActivity(intent);
                         } else {
                             Intent intent = new Intent(SignupStep5Activity.this, MainActivity.class);
+                            TokenManager.setToken(tokenResponse.getAccessToken());
+                            TokenManager.setUser(tokenResponse.getUser());
                             startActivity(intent);
                         }
                         finish();

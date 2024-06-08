@@ -4,6 +4,7 @@ import com.example.spotlight.network.DTO.ExhibitionDTO;
 import com.example.spotlight.network.DTO.FeedDTO;
 import com.example.spotlight.network.DTO.PasswordValidationDTO;
 import com.example.spotlight.network.DTO.PasswordValidationResponseDTO;
+import com.example.spotlight.network.DTO.ProjectDTO;
 import com.example.spotlight.network.DTO.ProposalDTO;
 import com.example.spotlight.network.DTO.ScrapDTO;
 import com.example.spotlight.network.DTO.UserRegistrationDto;
@@ -165,31 +166,28 @@ public interface ApiService {
     Call<FeedHitsResponse> getFeedHits(@Path("feedId") int feedId);
 
     // 팀원 정보 조회
-    @GET("/api/v1//feed/members/{studentid}")
+    @GET("/api/v1/feed/members/{studentid}")
     Call<MemberResponse> getMembersByStudentId(@Path("studentid") Integer studentId);
 
     // 팀원 스크랩
-    @POST("/api/v1//feed/members/{studentid}/scrap")
+    @POST("/api/v1/feed/members/{studentid}/scrap")
     Call<Map<String, Object>> scrapMember(@Path("studentid") Integer studentId);
 
     // 팀원 스크랩 취소
     @DELETE("/api/v1/members/{studentid}/scrap")
     Call<Map<String, Object>> unscrapMember(@Path("studentid") Integer studentId);
 
+    // 프로젝트 생성
+    @POST("/api/v1/projects")
+    Call<ProjectDTO> createProject(@Body ProjectDTO projectDTO);
+
     // 팀원 프로젝트 초대
     @POST("/api/v1/feed/invite-member")
     Call<InvitationResponse> inviteMemberToProject(@Body InvitationRequest invitationRequest);
 
     // 전시 정보 추가
-    @POST("/api/v1/exhibition")
+    @POST("/api/v1/feed/exhibition")
     Call<ExhibitionResponse> createExhibition(@Body ExhibitionDTO exhibitionDTO);
-
-    /*
-    // 전시 정보 조회
-    @GET("/api/v1/feed/exhibition")
-    Call<ExhibitionResponse> getExhibition();
-
-     */
 
     // 게시물 스크랩
     @POST("/api/v1/feed/{feedId}/scrap")

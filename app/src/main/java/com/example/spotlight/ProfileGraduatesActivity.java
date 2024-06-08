@@ -5,9 +5,11 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.request.RequestOptions;
 import com.example.spotlight.network.API.ApiClient;
 import com.example.spotlight.network.API.ApiService;
 import com.example.spotlight.network.Response.UserProfileResponse;
@@ -16,16 +18,19 @@ import com.example.spotlight.network.Util.TokenManager;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import com.bumptech.glide.Glide;
 
 public class ProfileGraduatesActivity extends AppCompatActivity {
     private TextView textViewUsername;
     private TextView textViewId;
     private TextView textViewSchool;
     private TextView textViewMajor;
+    private ImageView imageViewProfile;
     private String username;
     private String id;
     private String school;
     private String major;
+    private String profileImg;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,8 +40,29 @@ public class ProfileGraduatesActivity extends AppCompatActivity {
         textViewId = findViewById(R.id.profile_graduates_ID_text);
         textViewSchool = findViewById(R.id.profile_graduates_school_text);
         textViewMajor = findViewById(R.id.profile_graduates_major_text);
+        imageViewProfile = findViewById(R.id.profile_graduates_user_image);
 
-        fetchDataFromApi();
+        String id = TokenManager.getId();
+        String school = TokenManager.getSchool();
+        String major = TokenManager.getMajor();
+        String profileImg = TokenManager.getProfileImage();
+        String username = TokenManager.getUsername();
+
+        textViewUsername.setText(username);
+        textViewId.setText(id);
+        textViewSchool.setText(school);
+        textViewMajor.setText(major);
+        if(profileImg != null && !profileImg.isEmpty()) {
+            RequestOptions requestOptions = new RequestOptions()
+                    .override(100, 100)
+                    .circleCrop();
+
+            Glide.with(ProfileGraduatesActivity.this)
+                    .load(profileImg)
+                    .apply(requestOptions)
+                    .into(imageViewProfile);
+        }
+        //fetchDataFromApi();
 
     }
 
@@ -55,10 +81,6 @@ public class ProfileGraduatesActivity extends AppCompatActivity {
 
     public void onEditClicked(View view) {
         Intent intent = new Intent(this, ProfileGraduatesEditActivity.class);
-        intent.putExtra("username", username);
-        intent.putExtra("id", id);
-        intent.putExtra("school", school);
-        intent.putExtra("major", major);
         startActivity(intent);
     }
 
@@ -75,10 +97,16 @@ public class ProfileGraduatesActivity extends AppCompatActivity {
                     id = userProfileResponse.getId();
                     school = userProfileResponse.getSchool();
                     major = userProfileResponse.getMajor();
+                    profileImg = userProfileResponse.getProfileImage();
                     textViewUsername.setText(username);
                     textViewId.setText(id);
                     textViewSchool.setText(school);
                     textViewMajor.setText(major);
+                    if(profileImg != null && !profileImg.isEmpty()) {
+                        Glide.with(ProfileGraduatesActivity.this)
+                                .load(profileImg)
+                                .into(imageViewProfile);
+                    }
                 } else {
                     Toast.makeText(ProfileGraduatesActivity.this, "데이터를 가져오는 데에 실패했습니다.", Toast.LENGTH_SHORT).show();
                 }

@@ -438,13 +438,11 @@
                     android:layout_height="wrap_content"
                     android:textColor="#a6a6a6"
                     android:fontFamily="@font/pretendard_bold"
-                    android:text="+전시정보"
+                    android:text="+ 전시정보"
                     android:textSize="18sp"
                     android:gravity="center"
                     android:layout_marginTop="45dp"
                     app:layout_constraintTop_toTopOf="parent"/>
-
-
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

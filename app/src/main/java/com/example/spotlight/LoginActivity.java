@@ -71,7 +71,9 @@ public class LoginActivity extends AppCompatActivity {
 
                     if (loginResponse.getStatus() == 200) {
                         Toast.makeText(LoginActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
-                        TokenManager.setToken(loginResponse.getAccesstoken());
+                        Log.d("accessToken",loginResponse.getAccessToken());
+                        TokenManager.setToken(loginResponse.getAccessToken());
+                        TokenManager.setUser(loginResponse.getUser());
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);
                         finish();

@@ -13,10 +13,14 @@ public class ExhibitionDTO {
     @SerializedName("time")
     private String time;
 
-    public ExhibitionDTO(String location, String schedule, String time) {
+    @SerializedName("userId")
+    private Integer userId;
+
+    public ExhibitionDTO(String location, String schedule, String time, Integer userId) {
         this.location = location;
         this.schedule = schedule;
         this.time = time;
+        this.userId = userId;
     }
 
     public String getLocation() {
@@ -36,4 +40,12 @@ public class ExhibitionDTO {
     }
 
     public void setTime(String time) { this.time = time; }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
 }

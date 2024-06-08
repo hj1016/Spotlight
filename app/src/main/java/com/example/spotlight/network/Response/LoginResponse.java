@@ -6,7 +6,7 @@ public class LoginResponse {
     private int status;
     private String message;
     private UserDTO user;
-    private String accesstoken;
+    private String accessToken;
     private String refreshToken;
 
     // Getters and Setters
@@ -34,12 +34,12 @@ public class LoginResponse {
         this.user = user;
     }
 
-    public String getAccesstoken() {
-        return accesstoken;
+    public String getAccessToken() {
+        return accessToken;
     }
 
-    public void setAccesstoken(String accesstoken) {
-        this.accesstoken = accesstoken;
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
     }
 
     public String getRefreshToken() {

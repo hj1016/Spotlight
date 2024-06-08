@@ -51,7 +51,8 @@
         android:background="@android:color/transparent"
         app:layout_constraintTop_toTopOf="@+id/profile_general_edit_user_image"
         app:layout_constraintEnd_toEndOf="@+id/profile_general_edit_user_image"
-        android:clickable="true"/>
+        android:clickable="true"
+        android:onClick="onImageButtonClicked" />
 
     <LinearLayout
         android:id="@+id/username_general_edit_button_layout"
@@ -64,12 +65,12 @@
         app:layout_constraintTop_toBottomOf="@id/profile_general_edit_user_image"
         app:layout_constraintBottom_toTopOf="@id/profile_general_edit_ID">
 
-        <TextView
+        <EditText
             android:id="@+id/profile_general_edit_user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/pretendard_bold"
-            android:text="User name"
+            android:text="Username"
             android:textColor="#000000"
             android:textSize="24sp" />
 
@@ -97,14 +98,12 @@
         app:layout_constraintStart_toStartOf="@id/profile_general_edit_back"
         app:layout_constraintTop_toBottomOf="@id/username_general_edit_button_layout" />
 
-    <EditText
+    <TextView
         android:id="@+id/profile_general_edit_ID_text"
         android:layout_width="330dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
-        android:hint="e441532"
-        android:inputType="text"
         app:layout_constraintStart_toStartOf="@id/profile_general_edit_back"
         app:layout_constraintTop_toBottomOf="@id/profile_general_edit_ID"/>
 
@@ -121,14 +120,12 @@
         app:layout_constraintStart_toStartOf="@id/profile_general_edit_back"
         app:layout_constraintTop_toBottomOf="@id/profile_general_edit_ID_text" />
 
-    <EditText
+    <TextView
         android:id="@+id/profile_general_edit_password_text"
         android:layout_width="330dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
-        android:hint="*******"
-        android:inputType="text"
         app:layout_constraintStart_toStartOf="@id/profile_general_edit_back"
         app:layout_constraintTop_toBottomOf="@id/profile_general_edit_password"/>
 
