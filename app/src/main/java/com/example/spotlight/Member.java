@@ -3,10 +3,12 @@ package com.example.spotlight;
 public class Member {
     private int imageResource;
     private String name;
+    private String role;
 
-    public Member(int imageResource, String name) {
+    public Member(int imageResource, String name, String role) {
         this.imageResource = imageResource;
         this.name = name;
+        this.role = role;
     }
 
     public int getImageResource() {
@@ -16,4 +18,6 @@ public class Member {
     public String getName() {
         return name;
     }
+
+    public String getRole() { return role; }
 }

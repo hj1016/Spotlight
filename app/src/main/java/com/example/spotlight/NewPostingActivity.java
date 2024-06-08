@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.spotlight.network.API.ApiClient;
 import com.example.spotlight.network.API.ApiService;
 import com.example.spotlight.network.DTO.ExhibitionDTO;
+import com.example.spotlight.network.DTO.FeedDTO;
 import com.example.spotlight.network.DTO.ProjectDTO;
 import com.example.spotlight.network.Request.FeedRequest;
 import com.example.spotlight.network.Response.FeedResponse;
@@ -50,7 +51,7 @@ public class NewPostingActivity extends AppCompatActivity {
     private ImageView[] imageViews = new ImageView[10];
     private ImageView imagePlusButton, imageSelectPlusButton;
     private RecyclerView recyclerView;
-    private InviteMemberAdapter invteMemberAdapter;
+    private MemberAdapter memberAdapter;
     private List<Member> memberList;
     private List<Uri> imageUris = new ArrayList<>();
     private FirebaseStorage firebaseStorage;
@@ -142,13 +143,10 @@ public class NewPostingActivity extends AppCompatActivity {
 
     private void setupRecyclerView() {
         memberList = new ArrayList<>();
-        memberList.add(new Member(R.drawable.member_image, "김이름"));
-        memberList.add(new Member(R.drawable.member_image, "이이름"));
-        memberList.add(new Member(R.drawable.member_image, "박이름"));
 
-        invteMemberAdapter = new InviteMemberAdapter(this, memberList);
+        memberAdapter = new MemberAdapter(new ArrayList<>());
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        recyclerView.setAdapter(invteMemberAdapter);
+        recyclerView.setAdapter(memberAdapter);
     }
 
     private void updateSmallCategories(int position) {
@@ -216,8 +214,8 @@ public class NewPostingActivity extends AppCompatActivity {
                 String role = data.getStringExtra("role");
                 if (memberId != null && !memberId.isEmpty()) {
                     // Add the new member to the list and update the RecyclerView
-                    memberList.add(new Member(R.drawable.member_image, memberId));
-                    invteMemberAdapter.notifyDataSetChanged();
+                    memberList.add(new Member(R.drawable.member_image, memberId, role));
+                    memberAdapter.notifyDataSetChanged();
                 }
             }
 
@@ -247,20 +245,6 @@ public class NewPostingActivity extends AppCompatActivity {
                     Toast.makeText(NewPostingActivity.this, "이미지 업로드에 실패했습니다.", Toast.LENGTH_SHORT).show();
                     Log.e("NewPostingActivity", "이미지 업로드 실패", e);
                 });
-    }
-
-    public void onBackClicked(View view) {
-        finish();
-    }
-
-    public void onMemberPlusClicked(View view) {
-        Intent intent = new Intent(this, NewPostingMemberActivity.class);
-        startActivity(intent);
-    }
-
-    public void onExhibitionPlusClicked(View view) {
-        Intent intent = new Intent(this, NewPostingExhibitionActivity.class);
-        startActivity(intent);
     }
 
     // 게시물 작성
@@ -328,8 +312,14 @@ public class NewPostingActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<FeedResponse> call, Response<FeedResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
+                    FeedDTO feedDTO = new FeedDTO();
+                    Integer feedId = feedDTO.getFeedId();
+
                     Toast.makeText(NewPostingActivity.this, "게시물이 성공적으로 작성되었습니다!", Toast.LENGTH_SHORT).show();
-                    // 게시물 작성 후 현재 화면 종료
+
+                    Intent intent = new Intent(NewPostingActivity.this, ItemDetailActivity.class);
+                    intent.putExtra("feedId", feedId);
+                    startActivity(intent);
                     finish();
                 } else {
                     Toast.makeText(NewPostingActivity.this, "게시물 작성에 실패했습니다.", Toast.LENGTH_SHORT).show();
@@ -341,5 +331,19 @@ public class NewPostingActivity extends AppCompatActivity {
                 Toast.makeText(NewPostingActivity.this, "게시물 작성에 실패했습니다.", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void onBackClicked(View view) {
+        finish();
+    }
+
+    public void onMemberPlusClicked(View view) {
+        Intent intent = new Intent(this, NewPostingMemberActivity.class);
+        startActivity(intent);
+    }
+
+    public void onExhibitionPlusClicked(View view) {
+        Intent intent = new Intent(this, NewPostingExhibitionActivity.class);
+        startActivity(intent);
     }
 }

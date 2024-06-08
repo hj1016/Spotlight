@@ -1,8 +1,13 @@
 package com.example.spotlight.network.Service;
 
+import android.view.View;
+import android.widget.TextView;
+
+import com.example.spotlight.R;
 import com.example.spotlight.network.API.ApiClient;
 import com.example.spotlight.network.API.ApiService;
 import com.example.spotlight.network.Response.FeedHitsResponse;
+import com.example.spotlight.network.Util.TokenManager;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -53,6 +58,42 @@ public class FeedService {
                 callback.onError("An error occurred: " + t.getMessage());
             }
         });
+    }
+
+    // 조회수 반영 메서드
+    public void updateHits(int feedId, final View generalView, final View recruiterView) {
+        String userType = TokenManager.getRole();
+        if ("NORMAL".equals(userType)) {
+            getUserHits(feedId, new UserHitsCallback() {
+                @Override
+                public void onSuccess(int hits) {
+                    // 조회수 업데이트 성공
+                    ((TextView) generalView.findViewById(R.id.item_detail_general_view)).setText(String.valueOf(hits));
+                    System.out.println("User Hits: " + hits);
+                }
+
+                @Override
+                public void onError(String errorMessage) {
+                    // 조회수 업데이트 실패
+                    System.err.println("Error: " + errorMessage);
+                }
+            });
+        } else if ("RECRUITER".equals(userType)) {
+            getRecruiterHits(feedId, new RecruiterHitsCallback() {
+                @Override
+                public void onSuccess(int hits) {
+                    // 조회수 업데이트 성공
+                    ((TextView) recruiterView.findViewById(R.id.item_detail_recruiter_view)).setText(String.valueOf(hits));
+                    System.out.println("Recruiter Hits: " + hits);
+                }
+
+                @Override
+                public void onError(String errorMessage) {
+                    // 조회수 업데이트 실패
+                    System.err.println("Error: " + errorMessage);
+                }
+            });
+        }
     }
 
     public interface UserHitsCallback {

@@ -15,6 +15,7 @@ public class ScrapService {
         this.apiService = apiService;
     }
 
+    /*
     public void scrapMember(Integer studentId, Callback<Map<String, Object>> callback) {
         Call<Map<String, Object>> call = apiService.scrapMember(studentId);
         call.enqueue(new Callback<Map<String, Object>>() {
@@ -33,4 +34,6 @@ public class ScrapService {
             }
         });
     }
+
+     */
 }

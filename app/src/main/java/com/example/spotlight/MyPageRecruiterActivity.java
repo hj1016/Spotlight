@@ -1,15 +1,9 @@
 package com.example.spotlight;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
-import com.example.spotlight.network.Util.TokenManager;
 
 public class MyPageRecruiterActivity extends AppCompatActivity {
 
@@ -45,7 +39,7 @@ public class MyPageRecruiterActivity extends AppCompatActivity {
     }
 
     public void onProposeClicked(View view) {
-        Intent intent = new Intent(this, RecruiterProposeActivity.class);
+        Intent intent = new Intent(this, RecruiterProposeManageActivity.class);
         startActivity(intent);
     }
 }

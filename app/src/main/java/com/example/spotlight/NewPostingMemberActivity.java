@@ -13,8 +13,10 @@ import android.widget.Toast;
 
 import com.example.spotlight.network.API.ApiClient;
 import com.example.spotlight.network.API.ApiService;
+import com.example.spotlight.network.DTO.FeedDTO;
 import com.example.spotlight.network.Request.InvitationRequest;
 import com.example.spotlight.network.Response.InvitationResponse;
+import com.example.spotlight.network.Util.TokenManager;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -24,6 +26,7 @@ public class NewPostingMemberActivity extends AppCompatActivity {
 
     private EditText memberIdEditText;
     private EditText roleEditText;
+    private int projectId;
     private String memberId;
     private String role;
 
@@ -41,46 +44,32 @@ public class NewPostingMemberActivity extends AppCompatActivity {
             String hashtag = intent.getStringExtra("hashtag");
             int bigCategoryPosition = intent.getIntExtra("bigCategoryPosition", 0);
             int smallCategoryPosition = intent.getIntExtra("smallCategoryPosition", 0);
+            projectId = intent.getIntExtra("projectId", -1);
         }
     }
 
     public void onBackClicked(View view) {
-        finish();
+        Intent intent = new Intent(this, NewPostingActivity.class);
+        startActivity(intent);
     }
 
     public void onInviteMemberClicked(View view) {
         memberId = memberIdEditText.getText().toString();
         role = roleEditText.getText().toString();
 
-        // API 호출
-        // InvitationRequest 객체 생성 및 값 설정
-        InvitationRequest invitationRequest = new InvitationRequest();
-        invitationRequest.setProject_id("project_id"); // projectId 받아와야 함.
-        invitationRequest.setMember_id(memberId);
-        invitationRequest.setRole(role);
+        if (memberId.isEmpty() || role.isEmpty()) {
+            Toast.makeText(this, "팀원 정보를 모두 입력해주세요.", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-        // API 호출
-        ApiService apiService = ApiClient.getClientWithToken().create(ApiService.class);
-        Call<InvitationResponse> call = apiService.inviteMemberToProject(invitationRequest);
-        call.enqueue(new Callback<InvitationResponse>() {
-            @Override
-            public void onResponse(Call<InvitationResponse> call, Response<InvitationResponse> response) {
-                if (response.isSuccessful()) {
-                    InvitationResponse invitationResponse = response.body();
-                    // 응답 처리
-                    Toast.makeText(NewPostingMemberActivity.this, "팀원 초대에 성공했습니다.", Toast.LENGTH_SHORT).show();
-                } else {
-                    // 실패 시 처리
-                    Toast.makeText(NewPostingMemberActivity.this, "팀원 초대에 실패했습니다.", Toast.LENGTH_SHORT).show();
-                }
-            }
+        Integer userId = TokenManager.getUserId();
 
-            @Override
-            public void onFailure(Call<InvitationResponse> call, Throwable t) {
-                // 실패 시 처리
-                Toast.makeText(NewPostingMemberActivity.this, "네트워크 오류입니다.", Toast.LENGTH_SHORT).show();
-            }
-        });
+        if (userId == null) {
+            Toast.makeText(this, "사용자 ID를 찾을 수 없습니다. 다시 로그인 해주세요.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        inviteMember(projectId, memberId, role);
 
         Intent resultIntent = new Intent();
         resultIntent.putExtra("memberId", memberId);
@@ -88,5 +77,32 @@ public class NewPostingMemberActivity extends AppCompatActivity {
 
         setResult(RESULT_OK, resultIntent);
         finish();
+    }
+
+    // API 호출 메서드
+    private void inviteMember(int projectId, String memberId, String memberRole) {
+        InvitationRequest invitationRequest = new InvitationRequest();
+        invitationRequest.setProjectId(String.valueOf(projectId));
+        invitationRequest.setMemberId(memberId);
+        invitationRequest.setProjectRole(memberRole);
+
+        ApiService apiService = ApiClient.getClientWithToken().create(ApiService.class);
+        Call<InvitationResponse> call = apiService.inviteMemberToProject(invitationRequest);
+        call.enqueue(new Callback<InvitationResponse>() {
+            @Override
+            public void onResponse(Call<InvitationResponse> call, Response<InvitationResponse> response) {
+                if (response.isSuccessful()) {
+                    InvitationResponse invitationResponse = response.body();
+                    Toast.makeText(NewPostingMemberActivity.this, "팀원 초대에 성공했습니다.", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(NewPostingMemberActivity.this, "팀원 초대에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<InvitationResponse> call, Throwable t) {
+                Toast.makeText(NewPostingMemberActivity.this, "네트워크 오류입니다.", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

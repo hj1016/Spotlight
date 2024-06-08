@@ -1,42 +1,48 @@
 package com.example.spotlight.network.DTO;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 public class ProposalDTO implements Serializable {
-    private String title;
-    private String position;
-    private String contact;
+    private int proposalId;
+    private String company;
+    private String job;
+    private String phoneNumber;
     private String description;
+    private Integer userId;
+    private LocalDateTime createdDate;
+    private String profileImage;
+    private String username;
+    private String daysAgo;
 
-    public ProposalDTO(String title, String position, String contact, String description) {
-        this.title = title;
-        this.position = position;
-        this.contact = contact;
-        this.description = description;
+    // Getters and Setters
+
+    public int getProposalId() {
+        return proposalId;
     }
 
-    public String getTitle() {
-        return title;
+    public void setProposalId(int proposalId) {
+        this.proposalId = proposalId;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public String getCompany() { return company; }
+
+    public void setCompany(String company) { this.company = company; }
+
+    public String getJob() {
+        return job;
     }
 
-    public String getPosition() {
-        return position;
+    public void setJob(String job) {
+        this.job = job;
     }
 
-    public void setPosition(String position) {
-        this.position = position;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public String getContact() {
-        return contact;
-    }
-
-    public void setContact(String contact) {
-        this.contact = contact;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getDescription() {
@@ -46,4 +52,24 @@ public class ProposalDTO implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public Integer getUserId() { return userId; }
+
+    public void setUserId(Integer userId) { this.userId = userId; }
+
+    public LocalDateTime getCreatedDate() { return createdDate; }
+
+    public void setCreatedDate(LocalDateTime createdDate) { this.createdDate = createdDate; }
+
+    public String getProfileImage() { return profileImage; }
+
+    public void setProfileImage(String profileImage) { this.profileImage = profileImage; }
+
+    public String getUsername() { return username; }
+
+    public void setUsername(String username) { this.username = username; }
+
+    public String getDaysAgo() { return daysAgo; }
+
+    public void setDaysAgo(String daysAgo) { this.daysAgo = daysAgo; }
 }

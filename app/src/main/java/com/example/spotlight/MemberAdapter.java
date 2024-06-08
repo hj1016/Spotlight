@@ -14,7 +14,7 @@ import com.example.spotlight.network.DTO.MemberDTO;
 import java.util.ArrayList;
 
 public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MemberViewHolder> {
-    private ArrayList<MemberDTO> memberList;
+    private final ArrayList<MemberDTO> memberList;
 
     public MemberAdapter(ArrayList<MemberDTO> memberList) {
         this.memberList = memberList;
@@ -32,7 +32,6 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MemberView
         MemberDTO member = memberList.get(position);
         holder.memberName.setText(member.getName());
         holder.memberRole.setText(member.getRole());
-        // 기본 이미지 설정 (필요하면 이미지 URL을 설정할 수 있습니다)
         holder.memberImage.setImageResource(R.drawable.member_image);
     }
 

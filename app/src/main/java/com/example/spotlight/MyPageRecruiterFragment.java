@@ -1,7 +1,5 @@
 package com.example.spotlight;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
@@ -74,7 +72,7 @@ public class MyPageRecruiterFragment extends Fragment {
 
     private void onProposeClicked(View view) {
         if (getActivity() != null) {
-            Intent intent = new Intent(getActivity(), RecruiterProposeActivity.class);
+            Intent intent = new Intent(getActivity(), RecruiterProposeManageActivity.class);
             startActivity(intent);
         }
     }

@@ -28,7 +28,7 @@ public class ScrapGraduatesDetailActivity  extends AppCompatActivity {
     }
 
     public void onProposeClicked(View view) {
-        Intent intent = new Intent(this, RecruiterProposeActivity.class);
+        Intent intent = new Intent(this, RecruiterProposeManageActivity.class);
         startActivity(intent);
     }
 }

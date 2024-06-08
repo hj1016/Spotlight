@@ -7,14 +7,22 @@ import android.view.View;
 import androidx.viewpager2.widget.ViewPager2;
 import java.util.Arrays;
 import java.util.List;
+
+import com.example.spotlight.network.API.ApiClient;
+import com.example.spotlight.network.API.ApiService;
+import com.example.spotlight.network.Response.ScrapCancelResponse;
+import com.example.spotlight.network.Response.ScrapResponse;
 import com.google.android.flexbox.FlexboxLayout;
 import android.content.SharedPreferences;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.widget.Toast;
 
-
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ItemDetailActivity extends AppCompatActivity {
 
@@ -85,14 +93,68 @@ public class ItemDetailActivity extends AppCompatActivity {
 
     public void toggleScrap(View view) {
         ImageView scrapButton = (ImageView) view;
-        isScrapped = !isScrapped; // Toggle the state
-        scrapButton.setImageResource(isScrapped ? R.drawable.scrap_yes : R.drawable.scrap_no);
+        isScrapped = !isScrapped; // 스크랩 상태 토글
+
+        // Intent로 feedId를 가져옴.
+        Intent intent = getIntent();
+        if (intent != null && intent.hasExtra("feedId")) {
+            int feedId = intent.getIntExtra("feedId", -1);
+
+            // 스크랩 또는 스크랩 취소 요청 보내기
+            ApiService apiService = ApiClient.getClientWithToken().create(ApiService.class);
+
+            if (isScrapped) {
+                // 게시물 스크랩 요청
+                Call<ScrapResponse> call = apiService.scrapFeed(feedId);
+                call.enqueue(new Callback<ScrapResponse>() {
+                    @Override
+                    public void onResponse(Call<ScrapResponse> call, Response<ScrapResponse> response) {
+                        if (response.isSuccessful() && response.body() != null) {
+                            // 스크랩 성공
+                            scrapButton.setImageResource(R.drawable.scrap_yes);
+                            Toast.makeText(ItemDetailActivity.this, "게시물을 스크랩했습니다.", Toast.LENGTH_SHORT).show();
+                        } else {
+                            // 스크랩 실패
+                            Toast.makeText(ItemDetailActivity.this, "게시물 스크랩에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ScrapResponse> call, Throwable t) {
+                        // 네트워크 오류
+                        Toast.makeText(ItemDetailActivity.this, "네트워크 오류", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            } else {
+                // 게시물 스크랩 취소 요청
+                Call<ScrapCancelResponse> call = apiService.cancelScrapFeed(feedId);
+                call.enqueue(new Callback<ScrapCancelResponse>() {
+                    @Override
+                    public void onResponse(Call<ScrapCancelResponse> call, Response<ScrapCancelResponse> response) {
+                        if (response.isSuccessful() && response.body() != null) {
+                            // 스크랩 취소 성공
+                            scrapButton.setImageResource(R.drawable.scrap_no);
+                            Toast.makeText(ItemDetailActivity.this, "게시물 스크랩을 취소했습니다.", Toast.LENGTH_SHORT).show();
+                        } else {
+                            // 스크랩 취소 실패
+                            Toast.makeText(ItemDetailActivity.this, "게시물 스크랩 취소에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ScrapCancelResponse> call, Throwable t) {
+                        // 네트워크 오류
+                        Toast.makeText(ItemDetailActivity.this, "네트워크 오류", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        }
     }
 
     public void onMemberClicked(View view) {
-        String userType = sharedPreferences.getString("Type", "general"); // 기본값을 "general"로 설정
+        String userType = sharedPreferences.getString("Type", "NORMAL");
         Intent intent;
-        if (userType.equals("recruiter")) {
+        if (userType.equals("RECRUITER")) {
             intent = new Intent(this, ItemDetailMemberRecruiterActivity.class);
         } else {
             intent = new Intent(this, ItemDetailMemberGeneralActivity.class);

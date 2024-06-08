@@ -1,20 +1,24 @@
 package com.example.spotlight;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.spotlight.network.API.ApiService;
-import com.example.spotlight.network.Response.DeleteResponse;
-import com.example.spotlight.network.Response.FeedResponse;
-import com.example.spotlight.network.Service.DeleteService;
-
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.spotlight.network.API.ApiClient;
+import com.example.spotlight.network.API.ApiService;
+import com.example.spotlight.network.Request.FeedRequest;
+import com.example.spotlight.network.Response.DeleteResponse;
+import com.example.spotlight.network.Response.FeedResponse;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -23,26 +27,27 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PostingEditActivity extends AppCompatActivity{
+public class PostingEditActivity extends AppCompatActivity {
 
     private ApiService apiService;
     private RecyclerView recyclerView;
-    private InviteMemberAdapter adapter;
+    private MemberAdapter adapter;
     private List<Member> memberList;
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.posting_edit);
 
+        apiService = ApiClient.getClientWithToken().create(ApiService.class);
         setupRecyclerView();
     }
 
     // 게시물 수정
     public void onCompletePostingEditClicked(View view) {
-        /*
-        // 게시물 ID 가져오기 ,,,
+        // 게시물 ID 가져오기
         Intent intent = getIntent();
-        int feedId = intent.getIntExtra("FEED_ID", -1); // -1은 기본값으로 설정하여 만약 ID가 전달되지 않으면 오류를 방지합니다.
+        int feedId = intent.getIntExtra("FEED_ID", -1); // -1은 기본값으로 설정하여 만약 ID가 전달되지 않으면 오류 방지.
 
         // UI에서 데이터 수집
         String title = ((EditText) findViewById(R.id.posting_edit_project_text)).getText().toString();
@@ -64,7 +69,7 @@ public class PostingEditActivity extends AppCompatActivity{
         feedRequest.setCategory(category);
 
         // 해시태그 설정
-        List<String> hashtagList = Arrays.asList(hashtags.split(","));
+        List<String> hashtagList = Arrays.asList(hashtags.split(" "));
         feedRequest.setHashtag(hashtagList);
 
         // 게시물 수정 요청
@@ -73,43 +78,48 @@ public class PostingEditActivity extends AppCompatActivity{
             @Override
             public void onResponse(Call<FeedResponse> call, Response<FeedResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    Toast.makeText(MainActivity.this, "게시물이 성공적으로 수정되었습니다!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PostingEditActivity.this, "게시물이 성공적으로 수정되었습니다!", Toast.LENGTH_SHORT).show();
                     // 게시물 수정 후 현재 화면 종료
                     finish();
                 } else {
-                    Toast.makeText(MainActivity.this, "게시물 수정에 실패했습니다", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PostingEditActivity.this, "게시물 수정에 실패했습니다", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<FeedResponse> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "오류가 발생했습니다: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(PostingEditActivity.this, "오류가 발생했습니다: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
-         */
     }
 
     // 게시물 삭제
-    public void onDeleteClicked(View view, int feedId) {
+    public void onDeleteClicked(View view) {
+        Intent intent = getIntent();
+        int feedId = intent.getIntExtra("FEED_ID", -1); // -1은 기본값으로 설정하여 만약 ID가 전달되지 않으면 오류 방지.
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("정말로 이 게시물을 삭제하시겠습니까?")
                 .setCancelable(false)
                 .setPositiveButton("예", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // 게시물 삭제 요청
-                        DeleteService deleteService = new DeleteService(apiService);
-                        deleteService.deleteFeed(feedId, new DeleteService.DeleteCallback() {
+                        Call<DeleteResponse> call = apiService.deleteFeed(feedId);
+                        call.enqueue(new Callback<DeleteResponse>() {
                             @Override
-                            public void onSuccess(DeleteResponse response) {
-                                Toast.makeText(PostingEditActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
-                                // 게시물 삭제 후 현재 화면 종료
-                                finish();
+                            public void onResponse(Call<DeleteResponse> call, Response<DeleteResponse> response) {
+                                if (response.isSuccessful() && response.body() != null) {
+                                    Toast.makeText(PostingEditActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                    // 게시물 삭제 후 현재 화면 종료
+                                    finish();
+                                } else {
+                                    Toast.makeText(PostingEditActivity.this, "게시물 삭제에 실패했습니다", Toast.LENGTH_SHORT).show();
+                                }
                             }
 
                             @Override
-                            public void onError(String errorMessage) {
-                                Toast.makeText(PostingEditActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                            public void onFailure(Call<DeleteResponse> call, Throwable t) {
+                                Toast.makeText(PostingEditActivity.this, "오류가 발생했습니다: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
@@ -129,7 +139,7 @@ public class PostingEditActivity extends AppCompatActivity{
         // memberList.add(new Member(R.drawable.member_image, "이이름"));
         // memberList.add(new Member(R.drawable.member_image, "박이름"));
 
-        adapter = new InviteMemberAdapter(this, memberList);
+        adapter = new MemberAdapter(new ArrayList<>());
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         recyclerView.setAdapter(adapter);
     }

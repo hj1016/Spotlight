@@ -68,7 +68,7 @@
         <activity android:name=".ProfileRecruiterEditActivity"/>
 
 
-        <activity android:name=".RecruiterProposeActivity"/>
+        <activity android:name=".RecruiterProposeManageActivity"/>
         <activity android:name=".RecruiterProposeEditActivity"/>
         <activity android:name=".RecruiterStep1Activity" />
         <activity android:name=".RecruiterStep2Activity" />

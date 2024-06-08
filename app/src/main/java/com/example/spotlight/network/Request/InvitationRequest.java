@@ -1,33 +1,40 @@
 package com.example.spotlight.network.Request;
 
 public class InvitationRequest {
+    private String projectId;
+    private String memberId;
+    private String projectRole;
 
-    private String project_id;
-    private String member_id;
-    private String role;
-
-    // Getters and Setters
-    public String getProject_id() {
-        return project_id;
+    public InvitationRequest() {
     }
 
-    public void setProject_id(String project_id) {
-        this.project_id = project_id;
+    public InvitationRequest(String projectId, String memberId, String projectRole) {
+        this.projectId = projectId;
+        this.memberId = memberId;
+        this.projectRole = projectRole;
     }
 
-    public String getMember_id() {
-        return member_id;
+    public String getProjectId() {
+        return projectId;
     }
 
-    public void setMember_id(String member_id) {
-        this.member_id = member_id;
+    public void setProjectId(String projectId) {
+        this.projectId = projectId;
     }
 
-    public String getRole() {
-        return role;
+    public String getMemberId() {
+        return memberId;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setMemberId(String memberId) {
+        this.memberId = memberId;
+    }
+
+    public String getProjectRole() {
+        return projectRole;
+    }
+
+    public void setProjectRole(String projectRole) {
+        this.projectRole = projectRole;
     }
 }
