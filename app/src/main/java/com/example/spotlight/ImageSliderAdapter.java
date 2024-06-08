@@ -6,45 +6,40 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager2.widget.ViewPager2;
-import com.bumptech.glide.Glide;
 import java.util.List;
 
+public class ImageSliderAdapter extends RecyclerView.Adapter<ImageSliderAdapter.ImageViewHolder> {
 
-public class ImageSliderAdapter extends RecyclerView.Adapter<ImageSliderAdapter.SliderViewHolder> {
+    private List<Integer> imageList;
 
-    private List<String> images; // 이미지 URL을 저장하는 리스트
-
-    public ImageSliderAdapter(List<String> images) {
-        this.images = images;
+    public ImageSliderAdapter(List<Integer> imageList) {
+        this.imageList = imageList;
     }
 
     @NonNull
     @Override
-    public SliderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new SliderViewHolder(
-                LayoutInflater.from(parent.getContext()).inflate(R.layout.slider_item, parent, false)
-        );
+    public ImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.slider_item, parent, false);
+        return new ImageViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SliderViewHolder holder, int position) {
-        Glide.with(holder.itemView)
-                .load(images.get(position))
-                .into(holder.imageView);
+    public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
+        int imageRes = imageList.get(position);
+        holder.imageView.setImageResource(imageRes);
     }
 
     @Override
     public int getItemCount() {
-        return images.size();
+        return imageList.size();
     }
 
-    class SliderViewHolder extends RecyclerView.ViewHolder {
-        private ImageView imageView;
+    static class ImageViewHolder extends RecyclerView.ViewHolder {
+        ImageView imageView;
 
-        public SliderViewHolder(@NonNull View itemView) {
+        public ImageViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.imageSlider);
+            imageView = itemView.findViewById(R.id.imageView);
         }
     }
 }

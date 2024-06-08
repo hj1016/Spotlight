@@ -108,7 +108,7 @@ public class ProfileGraduatesEditActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void onCompleteClicked(View view) {
+    public void onGraduatesEditCompleteClicked(View view) {
         String username = editTextUsername.getText().toString();
         uploadImageAndData(username, imageUri);
     }

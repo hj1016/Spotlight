@@ -40,17 +40,17 @@ public class ItemDetailActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("UserType", MODE_PRIVATE);
 
         // 이미지 URL로 ViewPager2 초기화
-        List<String> images = Arrays.asList(
-                "https://example.com/image1.jpg", // 실제 이미지 URL로 바꿔야 함
-                "https://example.com/image2.jpg",
-                "https://example.com/image3.jpg",
-                "https://example.com/image4.jpg",
-                "https://example.com/image5.jpg",
-                "https://example.com/image6.jpg",
-                "https://example.com/image7.jpg",
-                "https://example.com/image8.jpg",
-                "https://example.com/image9.jpg",
-                "https://example.com/image10.jpg"
+        List<Integer> images = Arrays.asList(
+                R.drawable.image_ex1, // 실제 드로어블 리소스로 바꿔야 함
+                R.drawable.image_ex1,
+                R.drawable.image_ex1,
+                R.drawable.image_ex1,
+                R.drawable.image_ex1,
+                R.drawable.image_ex1,
+                R.drawable.image_ex1,
+                R.drawable.image_ex1,
+                R.drawable.image_ex1,
+                R.drawable.image_ex1
         );
 
         viewPagerImages = findViewById(R.id.viewPagerImages);

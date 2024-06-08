@@ -13,8 +13,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import java.io.IOException;
 
 public class ApiClient {
+    // 안드로이드 - ec2 서버 연결된 거
     private static final String BASE_URL = "http://13.49.215.3:8080";
-//  private static final String BASE_URL = "http://10.0.2.2:8080";
+    // 안드로이드 - 로컬 서버
+//    private static final String BASE_URL = "http://10.0.2.2:8080";
 
 
     private static Retrofit retrofit = null;

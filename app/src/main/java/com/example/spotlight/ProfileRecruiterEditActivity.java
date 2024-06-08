@@ -95,7 +95,7 @@ public class ProfileRecruiterEditActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void onCompleteClicked(View view) {
+    public void onRecruiterEditCompleteClicked(View view) {
         String username = editTextUsername.getText().toString();
         uploadImageAndData(username, imageUri);
     }
