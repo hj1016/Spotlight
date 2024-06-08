@@ -212,12 +212,28 @@ public class NewPostingActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK) {
             if (data != null && data.getData() != null) {
                 Uri imageUri = data.getData();
-                if (imageUris.size() < 10) {
+                if (requestCode == PICK_IMAGE_SINGLE) {
+                    if (imageUris.size() < 10) {
+                        imageUris.add(imageUri);
+                        uploadImage(imageUri, imageUris.size() - 1);
+                    } else {
+                        Toast.makeText(this, "최대 10장까지 이미지를 선택할 수 있습니다.", Toast.LENGTH_SHORT).show();
+                    }
+                } else if (requestCode == PICK_IMAGE_PLUS) {
                     imageUris.add(imageUri);
                     uploadImage(imageUri, imageUris.size() - 1);
-                } else {
-                    Toast.makeText(this, "최대 10장까지 이미지를 선택할 수 있습니다.", Toast.LENGTH_SHORT).show();
                 }
+            }
+        }
+
+        // 멤버가 추가되었을 때의 처리
+        if (data != null) {
+            String memberId = data.getStringExtra("memberId");
+            String role = data.getStringExtra("role");
+            if (memberId != null && !memberId.isEmpty()) {
+                // Add the new member to the list and update the RecyclerView
+                memberList.add(new Member(R.drawable.member_image, memberId));
+                invteMemberAdapter.notifyDataSetChanged();
             }
         }
     }

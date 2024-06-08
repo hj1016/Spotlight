@@ -31,7 +31,29 @@ public class HomeFragment extends Fragment implements NavigationView.OnNavigatio
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.home_feed, container, false);
+        View view = inflater.inflate(R.layout.home_feed, container, false);
+
+        recyclerView = view.findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        // Sample data
+        posts = new ArrayList<>();
+        posts.add(new Post(
+                "team_image_url",       // teamImageUrl
+                "Title",                // title
+                "Category",             // category
+                "image_url",            // imageUrl
+                "Content",              // content
+                5,                      // scrap
+                Arrays.asList("hashtag1", "hashtag2"), // hashtags
+                "scrap_image_url",      // scrapImageUrl
+                false                   // isScrapped
+        ));
+
+        postAdapter = new PostAdapter(getContext(), posts);
+        recyclerView.setAdapter(postAdapter);
+
+        return view;
     }
 
     @Override
