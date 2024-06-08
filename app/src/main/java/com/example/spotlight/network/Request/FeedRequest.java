@@ -1,5 +1,7 @@
 package com.example.spotlight.network.Request;
 
+import com.example.spotlight.network.DTO.ProjectDTO;
+
 import java.util.List;
 
 public class FeedRequest {
@@ -10,6 +12,7 @@ public class FeedRequest {
     private Category category;
     private List<String> hashtag;
     private Exhibition exhibition;
+    private ProjectDTO projectId;
 
     // Category 내부 클래스
     public static class Category {
@@ -65,7 +68,6 @@ public class FeedRequest {
     }
 
     // Getter와 Setter 메서드들
-    // (모든 속성에 대해 작성해야 합니다)
     public String getTitle() {
         return title;
     }
@@ -120,5 +122,13 @@ public class FeedRequest {
 
     public void setExhibition(Exhibition exhibition) {
         this.exhibition = exhibition;
+    }
+
+    public ProjectDTO getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(ProjectDTO projectId) {
+        this.projectId = projectId;
     }
 }

@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.spotlight.network.API.ApiClient;
 import com.example.spotlight.network.API.ApiService;
 import com.example.spotlight.network.DTO.ExhibitionDTO;
+import com.example.spotlight.network.DTO.ProjectDTO;
 import com.example.spotlight.network.Request.FeedRequest;
 import com.example.spotlight.network.Response.FeedResponse;
 import com.example.spotlight.network.Util.TokenManager;
@@ -267,10 +268,38 @@ public class NewPostingActivity extends AppCompatActivity {
         // UI에서 데이터 수집
         String title = ((EditText) findViewById(R.id.new_posting_project_text)).getText().toString();
         String content = ((EditText) findViewById(R.id.new_posting_description_text)).getText().toString();
-        String bigCategory = ((Spinner) findViewById(R.id.big_category_spinner)).getSelectedItem().toString();
-        String smallCategory = ((Spinner) findViewById(R.id.small_category_spinner)).getSelectedItem().toString();
+        String bigCategory = bigCategorySpinner.getSelectedItem().toString();
+        String smallCategory = smallCategorySpinner.getSelectedItem().toString();
         String hashtags = ((EditText) findViewById(R.id.new_posting_hashtag_text)).getText().toString();
 
+        // 프로젝트 생성 요청
+        ProjectDTO project = new ProjectDTO();
+        project.setProjectName(title); // 프로젝트 이름 설정
+        ApiService projectApiService = ApiClient.getClientWithToken().create(ApiService.class);
+        Call<ProjectDTO> projectCall = projectApiService.createProject(project);
+        projectCall.enqueue(new Callback<ProjectDTO>() {
+            @Override
+            public void onResponse(Call<ProjectDTO> call, Response<ProjectDTO> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    // 프로젝트 생성에 성공하면 게시물 작성 요청
+                    String projectId = response.body().getProjectId().toString();
+
+                    // 게시물 작성 요청
+                    createFeed(title, content, bigCategory, smallCategory, hashtags, projectId);
+                } else {
+                    Toast.makeText(NewPostingActivity.this, "프로젝트 생성에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ProjectDTO> call, Throwable t) {
+                Toast.makeText(NewPostingActivity.this, "프로젝트 생성에 실패했습니다.", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    // 게시물 작성 요청
+    private void createFeed(String title, String content, String bigCategory, String smallCategory, String hashtags, String projectId) {
         // 요청 객체 생성
         FeedRequest feedRequest = new FeedRequest();
         feedRequest.setTitle(title);
@@ -284,8 +313,13 @@ public class NewPostingActivity extends AppCompatActivity {
         feedRequest.setCategory(category);
 
         // 해시태그 설정
-        List<String> hashtagList = Arrays.asList(hashtags.split("#"));
+        List<String> hashtagList = Arrays.asList(hashtags.split(" "));
         feedRequest.setHashtag(hashtagList);
+
+        // 프로젝트 ID 설정
+        ProjectDTO projectDTO = new ProjectDTO();
+        projectDTO.setProjectId(Integer.parseInt(projectId));
+        feedRequest.setProjectId(projectDTO);
 
         // 게시물 작성 요청
         ApiService apiService = ApiClient.getClientWithToken().create(ApiService.class);
@@ -295,12 +329,6 @@ public class NewPostingActivity extends AppCompatActivity {
             public void onResponse(Call<FeedResponse> call, Response<FeedResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     Toast.makeText(NewPostingActivity.this, "게시물이 성공적으로 작성되었습니다!", Toast.LENGTH_SHORT).show();
-
-                    Post post = new Post(teamImageUrl, title, bigCategory, imageUrl, content, 0, hashtagList, scrapImageUrl, false);
-                    posts.add(post);
-                    postAdapter.notifyDataSetChanged();
-                    postDataManager.savePosts(posts);
-
                     // 게시물 작성 후 현재 화면 종료
                     finish();
                 } else {
