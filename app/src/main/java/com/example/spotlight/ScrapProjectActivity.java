@@ -51,13 +51,13 @@ public class ScrapProjectActivity extends AppCompatActivity {
                         postAdapter.notifyDataSetChanged();
                     }
                 } else {
-
+                    Log.e("ScrapProjectActivity", "Response not successful: " + response.message());
                 }
             }
 
             @Override
             public void onFailure(Call<List<Post>> call, Throwable t) {
-
+                Log.e("ScrapProjectActivity", "API call failed", t);
             }
         });
     }

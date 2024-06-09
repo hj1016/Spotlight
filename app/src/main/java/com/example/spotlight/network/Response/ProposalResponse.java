@@ -13,6 +13,7 @@ public class ProposalResponse {
     private String profileImage;
     private String username;
     private String daysAgo;
+    private String projectName;
 
     // Getters and Setters
 
@@ -71,4 +72,8 @@ public class ProposalResponse {
     public String getDaysAgo() { return daysAgo; }
 
     public void setDaysAgo(String daysAgo) { this.daysAgo = daysAgo; }
+
+    public String getProjectName() { return projectName; }
+
+    public void setProjectName(String projectName) { this.projectName = projectName; }
 }
