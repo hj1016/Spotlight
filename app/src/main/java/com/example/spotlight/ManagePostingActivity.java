@@ -2,13 +2,23 @@ package com.example.spotlight;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.spotlight.network.API.ApiClient;
+import com.example.spotlight.network.API.ApiService;
+import com.example.spotlight.network.DTO.FeedDTO;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ManagePostingActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
@@ -23,23 +33,26 @@ public class ManagePostingActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView_manage_posting);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // Sample data
-        postList = new ArrayList<>();
-        // Add sample posts to the list
-        postList.add(new Post(
-                "team_image_url",          // teamImageUrl
-                "Title",                               // title
-                "Category",                            // category
-                "image_url",                           // imageUrl
-                "Content",                             // content
-                5,                                     // scrap
-                Arrays.asList("hashtag1", "hashtag2"), // hashtags
-                "scrap_image_url",                     // scrapImageUrl
-                false                                  // isScrapped
-        ));
+        ApiService apiService = ApiClient.getClientWithToken().create(ApiService.class);
 
-        postAdapter = new PostAdapter(this, postList);
-        recyclerView.setAdapter(postAdapter);
+        Call<List<Post>> call = apiService.getMyFeeds();
+        call.enqueue(new Callback<List<Post>>() {
+            @Override
+            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
+                if (response.isSuccessful()) {
+                    List<Post> feedList = response.body();
+                    postAdapter = new PostAdapter(ManagePostingActivity.this, feedList);
+                    recyclerView.setAdapter(postAdapter);
+                } else {
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Post>> call, Throwable t) {
+
+            }
+        });
     }
 
     public void onNewPostingClicked(View view) {
