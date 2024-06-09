@@ -163,7 +163,7 @@ public interface ApiService {
 
     // 게시물 조회수 조회
     @GET("/api/v1/feed/{feedId}/hits")
-    Call<FeedHitsResponse> getFeedHits(@Path("feedId") int feedId);
+    Call<FeedDTO> getFeedHits(@Path("feedId") int feedId, @Header("Authorization") String accessToken);
 
     // 팀원 정보 조회
     @GET("/api/v1/feed/members/{studentid}")

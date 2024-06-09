@@ -1,32 +1,32 @@
 package com.example.spotlight.network.Request;
 
 public class InvitationRequest {
-    private String projectId;
-    private String memberId;
+    private int projectId;
+    private int memberId;
     private String projectRole;
 
     public InvitationRequest() {
     }
 
-    public InvitationRequest(String projectId, String memberId, String projectRole) {
+    public InvitationRequest(int projectId, int memberId, String projectRole) {
         this.projectId = projectId;
         this.memberId = memberId;
         this.projectRole = projectRole;
     }
 
-    public String getProjectId() {
+    public int getProjectId() {
         return projectId;
     }
 
-    public void setProjectId(String projectId) {
+    public void setProjectId(int projectId) {
         this.projectId = projectId;
     }
 
-    public String getMemberId() {
+    public int getMemberId() {
         return memberId;
     }
 
-    public void setMemberId(String memberId) {
+    public void setMemberId(int memberId) {
         this.memberId = memberId;
     }
 

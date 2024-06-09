@@ -82,8 +82,8 @@ public class NewPostingMemberActivity extends AppCompatActivity {
     // API 호출 메서드
     private void inviteMember(int projectId, String memberId, String memberRole) {
         InvitationRequest invitationRequest = new InvitationRequest();
-        invitationRequest.setProjectId(String.valueOf(projectId));
-        invitationRequest.setMemberId(memberId);
+        invitationRequest.setProjectId(projectId);
+        invitationRequest.setMemberId(Integer.parseInt(memberId));
         invitationRequest.setProjectRole(memberRole);
 
         ApiService apiService = ApiClient.getClientWithToken().create(ApiService.class);

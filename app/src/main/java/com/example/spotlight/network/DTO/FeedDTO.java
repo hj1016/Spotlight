@@ -3,6 +3,7 @@ package com.example.spotlight.network.DTO;
 import java.util.List;
 
 public class FeedDTO {
+    private Integer userId;
     private Integer feedId;
     private String title;
     private String image;
@@ -24,7 +25,8 @@ public class FeedDTO {
     public FeedDTO() {
     }
 
-    public FeedDTO(Integer feedId, String title, String image, String content, Integer scrap, Integer hitsUser, Integer hitsRecruiter, String category, String mainCategory, String subCategory, List<String> hashtags, UserRegistrationDto userDTO, MemberDTO member, ExhibitionDTO exhibition, Integer projectId, ProjectDTO projectDTO) {
+    public FeedDTO(Integer userId, Integer feedId, String title, String image, String content, Integer scrap, Integer hitsUser, Integer hitsRecruiter, String category, String mainCategory, String subCategory, List<String> hashtags, UserRegistrationDto userDTO, MemberDTO member, ExhibitionDTO exhibition, Integer projectId, ProjectDTO projectDTO) {
+        this.userId = userId;
         this.feedId = feedId;
         this.title = title;
         this.image = image;
@@ -44,9 +46,11 @@ public class FeedDTO {
     }
 
     // Getters and Setters
-    public Integer getFeedId() {
-        return feedId;
-    }
+    public Integer getUserId() { return userId; }
+
+    public void setUserId(Integer userId) { this.userId = userId; }
+
+    public Integer getFeedId() { return feedId; }
 
     public void setFeedId(Integer feedId) {
         this.feedId = feedId;

@@ -6,6 +6,7 @@ import android.widget.TextView;
 import com.example.spotlight.R;
 import com.example.spotlight.network.API.ApiClient;
 import com.example.spotlight.network.API.ApiService;
+import com.example.spotlight.network.DTO.FeedDTO;
 import com.example.spotlight.network.Response.FeedHitsResponse;
 import com.example.spotlight.network.Util.TokenManager;
 
@@ -22,19 +23,20 @@ public class FeedService {
 
     // 사용자 조회수 조회
     public void getUserHits(int feedId, final UserHitsCallback callback) {
+        String accessToken = TokenManager.getToken(); // 토큰 가져오기
         ApiService apiService = ApiClient.getClientWithToken().create(ApiService.class);
-        apiService.getFeedHits(feedId).enqueue(new Callback<FeedHitsResponse>() {
+        apiService.getFeedHits(feedId, accessToken).enqueue(new Callback<FeedDTO>() {
             @Override
-            public void onResponse(Call<FeedHitsResponse> call, Response<FeedHitsResponse> response) {
+            public void onResponse(Call<FeedDTO> call, Response<FeedDTO> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    callback.onSuccess(response.body().getHits_user());
+                    callback.onSuccess(response.body().getHitsUser());
                 } else {
                     callback.onError("Failed to get user hits");
                 }
             }
 
             @Override
-            public void onFailure(Call<FeedHitsResponse> call, Throwable t) {
+            public void onFailure(Call<FeedDTO> call, Throwable t) {
                 callback.onError("An error occurred: " + t.getMessage());
             }
         });
@@ -42,19 +44,20 @@ public class FeedService {
 
     // 리크루터 조회수 조회
     public void getRecruiterHits(int feedId, final RecruiterHitsCallback callback) {
+        String accessToken = TokenManager.getToken(); // 토큰 가져오기
         ApiService apiService = ApiClient.getClientWithToken().create(ApiService.class);
-        apiService.getFeedHits(feedId).enqueue(new Callback<FeedHitsResponse>() {
+        apiService.getFeedHits(feedId, accessToken).enqueue(new Callback<FeedDTO>() {
             @Override
-            public void onResponse(Call<FeedHitsResponse> call, Response<FeedHitsResponse> response) {
+            public void onResponse(Call<FeedDTO> call, Response<FeedDTO> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    callback.onSuccess(response.body().getHits_recruiter());
+                    callback.onSuccess(response.body().getHitsRecruiter());
                 } else {
                     callback.onError("Failed to get recruiter hits");
                 }
             }
 
             @Override
-            public void onFailure(Call<FeedHitsResponse> call, Throwable t) {
+            public void onFailure(Call<FeedDTO> call, Throwable t) {
                 callback.onError("An error occurred: " + t.getMessage());
             }
         });
