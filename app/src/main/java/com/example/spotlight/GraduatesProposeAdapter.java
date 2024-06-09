@@ -13,15 +13,16 @@ import com.example.spotlight.GraduatesProposal;
 
 
 import com.bumptech.glide.Glide; // 이미지 로딩을 위한 Glide 라이브러리
+import com.example.spotlight.network.Response.ProposalResponse;
 
 import java.util.List;
 
 
 public class GraduatesProposeAdapter extends RecyclerView.Adapter<GraduatesProposeAdapter.ViewHolder> {
-    private List<GraduatesProposal> proposals;
+    private List<ProposalResponse> proposals;
     private Context context;
 
-    public GraduatesProposeAdapter(Context context, List<GraduatesProposal> proposals) {
+    public GraduatesProposeAdapter(Context context, List<ProposalResponse> proposals) {
         this.context = context;
         this.proposals = proposals;
     }
@@ -35,12 +36,12 @@ public class GraduatesProposeAdapter extends RecyclerView.Adapter<GraduatesPropo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        GraduatesProposal proposal = proposals.get(position);
-        holder.companyName.setText(proposal.getCompanyName());
-        holder.role.setText(proposal.getRole());
-        holder.proposeDate.setText(proposal.getProposeDate());
+        ProposalResponse proposal = proposals.get(position);
+        holder.companyName.setText(proposal.getCompany());
+        holder.role.setText(proposal.getJob());
+        holder.proposeDate.setText(proposal.getDaysAgo());
         // 이미지 설정 예시 (Glide 라이브러리 사용)
-        Glide.with(context).load(proposal.getPhotoUrl()).into(holder.photo);
+        Glide.with(context).load(proposal.getProfileImage()).into(holder.photo);
     }
 
     @Override
