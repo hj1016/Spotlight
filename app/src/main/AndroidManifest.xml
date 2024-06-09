@@ -42,6 +42,7 @@
 
         <activity android:name=".GeneralProposeManageActivity"/>
         <activity android:name=".GraduateStep1Activity" />
+        <activity android:name=".GraduatesProposeActivity" />
 
         <activity android:name=".ItemDetailActivity" />
         <activity android:name=".ItemDetailMemberGeneralActivity"/>

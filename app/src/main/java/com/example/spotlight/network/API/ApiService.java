@@ -29,6 +29,7 @@ import com.example.spotlight.network.Response.LoginResponse;
 import com.example.spotlight.network.Response.MemberResponse;
 import com.example.spotlight.network.Response.NotificationResponse;
 import com.example.spotlight.network.Response.PortfolioResponse;
+import com.example.spotlight.network.Response.ProposalResponse;
 import com.example.spotlight.network.Response.ScrapCancelResponse;
 import com.example.spotlight.network.Response.ScrapResponse;
 import com.example.spotlight.network.Response.SearchResponse;
@@ -113,19 +114,19 @@ public interface ApiService {
 
     // 공고제안서 목록 조회 (학생) 0
     @GET("/api/v1/proposal/student")
-    Call<List<ProposalDTO>> getProposalsByStudent();
+    Call<List<ProposalResponse>> getProposalsByStudent();
 
     // 공고제안서 내용 조회 (학생) 0
     @GET("/api/v1/proposal/student/{proposalId}")
-    Call<ProposalDTO> getProposalDetailsForStudent(@Path("proposalId") int proposalId);
+    Call<ProposalResponse> getProposalDetailsForStudent(@Path("proposalId") int proposalId);
 
     // 공고제안서 목록 조회 (리크루터) 0
     @GET("/api/v1/proposal/recruiter")
-    Call<List<ProposalDTO>> getProposalsByRecruiter();
+    Call<List<ProposalResponse>> getProposalsByRecruiter();
 
     // 공고제안서 내용 조회 (리크루터) 0
     @GET("/api/v1/proposal/recruiter/{proposalId}")
-    Call<ProposalDTO> getProposalDetailsForRecruiter(@Path("proposalId") int proposalId);
+    Call<ProposalResponse> getProposalDetailsForRecruiter(@Path("proposalId") int proposalId);
 
     // 내가 올린 피드 목록 조회 0
     @GET("/api/v1/user/feed")

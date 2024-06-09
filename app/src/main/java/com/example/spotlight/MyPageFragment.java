@@ -122,17 +122,21 @@ public class MyPageFragment extends Fragment {
     }
 
     public void onProposeClicked(View view) {
-        if (getActivity() != null) {
-            String userType = TokenManager.getRole();
+        try{
+            if (getActivity() != null) {
+                String userType = TokenManager.getRole();
 
-            Intent intent;
-            if ("STUDENT".equals(userType)) {
-                intent = new Intent(getActivity(), GraduatesProposeActivity.class);
-            } else {
-                intent = new Intent(getActivity(), GeneralProposeManageActivity.class);
+                Intent intent;
+                if ("STUDENT".equals(userType)) {
+                    intent = new Intent(getActivity(), GraduatesProposeActivity.class);
+                } else {
+                    intent = new Intent(getActivity(), GeneralProposeManageActivity.class);
+                }
+
+                startActivity(intent);
             }
-
-            startActivity(intent);
+        }catch (Exception e) {
+            Log.d("exception", e.getMessage());
         }
     }
 }
