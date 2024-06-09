@@ -28,11 +28,20 @@ public class SignupStep5Activity extends AppCompatActivity {
     private RadioGroup radioGroupUserType;
     private SharedPreferences sharedPreferences;
     private ApiService apiService;
+    private String email;
+    private String id;
+    private String password;
+    private String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup_step5);
+
+        email = getIntent().getStringExtra("email");
+        id = getIntent().getStringExtra("id");
+        password = getIntent().getStringExtra("password");
+        name = getIntent().getStringExtra("name");
 
         // 라디오 버튼 및 라디오 그룹 초기화
         userSelec1 = findViewById(R.id.User_selec1);
@@ -44,19 +53,17 @@ public class SignupStep5Activity extends AppCompatActivity {
 
     // "Continue" 이미지 클릭 시 로직 처리
     public void onContinueClicked(View view) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        int selectedId = radioGroupUserType.getCheckedRadioButtonId(); // Get the ID of the selected radio button
+        int selectedId = radioGroupUserType.getCheckedRadioButtonId();
 
         String role;
         if (selectedId == R.id.User_selec1) {
             role = "STUDENT";
-        } else if (selectedId == R.id.User_selec2) {
+        } else if (selectedId == R.id.User_selec2){
             role = "RECRUITER";
         } else {
             Toast.makeText(this, "사용자 유형을 선택하세요", Toast.LENGTH_SHORT).show();
             return;
         }
-
         registerUser(role);
     }
 
@@ -66,11 +73,6 @@ public class SignupStep5Activity extends AppCompatActivity {
     }
 
     private void registerUser(String role) {
-        String email = getIntent().getStringExtra("email");
-        String id = getIntent().getStringExtra("id");
-        String password = getIntent().getStringExtra("password");
-        String name = getIntent().getStringExtra("name");
-
         UserRegistrationDto registrationDto = new UserRegistrationDto(email, id, password, name, role);
 
         apiService.registerUser(registrationDto).enqueue(new Callback<TokenResponse>() {
@@ -86,28 +88,27 @@ public class SignupStep5Activity extends AppCompatActivity {
                 if (response.isSuccessful() && response.body() != null) {
                     TokenResponse tokenResponse = response.body();
                     if (tokenResponse.isSuccess()) {
-                        Toast.makeText(SignupStep5Activity.this, "회원가입 성공", Toast.LENGTH_SHORT).show();
-                        if ("STUDENT".equals(role)) {
+                        Log.d("ROLE", role);
+                        if (role.equals("STUDENT")) {
+                            Log.d("STUDENT", "HERE");
                             Intent intent = new Intent(SignupStep5Activity.this, GraduateStep1Activity.class);
-                            intent.putExtra("email", getIntent().getStringExtra("email"));
-                            intent.putExtra("id", getIntent().getStringExtra("id"));
-                            TokenManager.setToken(tokenResponse.getAccessToken());
-                            TokenManager.setUser(tokenResponse.getUser());
+                            intent.putExtra("email", email);
+                            intent.putExtra("id", id);
                             startActivity(intent);
-                        } else if ("RECRUITER".equals(role)) {
+                        } else if (role.equals("RECRUITER")) {
+                            Log.d("RECRUITER", "HERE");
                             Intent intent = new Intent(SignupStep5Activity.this, RecruiterStep1Activity.class);
-                            intent.putExtra("email", getIntent().getStringExtra("email"));
-                            intent.putExtra("id", getIntent().getStringExtra("id"));
-                            TokenManager.setToken(tokenResponse.getAccessToken());
-                            TokenManager.setUser(tokenResponse.getUser());
+                            intent.putExtra("email", email);
+                            intent.putExtra("id", id);
                             startActivity(intent);
                         } else {
-                            Intent intent = new Intent(SignupStep5Activity.this, MainActivity.class);
                             TokenManager.setToken(tokenResponse.getAccessToken());
                             TokenManager.setUser(tokenResponse.getUser());
+                            Toast.makeText(SignupStep5Activity.this, "회원가입 성공", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(SignupStep5Activity.this, MainActivity.class);
                             startActivity(intent);
+                            finish();
                         }
-                        finish();
                     } else {
                         Toast.makeText(SignupStep5Activity.this, "회원가입 실패: " + tokenResponse.getMessage(), Toast.LENGTH_SHORT).show();
                     }

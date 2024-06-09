@@ -13,6 +13,7 @@ import com.example.spotlight.network.API.ApiService;
 import com.example.spotlight.network.Request.EmailSendingRequest;
 import com.example.spotlight.network.Response.EmailSendingResponse;
 import com.example.spotlight.network.Response.TokenResponse;
+import com.example.spotlight.network.Util.TokenManager;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -76,7 +77,8 @@ public class GraduateStep1Activity extends AppCompatActivity {
                     TokenResponse tokenResponse = response.body();
                     if (tokenResponse.isSuccess()) {
                         Toast.makeText(GraduateStep1Activity.this, "인증 성공", Toast.LENGTH_SHORT).show();
-
+                        TokenManager.setToken(tokenResponse.getAccessToken());
+                        TokenManager.setUser(tokenResponse.getUser());
                         Intent intent = new Intent(GraduateStep1Activity.this, MainActivity.class);
                         startActivity(intent);
                         finish();

@@ -33,6 +33,7 @@ public class RecruiterStep1Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recruiter_step1);
+        Log.d("recruiter", "1");
 
         companyEditText = findViewById(R.id.recruiter_company_check_text);
         emailEditText = findViewById(R.id.recruiter_email_check_text);
@@ -50,11 +51,13 @@ public class RecruiterStep1Activity extends AppCompatActivity {
     }
 
     public void onBackClicked(View view) {
+        Log.d("recruiter", "2");
         Intent intent = new Intent(this, SignupStep5Activity.class);
         startActivity(intent);
     }
 
     public void onContinueRecruiterSignup1Clicked(View view) {
+        Log.d("recruiter", "3");
         String code = codeEditText.getText().toString().trim();
         String company = companyEditText.getText().toString().trim();
         if (code.isEmpty()) {
@@ -77,6 +80,7 @@ public class RecruiterStep1Activity extends AppCompatActivity {
                     if (tokenResponse.isSuccess()) {
                         Toast.makeText(RecruiterStep1Activity.this, "인증 성공", Toast.LENGTH_SHORT).show();
                         TokenManager.setToken(tokenResponse.getAccessToken());
+                        TokenManager.setUser(tokenResponse.getUser());
                         Log.d("RecruiterStep1", "Token set and starting RecruiterStep2Activity");
                         Intent intent = new Intent(RecruiterStep1Activity.this, RecruiterStep2Activity.class);
                         startActivity(intent);
@@ -97,6 +101,7 @@ public class RecruiterStep1Activity extends AppCompatActivity {
     }
 
     public void onEmailCheckClicked(View view) {
+        Log.d("recruiter", "4");
         String email = emailEditText.getText().toString().trim();
         String company = companyEditText.getText().toString().trim();
 
@@ -119,6 +124,7 @@ public class RecruiterStep1Activity extends AppCompatActivity {
         apiService.emailSending(request).enqueue(new Callback<EmailSendingResponse>() {
             @Override
             public void onResponse(Call<EmailSendingResponse> call, Response<EmailSendingResponse> response) {
+                Log.d("recruiter", "5");
                 Log.d("response", response.toString());
                 if (response.isSuccessful() && response.body() != null) {
                     EmailSendingResponse emailSendingResponse = response.body();
@@ -134,6 +140,7 @@ public class RecruiterStep1Activity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<EmailSendingResponse> call, Throwable t) {
+                Log.d("recruiter", "6");
                 Toast.makeText(RecruiterStep1Activity.this, "이메일 발송 에러: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
