@@ -1,6 +1,6 @@
 package com.example.spotlight.network.DTO;
 
-import java.util.List;
+import java.util.Set;
 
 public class FeedDTO {
     private Integer userId;
@@ -14,7 +14,7 @@ public class FeedDTO {
     private String category;
     private String mainCategory;
     private String subCategory;
-    private List<String> hashtags;
+    private Set<HashtagDTO> hashtags;
     private UserRegistrationDto userDTO;
     private MemberDTO member;
     private ExhibitionDTO exhibition;
@@ -25,7 +25,7 @@ public class FeedDTO {
     public FeedDTO() {
     }
 
-    public FeedDTO(Integer userId, Integer feedId, String title, String image, String content, Integer scrap, Integer hitsUser, Integer hitsRecruiter, String category, String mainCategory, String subCategory, List<String> hashtags, UserRegistrationDto userDTO, MemberDTO member, ExhibitionDTO exhibition, Integer projectId, ProjectDTO projectDTO) {
+    public FeedDTO(Integer userId, Integer feedId, String title, String image, String content, Integer scrap, Integer hitsUser, Integer hitsRecruiter, String category, String mainCategory, String subCategory, Set<HashtagDTO> hashtags, UserRegistrationDto userDTO, MemberDTO member, ExhibitionDTO exhibition, Integer projectId, ProjectDTO projectDTO) {
         this.userId = userId;
         this.feedId = feedId;
         this.title = title;
@@ -50,7 +50,9 @@ public class FeedDTO {
 
     public void setUserId(Integer userId) { this.userId = userId; }
 
-    public Integer getFeedId() { return feedId; }
+    public Integer getFeedId() {
+        return feedId;
+    }
 
     public void setFeedId(Integer feedId) {
         this.feedId = feedId;
@@ -128,11 +130,11 @@ public class FeedDTO {
         this.subCategory = subCategory;
     }
 
-    public List<String> getHashtags() {
+    public Set<HashtagDTO> getHashtags() {
         return hashtags;
     }
 
-    public void setHashtags(List<String> hashtags) {
+    public void setHashtags(Set<HashtagDTO> hashtags) {
         this.hashtags = hashtags;
     }
 

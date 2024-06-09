@@ -83,8 +83,7 @@ public class NewPostingMemberActivity extends AppCompatActivity {
     private void inviteMember(int projectId, String memberId, String memberRole) {
         InvitationRequest invitationRequest = new InvitationRequest();
         invitationRequest.setProjectId(projectId);
-        invitationRequest.setMemberId(Integer.parseInt(memberId));
-        invitationRequest.setProjectRole(memberRole);
+        invitationRequest.setMemberId(memberId);
 
         ApiService apiService = ApiClient.getClientWithToken().create(ApiService.class);
         Call<InvitationResponse> call = apiService.inviteMemberToProject(invitationRequest);
