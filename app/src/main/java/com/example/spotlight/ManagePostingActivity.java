@@ -23,7 +23,6 @@ import retrofit2.Response;
 public class ManagePostingActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private PostAdapter postAdapter;
-    private List<Post> postList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

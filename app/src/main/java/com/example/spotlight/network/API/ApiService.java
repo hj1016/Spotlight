@@ -105,7 +105,7 @@ public interface ApiService {
 
     // 스크랩 피드 목록 확인 0
     @GET("/api/v1/user/scrap/feed")
-    Call<List<FeedDTO>> getScrapFeeds();
+    Call<List<Post>> getScrapFeeds();
 
     // 스크랩 피드 세부 확인
 
