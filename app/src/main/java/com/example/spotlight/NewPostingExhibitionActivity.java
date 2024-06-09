@@ -21,6 +21,7 @@ import retrofit2.Response;
 
 public class NewPostingExhibitionActivity extends AppCompatActivity {
 
+    private boolean isExhibitionInfoSaved = false;
     private EditText locationEditText;
     private EditText scheduleEditText;
     private EditText timeEditText;
@@ -72,16 +73,6 @@ public class NewPostingExhibitionActivity extends AppCompatActivity {
 
         ExhibitionDTO exhibitionDTO = new ExhibitionDTO(location, schedule, time, userId);
         createExhibition(exhibitionDTO);
-
-        // 결과 설정
-        Intent resultIntent = new Intent();
-        resultIntent.putExtra("location", location);
-        resultIntent.putExtra("schedule", schedule);
-        resultIntent.putExtra("time", time);
-        setResult(RESULT_OK, resultIntent);
-
-        // 액티비티 종료
-        finish();
     }
 
     private void createExhibition(ExhibitionDTO exhibitionDTO){
@@ -97,7 +88,7 @@ public class NewPostingExhibitionActivity extends AppCompatActivity {
                     if (exhibitionResponse != null && exhibitionResponse.isSuccess()) {
                         // 전시 정보를 성공적으로 저장한 경우
                         Toast.makeText(NewPostingExhibitionActivity.this, "전시 정보가 성공적으로 저장되었습니다.", Toast.LENGTH_SHORT).show();
-
+                        isExhibitionInfoSaved = true;
                         // 결과 설정
                         setResult(RESULT_OK);
                     } else {
@@ -123,6 +114,11 @@ public class NewPostingExhibitionActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
 
+    // 저장된 전시 정보 여부를 반환하는 메서드
+    public boolean isExhibitionInfoSaved() {
+        return isExhibitionInfoSaved;
+    }
 }
-}
+

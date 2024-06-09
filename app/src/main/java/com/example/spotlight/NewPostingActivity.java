@@ -44,6 +44,7 @@ import retrofit2.Response;
 public class NewPostingActivity extends AppCompatActivity {
     private static final int PICK_IMAGE_SINGLE = 1;
     private static final int PICK_IMAGE_PLUS = 2;
+    private static final int REQUEST_CODE_EXHIBITION_INFO = 3;
     private Spinner bigCategorySpinner, smallCategorySpinner;
     private ArrayAdapter<CharSequence> smallCategoryAdapter;
     private ImageView dynamicImage;
@@ -61,6 +62,8 @@ public class NewPostingActivity extends AppCompatActivity {
     private String teamImageUrl = "";
     private String imageUrl = "";
     private String scrapImageUrl = "";
+    private TextView exhibitionInfoTextView;
+    private boolean isExhibitionInfoSaved = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +89,7 @@ public class NewPostingActivity extends AppCompatActivity {
         imagePlusButton = findViewById(R.id.new_posting_image_plus);
         imageSelectPlusButton = findViewById(R.id.new_posting_selec_image_plus);
         recyclerView = findViewById(R.id.recyclerView_invite_member);
+        exhibitionInfoTextView = findViewById(R.id.add_new_posting_exhibition_text);
 
         setupSpinners();
         setupDynamicImage();
@@ -218,16 +222,18 @@ public class NewPostingActivity extends AppCompatActivity {
                     memberAdapter.notifyDataSetChanged();
                 }
             }
+        }
 
-            // 전시 정보가 저장되었는지 확인
-            String location = data.getStringExtra("location");
-            String schedule = data.getStringExtra("schedule");
-            String time = data.getStringExtra("time");
-
-            if (location != null && schedule != null && time != null) {
-                // 전시 정보가 올바르게 저장되었음을 표시
-                TextView addPostingTextView = findViewById(R.id.add_new_posting_exhibition_text);
-                addPostingTextView.setText("전시 정보 작성 완료");
+        if (requestCode == REQUEST_CODE_EXHIBITION_INFO) {
+            if (resultCode == RESULT_OK) {
+                // 전시 정보가 성공적으로 저장된 경우 TextView 업데이트
+                String exhibitionInfo = "전시 정보 입력 완료";
+                exhibitionInfoTextView.setText(exhibitionInfo);
+                isExhibitionInfoSaved = true;
+            } else if (resultCode == RESULT_CANCELED) {
+                // 전시 정보 저장이 실패한 경우
+                exhibitionInfoTextView.setText("전시 정보 입력 실패");
+                isExhibitionInfoSaved = false;
             }
         }
     }
@@ -344,6 +350,7 @@ public class NewPostingActivity extends AppCompatActivity {
 
     public void onExhibitionPlusClicked(View view) {
         Intent intent = new Intent(this, NewPostingExhibitionActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, REQUEST_CODE_EXHIBITION_INFO);
+        // startActivity(intent);
     }
 }

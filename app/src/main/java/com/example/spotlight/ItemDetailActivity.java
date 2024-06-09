@@ -1,24 +1,26 @@
 package com.example.spotlight;
 
-import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
-import java.util.Arrays;
-import java.util.List;
 
 import com.example.spotlight.network.API.ApiClient;
 import com.example.spotlight.network.API.ApiService;
 import com.example.spotlight.network.Response.ScrapCancelResponse;
 import com.example.spotlight.network.Response.ScrapResponse;
 import com.google.android.flexbox.FlexboxLayout;
-import android.content.SharedPreferences;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.util.TypedValue;
-import android.view.Gravity;
-import android.widget.Toast;
+
+import java.util.Arrays;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,9 +30,11 @@ public class ItemDetailActivity extends AppCompatActivity {
 
     private ViewPager2 viewPagerImages;
     private ImageSliderAdapter adapter;
-
     private boolean isScrapped = false;
     private SharedPreferences sharedPreferences;
+    private TextView scrapCountTextView;
+    private ImageView scrapButton;
+    private int scrapCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +43,8 @@ public class ItemDetailActivity extends AppCompatActivity {
 
         sharedPreferences = getSharedPreferences("UserType", MODE_PRIVATE);
 
-        // 이미지 URL로 ViewPager2 초기화
         List<Integer> images = Arrays.asList(
-                R.drawable.image_ex1, // 실제 드로어블 리소스로 바꿔야 함
+                R.drawable.image_ex1,
                 R.drawable.image_ex1,
                 R.drawable.image_ex1,
                 R.drawable.image_ex1,
@@ -57,9 +60,21 @@ public class ItemDetailActivity extends AppCompatActivity {
         adapter = new ImageSliderAdapter(images);
         viewPagerImages.setAdapter(adapter);
 
-        List<String> hashtags = Arrays.asList("Art", "Exhibition"); // 해시태그 예시
+        List<String> hashtags = Arrays.asList("Art", "Exhibition");
         FlexboxLayout flexboxLayout = findViewById(R.id.flexbox_hashtags);
         addHashtags(hashtags, flexboxLayout);
+
+        scrapCountTextView = findViewById(R.id.item_scrap);
+        scrapButton = findViewById(R.id.item_scrap_no);
+
+        Intent intent = getIntent();
+        if (intent != null) {
+            isScrapped = intent.getBooleanExtra("isScrapped", false);
+            scrapCount = intent.getIntExtra("scrapCount", 0);
+
+            scrapButton.setImageResource(isScrapped ? R.drawable.scrap_yes : R.drawable.scrap_no);
+            scrapCountTextView.setText(String.valueOf(scrapCount));
+        }
     }
 
     public void addHashtags(List<String> hashtags, FlexboxLayout flexboxLayout) {
@@ -83,7 +98,6 @@ public class ItemDetailActivity extends AppCompatActivity {
         }
     }
 
-
     public void onBackClicked(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -92,58 +106,55 @@ public class ItemDetailActivity extends AppCompatActivity {
     }
 
     public void toggleScrap(View view) {
-        ImageView scrapButton = (ImageView) view;
         isScrapped = !isScrapped; // 스크랩 상태 토글
 
-        // Intent로 feedId를 가져옴.
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra("feedId")) {
             int feedId = intent.getIntExtra("feedId", -1);
 
-            // 스크랩 또는 스크랩 취소 요청 보내기
             ApiService apiService = ApiClient.getClientWithToken().create(ApiService.class);
 
             if (isScrapped) {
-                // 게시물 스크랩 요청
                 Call<ScrapResponse> call = apiService.scrapFeed(feedId);
                 call.enqueue(new Callback<ScrapResponse>() {
                     @Override
                     public void onResponse(Call<ScrapResponse> call, Response<ScrapResponse> response) {
                         if (response.isSuccessful() && response.body() != null) {
-                            // 스크랩 성공
+                            scrapCount++;
                             scrapButton.setImageResource(R.drawable.scrap_yes);
+                            scrapCountTextView.setText(String.valueOf(scrapCount));
                             Toast.makeText(ItemDetailActivity.this, "게시물을 스크랩했습니다.", Toast.LENGTH_SHORT).show();
                         } else {
-                            // 스크랩 실패
+                            isScrapped = false; // 스크랩 상태 롤백
                             Toast.makeText(ItemDetailActivity.this, "게시물 스크랩에 실패했습니다.", Toast.LENGTH_SHORT).show();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ScrapResponse> call, Throwable t) {
-                        // 네트워크 오류
+                        isScrapped = false; // 스크랩 상태 롤백
                         Toast.makeText(ItemDetailActivity.this, "네트워크 오류", Toast.LENGTH_SHORT).show();
                     }
                 });
             } else {
-                // 게시물 스크랩 취소 요청
                 Call<ScrapCancelResponse> call = apiService.cancelScrapFeed(feedId);
                 call.enqueue(new Callback<ScrapCancelResponse>() {
                     @Override
                     public void onResponse(Call<ScrapCancelResponse> call, Response<ScrapCancelResponse> response) {
                         if (response.isSuccessful() && response.body() != null) {
-                            // 스크랩 취소 성공
+                            scrapCount--;
                             scrapButton.setImageResource(R.drawable.scrap_no);
+                            scrapCountTextView.setText(String.valueOf(scrapCount));
                             Toast.makeText(ItemDetailActivity.this, "게시물 스크랩을 취소했습니다.", Toast.LENGTH_SHORT).show();
                         } else {
-                            // 스크랩 취소 실패
+                            isScrapped = true; // 스크랩 상태 롤백
                             Toast.makeText(ItemDetailActivity.this, "게시물 스크랩 취소에 실패했습니다.", Toast.LENGTH_SHORT).show();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ScrapCancelResponse> call, Throwable t) {
-                        // 네트워크 오류
+                        isScrapped = true; // 스크랩 상태 롤백
                         Toast.makeText(ItemDetailActivity.this, "네트워크 오류", Toast.LENGTH_SHORT).show();
                     }
                 });
