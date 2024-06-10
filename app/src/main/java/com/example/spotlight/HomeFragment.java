@@ -40,9 +40,9 @@ public class HomeFragment extends Fragment implements NavigationView.OnNavigatio
         posts = new ArrayList<>();
         posts.add(new Post(
                 "team_image_url",       // teamImageUrl
-                "Title",                // title
-                "Category",             // category
-                "image_url",            // imageUrl
+                "Title",                            // title
+                "Category",                         // category
+                "image_url",                        // imageUrl
                 "Content",              // content
                 5,                      // scrap
                 Arrays.asList("hashtag1", "hashtag2"), // hashtags
@@ -87,10 +87,18 @@ public class HomeFragment extends Fragment implements NavigationView.OnNavigatio
     }
 
     private void initializeData() {
-        posts.add(new Post("@drawable/sample_image", "Project Title 1", "Category 1", "@drawable/image1",
-                "Description of project 1.", 42, Arrays.asList("#tag1", "#tag2"), "@drawable/icon", false));
-        posts.add(new Post("@drawable/sample_image", "Project Title 2", "Category 2", "@drawable/image2",
-                "Description of project 2.", 52, Arrays.asList("#tag3", "#tag4"), "@drawable/icon", false));
+        posts.add(new Post("@drawable/icon2", "How to be free", "철학", "@drawable/philosophy",
+                "The dignity of human beings arises when they attribute meaning to their existence. \\\"Love, nature, gaze,flow\\\" is an activity of attributing meaning and a way to find freedom.The perspective of this project is...", 42, Arrays.asList("#Philosophy", "#Sartre"), "@drawable/icon", false));
+        posts.add(new Post("@drawable/sample_image", "Natural Geography General", "지리학", "@drawable/geography",
+                "In the 50 years after liberation, the study of natural geography in Korea has been \\\"mainly driven by topography\\\" and climatology. Despite the comprehensive academic characteristics of natural geography, ...", 57, Arrays.asList("#Geography", "#Thesis"), "@drawable/icon", false));
+        posts.add(new Post("@drawable/icon1", "Hmm...", "시각 디자인", "@drawable/design1",
+                " Look at her lips saying something. I can’t concentrate on what she’s saying. Start with a soft texture and taste savory.\n" +
+                        "At the end, the sweetness lingers deeply.\n" +
+                        "Open in January etiam convallis mattis diam ...", 129, Arrays.asList("#branding", "#pakage", "#sensuous"), "@drawable/icon", false));
+        posts.add(new Post("@drawable/sample_image", "Spectroscopy", "전기/전자", "@drawable/electronics",
+                "We examine the basic principles of absorption spectroscopy and characteristics of absorption spectra obtained from transition metal complexes.", 37, Arrays.asList("#SNU", "#Electronics", "Electrotechnics"), "@drawable/icon", false));
+        posts.add(new Post("@drawable/sample_image", "Spectroscopy: Experiment", "전기/전자", "@drawable/chemical",
+                "The absorption and radiation of light by the material is divided into spectra using a spectrometer...", 29, Arrays.asList("#Electronics", "#SNU", "Experiment"), "@drawable/icon", false));
     }
 
     private void setupExpandableListView() {
