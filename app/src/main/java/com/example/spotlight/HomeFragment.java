@@ -67,7 +67,7 @@ public class HomeFragment extends Fragment implements NavigationView.OnNavigatio
 
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.addItemDecoration(new VerticalSpaceItemDecoration(8));
+        recyclerView.addItemDecoration(new VerticalSpaceItemDecoration(0));
 
         posts = new ArrayList<>();
         initializeData();
