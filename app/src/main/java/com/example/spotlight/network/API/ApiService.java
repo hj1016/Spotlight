@@ -7,6 +7,7 @@ import com.example.spotlight.network.DTO.PasswordValidationResponseDTO;
 import com.example.spotlight.network.DTO.ProjectDTO;
 import com.example.spotlight.network.DTO.ProposalDTO;
 import com.example.spotlight.network.DTO.ScrapDTO;
+import com.example.spotlight.network.DTO.TeamDTO;
 import com.example.spotlight.network.DTO.UserRegistrationDto;
 import com.example.spotlight.network.Request.EmailSendingRequest;
 import com.example.spotlight.network.Request.ExistIdRequest;
@@ -181,6 +182,10 @@ public interface ApiService {
     // 프로젝트 생성
     @POST("/api/v1/projects")
     Call<ProjectDTO> createProject(@Body ProjectDTO projectDTO);
+
+    // 팀 생성
+    @POST("/api/v1/teams/{teamId}")
+    Call<TeamDTO> createTeam(@Body TeamDTO teamDTO, @Path("teamId") Integer teamId);
 
     // 팀원 프로젝트 초대
     @POST("/api/v1/feed/invite-member")

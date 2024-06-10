@@ -6,6 +6,7 @@ public class FeedResponse {
     private boolean success;
     private String message;
     private Post post;
+    private Integer feedId;
 
     // Getters and Setters
     public boolean isSuccess() {
@@ -31,6 +32,10 @@ public class FeedResponse {
     public void setPost(Post post) {
         this.post = post;
     }
+
+    public Integer getFeedId() { return feedId; }
+
+    public void setFeedId(Integer feedId) { this.feedId = feedId; }
 
     public static class Post {
         private String id;

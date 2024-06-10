@@ -1,9 +1,10 @@
 package com.example.spotlight;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -19,14 +20,18 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.spotlight.network.API.ApiClient;
 import com.example.spotlight.network.API.ApiService;
 import com.example.spotlight.network.DTO.ExhibitionDTO;
 import com.example.spotlight.network.DTO.FeedDTO;
 import com.example.spotlight.network.DTO.ProjectDTO;
+import com.example.spotlight.network.DTO.TeamDTO;
 import com.example.spotlight.network.Request.FeedRequest;
 import com.example.spotlight.network.Response.FeedResponse;
 import com.example.spotlight.network.Util.TokenManager;
@@ -44,31 +49,42 @@ import retrofit2.Response;
 public class NewPostingActivity extends AppCompatActivity {
     private static final int PICK_IMAGE_SINGLE = 1;
     private static final int PICK_IMAGE_PLUS = 2;
-    private static final int REQUEST_CODE_EXHIBITION_INFO = 3;
+    private static final int REQUEST_CODE_MEMBER_INVITE = 3;
+    private static final int REQUEST_CODE_EXHIBITION_INFO = 4;
+    private static final int STORAGE_PERMISSION_CODE = 101;
+
     private Spinner bigCategorySpinner, smallCategorySpinner;
     private ArrayAdapter<CharSequence> smallCategoryAdapter;
     private ImageView dynamicImage;
     private EditText dynamicText;
     private ImageView[] imageViews = new ImageView[10];
     private ImageView imagePlusButton, imageSelectPlusButton;
+
     private RecyclerView recyclerView;
     private MemberAdapter memberAdapter;
     private List<Member> memberList;
+
     private List<Uri> imageUris = new ArrayList<>();
     private FirebaseStorage firebaseStorage;
+
     private List<Post> posts = new ArrayList<>();
     private PostDataManager postDataManager;
     private PostAdapter postAdapter;
+
     private String teamImageUrl = "";
     private String imageUrl = "";
     private String scrapImageUrl = "";
+
     private TextView exhibitionInfoTextView;
     private boolean isExhibitionInfoSaved = false;
+    private ApiService apiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_posting);
+
+        apiService = ApiClient.getClientWithToken().create(ApiService.class);
 
         bigCategorySpinner = findViewById(R.id.big_category_spinner);
         smallCategorySpinner = findViewById(R.id.small_category_spinner);
@@ -120,8 +136,17 @@ public class NewPostingActivity extends AppCompatActivity {
         // 기존 게시물 어댑터 설정
         postAdapter = new PostAdapter(this, posts);
 
-        imagePlusButton.setOnClickListener(view -> pickImage(PICK_IMAGE_PLUS));
-        imageSelectPlusButton.setOnClickListener(view -> pickImage(PICK_IMAGE_SINGLE));
+        imagePlusButton.setOnClickListener(view -> {
+            if (checkPermission(Manifest.permission.READ_EXTERNAL_STORAGE, STORAGE_PERMISSION_CODE)) {
+                pickImage(PICK_IMAGE_PLUS);
+            }
+        });
+
+        imageSelectPlusButton.setOnClickListener(view -> {
+            if (checkPermission(Manifest.permission.READ_EXTERNAL_STORAGE, STORAGE_PERMISSION_CODE)) {
+                pickImage(PICK_IMAGE_SINGLE);
+            }
+        });
     }
 
     private void setupSpinners() {
@@ -196,22 +221,22 @@ public class NewPostingActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            if (data != null && data.getData() != null) {
-                Uri imageUri = data.getData();
-                if (requestCode == PICK_IMAGE_SINGLE) {
-                    if (imageUris.size() < 10) {
-                        imageUris.add(imageUri);
-                        uploadImage(imageUri, imageUris.size() - 1);
-                    } else {
-                        Toast.makeText(this, "최대 10장까지 이미지를 선택할 수 있습니다.", Toast.LENGTH_SHORT).show();
-                    }
-                } else if (requestCode == PICK_IMAGE_PLUS) {
-                    imageUris.add(imageUri);
-                    uploadImage(imageUri, imageUris.size() - 1);
+        if (resultCode == RESULT_OK && data != null && data.getData() != null) {
+            Uri selectedImageUri = data.getData();
+            if (requestCode == PICK_IMAGE_SINGLE) {
+                Glide.with(this).load(selectedImageUri).into(imageViews[0]);
+                imageUris.add(selectedImageUri);
+            } else if (requestCode == PICK_IMAGE_PLUS) {
+                if (imageUris.size() < imageViews.length) {
+                    imageUris.add(selectedImageUri);
+                    Glide.with(this).load(selectedImageUri).into(imageViews[imageUris.size() - 1]);
+                } else {
+                    Toast.makeText(this, "더 이상 이미지를 추가할 수 없습니다.", Toast.LENGTH_SHORT).show();
                 }
             }
+        }
 
+        if (requestCode == REQUEST_CODE_MEMBER_INVITE) {
             // 멤버가 추가되었을 때의 처리
             if (data != null) {
                 String memberId = data.getStringExtra("memberId");
@@ -238,105 +263,152 @@ public class NewPostingActivity extends AppCompatActivity {
         }
     }
 
+    private boolean checkPermission(String permission, int requestCode) {
+        if (ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_DENIED) {
+            ActivityCompat.requestPermissions(this, new String[]{permission}, requestCode);
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == STORAGE_PERMISSION_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "스토리지 권한이 승인되었습니다.", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "스토리지 권한이 거부되었습니다.", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
     // 이미지 업로드 메소드
     private void uploadImage(Uri imageUri, int index) {
         StorageReference storageReference = firebaseStorage.getReference().child("images/" + imageUri.getLastPathSegment());
         storageReference.putFile(imageUri)
-                .addOnSuccessListener(taskSnapshot -> storageReference.getDownloadUrl().addOnSuccessListener(uri -> {
-                    imageViews[index].setImageURI(imageUri);
-                    Log.d("Image URL", uri.toString());
-                    imageUrl = uri.toString();
-                }))
+                .addOnSuccessListener(taskSnapshot -> {
+                    storageReference.getDownloadUrl().addOnSuccessListener(uri -> {
+                        imageViews[index].setImageURI(imageUri);
+                        Log.d("Image URL", uri.toString());
+                        imageUrl = uri.toString();
+                    }).addOnFailureListener(e -> {
+                        Toast.makeText(NewPostingActivity.this, "이미지 업로드에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                        Log.e("NewPostingActivity", "이미지 다운로드 URL 가져오기 실패", e);
+                    });
+                })
                 .addOnFailureListener(e -> {
                     Toast.makeText(NewPostingActivity.this, "이미지 업로드에 실패했습니다.", Toast.LENGTH_SHORT).show();
                     Log.e("NewPostingActivity", "이미지 업로드 실패", e);
                 });
     }
 
-    // 게시물 작성
-    public void onCompleteClicked(View view) {
-        // UI에서 데이터 수집
-        String title = ((EditText) findViewById(R.id.new_posting_project_text)).getText().toString();
-        String content = ((EditText) findViewById(R.id.new_posting_description_text)).getText().toString();
-        String bigCategory = bigCategorySpinner.getSelectedItem().toString();
-        String smallCategory = smallCategorySpinner.getSelectedItem().toString();
-        String hashtags = ((EditText) findViewById(R.id.new_posting_hashtag_text)).getText().toString();
+    private void createTeam(Integer projectId, String title, String content, String bigCategory, String smallCategory, String hashtags) {
+        TeamDTO teamDTO = new TeamDTO();
+        teamDTO.setProjectId(projectId);
 
-        // 프로젝트 생성 요청
-        ProjectDTO project = new ProjectDTO();
-        project.setProjectName(title); // 프로젝트 이름 설정
-        ApiService projectApiService = ApiClient.getClientWithToken().create(ApiService.class);
-        Call<ProjectDTO> projectCall = projectApiService.createProject(project);
-        projectCall.enqueue(new Callback<ProjectDTO>() {
+        Call<TeamDTO> call = apiService.createTeam(teamDTO, projectId);
+        call.enqueue(new Callback<TeamDTO>() {
             @Override
-            public void onResponse(Call<ProjectDTO> call, Response<ProjectDTO> response) {
+            public void onResponse(Call<TeamDTO> call, Response<TeamDTO> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    // 프로젝트 생성에 성공하면 게시물 작성 요청
-                    String projectId = response.body().getProjectId().toString();
+                    Integer teamId = response.body().getTeamId();
 
                     // 게시물 작성 요청
-                    createFeed(title, content, bigCategory, smallCategory, hashtags, projectId);
+                    createFeed(title, content, bigCategory, smallCategory, hashtags, projectId, teamId);
                 } else {
-                    Toast.makeText(NewPostingActivity.this, "프로젝트 생성에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                    showToast("팀 생성에 실패했습니다.");
                 }
             }
 
             @Override
-            public void onFailure(Call<ProjectDTO> call, Throwable t) {
-                Toast.makeText(NewPostingActivity.this, "프로젝트 생성에 실패했습니다.", Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<TeamDTO> call, Throwable t) {
+                showToast("팀 생성에 실패했습니다. " + t.getMessage());
             }
         });
     }
 
-    // 게시물 작성 요청
-    private void createFeed(String title, String content, String bigCategory, String smallCategory, String hashtags, String projectId) {
-        // 요청 객체 생성
+    private void createFeed(String title, String content, String bigCategory, String smallCategory, String hashtags, Integer projectId, Integer teamId) {
         FeedRequest feedRequest = new FeedRequest();
         feedRequest.setTitle(title);
         feedRequest.setContent(content);
         feedRequest.setScrap(0);  // 기본값
 
-        // 카테고리 설정
         FeedRequest.Category category = new FeedRequest.Category();
         category.setMain(bigCategory);
         category.setSub(smallCategory);
         feedRequest.setCategory(category);
 
-        // 해시태그 설정
         List<String> hashtagList = Arrays.asList(hashtags.split(" "));
         feedRequest.setHashtag(hashtagList);
 
-        // 프로젝트 ID 설정
         ProjectDTO projectDTO = new ProjectDTO();
-        projectDTO.setProjectId(Integer.parseInt(projectId));
+        projectDTO.setProjectId(projectId);
         feedRequest.setProjectId(projectDTO);
 
-        // 게시물 작성 요청
-        ApiService apiService = ApiClient.getClientWithToken().create(ApiService.class);
+        TeamDTO teamDTO = new TeamDTO();
+        teamDTO.setTeamId(teamId);
+        feedRequest.setTeamId(teamDTO);
+
         Call<FeedResponse> call = apiService.createFeed(feedRequest);
         call.enqueue(new Callback<FeedResponse>() {
             @Override
             public void onResponse(Call<FeedResponse> call, Response<FeedResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    FeedDTO feedDTO = new FeedDTO();
+                    FeedResponse feedDTO = response.body();
                     Integer feedId = feedDTO.getFeedId();
 
-                    Toast.makeText(NewPostingActivity.this, "게시물이 성공적으로 작성되었습니다!", Toast.LENGTH_SHORT).show();
+                    showToast("게시물이 성공적으로 작성되었습니다!");
 
                     Intent intent = new Intent(NewPostingActivity.this, ItemDetailActivity.class);
                     intent.putExtra("feedId", feedId);
                     startActivity(intent);
                     finish();
                 } else {
-                    Toast.makeText(NewPostingActivity.this, "게시물 작성에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                    showToast("게시물 작성에 실패했습니다.");
                 }
             }
 
             @Override
             public void onFailure(Call<FeedResponse> call, Throwable t) {
-                Toast.makeText(NewPostingActivity.this, "게시물 작성에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                showToast("게시물 작성에 실패했습니다. " + t.getMessage());
             }
         });
+    }
+
+    public void onCompleteClicked(View view) {
+        String title = ((EditText) findViewById(R.id.new_posting_project_text)).getText().toString();
+        String content = ((EditText) findViewById(R.id.new_posting_description_text)).getText().toString();
+        String bigCategory = bigCategorySpinner.getSelectedItem().toString();
+        String smallCategory = smallCategorySpinner.getSelectedItem().toString();
+        String hashtags = ((EditText) findViewById(R.id.new_posting_hashtag_text)).getText().toString();
+
+        ProjectDTO project = new ProjectDTO();
+        project.setProjectName(title);
+
+        Call<ProjectDTO> projectCall = apiService.createProject(project);
+        projectCall.enqueue(new Callback<ProjectDTO>() {
+            @Override
+            public void onResponse(Call<ProjectDTO> call, Response<ProjectDTO> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Integer projectId = response.body().getProjectId();
+                    createTeam(projectId, title, content, bigCategory, smallCategory, hashtags);
+                } else {
+                    showToast("프로젝트 생성에 실패했습니다.");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ProjectDTO> call, Throwable t) {
+                showToast("프로젝트 생성에 실패했습니다. " + t.getMessage());
+            }
+        });
+    }
+
+    private void showToast(String message) {
+        Toast.makeText(NewPostingActivity.this, message, Toast.LENGTH_SHORT).show();
     }
 
     public void onBackClicked(View view) {
@@ -351,6 +423,5 @@ public class NewPostingActivity extends AppCompatActivity {
     public void onExhibitionPlusClicked(View view) {
         Intent intent = new Intent(this, NewPostingExhibitionActivity.class);
         startActivityForResult(intent, REQUEST_CODE_EXHIBITION_INFO);
-        // startActivity(intent);
     }
 }

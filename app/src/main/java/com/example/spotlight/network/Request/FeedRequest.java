@@ -1,6 +1,7 @@
 package com.example.spotlight.network.Request;
 
 import com.example.spotlight.network.DTO.ProjectDTO;
+import com.example.spotlight.network.DTO.TeamDTO;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ public class FeedRequest {
     private List<String> hashtag;
     private Exhibition exhibition;
     private ProjectDTO projectId;
+    private TeamDTO teamId;
 
     // Category 내부 클래스
     public static class Category {
@@ -131,4 +133,8 @@ public class FeedRequest {
     public void setProjectId(ProjectDTO projectId) {
         this.projectId = projectId;
     }
+
+    public TeamDTO getTeamId() { return teamId; }
+
+    public void setTeamId(TeamDTO teamId) { this.teamId = teamId; }
 }
