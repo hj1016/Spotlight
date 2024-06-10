@@ -55,12 +55,21 @@
         app:layout_constraintTop_toBottomOf="@id/toolbar_scrap_stage"/>
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imageView1"
         android:layout_width="380dp"
         android:layout_height="317dp"
         android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="@id/scrap_project_no"
         app:layout_constraintTop_toBottomOf="@id/scrap_project_no"
+        app:srcCompat="@drawable/stage_content1" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="380dp"
+        android:layout_height="317dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="@id/imageView1"
+        app:layout_constraintTop_toBottomOf="@id/imageView1"
         app:srcCompat="@drawable/stage_content3" />
 
 

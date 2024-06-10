@@ -9,6 +9,10 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ScrollView;
+import android.widget.Toast;
+
+import com.example.spotlight.network.Response.TokenResponse;
+import com.example.spotlight.network.Util.TokenManager;
 
 public class StageDetailActivity extends AppCompatActivity {
 
@@ -43,10 +47,11 @@ public class StageDetailActivity extends AppCompatActivity {
     }
 
     public void onMemberClicked(View view) {
-        String userType = sharedPreferences.getString("Type", "general"); // 기본값을 "general"로 설정
+        String userType = TokenManager.getRole();
+
         Intent intent;
-        if (userType.equals("recruiter")) {
-            intent = new Intent(this, ItemDetailMemberRecruiterActivity.class);
+        if (userType.equals("RECRUITER")) {
+            intent = new Intent(this, StageDetailMemberActivity.class);
         } else {
             intent = new Intent(this, ItemDetailMemberGeneralActivity.class);
         }

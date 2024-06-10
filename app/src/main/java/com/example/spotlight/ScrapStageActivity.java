@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.spotlight.network.Util.TokenManager;
+
 public class ScrapStageActivity extends AppCompatActivity {
 
     private SharedPreferences sharedPreferences;
@@ -16,9 +18,9 @@ public class ScrapStageActivity extends AppCompatActivity {
     }
 
     public void onBackClicked(View view) {
-        String userType = sharedPreferences.getString("userType", "general");
+        String userType = TokenManager.getRole();
         Intent intent = new Intent(this, MainActivity.class);
-        if ("Recruiter".equals(userType)) {
+        if ("RECRUITER".equals(userType)) {
             intent.putExtra("Fragment", "MyPageRecruiterFragment");
         } else {
             intent.putExtra("Fragment", "MyPageFragment");

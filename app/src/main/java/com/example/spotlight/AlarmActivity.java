@@ -2,6 +2,7 @@ package com.example.spotlight;
 
 import static com.google.android.material.internal.ViewUtils.dpToPx;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -13,11 +14,13 @@ import androidx.core.content.res.ResourcesCompat;
 import android.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.app.Dialog;
 
 import com.bumptech.glide.Glide;
 import com.example.spotlight.network.API.*;
@@ -122,6 +125,66 @@ public class AlarmActivity extends AppCompatActivity {
         dynamicLayout.addView(textLayout);
 
         parentLayout.addView(dynamicLayout);
+
+        dynamicLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleNotificationClick(notificationResponse);
+            }
+        });
+    }
+    private void handleNotificationClick(NotificationResponse notificationResponse) {
+        String type = notificationResponse.getType();
+        Intent intent;
+        switch (type) {
+            case "invited":
+                showAlertDialog();
+                break;
+            case "recruit":
+                intent = new Intent(AlarmActivity.this, GraduatesProposeActivity.class);
+                intent.putExtra("notification_id", notificationResponse.getNotificationId());
+                intent.putExtra("message", notificationResponse.getMessage());
+                startActivity(intent);
+                break;
+            case "invite_result":
+                break;
+            default:
+                Toast.makeText(AlarmActivity.this, "알 수 없는 알림 유형입니다.", Toast.LENGTH_SHORT).show();
+                return;
+        }
+    }
+
+    private void showAlertDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.dialog_ok, null);
+        builder.setView(dialogView);
+        AlertDialog dialog = builder.create();
+
+        TextView messageTextView = dialogView.findViewById(R.id.dialog_message);
+        ImageButton ok = dialogView.findViewById(R.id.dialog_invite_ok);
+        ImageButton no = dialogView.findViewById(R.id.dialog_invite_no);
+
+        ok.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                // 수락
+                Toast.makeText(AlarmActivity.this, "수락되었습니다.", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+            }
+
+        });
+
+        no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle NO button click (e.g., show Toast)
+                Toast.makeText(AlarmActivity.this, "거절되었습니다.", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
     }
 
     private int dpToPx(int dp) {

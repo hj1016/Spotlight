@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_item_detail_member_recruiter"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:background="@color/white"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+
+
+    <ImageView
+        android:id="@+id/item_detail_member_recruiter_back"
+        android:layout_width="19dp"
+        android:layout_height="19dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="40dp"
+        app:srcCompat="@drawable/stage_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:clickable="true"
+        android:onClick="onBackClicked"/>
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/toolbar_item_detail_member_recruiter"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_item_detail_member_recruiter">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/item_detail_member_recruiter_image"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    app:srcCompat="@drawable/team_image" />
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/item_detail_member_recruiter_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:text="박성준"
+                        android:fontFamily="@font/pretendard_semibold"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"/>
+
+                    <TextView
+                        android:id="@+id/item_detail_member_recruiter_role"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="작가"
+                        android:fontFamily="@font/pretendard_semibold"
+                        android:textColor="#a6a6a6"
+                        android:textSize="15sp"/>
+
+
+                </LinearLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <ImageView
+                        android:id="@+id/item_detail_member_recruiter_scrap_button"
+                        android:layout_width="24dp"
+                        android:layout_height="32dp"
+                        android:layout_weight="1"
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:src="@drawable/scrap_no"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:onClick="toggleScrap"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/item_detail_member_recruiter_academic_ability"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:text="학력"
+                android:fontFamily="@font/pretendard_bold"
+                android:textColor="@color/black"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/item_detail_member_recruiter_academic_ability_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="스포대학교 트라이트학과"
+                android:fontFamily="@font/pretendard_regular"
+                android:textColor="@color/black"
+                android:textSize="18sp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="30dp">
+
+                <TextView
+                    android:id="@+id/item_detail_member_recruiter_portfolio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="포트폴리오 확인하기"
+                    android:fontFamily="@font/pretendard_bold"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"/>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/item_detail_member_recruiter_portfolio_go"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/scrap_go"
+                        android:layout_marginStart="200dp"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:id="@+id/item_detail_member_recruiter_propose"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="제안 보내기"
+                    android:fontFamily="@font/pretendard_bold"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:clickable="true"/>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/item_detail_member_recruiter_propose_go"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/scrap_go"
+                        android:layout_marginStart="200dp"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/item_detail_member_recruiter_project_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:text="참여한 프로젝트"
+                android:fontFamily="@font/pretendard_bold"
+                android:textColor="@color/black"
+                android:textSize="18sp"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:id="@+id/item_detail_member_recruiter_project_box"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:padding="0dp"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/project_box"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <ImageView
+                    android:id="@+id/item_detail_member_recruiter_project_photo"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    app:srcCompat="@drawable/a_e_s"
+                    app:layout_constraintTop_toTopOf="@id/item_detail_member_recruiter_project_box"
+                    app:layout_constraintStart_toStartOf="@id/item_detail_member_recruiter_project_box"
+                    android:layout_marginTop="45dp"
+                    android:layout_marginStart="36dp"/>
+
+                <LinearLayout
+                    android:id="@+id/item_detail_member_recruiter_project_text_container"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintStart_toEndOf="@id/item_detail_member_recruiter_project_photo"
+                    app:layout_constraintTop_toTopOf="@id/item_detail_member_recruiter_project_photo"
+                    app:layout_constraintBottom_toBottomOf="@id/item_detail_member_recruiter_project_photo"
+                    android:layout_marginStart="10dp">
+
+                    <TextView
+                        android:id="@+id/item_detail_member_recruiter_project_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="You little human"
+                        android:fontFamily="@font/pretendard_semibold"
+                        android:textSize="18sp"
+                        android:textColor="@color/black"/>
+
+                    <TextView
+                        android:id="@+id/item_detail_member_recruiter_project_category"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="사진/영상"
+                        android:fontFamily="@font/pretendard_semibold"
+                        android:textSize="15sp"
+                        android:textColor="#a6a6a6" />
+                </LinearLayout>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/item_detail_member_recruiter_project_box">
+
+                    <ImageButton
+                        android:id="@+id/item_detail_member_recruiter_project_box2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:padding="0dp"
+                        android:scaleType="fitXY"
+                        app:srcCompat="@drawable/project_box"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <!-- 두 번째 프로젝트 박스의 이미지 -->
+                    <ImageView
+                        android:id="@+id/item_detail_member_recruiter_project_photo_2"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:background="@drawable/circle_background"
+                        app:srcCompat="@drawable/psj"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginTop="45dp"
+                        android:layout_marginStart="36dp"/>
+
+                    <!-- 두 번째 프로젝트 박스의 텍스트 -->
+                    <LinearLayout
+                        android:id="@+id/item_detail_member_recruiter_project_text_container_2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintStart_toEndOf="@id/item_detail_member_recruiter_project_photo_2"
+                        app:layout_constraintTop_toTopOf="@id/item_detail_member_recruiter_project_photo_2"
+                        app:layout_constraintBottom_toBottomOf="@id/item_detail_member_recruiter_project_photo_2"
+                        android:layout_marginStart="10dp">
+
+                        <!-- 두 번째 프로젝트 박스의 프로젝트 이름 -->
+                        <TextView
+                            android:id="@+id/item_detail_member_recruiter_project_name_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Beauty of small things"
+                            android:fontFamily="@font/pretendard_semibold"
+                            android:textSize="18sp"
+                            android:textColor="@color/black"/>
+
+                        <!-- 두 번째 프로젝트 박스의 프로젝트 카테고리 -->
+                        <TextView
+                            android:id="@+id/item_detail_member_recruiter_project_category_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="미술"
+                            android:textSize="15sp"
+                            android:textColor="#a6a6a6" />
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

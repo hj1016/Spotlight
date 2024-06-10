@@ -2,6 +2,7 @@ package com.example.spotlight;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -54,7 +55,7 @@ public class ItemDetailMemberGeneralActivity extends AppCompatActivity {
                         Toast.makeText(ItemDetailMemberGeneralActivity.this, "팀원 정보 조회에 성공했습니다.", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(ItemDetailMemberGeneralActivity.this, "팀원 정보 조회에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                    Log.d("Member show", "fail");
                 }
             }
 

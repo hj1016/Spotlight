@@ -67,7 +67,7 @@
         <activity android:name=".ProfileRecruiterActivity"/>
         <activity android:name=".ProfileRecruiterEditActivity"/>
 
-
+        <activity android:name=".RecruiterProposeActivity" />
         <activity android:name=".RecruiterProposeManageActivity"/>
         <activity android:name=".RecruiterProposeEditActivity"/>
         <activity android:name=".RecruiterStep1Activity" />
@@ -87,6 +87,8 @@
         <activity android:name=".SignupStep4Activity" />
         <activity android:name=".SignupStep5Activity" />
         <activity android:name=".StageActivity" />
+        <activity android:name=".StageDetailMemberActivity" />
+        <activity android:name=".StageRecruiterProposeActivity" />
         <activity android:name=".StageDetailActivity" android:exported="true"/>
 
 
