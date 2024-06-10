@@ -27,7 +27,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
     @Override
     public PostViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_post, parent, false);
-        return new PostViewHolder(view);
+        return new PostViewHolder(view, this);
     }
 
     @Override
@@ -44,18 +44,26 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
 
         holder.scrapButton.setImageResource(post.isScrapped() ? R.drawable.scrap_yes : R.drawable.scrap_no);
 
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 클릭된 아이템의 위치(position)을 가져옵니다.
+                int position = holder.getAdapterPosition();
+                // 해당 위치에 있는 피드를 가져옵니다.
+                Post clickedPost = posts.get(position);
+
+                // 클릭된 피드의 상세 정보를 보여주는 화면으로 이동합니다.
+                Intent intent = new Intent(context, ItemDetailActivity.class);
+                // 클릭된 피드의 정보를 인텐트에 직렬화하여 전달합니다.
+                intent.putExtra("post", clickedPost);
+                context.startActivity(intent);
+            }
+        });
+
         holder.scrapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 holder.toggleScrap();
-            }
-        });
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, ItemDetailActivity.class);
-                context.startActivity(intent);
             }
         });
     }
@@ -83,11 +91,19 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             layoutParams.setMargins(10, 5, 10, 20);
             textView.setLayoutParams(layoutParams);
 
+            textView.setOnClickListener(v -> {
+                Intent intent = new Intent(context, SearchResultActivity.class);
+                intent.putExtra("hashtag", hashtag);
+                context.startActivity(intent);
+            });
+
             flexboxLayout.addView(textView);
         }
     }
 
     public static class PostViewHolder extends RecyclerView.ViewHolder {
+        // PostAdapter 인스턴스 변수 추가
+        private PostAdapter adapter;
         public ImageView team_image, image, scrapButton;
         public TextView title, category, content, scrap;
         public FlexboxLayout flexboxLayout;
@@ -95,8 +111,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
 
         public View itemBox;
 
-        public PostViewHolder(View itemView) {
+        // PostAdapter 인스턴스를 받아오는 생성자 추가
+        public PostViewHolder(View itemView, PostAdapter adapter) {
             super(itemView);
+            this.adapter = adapter;
             team_image = itemView.findViewById(R.id.team_image);
             image = itemView.findViewById(R.id.image);
             scrapButton = itemView.findViewById(R.id.scrap_selection);
@@ -112,7 +130,15 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         }
 
         private void onOpenClicked(View v) {
+            // 클릭된 아이템의 위치(position)을 가져옵니다.
+            int position = getAdapterPosition();
+            // 해당 위치에 있는 피드를 가져옵니다.
+            Post clickedPost = adapter.getItem(position);
+
+            // 클릭된 피드의 상세 정보를 보여주는 화면으로 이동합니다.
             Intent intent = new Intent(itemView.getContext(), ItemDetailActivity.class);
+            // 클릭된 피드의 정보를 인텐트에 직렬화하여 전달합니다.
+            intent.putExtra("post", clickedPost);
             itemView.getContext().startActivity(intent);
         }
 
@@ -120,5 +146,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             isScrapped = !isScrapped;
             scrapButton.setImageResource(isScrapped ? R.drawable.scrap_yes : R.drawable.scrap_no);
         }
+    }
+
+    public Post getItem(int position) {
+        return posts.get(position);
     }
 }

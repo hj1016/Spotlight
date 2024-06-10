@@ -24,7 +24,7 @@
         android:layout_marginTop="12dp"
         android:hint="Search..."
         android:inputType="text"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:background="@android:color/transparent"
         app:layout_constraintTop_toTopOf="@id/search_bar"
         app:layout_constraintStart_toStartOf="@id/search_bar"/>
@@ -42,27 +42,49 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search_bar" />
 
-    <TextView
-        android:id="@+id/history_text1"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/history_container"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:orientation="vertical"
         android:layout_marginTop="15dp"
-        android:fontFamily="@font/pretendard_bold"
-        android:text="#interior"
-        android:textSize="20sp"
+        android:clickable="true"
+        app:layout_constraintTop_toBottomOf="@+id/history_title"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/history_title" />
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <ImageView
-        android:id="@+id/search_go1"
-        android:layout_width="25dp"
-        android:layout_height="22dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="11dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/history_title"
-        app:srcCompat="@drawable/search_go" />
+        <!-- 기존 TextView와 ImageView를 LinearLayout으로 감싸줍니다. -->
+        <LinearLayout
+            android:id="@+id/history_item1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="15dp">
+
+            <!-- 해시태그 이력을 보여주는 TextView -->
+            <TextView
+                android:id="@+id/history_text1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/pretendard_bold"
+                android:text="#interior"
+                android:textSize="20sp"
+                android:clickable="true"
+                android:layout_weight="1"/>
+
+            <!-- 검색 아이콘 이미지뷰 -->
+            <ImageView
+                android:id="@+id/search_go1"
+                android:layout_width="25dp"
+                android:layout_height="22dp"
+                android:layout_marginStart="1dp"
+                android:src="@drawable/search_go" />
+        </LinearLayout>
+
+    </LinearLayout>
+
 
     <ImageView
         android:id="@+id/search_school"

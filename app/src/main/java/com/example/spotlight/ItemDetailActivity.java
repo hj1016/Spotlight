@@ -13,10 +13,12 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.bumptech.glide.Glide;
 import com.example.spotlight.network.API.ApiClient;
 import com.example.spotlight.network.API.ApiService;
 import com.example.spotlight.network.Response.ScrapCancelResponse;
 import com.example.spotlight.network.Response.ScrapResponse;
+import com.example.spotlight.network.Service.FeedService;
 import com.google.android.flexbox.FlexboxLayout;
 
 import java.util.Arrays;
@@ -35,6 +37,8 @@ public class ItemDetailActivity extends AppCompatActivity {
     private TextView scrapCountTextView;
     private ImageView scrapButton;
     private int scrapCount;
+    private ImageView teamImage;
+    private TextView title, category, content, viewCountTextView1, viewCountTextView2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +46,37 @@ public class ItemDetailActivity extends AppCompatActivity {
         setContentView(R.layout.item_detail);
 
         sharedPreferences = getSharedPreferences("UserType", MODE_PRIVATE);
+
+        // Initialize views
+        teamImage = findViewById(R.id.item_detail_team_image);
+        title = findViewById(R.id.item_detail_title);
+        category = findViewById(R.id.item_detail_category);
+        content = findViewById(R.id.item_detail_content);
+        viewCountTextView1 = findViewById(R.id.item_detail_general_view);
+        viewCountTextView2 = findViewById(R.id.item_detail_recruiter_view);
+
+        // Get intent data
+        Intent intent = getIntent();
+        int feedId = intent.getIntExtra("feedId", -1);
+
+        if (intent != null && intent.hasExtra("post")) {
+            Post post = (Post) intent.getSerializableExtra("post");
+            if (post != null) {
+                // Load data into views
+                Glide.with(this).load(post.getTeamImageUrl()).into(teamImage);
+                title.setText(post.getTitle());
+                category.setText(post.getCategory());
+                content.setText(post.getContent());
+                scrapCountTextView.setText(String.valueOf(post.getScrap()));
+                isScrapped = post.isScrapped();
+                scrapButton.setImageResource(isScrapped ? R.drawable.scrap_yes : R.drawable.scrap_no);
+                scrapCount = post.getScrap();
+
+                // Load hashtags
+                FlexboxLayout flexboxLayout = findViewById(R.id.flexbox_hashtags);
+                addHashtags(post.getHashtags(), flexboxLayout);
+            }
+        }
 
         List<Integer> images = Arrays.asList(
                 R.drawable.image_ex1,
@@ -67,7 +102,6 @@ public class ItemDetailActivity extends AppCompatActivity {
         scrapCountTextView = findViewById(R.id.item_scrap);
         scrapButton = findViewById(R.id.item_scrap_no);
 
-        Intent intent = getIntent();
         if (intent != null) {
             isScrapped = intent.getBooleanExtra("isScrapped", false);
             scrapCount = intent.getIntExtra("scrapCount", 0);
@@ -75,6 +109,16 @@ public class ItemDetailActivity extends AppCompatActivity {
             scrapButton.setImageResource(isScrapped ? R.drawable.scrap_yes : R.drawable.scrap_no);
             scrapCountTextView.setText(String.valueOf(scrapCount));
         }
+
+        // FeedService 인스턴스 생성
+        FeedService feedService = new FeedService(ApiClient.getClientWithToken().create(ApiService.class));
+
+        // 일반 사용자인 경우
+        feedService.updateHits(feedId, findViewById(R.id.item_detail_general_view), null);
+
+        // 리크루터인 경우
+        feedService.updateHits(feedId, null, findViewById(R.id.item_detail_recruiter_view));
+
     }
 
     public void addHashtags(List<String> hashtags, FlexboxLayout flexboxLayout) {
@@ -93,6 +137,8 @@ public class ItemDetailActivity extends AppCompatActivity {
             );
             layoutParams.setMargins(10, 5, 10, 5);
             textView.setLayoutParams(layoutParams);
+
+            textView.setOnClickListener(this::onHashtagClicked); // Set click listener
 
             flexboxLayout.addView(textView);
         }
@@ -160,6 +206,14 @@ public class ItemDetailActivity extends AppCompatActivity {
                 });
             }
         }
+    }
+
+    public void onHashtagClicked(View view) {
+        TextView textView = (TextView) view;
+        String hashtag = textView.getText().toString().substring(1); // Remove the '#' symbol
+        Intent intent = new Intent(ItemDetailActivity.this, SearchResultActivity.class);
+        intent.putExtra("hashtag", hashtag);
+        startActivity(intent);
     }
 
     public void onMemberClicked(View view) {

@@ -63,7 +63,6 @@ public class NewPostingMemberActivity extends AppCompatActivity {
         }
 
         Integer userId = TokenManager.getUserId();
-
         if (userId == null) {
             Toast.makeText(this, "사용자 ID를 찾을 수 없습니다. 다시 로그인 해주세요.", Toast.LENGTH_SHORT).show();
             return;
