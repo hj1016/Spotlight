@@ -40,14 +40,195 @@
         app:layout_constraintStart_toStartOf="@id/scrap_graduates_back"
         app:layout_constraintTop_toBottomOf="@id/toolbar_scrap_graduates"/>
 
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView_scrap_graduates"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="30dp"
+    <ImageButton
+        android:id="@+id/scrap_graduates_box"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:padding="0dp"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/scrap_graduates_box"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scrap_graduates_title"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        android:clickable="true"
+        android:onClick="onMemberClicked"/>
 
+    <ImageView
+        android:id="@+id/scrap_graduates_photo"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        app:srcCompat="@drawable/team_image"
+        app:layout_constraintTop_toBottomOf="@+id/scrap_graduates_title"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="36dp"/>
+
+    <LinearLayout
+        android:id="@+id/scrap_graduates_text_container"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintStart_toEndOf="@id/scrap_graduates_photo"
+        app:layout_constraintEnd_toStartOf="@id/scrap_graduates_scrap_go"
+        app:layout_constraintTop_toTopOf="@id/scrap_graduates_photo"
+        app:layout_constraintBottom_toBottomOf="@id/scrap_graduates_photo"
+        android:layout_marginStart="10dp">
+        <TextView
+            android:id="@+id/scrap_graduates_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="박성준"
+            android:fontFamily="@font/pretendard_semibold"
+            android:textSize="18sp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/scrap_graduates_project_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Small things"
+            android:fontFamily="@font/pretendard_semibold"
+            android:textSize="15sp"
+            android:textColor="#a6a6a6" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/scrap_graduates_scrap_go"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        app:srcCompat="@drawable/scrap_go"
+        app:layout_constraintEnd_toEndOf="@id/scrap_graduates_box"
+        app:layout_constraintTop_toTopOf="@id/scrap_graduates_text_container"
+        app:layout_constraintBottom_toBottomOf="@id/scrap_graduates_text_container"
+        android:layout_marginEnd="36dp"/>
+
+    <!-- Second Scrap Graduate Box and Related Views -->
+    <ImageButton
+        android:id="@+id/scrap_graduates_box2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:padding="0dp"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/scrap_graduates_box"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrap_graduates_box"
+        android:clickable="true"
+        android:onClick="onMemberClicked"/>
+
+    <ImageView
+        android:id="@+id/scrap_graduates_photo2"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        app:srcCompat="@drawable/team_image"
+        app:layout_constraintTop_toBottomOf="@+id/scrap_graduates_box"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="36dp"/>
+
+    <LinearLayout
+        android:id="@+id/scrap_graduates_text_container2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintStart_toEndOf="@id/scrap_graduates_photo2"
+        app:layout_constraintEnd_toStartOf="@id/scrap_graduates_scrap_go2"
+        app:layout_constraintTop_toTopOf="@id/scrap_graduates_photo2"
+        app:layout_constraintBottom_toBottomOf="@id/scrap_graduates_photo2"
+        android:layout_marginStart="10dp">
+        <TextView
+            android:id="@+id/scrap_graduates_name2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="김학생"
+            android:fontFamily="@font/pretendard_semibold"
+            android:textSize="18sp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/scrap_graduates_project_name2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hmm..."
+            android:fontFamily="@font/pretendard_semibold"
+            android:textSize="15sp"
+            android:textColor="#a6a6a6" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/scrap_graduates_scrap_go2"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        app:srcCompat="@drawable/scrap_go"
+        app:layout_constraintEnd_toEndOf="@id/scrap_graduates_box2"
+        app:layout_constraintTop_toTopOf="@id/scrap_graduates_text_container2"
+        app:layout_constraintBottom_toBottomOf="@id/scrap_graduates_text_container2"
+        android:layout_marginEnd="36dp"/>
+
+    <!-- Third Scrap Graduate Box and Related Views -->
+    <ImageButton
+        android:id="@+id/scrap_graduates_box3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:padding="0dp"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/scrap_graduates_box"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrap_graduates_box2"
+        android:clickable="true"
+        android:onClick="onMemberClicked"/>
+
+    <ImageView
+        android:id="@+id/scrap_graduates_photo3"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        app:srcCompat="@drawable/team_image"
+        app:layout_constraintTop_toBottomOf="@+id/scrap_graduates_box2"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="36dp"/>
+
+    <LinearLayout
+        android:id="@+id/scrap_graduates_text_container3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintStart_toEndOf="@id/scrap_graduates_photo3"
+        app:layout_constraintEnd_toStartOf="@id/scrap_graduates_scrap_go3"
+        app:layout_constraintTop_toTopOf="@id/scrap_graduates_photo3"
+        app:layout_constraintBottom_toBottomOf="@id/scrap_graduates_photo3"
+        android:layout_marginStart="10dp">
+        <TextView
+            android:id="@+id/scrap_graduates_name3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="이학생"
+            android:fontFamily="@font/pretendard_semibold"
+            android:textSize="18sp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/scrap_graduates_project_name3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="How to be free"
+            android:fontFamily="@font/pretendard_semibold"
+            android:textSize="15sp"
+            android:textColor="#a6a6a6" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/scrap_graduates_scrap_go3"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        app:srcCompat="@drawable/scrap_go"
+        app:layout_constraintEnd_toEndOf="@id/scrap_graduates_box3"
+        app:layout_constraintTop_toTopOf="@id/scrap_graduates_text_container3"
+        app:layout_constraintBottom_toBottomOf="@id/scrap_graduates_text_container3"
+        android:layout_marginEnd="36dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
