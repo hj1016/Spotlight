@@ -1,5 +1,6 @@
 package com.example.spotlight.network.API;
 
+import com.example.spotlight.Post;
 import com.example.spotlight.network.DTO.ExhibitionDTO;
 import com.example.spotlight.network.DTO.FeedDTO;
 import com.example.spotlight.network.DTO.PasswordValidationDTO;
@@ -105,7 +106,7 @@ public interface ApiService {
 
     // 스크랩 피드 목록 확인 0
     @GET("/api/v1/user/scrap/feed")
-    Call<List<FeedDTO>> getScrapFeeds();
+    Call<List<Post>> getScrapFeeds();
 
     // 스크랩 피드 세부 확인
 
@@ -131,7 +132,7 @@ public interface ApiService {
 
     // 내가 올린 피드 목록 조회 0
     @GET("/api/v1/user/feed")
-    Call<List<FeedDTO>> getMyFeeds();
+    Call<List<Post>> getMyFeeds();
 
     // 내 피드 내용 조회
     // 재직증명서 업로드 0

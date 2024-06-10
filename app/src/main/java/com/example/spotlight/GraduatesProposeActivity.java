@@ -26,7 +26,6 @@ public class GraduatesProposeActivity extends AppCompatActivity {
     private ApiService apiService;
     private RecyclerView recyclerView;
     private GraduatesProposeAdapter adapter;
-    private List<GraduatesProposal> proposegraduates;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +61,6 @@ public class GraduatesProposeActivity extends AppCompatActivity {
                 Log.e("API_CALL_FAILURE", "API call failed: " + t.getMessage(), t);
             }
         });
-
     }
     public void onBackClicked(View view) {
         finish();

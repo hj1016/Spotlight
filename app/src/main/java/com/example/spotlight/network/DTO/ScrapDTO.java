@@ -6,6 +6,7 @@ public class ScrapDTO {
     private String username;
     private String profileImage;
     private String projectRole;
+    private String projectName;
 
     public ScrapDTO(Integer userId, String username, String profileImage, String projectRole) {
         this.userId = userId;
@@ -45,4 +46,8 @@ public class ScrapDTO {
     public void setProjectRole(String projectRole) {
         this.projectRole = projectRole;
     }
+
+    public String getProjectName() { return projectName; }
+
+    public void setProjectName(String projectName) { this.projectName = projectName; }
 }

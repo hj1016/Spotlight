@@ -8,13 +8,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
+import com.example.spotlight.network.DTO.ScrapDTO;
+
 import java.util.List;
 
 public class GraduateAdapter extends RecyclerView.Adapter<GraduateAdapter.GraduateViewHolder> {
     private Context context;
-    private List<Graduate> graduates;
+    private List<ScrapDTO> graduates;
 
-    public GraduateAdapter(Context context, List<Graduate> graduates) {
+    public GraduateAdapter(Context context, List<ScrapDTO> graduates) {
         this.context = context;
         this.graduates = graduates;
     }
@@ -27,10 +29,10 @@ public class GraduateAdapter extends RecyclerView.Adapter<GraduateAdapter.Gradua
 
     @Override
     public void onBindViewHolder(GraduateViewHolder holder, int position) {
-        Graduate graduate = graduates.get(position);
-        Glide.with(context).load(graduate.getPhotoUrl()).into(holder.imageViewGraduatesPhoto);
-        holder.textViewGraduatesName.setText(graduate.getName());
-        holder.textViewProjectName.setText(graduate.getProjectName());
+        ScrapDTO scrapDTO = graduates.get(position);
+        Glide.with(context).load(scrapDTO.getProfileImage()).circleCrop().into(holder.imageViewGraduatesPhoto);
+        holder.textViewGraduatesName.setText(scrapDTO.getUsername());
+        holder.textViewProjectName.setText(scrapDTO.getProjectRole());
     }
 
     @Override

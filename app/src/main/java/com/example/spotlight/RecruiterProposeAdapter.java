@@ -8,13 +8,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
+import com.example.spotlight.network.Response.ProposalResponse;
+
 import java.util.List;
 
 public class RecruiterProposeAdapter extends RecyclerView.Adapter<RecruiterProposeAdapter.ViewHolder> {
     private Context context;
-    private List<RecruiterProposal> proposals;
+    private List<ProposalResponse> proposals;
 
-    public RecruiterProposeAdapter(Context context, List<RecruiterProposal> proposals) {
+    public RecruiterProposeAdapter(Context context, List<ProposalResponse> proposals) {
         this.context = context;
         this.proposals = proposals;
     }
@@ -27,13 +29,13 @@ public class RecruiterProposeAdapter extends RecyclerView.Adapter<RecruiterPropo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        RecruiterProposal proposal = proposals.get(position);
-        holder.name.setText(proposal.getName());
+        ProposalResponse proposal = proposals.get(position);
+        holder.name.setText(proposal.getUsername());
+        holder.companyName.setText(proposal.getCompany());
+        holder.role.setText(proposal.getJob());
+        holder.proposeDate.setText(proposal.getDaysAgo());
         holder.projectName.setText(proposal.getProjectName());
-        holder.companyName.setText(proposal.getCompanyName());
-        holder.proposeDate.setText(proposal.getProposeDate());
-        holder.role.setText(proposal.getRole());
-        Glide.with(context).load(proposal.getPhotoUrl()).into(holder.photo);
+        Glide.with(context).load(proposal.getProfileImage()).circleCrop().into(holder.photo);
     }
 
     @Override
