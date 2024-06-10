@@ -16,6 +16,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/search_bar" />
 
+
+
     <EditText
         android:id="@+id/search_bar_text"
         android:layout_width="wrap_content"
@@ -69,7 +71,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/pretendard_bold"
-                android:text="#interior"
+                android:text="#branding"
                 android:textSize="20sp"
                 android:clickable="true"
                 android:layout_weight="1"/>
@@ -80,7 +82,10 @@
                 android:layout_width="25dp"
                 android:layout_height="22dp"
                 android:layout_marginStart="1dp"
-                android:src="@drawable/search_go" />
+                android:src="@drawable/search_go"
+                android:clickable="true"
+                android:onClick="onSearchButtonClicked" />
+
         </LinearLayout>
 
     </LinearLayout>
@@ -91,11 +96,11 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginTop="44dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="24dp"
+        android:clickable="true"
+        android:onClick="onSearchSchoolClicked"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/search_school"
-        android:clickable="true"
-        android:onClick="onSearchSchoolClicked"/>
+        app:srcCompat="@drawable/search_school" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
