@@ -1,15 +1,8 @@
 package com.example.spotlight;
 
-import android.content.Intent;
 import android.view.View;
 import android.os.Bundle;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.example.spotlight.network.API.ApiClient;
-import com.example.spotlight.network.API.ApiService;
-import com.example.spotlight.network.Response.SearchResponse;
-import com.example.spotlight.network.Util.TokenManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,10 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class SearchResultActivity extends AppCompatActivity {
 
@@ -37,22 +26,39 @@ public class SearchResultActivity extends AppCompatActivity {
         searchResultTitle = findViewById(R.id.search_result_title);
         recyclerView = findViewById(R.id.recyclerView_search_result);
 
-        // 검색 결과 페이지로부터 학교 및 학과 정보를 받아옴
+        String keyword = getIntent().getStringExtra("keyword");
         String school = getIntent().getStringExtra("school");
         String major = getIntent().getStringExtra("major");
 
-        // 검색 결과 제목 설정
-        String title = school + " " + major;
-        searchResultTitle.setText(title);
+        // 검색어와 학교&학과 정보가 모두 없는 경우
+        if (keyword == null && (school == null || major == null)) {
+            searchResultTitle.setText("검색어와 학교/학과 정보가 없습니다.");
 
-        // 리사이클러뷰에 포스트 데이터 표시 (테스트용 데이터 사용)
-        List<Post> posts = new ArrayList<>();
-        posts.add(new Post(R.drawable.icon3, "DanDan", "소프트웨어", R.drawable.schoolmajorfeed,
-                "Let's Dance with the Characters! There's a new children's song ...", 617, Arrays.asList("App", "AR", "Software"), R.drawable.scrap_no, false));
-        postAdapter = new PostAdapter(this, posts);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(postAdapter);
+            // 검색어가 있는 경우
+        } else if (keyword != null) {
+            searchResultTitle.setText(keyword);
+
+            posts = new ArrayList<>();
+            posts.add(new Post(R.drawable.icon1, "Hmm...", "시각 디자인", R.drawable.design,
+                    " Look at her lips saying something. I can’t concentrate on what ...", 821, Arrays.asList("branding", "package", "sensuous"), R.drawable.scrap_no, false));
+            postAdapter = new PostAdapter(this, posts);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            recyclerView.setAdapter(postAdapter);
+
+            // 검색어는 없고 학교&학과 정보가 있는 경우
+        } else {
+            String title = school + " " + major;
+            searchResultTitle.setText(title);
+
+            posts = new ArrayList<>();
+            posts.add(new Post(R.drawable.icon3, "DanDan", "소프트웨어", R.drawable.schoolmajorfeed,
+                    "Let's Dance with the Characters! There's a new children's song ...", 617, Arrays.asList("App", "AR", "Software"), R.drawable.scrap_no, false));
+            postAdapter = new PostAdapter(this, posts);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            recyclerView.setAdapter(postAdapter);
+        }
     }
+
 
     // 뒤로 가기 버튼 클릭 시 호출되는 메서드
     public void onBackClicked(View view) {
