@@ -91,6 +91,7 @@
         <activity android:name=".SignupStep5Activity" />
         <activity android:name=".StageActivity" />
         <activity android:name=".StageDetailMemberActivity" />
+        <activity android:name=".PsjPortfolioActivity" />
         <activity android:name=".StageRecruiterProposeActivity" />
         <activity android:name=".StageDetailActivity" android:exported="true"/>
 
