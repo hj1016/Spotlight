@@ -1,17 +1,21 @@
 package com.example.spotlight;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.ImageButton;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.navigation.NavigationView;
@@ -39,16 +43,17 @@ public class HomeFragment extends Fragment implements NavigationView.OnNavigatio
         // Sample data
         posts = new ArrayList<>();
         posts.add(new Post(
-                "team_image_url",       // teamImageUrl
-                "Title",                            // title
-                "Category",                         // category
-                "image_url",                        // imageUrl
-                "Content",              // content
-                5,                      // scrap
+                R.drawable.team_image,             // teamImageUrl
+                "Title",                           // title
+                "Category",                        // category
+                R.drawable.post_box,              // imageUrl
+                "Content",                         // content
+                5,                                 // scrap
                 Arrays.asList("hashtag1", "hashtag2"), // hashtags
-                "scrap_image_url",      // scrapImageUrl
-                false                   // isScrapped
+                R.drawable.scrap_no,        // scrapImageUrl
+                false                            // isScrapped
         ));
+
 
         postAdapter = new PostAdapter(getContext(), posts);
         recyclerView.setAdapter(postAdapter);
@@ -79,6 +84,19 @@ public class HomeFragment extends Fragment implements NavigationView.OnNavigatio
         }
 
         setupDrawerNavigation(view);
+
+        expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                // String childName = getChildName(groupPosition, childPosition); // 자식의 이름 가져오기 예시 메서드
+
+                Intent intent = new Intent(getContext(), ElectronicActivity.class);
+                // intent.putExtra("childName", childName);
+                startActivity(intent);
+
+                return true;
+            }
+        });
     }
 
     private void setupDrawerNavigation(View view) {
@@ -87,16 +105,16 @@ public class HomeFragment extends Fragment implements NavigationView.OnNavigatio
     }
 
     private void initializeData() {
-        posts.add(new Post("@drawable/a_e_s", "You little human", "사진/영상", "@drawable/image_ex1",
-                "On a blazingly sunny morning in March, the 22-year-old Italian tennis star Jannik Sinner could ...", 231, Arrays.asList("#A.E.S", "#Photo", "#Photography"), "@drawable/icon", false));
-        posts.add(new Post("@drawable/icon2", "How to be free", "철학", "@drawable/philosophy",
-                "The dignity of human beings arises when they attribute meaning to their existence. Love, nature ...", 42, Arrays.asList("#Philosophy", "#Sartre"), "@drawable/icon", false));
-        posts.add(new Post("@drawable/icon1", "Hmm...", "시각 디자인", "@drawable/design1",
-                " Look at her lips saying something. I can’t concentrate on what she’s saying. Start with a soft texture ...", 129, Arrays.asList("#branding", "#pakage", "#sensuous"), "@drawable/icon", false));
-        posts.add(new Post("@drawable/team_image", "Spectroscopy", "전기/전자", "@drawable/electronics",
-                "We examine the basic principles of absorption spectroscopy and characteristics of absorption ...", 37, Arrays.asList("#SNU", "#Electronics", "Electrotechnics"), "@drawable/icon", false));
-        posts.add(new Post("@drawable/team_image", "Spectroscopy Report", "전기/전자", "@drawable/chemical",
-                "The absorption and radiation of light by the material is divided into spectra using a spectrometer ...", 29, Arrays.asList("#Electronics", "#SNU", "Experiment"), "@drawable/icon", false));
+        posts.add(new Post(R.drawable.a_e_s, "You little human", "사진/영상", R.drawable.image_ex1,
+                "On a blazingly sunny morning in March, the 22-year-old Italian tennis star Jannik Sinner could ...", 231, Arrays.asList("A.E.S", "Photo", "Photography"), R.drawable.scrap_no, false));
+        posts.add(new Post(R.drawable.icon2, "How to be free", "철학", R.drawable.philosophy,
+                "The dignity of human beings arises when they attribute meaning to their existence. Love, nature ...", 42, Arrays.asList("Philosophy", "Sartre"), R.drawable.scrap_no, false));
+        posts.add(new Post(R.drawable.icon1, "Hmm...", "시각 디자인", R.drawable.design,
+                " Look at her lips saying something. I can’t concentrate on what she’s saying. Start with a soft texture ...", 129, Arrays.asList("branding", "pakage", "sensuous"), R.drawable.scrap_no, false));
+        posts.add(new Post(R.drawable.team_image, "Spectroscopy", "전기/전자", R.drawable.electronics,
+                "We examine the basic principles of absorption spectroscopy and characteristics of absorption ...", 37, Arrays.asList("SNU", "Electronics", "Electrotechnics"), R.drawable.scrap_no, false));
+        posts.add(new Post(R.drawable.team_image, "Spectroscopy Report", "전기/전자", R.drawable.chemical,
+                "The absorption and radiation of light by the material is divided into spectra using a spectrometer ...", 29, Arrays.asList("Electronics", "SNU", "Experiment"), R.drawable.scrap_no, false));
     }
 
     private void setupExpandableListView() {
@@ -113,6 +131,7 @@ public class HomeFragment extends Fragment implements NavigationView.OnNavigatio
         HashMap<String, List<String>> listDataChild = new HashMap<>();
 
         listDataHeader.add("전체");
+        listDataChild.put("전체", new ArrayList<>()); // 전체 카테고리에 대한 하위 카테고리 설정
 
         for (String category : categories) {
             listDataHeader.add(category);
@@ -154,6 +173,16 @@ public class HomeFragment extends Fragment implements NavigationView.OnNavigatio
                 adapter.setSelectedGroupPosition(groupPosition);
             }
             adapter.notifyDataSetChanged();
+            return true;
+        });
+
+        expandableListView.setOnChildClickListener((parent, v, groupPosition, childPosition, id) -> {
+            // 전기/전자 카테고리를 클릭했을 때의 처리
+            if (groupPosition == 4 && childPosition == 9) { // 전기/전자 카테고리의 위치 확인
+                if (getActivity() instanceof MainActivity) {
+                    ((MainActivity) getActivity()).loadFragment("ElectronicFragment"); // MainActivity로 이동 요청
+                }
+            }
             return true;
         });
     }

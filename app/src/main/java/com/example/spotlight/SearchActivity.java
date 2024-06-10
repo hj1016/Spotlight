@@ -4,7 +4,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -23,12 +25,51 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SearchActivity  extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity {
 
     private EditText searchBarText;
     private ImageView searchBar;
     private LinearLayout historyContainer;
     private SharedPreferences sharedPreferences;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.search_main);
+
+        searchBarText = findViewById(R.id.search_bar_text);
+        searchBar = findViewById(R.id.search_bar);
+        historyContainer = findViewById(R.id.history_container);
+
+        searchBarText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH || event.getAction() == KeyEvent.ACTION_DOWN) {
+                    onSearchButtonClicked(null);
+                    return true;
+                }
+                return false;
+            }
+        });
+    }
+
+    public void onSearchButtonClicked(View view) {
+        String keyword = searchBarText.getText().toString().trim();
+        if (!keyword.isEmpty()) {
+            Intent intent = new Intent(this, SearchResultActivity.class);
+            intent.putExtra("keyword", keyword);
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, "검색어를 입력해주세요.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void onSearchSchoolClicked(View view) {
+        // 학교 검색 기능을 구현할 수 있습니다.
+    }
+}
+
+    /*
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -192,7 +233,4 @@ public class SearchActivity  extends AppCompatActivity {
         Intent intent = new Intent(this, SearchSchoolActivity.class);
         startActivity(intent);
     }
-
-
-
-}
+    */

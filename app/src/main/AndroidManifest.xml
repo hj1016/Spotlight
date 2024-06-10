@@ -40,6 +40,7 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".AlarmActivity" />
         <activity android:name=".AlarmGeneralActivity"/>
+        <activity android:name=".ElectronicActivity"/>
 
         <activity android:name=".GeneralProposeManageActivity"/>
         <activity android:name=".GraduateStep1Activity" />

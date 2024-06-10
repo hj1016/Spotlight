@@ -4,19 +4,19 @@ import java.io.Serializable;
 import java.util.List;
 
 public class Post implements Serializable {
-    private String teamImageUrl;
+    private int teamImageUrl;
     private String title;
     private String category;
-    private String imageUrl;
+    private int imageUrl;
     private String content;
     private int scrap;
     private boolean isScrapped;
 
-    private String scrapImageUrl;
+    private int scrapImageUrl;
     private List<String> hashtags;
 
     // Constructor
-    public Post(String teamImageUrl, String title, String category, String imageUrl, String content, int scrap, List<String> hashtags, String scrapImageUrl, boolean isScrapped) {
+    public Post(int teamImageUrl, String title, String category, int imageUrl, String content, int scrap, List<String> hashtags, int scrapImageUrl, boolean isScrapped) {
         this.teamImageUrl = teamImageUrl;
         this.title = title;
         this.category = category;
@@ -29,7 +29,7 @@ public class Post implements Serializable {
     }
 
     // Getters
-    public String getTeamImageUrl() {
+    public int getTeamImageUrl() {
         return teamImageUrl;
     }
 
@@ -41,7 +41,7 @@ public class Post implements Serializable {
         return category;
     }
 
-    public String getImageUrl() {
+    public int getImageUrl() {
         return imageUrl;
     }
 
@@ -57,7 +57,7 @@ public class Post implements Serializable {
         return hashtags;
     }
 
-    public String getScrapImageUrl() {
+    public int getScrapImageUrl() {
         return scrapImageUrl;
     }
 

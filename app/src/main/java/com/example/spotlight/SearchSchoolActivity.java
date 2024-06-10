@@ -17,7 +17,35 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SearchSchoolActivity  extends AppCompatActivity {
+    private EditText searchSchoolText;
+    private EditText searchMajorText;
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.search_school);
+
+        searchSchoolText = findViewById(R.id.search_school_text);
+        searchMajorText = findViewById(R.id.search_school_major_text);
+    }
+
+    public void onContinueSchoolSearchClicked(View view) {
+        String school = searchSchoolText.getText().toString().trim();
+        String major = searchMajorText.getText().toString().trim();
+
+        if (!school.isEmpty() && !major.isEmpty()) {
+            Intent intent = new Intent(this, SearchResultActivity.class);
+            intent.putExtra("school", school);
+            intent.putExtra("major", major);
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, "학교와 학과를 모두 입력하세요.", Toast.LENGTH_SHORT).show();
+        }
+    }
+}
+
+
+/*
     private ApiService apiService;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,3 +98,5 @@ public class SearchSchoolActivity  extends AppCompatActivity {
         }
     }
 }
+
+ */

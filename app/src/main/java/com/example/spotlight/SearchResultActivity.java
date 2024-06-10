@@ -15,19 +15,52 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SearchResultActivity extends AppCompatActivity{
+public class SearchResultActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private PostAdapter postAdapter;
     private List<Post> posts;
     private TextView searchResultTitle;
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.search_result);
+
+        searchResultTitle = findViewById(R.id.search_result_title);
+        recyclerView = findViewById(R.id.recyclerView_search_result);
+
+        // 검색 결과 페이지로부터 학교 및 학과 정보를 받아옴
+        String school = getIntent().getStringExtra("school");
+        String major = getIntent().getStringExtra("major");
+
+        // 검색 결과 제목 설정
+        String title = school + " " + major;
+        searchResultTitle.setText(title);
+
+        // 리사이클러뷰에 포스트 데이터 표시 (테스트용 데이터 사용)
+        List<Post> posts = new ArrayList<>();
+        posts.add(new Post(R.drawable.icon3, "DanDan", "소프트웨어", R.drawable.schoolmajorfeed,
+                "Let's Dance with the Characters! There's a new children's song ...", 617, Arrays.asList("App", "AR", "Software"), R.drawable.scrap_no, false));
+        postAdapter = new PostAdapter(this, posts);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(postAdapter);
+    }
+
+    // 뒤로 가기 버튼 클릭 시 호출되는 메서드
+    public void onBackClicked(View view) {
+        finish();
+    }
+}
+
+    /*
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_result);
@@ -74,14 +107,11 @@ public class SearchResultActivity extends AppCompatActivity{
     }
 
     private void initializeData() {
-        /*
         // 데이터 초기화 로직, 샘플 데이터 추가
         posts.add(new Post("@drawable/sample_image", "Project Title 1", "Category 1", "@drawable/image1",
                 "Description of project 1.", 42, Arrays.asList("#tag1", "#tag2"), "@drawable/icon",false));
         posts.add(new Post("@drawable/sample_image", "Project Title 2", "Category 2", "@drawable/image2",
                 "Description of project 2.", 52, Arrays.asList("#tag3", "#tag4"), "@drawable/icon",false));
-
-         */
     }
 
     private void searchByFeedHashtag(String hashtag) {
@@ -143,4 +173,5 @@ public class SearchResultActivity extends AppCompatActivity{
             }
         });
     }
-}
+
+     */

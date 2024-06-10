@@ -33,6 +33,8 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public int getChildrenCount(int groupPosition) {
         return listDataChild.get(listDataHeader.get(groupPosition)).size() / 2 + listDataChild.get(listDataHeader.get(groupPosition)).size() % 2;
+
+        // return listDataChild.get(listDataHeader.get(groupPosition)).size();
     }
 
     @Override
@@ -40,10 +42,11 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
         return listDataHeader.get(groupPosition);
     }
 
-    @Override
     public Object getChild(int groupPosition, int childPosition) {
         int childIndex = childPosition * 2;
         return listDataChild.get(listDataHeader.get(groupPosition)).get(childIndex);
+
+        // return listDataChild.get(listDataHeader.get(groupPosition)).get(childPosition);
     }
 
     public Object getChild(int groupPosition, int childPosition, boolean second) {

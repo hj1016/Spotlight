@@ -1,5 +1,7 @@
 package com.example.spotlight;
 
+import static java.security.AccessController.getContext;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,16 +10,15 @@ import android.widget.*;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import com.example.spotlight.network.Util.TokenManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigationView;
+    private EditText searchBarText;
     private boolean isScrapped = false;
 
     @Override
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void loadFragment(String fragmentName) {
+    public void loadFragment(String fragmentName) {
         Fragment selectedFragment = null;
         int selectedMenuItemId = R.id.menu_home; // 기본값으로 홈 메뉴 설정
         switch (fragmentName) {
@@ -277,5 +278,10 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    public void onSearchButtonClicked(View view){
+        Intent intent = new Intent(this, SearchResultActivity.class);
+        startActivity(intent);
     }
 }

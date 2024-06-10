@@ -12,7 +12,6 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.content.Intent;
 import androidx.recyclerview.widget.RecyclerView;
-import com.bumptech.glide.Glide;
 import java.util.List;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder> {
@@ -80,6 +79,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             flexboxLayout.addView(textView);
         }
     }
+
+    public void setData(List<Post> newData) {
+        posts.clear();
+        posts.addAll(newData);
+        notifyDataSetChanged();
+    }
+
     public static class PostViewHolder extends RecyclerView.ViewHolder {
         public ImageView team_image, image, scrapButton;
         public TextView title, category, content, scrap;
