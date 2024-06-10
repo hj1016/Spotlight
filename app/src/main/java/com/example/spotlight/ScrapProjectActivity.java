@@ -13,6 +13,7 @@ import com.example.spotlight.network.API.ApiService;
 import com.example.spotlight.network.Util.TokenManager;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import retrofit2.Call;
@@ -21,7 +22,7 @@ import retrofit2.Response;
 
 public class ScrapProjectActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private PostAdapter postAdapter;
+    private PostAdapter adapter;
     private List<Post> posts;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,34 +33,16 @@ public class ScrapProjectActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView_scrap_project);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // 데이터 목록 생성 및 어댑터 설정
+     // 데이터 목록 생성
         posts = new ArrayList<>();
-        postAdapter = new PostAdapter(this, posts);
-        recyclerView.setAdapter(postAdapter);
 
-        // API 호출
-        ApiService apiService = ApiClient.getClientWithToken().create(ApiService.class);
-        Call<List<Post>> call = apiService.getScrapFeeds();
-        call.enqueue(new Callback<List<Post>>() {
-            @Override
-            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
-                if (response.isSuccessful()) {
-                    List<Post> feedList = response.body();
-                    if (feedList != null) {
-                        posts.clear();
-                        posts.addAll(feedList);
-                        postAdapter.notifyDataSetChanged();
-                    }
-                } else {
-                    Log.e("ScrapProjectActivity", "Response not successful: " + response.message());
-                }
-            }
+        // 데이터 직접 입력
+        posts.add(new Post("@drawable/a_e_s", "You little human", "사진/영상", "@drawable/image_ex1",
+                "On a blazingly sunny morning in March, the 22-year-old Italian tennis star Jannik Sinner could ...", 232, Arrays.asList("A.E.S", "Photo", "Photography"), "@drawable/icon", true));
+        // 어댑터 생성 및 설정
+        adapter = new PostAdapter(this, posts);  // ScrapProjectActivity 객체(this) 전달
+        recyclerView.setAdapter(adapter);
 
-            @Override
-            public void onFailure(Call<List<Post>> call, Throwable t) {
-                Log.e("ScrapProjectActivity", "API call failed", t);
-            }
-        });
     }
 
     public void onBackClicked(View view) {

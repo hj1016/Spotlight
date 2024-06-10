@@ -59,7 +59,8 @@
         android:layout_width="380dp"
         android:layout_height="317dp"
         android:layout_marginTop="10dp"
-        app:layout_constraintStart_toStartOf="@id/scrap_project_no"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/scrap_project_no"
         app:srcCompat="@drawable/stage_content1" />
 
@@ -68,9 +69,9 @@
         android:layout_width="380dp"
         android:layout_height="317dp"
         android:layout_marginTop="10dp"
-        app:layout_constraintStart_toStartOf="@id/imageView1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/imageView1"
         app:srcCompat="@drawable/stage_content3" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

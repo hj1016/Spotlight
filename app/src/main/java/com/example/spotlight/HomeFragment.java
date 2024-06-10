@@ -88,15 +88,15 @@ public class HomeFragment extends Fragment implements NavigationView.OnNavigatio
 
     private void initializeData() {
         posts.add(new Post("@drawable/a_e_s", "You little human", "사진/영상", "@drawable/image_ex1",
-                "On a blazingly sunny morning in March, the 22-year-old Italian tennis star Jannik Sinner could ...", 231, Arrays.asList("#A.E.S", "#Photo", "#Photography"), "@drawable/icon", false));
+                "On a blazingly sunny morning in March, the 22-year-old Italian tennis star Jannik Sinner could ...", 231, Arrays.asList("A.E.S", "Photo", "Photography"), "@drawable/icon", false));
         posts.add(new Post("@drawable/icon2", "How to be free", "철학", "@drawable/philosophy",
-                "The dignity of human beings arises when they attribute meaning to their existence. Love, nature ...", 42, Arrays.asList("#Philosophy", "#Sartre"), "@drawable/icon", false));
+                "The dignity of human beings arises when they attribute meaning to their existence. Love, nature ...", 42, Arrays.asList("Philosophy", "Sartre"), "@drawable/icon", false));
         posts.add(new Post("@drawable/icon1", "Hmm...", "시각 디자인", "@drawable/design1",
-                " Look at her lips saying something. I can’t concentrate on what she’s saying. Start with a soft texture ...", 129, Arrays.asList("#branding", "#pakage", "#sensuous"), "@drawable/icon", false));
+                " Look at her lips saying something. I can’t concentrate on what she’s saying. Start with a soft texture ...", 129, Arrays.asList("branding", "pakage", "sensuous"), "@drawable/icon", false));
         posts.add(new Post("@drawable/team_image", "Spectroscopy", "전기/전자", "@drawable/electronics",
-                "We examine the basic principles of absorption spectroscopy and characteristics of absorption ...", 37, Arrays.asList("#SNU", "#Electronics", "Electrotechnics"), "@drawable/icon", false));
+                "We examine the basic principles of absorption spectroscopy and characteristics of absorption ...", 37, Arrays.asList("SNU", "Electronics", "Electrotechnics"), "@drawable/icon", false));
         posts.add(new Post("@drawable/team_image", "Spectroscopy Report", "전기/전자", "@drawable/chemical",
-                "The absorption and radiation of light by the material is divided into spectra using a spectrometer ...", 29, Arrays.asList("#Electronics", "#SNU", "Experiment"), "@drawable/icon", false));
+                "The absorption and radiation of light by the material is divided into spectra using a spectrometer ...", 29, Arrays.asList("Electronics", "SNU", "Experiment"), "@drawable/icon", false));
     }
 
     private void setupExpandableListView() {

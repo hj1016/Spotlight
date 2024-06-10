@@ -76,6 +76,7 @@
 
         <activity android:name=".ScrapGraduatesActivity"/>
         <activity android:name=".ScrapGraduatesDetailActivity"/>
+        <activity android:name=".FakeScrapGraduatesActivity"/>
         <activity android:name=".ScrapProjectActivity"/>
         <activity android:name=".ScrapStageActivity"/>
         <activity android:name=".SearchActivity"/>
