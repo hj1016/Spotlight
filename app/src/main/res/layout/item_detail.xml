@@ -83,7 +83,7 @@
                     android:id="@+id/item_detail_team_image"
                     android:layout_width="56dp"
                     android:layout_height="56dp"
-                    app:srcCompat="@drawable/team_image" />
+                    app:srcCompat="@drawable/a_e_s" />
 
 
                 <LinearLayout
@@ -252,15 +252,16 @@ Gravida dolor in nibh elementum vulputate. Nullam lobortis nunc ornare montes mo
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:id="@+id/item_detail_team_member"
+                    android:id="@+id/item_detail_team_member1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:padding="8dp"
                     android:gravity="center_vertical"
                     android:orientation="vertical">
 
                     <ImageView
-                        android:id="@+id/item_detail_member_image"
+                        android:id="@+id/item_detail_member_image1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
@@ -270,17 +271,17 @@ Gravida dolor in nibh elementum vulputate. Nullam lobortis nunc ornare montes mo
                         android:src="@drawable/member_image" />
 
                     <TextView
-                        android:id="@+id/item_detail_member_name"
+                        android:id="@+id/item_detail_member_name1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:fontFamily="@font/pretendard_semibold"
-                        android:text="김이름"
+                        android:text="김태란"
                         android:textColor="@color/black"
                         android:textSize="15dp" />
 
                     <TextView
-                        android:id="@+id/item_detail_member_role"
+                        android:id="@+id/item_detail_member_role1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
@@ -290,6 +291,130 @@ Gravida dolor in nibh elementum vulputate. Nullam lobortis nunc ornare montes mo
                         android:textSize="15dp" />
 
                 </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/item_detail_team_member2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:padding="8dp"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/item_detail_member_image2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:clickable="true"
+                        android:onClick="onMemberClicked"
+                        android:padding="8dp"
+                        android:src="@drawable/member_image" />
+
+                    <TextView
+                        android:id="@+id/item_detail_member_name2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:fontFamily="@font/pretendard_semibold"
+                        android:text="박세영"
+                        android:textColor="@color/black"
+                        android:textSize="15dp" />
+
+                    <TextView
+                        android:id="@+id/item_detail_member_role2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:fontFamily="@font/pretendard_semibold"
+                        android:text="디자인"
+                        android:textColor="#a6a6a6"
+                        android:textSize="15dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/item_detail_team_member3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:padding="8dp"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/item_detail_member_image3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:clickable="true"
+                        android:onClick="onMemberClicked"
+                        android:padding="8dp"
+                        android:src="@drawable/member_image" />
+
+                    <TextView
+                        android:id="@+id/item_detail_member_name3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:fontFamily="@font/pretendard_semibold"
+                        android:text="박지후"
+                        android:textColor="@color/black"
+                        android:textSize="15dp" />
+
+                    <TextView
+                        android:id="@+id/item_detail_member_role3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:fontFamily="@font/pretendard_semibold"
+                        android:text="기획/마케팅"
+                        android:textColor="#a6a6a6"
+                        android:textSize="15dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/item_detail_team_member4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:padding="8dp"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/item_detail_member_image4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:clickable="true"
+                        android:onClick="onMemberClicked"
+                        android:padding="8dp"
+                        android:src="@drawable/member_image" />
+
+                    <TextView
+                        android:id="@+id/item_detail_member_name4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:fontFamily="@font/pretendard_semibold"
+                        android:text="김학생"
+                        android:textColor="@color/black"
+                        android:textSize="15dp" />
+
+                    <TextView
+                        android:id="@+id/item_detail_member_role4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:fontFamily="@font/pretendard_semibold"
+                        android:text="촬영/디렉팅"
+                        android:textColor="#a6a6a6"
+                        android:textSize="15dp" />
+
+                </LinearLayout>
+
             </LinearLayout>
 
             <TextView

@@ -33,31 +33,24 @@ public class ItemDetailActivity extends AppCompatActivity {
     private ViewPager2 viewPagerImages;
     private ImageSliderAdapter adapter;
     private boolean isScrapped = false;
-    private SharedPreferences sharedPreferences;
-    private TextView scrapCountTextView;
     private ImageView scrapButton;
-    private int scrapCount;
     private ImageView teamImage;
-    private TextView title, category, content, viewCountTextView1, viewCountTextView2;
+    private TextView title, category, content, scrap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.item_detail);
 
-        sharedPreferences = getSharedPreferences("UserType", MODE_PRIVATE);
-
         // Initialize views
         teamImage = findViewById(R.id.item_detail_team_image);
         title = findViewById(R.id.item_detail_title);
         category = findViewById(R.id.item_detail_category);
         content = findViewById(R.id.item_detail_content);
-        viewCountTextView1 = findViewById(R.id.item_detail_general_view);
-        viewCountTextView2 = findViewById(R.id.item_detail_recruiter_view);
+        scrap = findViewById(R.id.item_scrap);
 
         // Get intent data
         Intent intent = getIntent();
-        int feedId = intent.getIntExtra("feedId", -1);
 
         if (intent != null && intent.hasExtra("post")) {
             Post post = (Post) intent.getSerializableExtra("post");
@@ -67,10 +60,9 @@ public class ItemDetailActivity extends AppCompatActivity {
                 title.setText(post.getTitle());
                 category.setText(post.getCategory());
                 content.setText(post.getContent());
-                scrapCountTextView.setText(String.valueOf(post.getScrap()));
+                scrap.setText(post.getScrap());
                 isScrapped = post.isScrapped();
                 scrapButton.setImageResource(isScrapped ? R.drawable.scrap_yes : R.drawable.scrap_no);
-                scrapCount = post.getScrap();
 
                 // Load hashtags
                 FlexboxLayout flexboxLayout = findViewById(R.id.flexbox_hashtags);
@@ -80,45 +72,25 @@ public class ItemDetailActivity extends AppCompatActivity {
 
         List<Integer> images = Arrays.asList(
                 R.drawable.image_ex1,
-                R.drawable.image_ex1,
-                R.drawable.image_ex1,
-                R.drawable.image_ex1,
-                R.drawable.image_ex1,
-                R.drawable.image_ex1,
-                R.drawable.image_ex1,
-                R.drawable.image_ex1,
-                R.drawable.image_ex1,
-                R.drawable.image_ex1
+                R.drawable.photography2,
+                R.drawable.photography3,
+                R.drawable.photography4
         );
 
         viewPagerImages = findViewById(R.id.viewPagerImages);
         adapter = new ImageSliderAdapter(images);
         viewPagerImages.setAdapter(adapter);
 
-        List<String> hashtags = Arrays.asList("Art", "Exhibition");
+        List<String> hashtags = Arrays.asList("A.E.S", "Photo", "Photography");
         FlexboxLayout flexboxLayout = findViewById(R.id.flexbox_hashtags);
         addHashtags(hashtags, flexboxLayout);
 
-        scrapCountTextView = findViewById(R.id.item_scrap);
         scrapButton = findViewById(R.id.item_scrap_no);
 
         if (intent != null) {
             isScrapped = intent.getBooleanExtra("isScrapped", false);
-            scrapCount = intent.getIntExtra("scrapCount", 0);
-
             scrapButton.setImageResource(isScrapped ? R.drawable.scrap_yes : R.drawable.scrap_no);
-            scrapCountTextView.setText(String.valueOf(scrapCount));
         }
-
-        // FeedService 인스턴스 생성
-        FeedService feedService = new FeedService(ApiClient.getClientWithToken().create(ApiService.class));
-
-        // 일반 사용자인 경우
-        feedService.updateHits(feedId, findViewById(R.id.item_detail_general_view), null);
-
-        // 리크루터인 경우
-        feedService.updateHits(feedId, null, findViewById(R.id.item_detail_recruiter_view));
-
     }
 
     public void addHashtags(List<String> hashtags, FlexboxLayout flexboxLayout) {
@@ -138,7 +110,7 @@ public class ItemDetailActivity extends AppCompatActivity {
             layoutParams.setMargins(10, 5, 10, 5);
             textView.setLayoutParams(layoutParams);
 
-            textView.setOnClickListener(this::onHashtagClicked); // Set click listener
+            //textView.setOnClickListener(this::onHashtagClicked); // Set click listener
 
             flexboxLayout.addView(textView);
         }
@@ -152,8 +124,20 @@ public class ItemDetailActivity extends AppCompatActivity {
     }
 
     public void toggleScrap(View view) {
-        isScrapped = !isScrapped; // 스크랩 상태 토글
+        toggleScrap();
+    }
 
+
+    public void toggleScrap() {
+        // 현재 스크랩 상태를 토글합니다.
+        isScrapped = !isScrapped;
+        scrapButton.setImageResource(isScrapped ? R.drawable.scrap_yes : R.drawable.scrap_no);
+
+        // 스크랩 상태에 따라서 scrap 텍스트뷰의 값을 증가 또는 감소시킵니다.
+        int currentScrapCount = Integer.parseInt(scrap.getText().toString());
+        scrap.setText(String.valueOf(isScrapped ? currentScrapCount + 1 : currentScrapCount - 1));
+
+        /*
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra("feedId")) {
             int feedId = intent.getIntExtra("feedId", -1);
@@ -206,8 +190,11 @@ public class ItemDetailActivity extends AppCompatActivity {
                 });
             }
         }
+
+         */
     }
 
+    /*
     public void onHashtagClicked(View view) {
         TextView textView = (TextView) view;
         String hashtag = textView.getText().toString().substring(1); // Remove the '#' symbol
@@ -226,4 +213,6 @@ public class ItemDetailActivity extends AppCompatActivity {
         }
         startActivity(intent);
     }
+
+     */
 }
