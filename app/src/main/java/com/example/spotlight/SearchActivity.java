@@ -31,7 +31,9 @@ public class SearchActivity extends AppCompatActivity {
 //            Toast.makeText(this, "검색어를 입력해주세요.", Toast.LENGTH_SHORT).show();
 //        }
     }
-
+    public void onBackClicked(View view) {
+        finish();
+    }
 }
 
     /*
