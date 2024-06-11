@@ -23,6 +23,7 @@ import retrofit2.Response;
 public class ManagePostingActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private PostAdapter postAdapter;
+    private List<Post> posts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,13 @@ public class ManagePostingActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     List<Post> feedList = response.body();
                     postAdapter = new PostAdapter(ManagePostingActivity.this, feedList);
+                    recyclerView.setAdapter(postAdapter);
+
+                    posts = new ArrayList<>();
+                    posts.add(new Post(R.drawable.icon3, "DanDan", "소프트웨어", R.drawable.schoolmajorfeed,
+                            "Let's Dance with the Characters! There's a new children's song ...", 617, Arrays.asList("App", "AR", "Software"), R.drawable.scrap_no, false));
+                    postAdapter = new PostAdapter(ManagePostingActivity.this, posts);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(ManagePostingActivity.this));
                     recyclerView.setAdapter(postAdapter);
                 } else {
 

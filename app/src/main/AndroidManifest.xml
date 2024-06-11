@@ -82,6 +82,7 @@
         <activity android:name=".ScrapStageActivity"/>
         <activity android:name=".SearchActivity"/>
         <activity android:name=".SearchResultActivity"/>
+        <activity android:name=".SearchResultBrandingActivity" />
         <activity android:name=".SearchSchoolActivity"/>
 
         <activity android:name=".SignupStep1Activity" />

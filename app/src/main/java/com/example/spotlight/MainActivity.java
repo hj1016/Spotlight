@@ -281,7 +281,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onSearchButtonClicked(View view){
-        Intent intent = new Intent(this, SearchResultActivity.class);
+        Intent intent = new Intent(this, SearchResultBrandingActivity.class);
         startActivity(intent);
     }
 }

@@ -21,17 +21,17 @@ public class SearchActivity extends AppCompatActivity {
 
     // 검색 버튼 클릭 이벤트 핸들러
     public void onSearchButtonClicked(View view) {
-        String keyword = searchBarText.getText().toString().trim();
-
-        if (!keyword.isEmpty()) {
+//        String keyword = searchBarText.getText().toString().trim();
+//
+//        if (!keyword.isEmpty()) {
             // 검색 결과 액티비티로 이동하는 인텐트 생성
-            Intent intent = new Intent(this, SearchResultActivity.class);
-            intent.putExtra("keyword", keyword);
+            Intent intent = new Intent(this, SearchResultBrandingActivity.class);
             startActivity(intent);
-        } else {
-            Toast.makeText(this, "검색어를 입력해주세요.", Toast.LENGTH_SHORT).show();
-        }
+//        } else {
+//            Toast.makeText(this, "검색어를 입력해주세요.", Toast.LENGTH_SHORT).show();
+//        }
     }
+
 }
 
     /*

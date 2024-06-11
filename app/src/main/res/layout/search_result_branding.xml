@@ -30,11 +30,11 @@
         android:onClick="onBackClicked"/>
 
     <TextView
-        android:id="@+id/search_result_title"
+        android:id="@+id/search_result_title_branding"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/pretendard_bold"
-        android:text="검색 결과 키워드가 떠야합니다!"
+        android:text="#branding"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="@id/search_result_back"
@@ -44,12 +44,12 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@id/search_result_title"
+        app:layout_constraintTop_toBottomOf="@id/search_result_title_branding"
         app:layout_constraintBottom_toBottomOf="parent"
         android:padding="10dp">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView_search_result"
+            android:id="@+id/recyclerView_search_result_branding"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"/>
