@@ -42,6 +42,7 @@ public class SearchSchoolActivity  extends AppCompatActivity {
             Toast.makeText(this, "학교와 학과를 모두 입력하세요.", Toast.LENGTH_SHORT).show();
         }
     }
+    public void onBackClicked(View view) { finish(); }
 }
 
 
