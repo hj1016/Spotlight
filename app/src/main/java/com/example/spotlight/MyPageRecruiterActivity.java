@@ -33,10 +33,13 @@ public class MyPageRecruiterActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /*
     public void onScrapGraduatesClicked(View view) {
         Intent intent = new Intent(this, ScrapGraduatesActivity.class);
         startActivity(intent);
     }
+
+     */
 
     public void onProposeClicked(View view) {
         Intent intent = new Intent(this, RecruiterProposeManageActivity.class);

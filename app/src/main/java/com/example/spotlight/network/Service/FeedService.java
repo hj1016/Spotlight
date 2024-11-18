@@ -21,6 +21,7 @@ public class FeedService {
         this.apiService = apiService;
     }
 
+    /*
     // 사용자 조회수 조회
     public void getUserHits(int feedId, final UserHitsCallback callback) {
         String accessToken = TokenManager.getToken(); // 토큰 가져오기
@@ -110,4 +111,6 @@ public class FeedService {
 
         void onError(String errorMessage);
     }
+
+     */
 }

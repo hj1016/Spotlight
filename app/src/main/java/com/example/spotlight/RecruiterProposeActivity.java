@@ -24,6 +24,7 @@ public class RecruiterProposeActivity extends AppCompatActivity {
     private EditText companyText, jobText, descriptionText, contactText;
     private ProposalDTO proposal;
 
+    /*
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,4 +81,6 @@ public class RecruiterProposeActivity extends AppCompatActivity {
             }
         });
     }
+
+     */
 }

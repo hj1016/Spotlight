@@ -29,6 +29,7 @@ public class ItemDetailMemberGeneralActivity extends AppCompatActivity {
     private TextView memberProjectsTextView;
     private TextView memberProjectCategoryTextView; // 멤버의 분야는 프로필에서 따로 설정하는 부분이 없어서 프로젝트 분야만 설정함.
 
+    /*
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +66,8 @@ public class ItemDetailMemberGeneralActivity extends AppCompatActivity {
             }
         });
     }
+
+     */
 
     private void updateMemberDetails(MemberResponse.MemberData memberData) {
         memberNameTextView.setText(memberData.getName());

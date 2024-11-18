@@ -14,6 +14,7 @@ public class DeleteService {
         this.apiService = apiService;
     }
 
+    /*
     public void deleteFeed(int feedId, final DeleteCallback callback) {
         apiService.deleteFeed(feedId).enqueue(new Callback<DeleteResponse>() {
             @Override
@@ -36,4 +37,6 @@ public class DeleteService {
         void onSuccess(DeleteResponse response);
         void onError(String errorMessage);
     }
+
+     */
 }

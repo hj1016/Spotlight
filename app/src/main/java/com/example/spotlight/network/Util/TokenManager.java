@@ -26,6 +26,7 @@ public class TokenManager {
         }
     }
 
+    /*
     public static void setUser(UserDTO user) {
         if (sharedPreferences == null) {
             throw new IllegalStateException("\n" +
@@ -41,6 +42,8 @@ public class TokenManager {
         editor.putString(PROFILE_IMAGE, user.getProfileImage());
         editor.apply();
     }
+    
+     */
 
     public static void setUsername(String username) {
         if (sharedPreferences == null) {

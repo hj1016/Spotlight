@@ -53,6 +53,7 @@ public class NewPostingMemberActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /*
     public void onInviteMemberClicked(View view) {
         memberId = memberIdEditText.getText().toString();
         role = roleEditText.getText().toString();
@@ -78,6 +79,9 @@ public class NewPostingMemberActivity extends AppCompatActivity {
         finish();
     }
 
+     */
+
+    /*
     // API 호출 메서드
     private void inviteMember(int projectId, String memberId, String memberRole) {
         InvitationRequest invitationRequest = new InvitationRequest();
@@ -103,4 +107,6 @@ public class NewPostingMemberActivity extends AppCompatActivity {
             }
         });
     }
+
+     */
 }

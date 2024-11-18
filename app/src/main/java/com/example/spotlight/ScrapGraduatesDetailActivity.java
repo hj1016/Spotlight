@@ -16,10 +16,13 @@ public class ScrapGraduatesDetailActivity  extends AppCompatActivity {
         setContentView(R.layout.scrap_graduates_detail);
     }
 
+    /*
     public void onBackClicked(View view) {
         Intent intent = new Intent(this, ScrapGraduatesActivity.class);
         startActivity(intent);
     }
+
+     */
 
     public void toggleScrap(View view) {
         ImageView scrapButton = (ImageView) view;

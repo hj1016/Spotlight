@@ -29,6 +29,7 @@ public class RecruiterStep1Activity extends AppCompatActivity {
     private String role = "RECRUITER";
     private String email;
 
+    /*
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -145,4 +146,6 @@ public class RecruiterStep1Activity extends AppCompatActivity {
             }
         });
     }
+
+     */
 }

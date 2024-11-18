@@ -78,7 +78,7 @@ public class GraduateStep1Activity extends AppCompatActivity {
                     if (tokenResponse.isSuccess()) {
                         Toast.makeText(GraduateStep1Activity.this, "인증 성공", Toast.LENGTH_SHORT).show();
                         TokenManager.setToken(tokenResponse.getAccessToken());
-                        TokenManager.setUser(tokenResponse.getUser());
+                        //TokenManager.setUser(tokenResponse.getUser());
                         Intent intent = new Intent(GraduateStep1Activity.this, MainActivity.class);
                         startActivity(intent);
                         finish();

@@ -54,6 +54,7 @@ public class NewPostingExhibitionActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /*
     public void onExhibitionInfoClicked(View view) {
         location = locationEditText.getText().toString();
         schedule = scheduleEditText.getText().toString();
@@ -75,6 +76,8 @@ public class NewPostingExhibitionActivity extends AppCompatActivity {
         ExhibitionDTO exhibitionDTO = new ExhibitionDTO(location, schedule, time, userId);
         createExhibition(exhibitionDTO);
     }
+
+     */
 
     private void createExhibition(ExhibitionDTO exhibitionDTO){
         ApiService apiService = ApiClient.getClientWithToken().create(ApiService.class);

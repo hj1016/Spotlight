@@ -28,13 +28,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.spotlight.network.API.ApiClient;
 import com.example.spotlight.network.API.ApiService;
-import com.example.spotlight.network.DTO.ExhibitionDTO;
-import com.example.spotlight.network.DTO.FeedDTO;
 import com.example.spotlight.network.DTO.ProjectDTO;
-import com.example.spotlight.network.DTO.TeamDTO;
 import com.example.spotlight.network.Request.FeedRequest;
 import com.example.spotlight.network.Response.FeedResponse;
-import com.example.spotlight.network.Util.TokenManager;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -47,6 +43,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class NewPostingActivity extends AppCompatActivity {
+    /*
     private static final int PICK_IMAGE_SINGLE = 1;
     private static final int PICK_IMAGE_PLUS = 2;
     private static final int REQUEST_CODE_MEMBER_INVITE = 3;
@@ -378,6 +375,7 @@ public class NewPostingActivity extends AppCompatActivity {
         });
     }
 
+
     public void onCompleteClicked(View view) {
         String title = ((EditText) findViewById(R.id.new_posting_project_text)).getText().toString();
         String content = ((EditText) findViewById(R.id.new_posting_description_text)).getText().toString();
@@ -424,4 +422,6 @@ public class NewPostingActivity extends AppCompatActivity {
         Intent intent = new Intent(this, NewPostingExhibitionActivity.class);
         startActivityForResult(intent, REQUEST_CODE_EXHIBITION_INFO);
     }
+    
+     */
 }

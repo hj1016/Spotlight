@@ -29,6 +29,7 @@ public class LoginActivity extends AppCompatActivity {
     private ApiService apiService;
     private TokenManager tokenManager;
 
+    /*
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,4 +104,6 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent = new Intent(this, SignupStep1Activity.class);
         startActivity(intent);
     }
+
+     */
 }

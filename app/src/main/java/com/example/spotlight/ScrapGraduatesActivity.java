@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.bumptech.glide.Glide;
-
+/*
 // Adapter와 ViewHolder 클래스를 포함하는 추가 import
 import com.example.spotlight.GraduateAdapter;  // 이는 GraduateAdapter가 다른 패키지에 위치한 경우 필요합니다.
 import com.example.spotlight.Graduate;  // 이는 Graduate 클래스가 다른 패키지에 위치한 경우 필요합니다.
@@ -70,4 +70,6 @@ public class ScrapGraduatesActivity extends AppCompatActivity {
         startActivity(intent);
     }
 }
+
+ */
 

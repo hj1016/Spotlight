@@ -9,10 +9,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.spotlight.network.DTO.MemberDTO;
-
 import java.util.ArrayList;
 
+/*
 public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MemberViewHolder> {
     private final ArrayList<MemberDTO> memberList;
 
@@ -53,3 +52,5 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MemberView
         }
     }
 }
+
+ */

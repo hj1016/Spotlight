@@ -12,6 +12,7 @@ import com.example.spotlight.network.DTO.ScrapDTO;
 
 import java.util.List;
 
+/*
 public class GraduateAdapter extends RecyclerView.Adapter<GraduateAdapter.GraduateViewHolder> {
     private Context context;
     private List<ScrapDTO> graduates;
@@ -53,3 +54,5 @@ public class GraduateAdapter extends RecyclerView.Adapter<GraduateAdapter.Gradua
         }
     }
 }
+
+ */

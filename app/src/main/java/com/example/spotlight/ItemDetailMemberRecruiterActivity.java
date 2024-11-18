@@ -31,6 +31,7 @@ public class ItemDetailMemberRecruiterActivity extends AppCompatActivity {
     private TextView memberProjectsTextView;
     private TextView memberProjectCategoryTextView;
 
+    /*
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +68,7 @@ public class ItemDetailMemberRecruiterActivity extends AppCompatActivity {
             }
         });
     }
+
 
     private void updateMemberDetails(MemberResponse.MemberData memberData) {
         memberNameTextView.setText(memberData.getName());
@@ -137,4 +139,6 @@ public class ItemDetailMemberRecruiterActivity extends AppCompatActivity {
             });
         }
     }
+
+     */
 }

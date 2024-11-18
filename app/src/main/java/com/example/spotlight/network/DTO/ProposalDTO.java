@@ -1,33 +1,29 @@
 package com.example.spotlight.network.DTO;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class ProposalDTO implements Serializable {
-    private int proposalId;
-    private String company;
+public class ProposalDTO {
+
+    private Long proposalId;
     private String job;
-    private String phoneNumber;
+    private String contact;
     private String description;
-    private Integer userId;
     private LocalDateTime createdDate;
-    private String profileImage;
-    private String username;
-    private String daysAgo;
+    private String status;
+    private ProposalRecruiterDTO recruiter;
+    private ProposalStudentDTO student;
 
-    // Getters and Setters
+    // 기본 생성자
+    public ProposalDTO() {}
 
-    public int getProposalId() {
+    // Getter와 Setter
+    public Long getProposalId() {
         return proposalId;
     }
 
-    public void setProposalId(int proposalId) {
+    public void setProposalId(Long proposalId) {
         this.proposalId = proposalId;
     }
-
-    public String getCompany() { return company; }
-
-    public void setCompany(String company) { this.company = company; }
 
     public String getJob() {
         return job;
@@ -37,12 +33,12 @@ public class ProposalDTO implements Serializable {
         this.job = job;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getContact() {
+        return contact;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setContact(String contact) {
+        this.contact = contact;
     }
 
     public String getDescription() {
@@ -53,23 +49,123 @@ public class ProposalDTO implements Serializable {
         this.description = description;
     }
 
-    public Integer getUserId() { return userId; }
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
+    }
 
-    public void setUserId(Integer userId) { this.userId = userId; }
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
+    }
 
-    public LocalDateTime getCreatedDate() { return createdDate; }
+    public String getStatus() {
+        return status;
+    }
 
-    public void setCreatedDate(LocalDateTime createdDate) { this.createdDate = createdDate; }
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
-    public String getProfileImage() { return profileImage; }
+    public ProposalRecruiterDTO getRecruiter() {
+        return recruiter;
+    }
 
-    public void setProfileImage(String profileImage) { this.profileImage = profileImage; }
+    public void setRecruiter(ProposalRecruiterDTO recruiter) {
+        this.recruiter = recruiter;
+    }
 
-    public String getUsername() { return username; }
+    public ProposalStudentDTO getStudent() {
+        return student;
+    }
 
-    public void setUsername(String username) { this.username = username; }
+    public void setStudent(ProposalStudentDTO student) {
+        this.student = student;
+    }
 
-    public String getDaysAgo() { return daysAgo; }
+    // 리크루터 정보 내부 클래스
+    public static class ProposalRecruiterDTO {
+        private Long userId;       // 리크루터 ID
+        private String company;    // 회사 이름
+        private String certification; // 인증 정보
+        private String username;   // 사용자 이름
 
-    public void setDaysAgo(String daysAgo) { this.daysAgo = daysAgo; }
+        // 기본 생성자
+        public ProposalRecruiterDTO() {}
+
+        // Getter와 Setter
+        public Long getUserId() {
+            return userId;
+        }
+
+        public void setUserId(Long userId) {
+            this.userId = userId;
+        }
+
+        public String getCompany() {
+            return company;
+        }
+
+        public void setCompany(String company) {
+            this.company = company;
+        }
+
+        public String getCertification() {
+            return certification;
+        }
+
+        public void setCertification(String certification) {
+            this.certification = certification;
+        }
+
+        public String getUsername() {
+            return username;
+        }
+
+        public void setUsername(String username) {
+            this.username = username;
+        }
+    }
+
+    // 학생 정보 내부 클래스
+    public static class ProposalStudentDTO {
+        private Long userId;          // 학생 ID
+        private String major;         // 전공
+        private String portfolioImage; // 포트폴리오 이미지 URL
+        private String school;        // 학교 이름
+
+        // 기본 생성자
+        public ProposalStudentDTO() {}
+
+        // Getter와 Setter
+        public Long getUserId() {
+            return userId;
+        }
+
+        public void setUserId(Long userId) {
+            this.userId = userId;
+        }
+
+        public String getMajor() {
+            return major;
+        }
+
+        public void setMajor(String major) {
+            this.major = major;
+        }
+
+        public String getPortfolioImage() {
+            return portfolioImage;
+        }
+
+        public void setPortfolioImage(String portfolioImage) {
+            this.portfolioImage = portfolioImage;
+        }
+
+        public String getSchool() {
+            return school;
+        }
+
+        public void setSchool(String school) {
+            this.school = school;
+        }
+    }
 }

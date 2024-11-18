@@ -75,6 +75,7 @@ public class SignupStep5Activity extends AppCompatActivity {
     private void registerUser(String role) {
         UserRegistrationDto registrationDto = new UserRegistrationDto(email, id, password, name, role);
 
+        /*
         apiService.registerUser(registrationDto).enqueue(new Callback<TokenResponse>() {
             @Override
             public void onResponse(Call<TokenResponse> call, Response<TokenResponse> response) {
@@ -122,5 +123,8 @@ public class SignupStep5Activity extends AppCompatActivity {
                 Toast.makeText(SignupStep5Activity.this, "회원가입 에러: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+
+         */
     }
+
 }

@@ -5,35 +5,26 @@ import com.example.spotlight.network.DTO.ExhibitionDTO;
 import com.example.spotlight.network.DTO.FeedDTO;
 import com.example.spotlight.network.DTO.PasswordValidationDTO;
 import com.example.spotlight.network.DTO.PasswordValidationResponseDTO;
-import com.example.spotlight.network.DTO.ProjectDTO;
+import com.example.spotlight.network.DTO.ProjectRoleDTO;
 import com.example.spotlight.network.DTO.ProposalDTO;
 import com.example.spotlight.network.DTO.ScrapDTO;
-import com.example.spotlight.network.DTO.TeamDTO;
+import com.example.spotlight.network.DTO.StudentDTO;
 import com.example.spotlight.network.DTO.UserRegistrationDto;
 import com.example.spotlight.network.Request.EmailSendingRequest;
 import com.example.spotlight.network.Request.ExistIdRequest;
 import com.example.spotlight.network.Request.FeedRequest;
-import com.example.spotlight.network.Request.InvitationRequest;
 import com.example.spotlight.network.Request.LoginRequest;
-import com.example.spotlight.network.Request.ProposalRequest;
 import com.example.spotlight.network.Request.RefreshRequest;
-import com.example.spotlight.network.Response.ApiResponse;
 import com.example.spotlight.network.Response.CertificateResponse;
 import com.example.spotlight.network.Response.DeleteResponse;
 import com.example.spotlight.network.Response.EmailSendingResponse;
 import com.example.spotlight.network.Response.ExhibitionResponse;
 import com.example.spotlight.network.Response.ExistIdResponse;
-import com.example.spotlight.network.Response.FeedHitsResponse;
 import com.example.spotlight.network.Response.FeedResponse;
-import com.example.spotlight.network.Response.HashtagHistoryResponse;
-import com.example.spotlight.network.Response.InvitationResponse;
 import com.example.spotlight.network.Response.LoginResponse;
-import com.example.spotlight.network.Response.MemberResponse;
 import com.example.spotlight.network.Response.NotificationResponse;
 import com.example.spotlight.network.Response.PortfolioResponse;
 import com.example.spotlight.network.Response.ProposalResponse;
-import com.example.spotlight.network.Response.ScrapCancelResponse;
-import com.example.spotlight.network.Response.ScrapResponse;
 import com.example.spotlight.network.Response.SearchResponse;
 import com.example.spotlight.network.Response.TokenResponse;
 import com.example.spotlight.network.Response.UploadPortfolioResponse;
@@ -48,7 +39,6 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
-import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -150,102 +140,133 @@ public interface ApiService {
     Call<PortfolioResponse> getPortfolio(@Path("userid") Integer userId);
 
 
-    //////////////////////////////
+    /*-------------------------- 피드 관련 API --------------------------*/
 
     // 게시물 등록
-    @POST("/api/v1/feed")
+    @POST("/api/feeds")
     Call<FeedResponse> createFeed(@Body FeedRequest feedRequest);
 
+    // 게시물 조회
+    @DELETE("/api/feeds/{feedId}")
+    Call<FeedResponse> getFeed(@Path("feedId") Long feedId);
+
     // 게시물 수정
-    @PUT("/api/v1/feed/{feedId}")
-    Call<FeedResponse> updateFeed(@Path("feedId") int feedId, @Body FeedRequest feedRequest);
+    @PUT("/api/feeds/{feedId}")
+    Call<FeedResponse> updateFeed(@Path("feedId") Long feedId, @Body FeedRequest feedRequest);
 
     // 게시물 삭제
-    @DELETE("/api/v1/feed/{feedId}")
-    Call<DeleteResponse> deleteFeed(@Path("feedId") int feedId);
+    @DELETE("/api/feeds/{feedId}")
+    Call<DeleteResponse> deleteFeed(@Path("feedId") Long feedId);
+
+    // 해시태그를 통해 피드 검색
+    @GET("/api/feeds/search")
+    Call<List<FeedResponse>> searchFeedsByHashtag(@Query("hashtag") String hashtag);
+
+    // 해시태그 검색 이력 조회
+    @GET("/api/feeds/search/history")
+    Call<List<String>> getFeedSearchHistory();
+
+    // 검색 기록 기반 해시태그로 피드 검색
+    @GET("/api/feeds/search/history/{hashtag}")
+    Call<List<FeedResponse>> searchFeedsByHistoryHashtag(@Path("hashtag") String hashtag);
 
     // 게시물 조회수 조회
-    @GET("/api/v1/feed/{feedId}/hits")
-    Call<FeedDTO> getFeedHits(@Path("feedId") int feedId, @Header("Authorization") String accessToken);
+    @GET("/api/feeds/{feedId}/hits")
+    Call<FeedResponse> incrementFeedHits(@Path("feedId") Long feedId);
 
-    // 팀원 정보 조회
-    @GET("/api/v1/feed/members/{studentid}")
-    Call<MemberResponse> getMembersByStudentId(@Path("studentid") Integer studentId);
+    // 피드 스크랩
+    @POST("/api/feeds/{feedId}/scrap")
+    Call<Map<String, Object>> scrapFeed(
+            @Path("feedId") Long feedId,
+            @Query("stageId") Long stageId,
+            @Query("scrappedUserId") Long scrappedUserId
+    );
 
-    // 팀원 스크랩
-    @POST("/api/v1/feed/members/{studentid}/scrap")
-    Call<Map<String, Object>> scrapMember(@Path("studentid") Integer studentId);
+    // 피드 스크랩 취소
+    @DELETE("/api/feeds/{feedId}/scrap")
+    Call<Map<String, Object>> unscrapFeed(
+            @Path("feedId") Long feedId,
+            @Query("stageId") Long stageId,
+            @Query("scrappedUserId") Long scrappedUserId
+    );
 
-    // 팀원 스크랩 취소
-    @DELETE("/api/v1/members/{studentid}/scrap")
-    Call<Map<String, Object>> unscrapMember(@Path("studentid") Integer studentId);
+    // 프로젝트 팀원 조회
+    @GET("/api/feeds/{feedId}/team-members")
+    Call<List<StudentDTO>> getProjectTeamMembers(@Path("feedId") Long feedId);
 
-    // 프로젝트 생성
-    @POST("/api/v1/projects")
-    Call<ProjectDTO> createProject(@Body ProjectDTO projectDTO);
+    // 학생 스크랩
+    @POST("/api/feeds/{feedId}/students/{studentId}/scrap")
+    Call<String> scrapStudent(@Path("feedId") Long feedId, @Path("studentId") Long studentId);
 
-    // 팀 생성
-    @POST("/api/v1/teams/{teamId}")
-    Call<TeamDTO> createTeam(@Body TeamDTO teamDTO, @Path("teamId") Integer teamId);
+    // 학생 스크랩 취소
+    @DELETE("/api/feeds/{feedId}/students/{studentId}/scrap")
+    Call<String> unscrapStudent(@Path("feedId") Long feedId, @Path("studentId") Long studentId);
 
-    // 팀원 프로젝트 초대
-    @POST("/api/v1/feed/invite-member")
-    Call<InvitationResponse> inviteMemberToProject(@Body InvitationRequest invitationRequest);
+    /*-------------------------- 전시 관련 API --------------------------*/
 
-    // 전시 정보 추가
-    @POST("/api/v1/feed/exhibition")
+    @POST("api/exhibitions")
     Call<ExhibitionResponse> createExhibition(@Body ExhibitionDTO exhibitionDTO);
 
-    // 게시물 스크랩
-    @POST("/api/v1/feed/{feedId}/scrap")
-    Call<ScrapResponse> scrapFeed(@Path("feedId") Integer feedId);
+    /*-------------------------- 프로젝트 관련 API --------------------------*/
 
-    // 게시물 스크랩 취소
-    @DELETE("/api/v1/feed/{feedId}/scrap")
-    Call<ScrapCancelResponse> cancelScrapFeed(@Path("feedId") Integer feedId);
-
-    // 해시태그 검색
-    @GET("/api/v1/search")
-    Call<SearchResponse> searchByHashtag(
-            @Header("Authorization") String accessToken,
-            @Query("hashtag") String hashtag
+    // 팀원 초대
+    @POST("api/projects/{projectId}/invite")
+    Call<ProjectRoleDTO> inviteTeamMember(
+            @Path("projectId") Long projectId,
+            @Query("userId") Long userId,
+            @Query("role") String role
     );
 
-    // 해시태그 클릭 검색
-    @GET("/api/v1/feed/search")
-    Call<SearchResponse> searchByFeedHashtag(
-            @Query("hashtag") String hashtag,
-            @Query("accessToken") String accessToken
+    // 초대 수락
+    @POST("api/projects/accept/{projectRoleId}")
+    Call<Void> acceptInvitation(
+            @Path("projectRoleId") Long projectRoleId,
+            @Query("userId") Long userId
     );
 
-    // 해시태그 검색이력
-    @GET("/api/v1/search/history")
-    Call<HashtagHistoryResponse> getHashtagHistory(
-            @Header("Authorization") String token
+    /*-------------------------- 제안서 관련 API --------------------------*/
+
+    // 새 제안서 생성
+    @POST("api/proposals")
+    Call<ProposalDTO> createProposal(
+            @Query("userId") Long userId,
+            @Body ProposalDTO proposalDTO
     );
 
-    // 해시태그 검색이력 기반 조회
-    @GET("/api/v1/search/history/results")
-    Call<SearchResponse> searchFeedsByHistory(
-            @Header("Authorization") String token
+    // 기존 제안서 수정
+    @PUT("api/proposals/{proposalId}")
+    Call<ProposalDTO> updateProposal(
+            @Path("proposalId") Long proposalId,
+            @Body ProposalDTO proposalDTO
     );
 
-    // 학교/학과 검색
-    @GET("/api/v1/work/search-posts")
-    Call<SearchResponse> searchPosts(
-            @Query("apiKey") String apiKey,
+    /*-------------------------- 해시태그 검색 관련 API --------------------------*/
+
+    // 해시태그를 통한 피드 검색
+    @GET("api/search/feeds")
+    Call<List<FeedDTO>> searchFeedsWithHashtag(@Query("hashtag") String hashtag);
+
+    // 검색 기록 조회
+    @GET("api/search/history")
+    Call<List<String>> getHashtagSearchHistory();
+
+    // 검색 이력 기반 피드 검색
+    @GET("api/search/feeds/history")
+    Call<List<FeedDTO>> searchFeedsBySearchHistory(@Query("searchTerm") String searchTerm);
+
+    /*-------------------------- 학교/학과 검색 API --------------------------*/
+
+    // 학교 또는 학과 검색
+    @GET("api/search/schoolormajor")
+    Call<SearchResponse> searchFeedsBySchoolOrMajor(
             @Query("school") String school,
             @Query("major") String major
     );
 
-    // 공고 제안서 저장
-    @POST("/api/v1/proposal/recruiter")
-    Call<ApiResponse> createProposal(
-            @Header("Authorization") String token,
-            @Body ProposalDTO proposalDTO
-    );
+    /*-------------------------- 챗봇 API --------------------------*/
 
-    // 공고 제안서 수정
-    @PUT("/api/v1/proposal/recruiter/{proposalId}")
-    Call<ApiResponse> updateProposal(@Path("proposalId") int proposalId, @Body ProposalRequest updateRequest, @Header("Authorization") String token);
+    // 챗봇 요청
+    @POST("api/chat/ask")
+    Call<List<Object>> askChatbot(@Body String userInput);
+
 }
