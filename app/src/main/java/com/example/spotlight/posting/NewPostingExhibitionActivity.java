@@ -48,10 +48,13 @@ public class NewPostingExhibitionActivity extends AppCompatActivity {
         }
     }
 
+    /*
     public void onBackClicked(View view) {
         Intent intent = new Intent(this, NewPostingActivity.class);
         startActivity(intent);
     }
+
+     */
 
     /*
     public void onExhibitionInfoClicked(View view) {

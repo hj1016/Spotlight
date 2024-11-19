@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.example.spotlight.R;
-import com.example.spotlight.posting.NewPostingActivity;
+//import com.example.spotlight.posting.NewPostingActivity;
 
 public class NewPostingMemberActivity extends AppCompatActivity {
 
@@ -35,10 +35,13 @@ public class NewPostingMemberActivity extends AppCompatActivity {
         }
     }
 
+    /*
     public void onBackClicked(View view) {
         Intent intent = new Intent(this, NewPostingActivity.class);
         startActivity(intent);
     }
+
+     */
 
     /*
     public void onInviteMemberClicked(View view) {

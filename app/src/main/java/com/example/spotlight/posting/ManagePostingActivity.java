@@ -61,10 +61,13 @@ public class ManagePostingActivity extends AppCompatActivity {
         });
     }
 
+    /*
     public void onNewPostingClicked(View view) {
         Intent intent = new Intent(this, NewPostingActivity.class);
         startActivity(intent);
     }
+
+     */
 
     public void onBackClicked(View view) {
         finish();

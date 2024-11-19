@@ -3,7 +3,7 @@ package com.example.spotlight.network.Response;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.example.spotlight.Post;
+import com.example.spotlight.posting.Post;
 
 import java.util.ArrayList;
 import java.util.List;
