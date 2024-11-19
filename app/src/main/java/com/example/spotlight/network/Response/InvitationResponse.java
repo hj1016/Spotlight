@@ -4,7 +4,7 @@ public class InvitationResponse {
     private boolean success;
     private String message;
     private String error;
-    private String memberName;  // 새로운 팀원의 이름
+    private String memberName;  // 새로운 팀원의 아이디
     private String memberRole;  // 새로운 팀원의 역할
 
     // Getters and Setters

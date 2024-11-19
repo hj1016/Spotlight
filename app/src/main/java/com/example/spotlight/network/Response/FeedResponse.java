@@ -1,12 +1,13 @@
 package com.example.spotlight.network.Response;
 
+import java.sql.Timestamp;
 import java.util.List;
+import java.util.Set;
 
 public class FeedResponse {
     private boolean success;
     private String message;
     private Post post;
-    private Integer feedId;
 
     // Getters and Setters
     public boolean isSuccess() {
@@ -33,30 +34,30 @@ public class FeedResponse {
         this.post = post;
     }
 
-    public Integer getFeedId() { return feedId; }
-
-    public void setFeedId(Integer feedId) { this.feedId = feedId; }
-
     public static class Post {
-        private String id;
+        private Long feedId;
         private String title;
-        private String image;
+        private String thumbnailImage;
+        private List<String> feedImages;
         private String content;
-        private int scrap;
-        private Member member;
-        private Exhibition exhibition;
-        private int hits_user;
-        private int hits_recruiter;
+        private Integer scrap;
+        private Integer hitsUser;
+        private Integer hitsRecruiter;
+        private Timestamp createdDate;
+        private Timestamp modifiedDate;
         private Category category;
-        private List<String> hashtag;
+        private Member user;
+        private Exhibition exhibition;
+        private Project project;
+        private Set<Hashtag> hashtags;
 
         // Getters and Setters
-        public String getId() {
-            return id;
+        public Long getFeedId() {
+            return feedId;
         }
 
-        public void setId(String id) {
-            this.id = id;
+        public void setFeedId(Long feedId) {
+            this.feedId = feedId;
         }
 
         public String getTitle() {
@@ -67,12 +68,20 @@ public class FeedResponse {
             this.title = title;
         }
 
-        public String getImage() {
-            return image;
+        public String getThumbnailImage() {
+            return thumbnailImage;
         }
 
-        public void setImage(String image) {
-            this.image = image;
+        public void setThumbnailImage(String thumbnailImage) {
+            this.thumbnailImage = thumbnailImage;
+        }
+
+        public List<String> getFeedImages() {
+            return feedImages;
+        }
+
+        public void setFeedImages(List<String> feedImages) {
+            this.feedImages = feedImages;
         }
 
         public String getContent() {
@@ -83,44 +92,44 @@ public class FeedResponse {
             this.content = content;
         }
 
-        public int getScrap() {
+        public Integer getScrap() {
             return scrap;
         }
 
-        public void setScrap(int scrap) {
+        public void setScrap(Integer scrap) {
             this.scrap = scrap;
         }
 
-        public Member getMember() {
-            return member;
+        public Integer getHitsUser() {
+            return hitsUser;
         }
 
-        public void setMember(Member member) {
-            this.member = member;
+        public void setHitsUser(Integer hitsUser) {
+            this.hitsUser = hitsUser;
         }
 
-        public Exhibition getExhibition() {
-            return exhibition;
+        public Integer getHitsRecruiter() {
+            return hitsRecruiter;
         }
 
-        public void setExhibition(Exhibition exhibition) {
-            this.exhibition = exhibition;
+        public void setHitsRecruiter(Integer hitsRecruiter) {
+            this.hitsRecruiter = hitsRecruiter;
         }
 
-        public int getHits_user() {
-            return hits_user;
+        public Timestamp getCreatedDate() {
+            return createdDate;
         }
 
-        public void setHits_user(int hits_user) {
-            this.hits_user = hits_user;
+        public void setCreatedDate(Timestamp createdDate) {
+            this.createdDate = createdDate;
         }
 
-        public int getHits_recruiter() {
-            return hits_recruiter;
+        public Timestamp getModifiedDate() {
+            return modifiedDate;
         }
 
-        public void setHits_recruiter(int hits_recruiter) {
-            this.hits_recruiter = hits_recruiter;
+        public void setModifiedDate(Timestamp modifiedDate) {
+            this.modifiedDate = modifiedDate;
         }
 
         public Category getCategory() {
@@ -131,19 +140,51 @@ public class FeedResponse {
             this.category = category;
         }
 
-        public List<String> getHashtag() {
-            return hashtag;
+        public Member getUser() {
+            return user;
         }
 
-        public void setHashtag(List<String> hashtag) {
-            this.hashtag = hashtag;
+        public void setUser(Member user) {
+            this.user = user;
         }
 
-        public static class Member {
+        public Exhibition getExhibition() {
+            return exhibition;
+        }
+
+        public void setExhibition(Exhibition exhibition) {
+            this.exhibition = exhibition;
+        }
+
+        public Project getProject() {
+            return project;
+        }
+
+        public void setProject(Project project) {
+            this.project = project;
+        }
+
+        public Set<Hashtag> getHashtags() {
+            return hashtags;
+        }
+
+        public void setHashtags(Set<Hashtag> hashtags) {
+            this.hashtags = hashtags;
+        }
+
+        // Nested classes
+        public static class Category {
+            private Long id;
             private String name;
-            private String role;
 
-            // Getters and Setters
+            public Long getId() {
+                return id;
+            }
+
+            public void setId(Long id) {
+                this.id = id;
+            }
+
             public String getName() {
                 return name;
             }
@@ -151,22 +192,43 @@ public class FeedResponse {
             public void setName(String name) {
                 this.name = name;
             }
+        }
 
-            public String getRole() {
-                return role;
+        public static class Member {
+            private Long id;
+            private String name;
+
+            public Long getId() {
+                return id;
             }
 
-            public void setRole(String role) {
-                this.role = role;
+            public void setId(Long id) {
+                this.id = id;
+            }
+
+            public String getName() {
+                return name;
+            }
+
+            public void setName(String name) {
+                this.name = name;
             }
         }
 
         public static class Exhibition {
+            private Long exhibitionId;
             private String location;
             private String schedule;
             private String time;
 
-            // Getters and Setters
+            public Long getExhibitionId() {
+                return exhibitionId;
+            }
+
+            public void setExhibitionId(Long exhibitionId) {
+                this.exhibitionId = exhibitionId;
+            }
+
             public String getLocation() {
                 return location;
             }
@@ -192,25 +254,45 @@ public class FeedResponse {
             }
         }
 
-        public static class Category {
-            private String main;
-            private String sub;
+        public static class Project {
+            private Long id;
+            private String name;
 
-            // Getters and Setters
-            public String getMain() {
-                return main;
+            public Long getId() {
+                return id;
             }
 
-            public void setMain(String main) {
-                this.main = main;
+            public void setId(Long id) {
+                this.id = id;
             }
 
-            public String getSub() {
-                return sub;
+            public String getName() {
+                return name;
             }
 
-            public void setSub(String sub) {
-                this.sub = sub;
+            public void setName(String name) {
+                this.name = name;
+            }
+        }
+
+        public static class Hashtag {
+            private Long id;
+            private String hashtag;
+
+            public Long getId() {
+                return id;
+            }
+
+            public void setId(Long id) {
+                this.id = id;
+            }
+
+            public String getHashtag() {
+                return hashtag;
+            }
+
+            public void setHashtag(String hashtag) {
+                this.hashtag = hashtag;
             }
         }
     }

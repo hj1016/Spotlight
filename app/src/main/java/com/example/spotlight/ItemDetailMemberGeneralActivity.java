@@ -1,23 +1,11 @@
 package com.example.spotlight;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.spotlight.network.API.ApiClient;
-import com.example.spotlight.network.API.ApiService;
-import com.example.spotlight.network.Response.MemberResponse;
-import com.example.spotlight.network.Util.TokenManager;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class ItemDetailMemberGeneralActivity extends AppCompatActivity {
 
@@ -69,6 +57,7 @@ public class ItemDetailMemberGeneralActivity extends AppCompatActivity {
 
      */
 
+    /*
     private void updateMemberDetails(MemberResponse.MemberData memberData) {
         memberNameTextView.setText(memberData.getName());
         memberDepartmentTextView.setText(memberData.getDepartment());
@@ -88,6 +77,8 @@ public class ItemDetailMemberGeneralActivity extends AppCompatActivity {
         memberRoleTextView.setText(rolesText.toString().trim());
         memberProjectCategoryTextView.setText(categoriesText.toString().trim());
     }
+
+     */
 
     public void onBackClicked(View view) {
         Intent intent = new Intent(this, ItemDetailActivity.class);

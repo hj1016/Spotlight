@@ -1,73 +1,32 @@
 package com.example.spotlight.network.Request;
 
-import com.example.spotlight.network.DTO.ProjectDTO;
-
 import java.util.List;
+import java.util.Set;
 
 public class FeedRequest {
+
+    private String projectImage;
     private String title;
-    private String image;
-    private String content;
-    private int scrap;
-    private Category category;
-    private List<String> hashtag;
-    private Exhibition exhibition;
-    private ProjectDTO projectId;
+    private Long mainCategoryId;
+    private Long subCategoryId;
+    private List<String> additionalImages;
+    private String description;
+    private Set<String> hashtags;
+    private List<Long> teamMemberIds;
+    private Long exhibitionId;
 
-    // Category 내부 클래스
-    public static class Category {
-        private String main;
-        private String sub;
+    // 기본 생성자
+    public FeedRequest() {}
 
-        public String getMain() {
-            return main;
-        }
-
-        public void setMain(String main) {
-            this.main = main;
-        }
-
-        public String getSub() {
-            return sub;
-        }
-
-        public void setSub(String sub) {
-            this.sub = sub;
-        }
+    // Getter와 Setter
+    public String getProjectImage() {
+        return projectImage;
     }
 
-    // Exhibition 내부 클래스
-    public static class Exhibition {
-        private String location;
-        private String schedule;
-        private String time;
-
-        public String getLocation() {
-            return location;
-        }
-
-        public void setLocation(String location) {
-            this.location = location;
-        }
-
-        public String getSchedule() {
-            return schedule;
-        }
-
-        public void setSchedule(String schedule) {
-            this.schedule = schedule;
-        }
-
-        public String getTime() {
-            return time;
-        }
-
-        public void setTime(String time) {
-            this.time = time;
-        }
+    public void setProjectImage(String projectImage) {
+        this.projectImage = projectImage;
     }
 
-    // Getter와 Setter 메서드들
     public String getTitle() {
         return title;
     }
@@ -76,59 +35,59 @@ public class FeedRequest {
         this.title = title;
     }
 
-    public String getImage() {
-        return image;
+    public Long getMainCategoryId() {
+        return mainCategoryId;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setMainCategoryId(Long mainCategoryId) {
+        this.mainCategoryId = mainCategoryId;
     }
 
-    public String getContent() {
-        return content;
+    public Long getSubCategoryId() {
+        return subCategoryId;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setSubCategoryId(Long subCategoryId) {
+        this.subCategoryId = subCategoryId;
     }
 
-    public int getScrap() {
-        return scrap;
+    public List<String> getAdditionalImages() {
+        return additionalImages;
     }
 
-    public void setScrap(int scrap) {
-        this.scrap = scrap;
+    public void setAdditionalImages(List<String> additionalImages) {
+        this.additionalImages = additionalImages;
     }
 
-    public Category getCategory() {
-        return category;
+    public String getDescription() {
+        return description;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public List<String> getHashtag() {
-        return hashtag;
+    public Set<String> getHashtags() {
+        return hashtags;
     }
 
-    public void setHashtag(List<String> hashtag) {
-        this.hashtag = hashtag;
+    public void setHashtags(Set<String> hashtags) {
+        this.hashtags = hashtags;
     }
 
-    public Exhibition getExhibition() {
-        return exhibition;
+    public List<Long> getTeamMemberIds() {
+        return teamMemberIds;
     }
 
-    public void setExhibition(Exhibition exhibition) {
-        this.exhibition = exhibition;
+    public void setTeamMemberIds(List<Long> teamMemberIds) {
+        this.teamMemberIds = teamMemberIds;
     }
 
-    public ProjectDTO getProjectId() {
-        return projectId;
+    public Long getExhibitionId() {
+        return exhibitionId;
     }
 
-    public void setProjectId(ProjectDTO projectId) {
-        this.projectId = projectId;
+    public void setExhibitionId(Long exhibitionId) {
+        this.exhibitionId = exhibitionId;
     }
 }

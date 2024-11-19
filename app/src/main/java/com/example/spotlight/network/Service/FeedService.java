@@ -1,18 +1,6 @@
 package com.example.spotlight.network.Service;
 
-import android.view.View;
-import android.widget.TextView;
-
-import com.example.spotlight.R;
-import com.example.spotlight.network.API.ApiClient;
 import com.example.spotlight.network.API.ApiService;
-import com.example.spotlight.network.DTO.FeedDTO;
-import com.example.spotlight.network.Response.FeedHitsResponse;
-import com.example.spotlight.network.Util.TokenManager;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class FeedService {
     private ApiService apiService;

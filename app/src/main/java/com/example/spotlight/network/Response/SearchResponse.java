@@ -8,7 +8,7 @@ import com.example.spotlight.Post;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchResponse implements Parcelable {
+public class SearchResponse implements Parcelable { // 추후에 수정 필요.
     private boolean success;
     private String message;
     private List<Post> posts;

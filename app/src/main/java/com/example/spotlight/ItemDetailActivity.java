@@ -1,32 +1,21 @@
 package com.example.spotlight;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.bumptech.glide.Glide;
-import com.example.spotlight.network.API.ApiClient;
-import com.example.spotlight.network.API.ApiService;
-import com.example.spotlight.network.Response.ScrapCancelResponse;
-import com.example.spotlight.network.Response.ScrapResponse;
-import com.example.spotlight.network.Service.FeedService;
 import com.google.android.flexbox.FlexboxLayout;
 
 import java.util.Arrays;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class ItemDetailActivity extends AppCompatActivity {
 

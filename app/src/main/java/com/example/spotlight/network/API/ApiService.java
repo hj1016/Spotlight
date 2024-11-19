@@ -1,34 +1,9 @@
 package com.example.spotlight.network.API;
 
 import com.example.spotlight.Post;
-import com.example.spotlight.network.DTO.ExhibitionDTO;
-import com.example.spotlight.network.DTO.FeedDTO;
-import com.example.spotlight.network.DTO.PasswordValidationDTO;
-import com.example.spotlight.network.DTO.PasswordValidationResponseDTO;
-import com.example.spotlight.network.DTO.ProjectRoleDTO;
-import com.example.spotlight.network.DTO.ProposalDTO;
-import com.example.spotlight.network.DTO.ScrapDTO;
-import com.example.spotlight.network.DTO.StudentDTO;
-import com.example.spotlight.network.DTO.UserRegistrationDto;
-import com.example.spotlight.network.Request.EmailSendingRequest;
-import com.example.spotlight.network.Request.ExistIdRequest;
-import com.example.spotlight.network.Request.FeedRequest;
-import com.example.spotlight.network.Request.LoginRequest;
-import com.example.spotlight.network.Request.RefreshRequest;
-import com.example.spotlight.network.Response.CertificateResponse;
-import com.example.spotlight.network.Response.DeleteResponse;
-import com.example.spotlight.network.Response.EmailSendingResponse;
-import com.example.spotlight.network.Response.ExhibitionResponse;
-import com.example.spotlight.network.Response.ExistIdResponse;
-import com.example.spotlight.network.Response.FeedResponse;
-import com.example.spotlight.network.Response.LoginResponse;
-import com.example.spotlight.network.Response.NotificationResponse;
-import com.example.spotlight.network.Response.PortfolioResponse;
-import com.example.spotlight.network.Response.ProposalResponse;
-import com.example.spotlight.network.Response.SearchResponse;
-import com.example.spotlight.network.Response.TokenResponse;
-import com.example.spotlight.network.Response.UploadPortfolioResponse;
-import com.example.spotlight.network.Response.UserProfileResponse;
+import com.example.spotlight.network.DTO.*;
+import com.example.spotlight.network.Request.*;
+import com.example.spotlight.network.Response.*;
 
 import java.util.List;
 import java.util.Map;
@@ -147,7 +122,7 @@ public interface ApiService {
     Call<FeedResponse> createFeed(@Body FeedRequest feedRequest);
 
     // 게시물 조회
-    @DELETE("/api/feeds/{feedId}")
+    @GET("/api/feeds/{feedId}")
     Call<FeedResponse> getFeed(@Path("feedId") Long feedId);
 
     // 게시물 수정
@@ -164,19 +139,19 @@ public interface ApiService {
 
     // 해시태그 검색 이력 조회
     @GET("/api/feeds/search/history")
-    Call<List<String>> getFeedSearchHistory();
+    Call<HashtagHistoryResponse> getFeedSearchHistory();
 
     // 검색 기록 기반 해시태그로 피드 검색
     @GET("/api/feeds/search/history/{hashtag}")
     Call<List<FeedResponse>> searchFeedsByHistoryHashtag(@Path("hashtag") String hashtag);
 
-    // 게시물 조회수 조회
-    @GET("/api/feeds/{feedId}/hits")
+    // 게시물 조회수 증가
+    @POST("/api/feeds/{feedId}/hits")
     Call<FeedResponse> incrementFeedHits(@Path("feedId") Long feedId);
 
     // 피드 스크랩
     @POST("/api/feeds/{feedId}/scrap")
-    Call<Map<String, Object>> scrapFeed(
+    Call<ScrapResponse> scrapFeed(
             @Path("feedId") Long feedId,
             @Query("stageId") Long stageId,
             @Query("scrappedUserId") Long scrappedUserId
@@ -184,26 +159,27 @@ public interface ApiService {
 
     // 피드 스크랩 취소
     @DELETE("/api/feeds/{feedId}/scrap")
-    Call<Map<String, Object>> unscrapFeed(
+    Call<UnscrapResponse> unscrapFeed(
             @Path("feedId") Long feedId,
             @Query("stageId") Long stageId,
             @Query("scrappedUserId") Long scrappedUserId
     );
 
     // 프로젝트 팀원 조회
-    @GET("/api/feeds/{feedId}/team-members")
-    Call<List<StudentDTO>> getProjectTeamMembers(@Path("feedId") Long feedId);
+    @GET("/api/feeds/{feedId}/team-members/{userId}")
+    Call<MemberDTO> getProjectTeamMemberInfo(@Path("feedId") Long feedId, @Path("userId") Long userId);
 
     // 학생 스크랩
     @POST("/api/feeds/{feedId}/students/{studentId}/scrap")
-    Call<String> scrapStudent(@Path("feedId") Long feedId, @Path("studentId") Long studentId);
+    Call<ScrapResponse> scrapStudent(@Path("feedId") Long feedId, @Path("studentId") Long studentId);
 
     // 학생 스크랩 취소
     @DELETE("/api/feeds/{feedId}/students/{studentId}/scrap")
-    Call<String> unscrapStudent(@Path("feedId") Long feedId, @Path("studentId") Long studentId);
+    Call<UnscrapResponse> unscrapStudent(@Path("feedId") Long feedId, @Path("studentId") Long studentId);
 
     /*-------------------------- 전시 관련 API --------------------------*/
 
+    // 전시 등록
     @POST("api/exhibitions")
     Call<ExhibitionResponse> createExhibition(@Body ExhibitionDTO exhibitionDTO);
 
@@ -211,48 +187,39 @@ public interface ApiService {
 
     // 팀원 초대
     @POST("api/projects/{projectId}/invite")
-    Call<ProjectRoleDTO> inviteTeamMember(
+    Call<InvitationResponse> inviteTeamMember(
             @Path("projectId") Long projectId,
-            @Query("userId") Long userId,
+            @Query("username") String username,
             @Query("role") String role
     );
 
     // 초대 수락
     @POST("api/projects/accept/{projectRoleId}")
-    Call<Void> acceptInvitation(
-            @Path("projectRoleId") Long projectRoleId,
-            @Query("userId") Long userId
-    );
+    Call<Void> acceptInvitation(@Path("projectRoleId") Long projectRoleId, @Query("userId") Long userId);
 
     /*-------------------------- 제안서 관련 API --------------------------*/
 
     // 새 제안서 생성
     @POST("api/proposals")
-    Call<ProposalDTO> createProposal(
-            @Query("userId") Long userId,
-            @Body ProposalDTO proposalDTO
-    );
+    Call<ProposalResponse> createProposal(@Query("userId") Long userId, @Body ProposalDTO proposalDTO);
 
     // 기존 제안서 수정
     @PUT("api/proposals/{proposalId}")
-    Call<ProposalDTO> updateProposal(
-            @Path("proposalId") Long proposalId,
-            @Body ProposalDTO proposalDTO
-    );
+    Call<ProposalResponse> updateProposal(@Path("proposalId") Long proposalId, @Body ProposalDTO proposalDTO);
 
     /*-------------------------- 해시태그 검색 관련 API --------------------------*/
 
     // 해시태그를 통한 피드 검색
     @GET("api/search/feeds")
-    Call<List<FeedDTO>> searchFeedsWithHashtag(@Query("hashtag") String hashtag);
+    Call<List<FeedResponse>> searchFeedsWithHashtag(@Query("hashtag") String hashtag);
 
     // 검색 기록 조회
     @GET("api/search/history")
-    Call<List<String>> getHashtagSearchHistory();
+    Call<HashtagHistoryResponse> getHashtagSearchHistory();
 
     // 검색 이력 기반 피드 검색
     @GET("api/search/feeds/history")
-    Call<List<FeedDTO>> searchFeedsBySearchHistory(@Query("searchTerm") String searchTerm);
+    Call<List<FeedResponse>> searchFeedsBySearchHistory(@Query("searchTerm") String searchTerm);
 
     /*-------------------------- 학교/학과 검색 API --------------------------*/
 
@@ -267,6 +234,6 @@ public interface ApiService {
 
     // 챗봇 요청
     @POST("api/chat/ask")
-    Call<List<Object>> askChatbot(@Body String userInput);
+    Call<List<Object>> askChatbot(@Body ChatbotRequest chatbotRequest);
 
 }

@@ -1,35 +1,32 @@
 package com.example.spotlight.network.Request;
 
 public class ProposalRequest {
-    private String title;
-    private String position;
+
+    private String job;
     private String contact;
     private String description;
+    private Long recruiterId;
+    private Long studentId;
 
-    public ProposalRequest() {
-    }
+    // 기본 생성자
+    public ProposalRequest() {}
 
-    public ProposalRequest(String title, String position, String contact, String description) {
-        this.title = title;
-        this.position = position;
+    // 필드 초기화 생성자
+    public ProposalRequest(String job, String contact, String description, Long recruiterId, Long studentId) {
+        this.job = job;
         this.contact = contact;
         this.description = description;
+        this.recruiterId = recruiterId;
+        this.studentId = studentId;
     }
 
-    public String getTitle() {
-        return title;
+    // Getter와 Setter
+    public String getJob() {
+        return job;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getPosition() {
-        return position;
-    }
-
-    public void setPosition(String position) {
-        this.position = position;
+    public void setJob(String job) {
+        this.job = job;
     }
 
     public String getContact() {
@@ -46,5 +43,21 @@ public class ProposalRequest {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Long getRecruiterId() {
+        return recruiterId;
+    }
+
+    public void setRecruiterId(Long recruiterId) {
+        this.recruiterId = recruiterId;
+    }
+
+    public Long getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(Long studentId) {
+        this.studentId = studentId;
     }
 }
