@@ -8,7 +8,7 @@
 
 
     <application
-        android:name=".MyApplication"
+        android:name=".application.MyApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -20,7 +20,7 @@
         android:networkSecurityConfig="@xml/network_security_config">
 
         <activity
-            android:name=".SplashActivity"
+            android:name=".application.SplashActivity"
             android:theme="@style/SplashTheme"
             android:exported="true">
             <intent-filter>
@@ -29,7 +29,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".MainActivity" />
+        <activity android:name=".main.MainActivity" />
 
         <!--        &lt;!&ndash; MainActivity 설정 &ndash;&gt;-->
 <!--        <activity-->
@@ -37,64 +37,64 @@
 <!--            android:exported="true" />-->
 
         <!-- 기타 액티비티 설정 -->
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".AlarmActivity" />
-        <activity android:name=".AlarmGeneralActivity"/>
+        <activity android:name=".authentication.LoginActivity" />
+        <activity android:name=".alarm.AlarmActivity" />
+        <activity android:name=".alarm.AlarmGeneralActivity"/>
         <activity android:name=".ElectronicActivity"/>
 
-        <activity android:name=".GeneralProposeManageActivity"/>
-        <activity android:name=".GraduateStep1Activity" />
-        <activity android:name=".GraduatesProposeActivity" />
+        <activity android:name=".recruiter.GeneralProposeManageActivity"/>
+        <activity android:name=".authentication.GraduateStep1Activity" />
+        <activity android:name=".graduates.GraduatesProposeActivity" />
 
-        <activity android:name=".ItemDetailActivity" />
-        <activity android:name=".ItemDetailMemberGeneralActivity"/>
-        <activity android:name=".ItemDetailMemberRecruiterActivity"/>
-        <activity android:name=".ItemRecruiterProposeActivity"/>
+        <activity android:name=".posting.ItemDetailActivity" />
+        <activity android:name=".posting.ItemDetailMemberGeneralActivity"/>
+        <activity android:name=".posting.ItemDetailMemberRecruiterActivity"/>
+        <activity android:name=".posting.ItemRecruiterProposeActivity"/>
 
-        <activity android:name=".ManagePostingActivity" />
-        <activity android:name=".ManagePostingGeneralActivity"/>
-        <activity android:name=".MyPageGeneralPortfolioActivity"/>
-        <activity android:name=".MyPagePortfolioActivity"/>
-        <activity android:name=".MyPageRecruiterActivity"/>
+        <activity android:name=".posting.ManagePostingActivity" />
+        <activity android:name=".posting.ManagePostingGeneralActivity"/>
+        <activity android:name=".mypage.MyPageGeneralPortfolioActivity"/>
+        <activity android:name=".mypage.MyPagePortfolioActivity"/>
+        <activity android:name=".mypage.MyPageRecruiterActivity"/>
 
-        <activity android:name=".NewPostingActivity"/>
-        <activity android:name=".NewPostingExhibitionActivity"/>
-        <activity android:name=".NewPostingMemberActivity"/>
+        <activity android:name=".posting.NewPostingActivity"/>
+        <activity android:name=".posting.NewPostingExhibitionActivity"/>
+        <activity android:name=".posting.NewPostingMemberActivity"/>
 
         <activity android:name=".PostingEditActivity"/>
-        <activity android:name=".ProfileGeneralActivity"/>
-        <activity android:name=".ProfileGeneralEditActivity"/>
-        <activity android:name=".ProfileGraduatesActivity"/>
-        <activity android:name=".ProfileGraduatesEditActivity"/>
-        <activity android:name=".ProfileRecruiterActivity"/>
-        <activity android:name=".ProfileRecruiterEditActivity"/>
+        <activity android:name=".profile.ProfileGeneralActivity"/>
+        <activity android:name=".profile.ProfileGeneralEditActivity"/>
+        <activity android:name=".profile.ProfileGraduatesActivity"/>
+        <activity android:name=".profile.ProfileGraduatesEditActivity"/>
+        <activity android:name=".profile.ProfileRecruiterActivity"/>
+        <activity android:name=".profile.ProfileRecruiterEditActivity"/>
 
-        <activity android:name=".RecruiterProposeActivity" />
-        <activity android:name=".RecruiterProposeManageActivity"/>
-        <activity android:name=".RecruiterProposeEditActivity"/>
-        <activity android:name=".RecruiterStep1Activity" />
-        <activity android:name=".RecruiterStep2Activity" />
+        <activity android:name=".recruiter.RecruiterProposeActivity" />
+        <activity android:name=".recruiter.RecruiterProposeManageActivity"/>
+        <activity android:name=".recruiter.RecruiterProposeEditActivity"/>
+        <activity android:name=".authentication.RecruiterStep1Activity" />
+        <activity android:name=".authentication.RecruiterStep2Activity" />
 
-        <activity android:name=".ScrapGraduatesActivity"/>
-        <activity android:name=".ScrapGraduatesDetailActivity"/>
-        <activity android:name=".FakeScrapGraduatesActivity"/>
-        <activity android:name=".ScrapProjectActivity"/>
-        <activity android:name=".ScrapStageActivity"/>
-        <activity android:name=".SearchActivity"/>
-        <activity android:name=".SearchResultActivity"/>
-        <activity android:name=".SearchResultBrandingActivity" />
-        <activity android:name=".SearchSchoolActivity"/>
+        <activity android:name=".scrap.ScrapGraduatesActivity"/>
+        <activity android:name=".scrap.ScrapGraduatesDetailActivity"/>
+        <activity android:name=".scrap.FakeScrapGraduatesActivity"/>
+        <activity android:name=".scrap.ScrapProjectActivity"/>
+        <activity android:name=".scrap.ScrapStageActivity"/>
+        <activity android:name=".search.SearchActivity"/>
+        <activity android:name=".search.SearchResultActivity"/>
+        <activity android:name=".search.SearchResultBrandingActivity" />
+        <activity android:name=".search.SearchSchoolActivity"/>
 
-        <activity android:name=".SignupStep1Activity" />
-        <activity android:name=".SignupStep2Activity" />
-        <activity android:name=".SignupStep3Activity" />
-        <activity android:name=".SignupStep4Activity" />
-        <activity android:name=".SignupStep5Activity" />
-        <activity android:name=".StageActivity" />
-        <activity android:name=".StageDetailMemberActivity" />
-        <activity android:name=".PsjPortfolioActivity" />
-        <activity android:name=".StageRecruiterProposeActivity" />
-        <activity android:name=".StageDetailActivity" android:exported="true"/>
+        <activity android:name=".authentication.SignupStep1Activity" />
+        <activity android:name=".authentication.SignupStep2Activity" />
+        <activity android:name=".authentication.SignupStep3Activity" />
+        <activity android:name=".authentication.SignupStep4Activity" />
+        <activity android:name=".authentication.SignupStep5Activity" />
+        <activity android:name=".stage.StageActivity" />
+        <activity android:name=".stage.StageDetailMemberActivity" />
+        <activity android:name=".profile.PsjPortfolioActivity" />
+        <activity android:name=".stage.StageRecruiterProposeActivity" />
+        <activity android:name=".stage.StageDetailActivity" android:exported="true"/>
 
 
 

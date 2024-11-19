@@ -1,6 +1,6 @@
 package com.example.spotlight.network.API;
 
-import com.example.spotlight.Post;
+import com.example.spotlight.posting.Post;
 import com.example.spotlight.network.DTO.*;
 import com.example.spotlight.network.Request.*;
 import com.example.spotlight.network.Response.*;

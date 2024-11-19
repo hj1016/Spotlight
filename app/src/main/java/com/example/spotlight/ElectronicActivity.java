@@ -1,24 +1,18 @@
 package com.example.spotlight;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.ImageButton;
-import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.spotlight.common.CustomExpandableListAdapter;
+import com.example.spotlight.posting.Post;
+import com.example.spotlight.posting.PostAdapter;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
