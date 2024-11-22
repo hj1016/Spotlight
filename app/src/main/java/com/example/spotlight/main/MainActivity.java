@@ -145,9 +145,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void checkLoginStatus() {
-        boolean isLoggedIn = TokenManager.isLoggedIn();
+        boolean isLoggedIn = !TokenManager.getToken().isEmpty();
         Log.d("MainActivity","checkLoginStatus");
-
         if (!isLoggedIn) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);

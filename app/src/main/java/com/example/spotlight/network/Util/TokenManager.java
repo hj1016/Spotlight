@@ -3,189 +3,146 @@ package com.example.spotlight.network.Util;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.auth0.android.jwt.JWT;
-import com.example.spotlight.network.DTO.UserDTO;
-
 public class TokenManager {
-    private static final String PREFS_NAME = "SPOTLIGHT_PREFS";
-    private static final String TOKEN_KEY = "accessToken";
-    private static final String USER_ID = "userId";
-    private static final String USERNAME = "username";
-    private static final String SCHOOL = "school";
-    private static final String MAJOR = "major";
-    private static final String COMPANY = "company";
-    private static final String ROLE = "role";
-    private static final String PROFILE_IMAGE = "profileImage";
 
+    private static final String PREF_NAME = "user_pref";
+    private static final String KEY_SERVER_ID = "server_id";
+    private static final String KEY_USERNAME = "username";
+    private static final String KEY_NAME = "name";
+    private static final String KEY_EMAIL = "email";
+    private static final String KEY_ROLE = "role";
+    private static final String KEY_PROFILE_IMG = "profile_image";
+    private static final String KEY_SCHOOL = "school";
+    private static final String KEY_MAJOR = "major";
+    private static final String KEY_COMPANY = "company";
+    private static final String KEY_TOKEN = "access_token";
 
     private static SharedPreferences sharedPreferences;
 
-    public static void initialize(Context context) {
+    public static void init(Context context) {
         if (sharedPreferences == null) {
-            sharedPreferences = context.getApplicationContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+            sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         }
     }
 
-    /*
-    public static void setUser(UserDTO user) {
-        if (sharedPreferences == null) {
-            throw new IllegalStateException("\n" +
-                    "TokenManager가 초기화되지 않았습니다. TokenManager.initialize(context)를 호출하여 초기화하세요.");
-        }
+    public static void saveUserProfile(long serverId, String username, String name, String email, String role, String profileImg, String school, String major, String company, String token) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt(USER_ID, user.getUserId());
-        editor.putString(USERNAME, user.getName());
-        editor.putString(SCHOOL, user.getSchool());
-        editor.putString(MAJOR, user.getMajor());
-        editor.putString(COMPANY, user.getCompany());
-        editor.putString(ROLE, user.getRole());
-        editor.putString(PROFILE_IMAGE, user.getProfileImage());
+        editor.putLong(KEY_SERVER_ID, serverId);
+        editor.putString(KEY_USERNAME, username);
+        editor.putString(KEY_NAME, name);
+        editor.putString(KEY_EMAIL, email);
+        editor.putString(KEY_ROLE, role);
+        editor.putString(KEY_PROFILE_IMG, profileImg);
+        editor.putString(KEY_SCHOOL, school);
+        editor.putString(KEY_MAJOR, major);
+        editor.putString(KEY_COMPANY, company);
+        editor.putString(KEY_TOKEN, token);
         editor.apply();
     }
-    
-     */
+
+    public static void setToken(String token) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(KEY_TOKEN, token);
+        editor.apply();
+    }
+
+    public static long getServerId() {
+        return sharedPreferences.getLong(KEY_SERVER_ID, -1L);
+    }
+
+    public static String getUsername() {
+        return sharedPreferences.getString(KEY_USERNAME, "");
+    }
+
+    public static String getName() {
+        return sharedPreferences.getString(KEY_NAME, "");
+    }
+
+    public static String getEmail() {
+        return sharedPreferences.getString(KEY_EMAIL, "");
+    }
+
+    public static String getRole() {
+        return sharedPreferences.getString(KEY_ROLE, "");
+    }
+
+    public static String getProfileImage() {
+        return sharedPreferences.getString(KEY_PROFILE_IMG, "");
+    }
+
+    public static String getSchool() {
+        return sharedPreferences.getString(KEY_SCHOOL, "");
+    }
+
+    public static String getMajor() {
+        return sharedPreferences.getString(KEY_MAJOR, "");
+    }
+
+    public static String getCompany() {
+        return sharedPreferences.getString(KEY_COMPANY, "");
+    }
+
+    public static String getToken() {
+        return sharedPreferences.getString(KEY_TOKEN, "");
+    }
+
+    public static void clearToken() {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.apply();
+    }
+
+    public static void setServerId(long serverId) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putLong(KEY_SERVER_ID, serverId);
+        editor.apply();
+    }
 
     public static void setUsername(String username) {
-        if (sharedPreferences == null) {
-            throw new IllegalStateException("\n" +
-                    "TokenManager가 초기화되지 않았습니다. TokenManager.initialize(context)를 호출하여 초기화하세요.");
-        }
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(USERNAME, username);
+        editor.putString(KEY_USERNAME, username);
+        editor.apply();
+    }
+
+    public static void setName(String name) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(KEY_NAME, name);
+        editor.apply();
+    }
+
+    public static void setEmail(String email) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(KEY_EMAIL, email);
+        editor.apply();
+    }
+
+    public static void setRole(String role) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(KEY_ROLE, role);
         editor.apply();
     }
 
     public static void setProfileImage(String profileImage) {
-        if (sharedPreferences == null) {
-            throw new IllegalStateException("\n" +
-                    "TokenManager가 초기화되지 않았습니다. TokenManager.initialize(context)를 호출하여 초기화하세요.");
-        }
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(PROFILE_IMAGE, profileImage);
-        editor.apply();
-    }
-    public static String getUsername() {
-        if (sharedPreferences == null) {
-            throw new IllegalStateException("\n" +
-                    "TokenManager가 초기화되지 않았습니다. TokenManager.initialize(context)를 호출하여 초기화하세요.");
-        }
-        return sharedPreferences.getString(USERNAME, null);
-    }
-    public static String getSchool() {
-        if (sharedPreferences == null) {
-            throw new IllegalStateException("\n" +
-                    "TokenManager가 초기화되지 않았습니다. TokenManager.initialize(context)를 호출하여 초기화하세요.");
-        }
-        return sharedPreferences.getString(SCHOOL, null);
-    }
-
-    public static String getMajor() {
-        if (sharedPreferences == null) {
-            throw new IllegalStateException("\n" +
-                    "TokenManager가 초기화되지 않았습니다. TokenManager.initialize(context)를 호출하여 초기화하세요.");
-        }
-        return sharedPreferences.getString(MAJOR, null);
-    }
-
-    public static String getProfileImage() {
-        if (sharedPreferences == null) {
-            throw new IllegalStateException("\n" +
-                    "TokenManager가 초기화되지 않았습니다. TokenManager.initialize(context)를 호출하여 초기화하세요.");
-        }
-        return sharedPreferences.getString(PROFILE_IMAGE, null);
-    }
-    public static String getCompany() {
-        if (sharedPreferences == null) {
-            throw new IllegalStateException("\n" +
-                    "TokenManager가 초기화되지 않았습니다. TokenManager.initialize(context)를 호출하여 초기화하세요.");
-        }
-        return sharedPreferences.getString(COMPANY, null);
-    }
-    public static void setToken(String token) {
-        if (sharedPreferences == null) {
-            throw new IllegalStateException("\n" +
-                    "TokenManager가 초기화되지 않았습니다. TokenManager.initialize(context)를 호출하여 초기화하세요.");
-        }
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(TOKEN_KEY, token);
+        editor.putString(KEY_PROFILE_IMG, profileImage);
         editor.apply();
     }
 
-    public static String getToken() {
-        if (sharedPreferences == null) {
-            throw new IllegalStateException("\n" +
-                    "TokenManager가 초기화되지 않았습니다. TokenManager.initialize(context)를 호출하여 초기화하세요.");
-        }
-        return sharedPreferences.getString(TOKEN_KEY, null);
-    }
-
-    public static void clearToken() {
-        if (sharedPreferences == null) {
-            throw new IllegalStateException("\n" +
-                    "TokenManager가 초기화되지 않았습니다. TokenManager.initialize(context)를 호출하여 초기화하세요.");
-        }
+    public static void setSchool(String school) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.remove(TOKEN_KEY);
+        editor.putString(KEY_SCHOOL, school);
         editor.apply();
     }
 
-    // 토큰에서 ROLE 추출
-    public static String getRole() {
-        String token = getToken();
-        if (token == null) {
-            return null;
-        }
-        try {
-            JWT jwt = new JWT(token);
-            return jwt.getClaim("role").asString();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+    public static void setMajor(String major) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(KEY_MAJOR, major);
+        editor.apply();
     }
 
-    // 토큰에서 USER_ID 추출
-    public static int getUserId() {
-        String token = getToken();
-        if (token == null) {
-            return 0;
-        }
-        try {
-            JWT jwt = new JWT(token);
-            return jwt.getClaim("userId").asInt();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return 0;
-        }
-    }
-
-    // 토큰에서 ID 추출
-    public static String getId() {
-        String token = getToken();
-        if (token == null) {
-            return null;
-        }
-        try {
-            JWT jwt = new JWT(token);
-            return jwt.getClaim("id").asString();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    public static boolean isLoggedIn() {
-        String token = getToken();
-        if (token != null) {
-            try {
-                JWT jwt = new JWT(token);
-                // 토큰이 만료되지 않았는지 확인
-                return true; // 유효기간 만료를 확인. 10초 유예기간 줌. -> 그냥 true.
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-//        clearToken();
-        return false;
+    public static void setCompany(String company) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(KEY_COMPANY, company);
+        editor.apply();
     }
 }

@@ -47,12 +47,14 @@ public class ProfileRecruiterEditActivity extends AppCompatActivity {
     private ImageView imageViewProfile;
     private Uri imageUri;
     private ApiService apiService;
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mypage_profile_recruiter_edit);
 
-        String username = TokenManager.getUsername();
-        String id = TokenManager.getId();
+        String username = TokenManager.getName();
+        String id = TokenManager.getUsername();
         String company = TokenManager.getCompany();
         String profileImg = TokenManager.getProfileImage();
 
@@ -64,22 +66,25 @@ public class ProfileRecruiterEditActivity extends AppCompatActivity {
         editTextUsername.setText(username);
         textViewId.setText(id);
         textViewCompany.setText(company);
-        if(profileImg != null && !profileImg.isEmpty()) {
+
+        if (profileImg != null && !profileImg.isEmpty()) {
             Glide.with(this)
                     .load(profileImg)
                     .circleCrop()
                     .into(imageViewProfile);
         }
+
         apiService = ApiClient.getClientWithToken().create(ApiService.class);
 
         checkStoragePermission();
     }
 
     private void checkStoragePermission() {
-        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_MEDIA_IMAGES}, STORAGE_PERMISSION_CODE);
         }
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -91,6 +96,7 @@ public class ProfileRecruiterEditActivity extends AppCompatActivity {
             }
         }
     }
+
     public void onBackClicked(View view) {
         Intent intent = new Intent(this, ProfileRecruiterActivity.class);
         startActivity(intent);
@@ -105,23 +111,26 @@ public class ProfileRecruiterEditActivity extends AppCompatActivity {
         File file = new File(getPathFromUri(imageUri));
         RequestBody requestFile = RequestBody.create(MediaType.parse(getContentResolver().getType(imageUri)), file);
         MultipartBody.Part body = MultipartBody.Part.createFormData("profileImage", file.getName(), requestFile);
+
         Map<String, RequestBody> userProfileUpdateRequest = new HashMap<>();
         userProfileUpdateRequest.put("username", RequestBody.create(MediaType.parse("text/plain"), username));
+
         Call<UserProfileResponse> call = apiService.updateProfile(userProfileUpdateRequest, body);
         call.enqueue(new Callback<UserProfileResponse>() {
             @Override
             public void onResponse(Call<UserProfileResponse> call, Response<UserProfileResponse> response) {
-
                 if (response.isSuccessful()) {
                     UserProfileResponse userProfileResponse = response.body();
                     String username = userProfileResponse.getUsername();
-                    String profileImg = userProfileResponse.getProfileImage();
+                    String profileImg = userProfileResponse.getProfileImageUrl();
+
                     TokenManager.setUsername(username);
                     TokenManager.setProfileImage(profileImg);
+
                     Toast.makeText(ProfileRecruiterEditActivity.this, "프로필이 성공적으로 업데이트되었습니다.", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(ProfileRecruiterEditActivity.this, ProfileRecruiterActivity.class);
                     startActivity(intent);
-                    finish(); // 완료 후 액티비티 종료 또는 다른 화면으로 전환
+                    finish();
                 } else {
                     Log.d("onResponse", "Response Code: " + response.code());
                     Log.d("onResponse", "Response Message: " + response.message());
@@ -184,5 +193,4 @@ public class ProfileRecruiterEditActivity extends AppCompatActivity {
             return uri.getPath();
         }
     }
-
 }

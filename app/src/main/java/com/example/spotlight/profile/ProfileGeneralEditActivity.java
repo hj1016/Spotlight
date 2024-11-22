@@ -57,9 +57,9 @@ public class ProfileGeneralEditActivity extends AppCompatActivity {
         textViewId = findViewById(R.id.profile_general_edit_ID_text);
         imageViewProfile = findViewById(R.id.profile_general_edit_user_image);
 
-        id = TokenManager.getId();
+        id = TokenManager.getUsername();
         profileImg = TokenManager.getProfileImage();
-        username = TokenManager.getUsername();
+        username = TokenManager.getName();
 
         editTextUsername.setText(username);
         textViewId.setText(id);
@@ -119,7 +119,7 @@ public class ProfileGeneralEditActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     UserProfileResponse userProfileResponse = response.body();
                     String username = userProfileResponse.getUsername();
-                    String profileImg = userProfileResponse.getProfileImage();
+                    String profileImg = userProfileResponse.getProfileImageUrl();
                     TokenManager.setUsername(username);
                     TokenManager.setProfileImage(profileImg);
                     Toast.makeText(ProfileGeneralEditActivity.this, "프로필이 성공적으로 업데이트되었습니다.", Toast.LENGTH_SHORT).show();

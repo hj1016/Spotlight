@@ -1,11 +1,8 @@
 package com.example.spotlight.application;
 
 import android.app.Application;
-import android.util.Log;
 
 import com.example.spotlight.network.Util.TokenManager;
-
-import java.io.IOException;
 
 public class MyApplication extends Application {
     @Override
@@ -13,6 +10,6 @@ public class MyApplication extends Application {
         super.onCreate();
 
         // TokenManager 초기화
-        TokenManager.initialize(this);
+        TokenManager.init(this);
     }
 }

@@ -1,7 +1,5 @@
 package com.example.spotlight.network.Response;
 
-import java.time.LocalDateTime;
-
 public class ProposalResponse {
     private int proposalId;
     private String company;
@@ -10,7 +8,7 @@ public class ProposalResponse {
     private String description;
     private Integer userId;
     private String createdDate;
-    private String profileImage;
+    private String profileImageUrl;
     private String username;
     private String daysAgo;
     private String projectName;
@@ -61,9 +59,13 @@ public class ProposalResponse {
 
     public void setCreatedDate(String createdDate) { this.createdDate = createdDate; }
 
-    public String getProfileImage() { return profileImage; }
+    public String getProfileImageUrl() {
+        return profileImageUrl;
+    }
 
-    public void setProfileImage(String profileImage) { this.profileImage = profileImage; }
+    public void setProfileImageUrl(String profileImageUrl) {
+        this.profileImageUrl = profileImageUrl;
+    }
 
     public String getUsername() { return username; }
 

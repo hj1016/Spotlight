@@ -29,9 +29,9 @@ public class ProfileGeneralActivity extends AppCompatActivity {
         textViewId = findViewById(R.id.profile_general_ID_text);
         imageViewProfile = findViewById(R.id.profile_general_user_image);
 
-        id = TokenManager.getId();
+        id = TokenManager.getUsername();
         profileImg = TokenManager.getProfileImage();
-        username = TokenManager.getUsername();
+        username = TokenManager.getName();
 
         textViewUsername.setText(username);
         textViewId.setText(id);

@@ -31,10 +31,10 @@ public class ProfileRecruiterActivity extends AppCompatActivity {
         textViewCompany = findViewById(R.id.profile_recruiter_company_text);
         imageViewProfile = findViewById(R.id.profile_recruiter_user_image);
 
-        String id = TokenManager.getId();
+        String id = TokenManager.getUsername();
         String company = TokenManager.getCompany();
         String profileImg = TokenManager.getProfileImage();
-        String username = TokenManager.getUsername();
+        String username = TokenManager.getName();
 
         textViewUsername.setText(username);
         textViewId.setText(id);

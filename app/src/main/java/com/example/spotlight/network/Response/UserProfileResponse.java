@@ -1,34 +1,32 @@
 package com.example.spotlight.network.Response;
 
 public class UserProfileResponse {
-    private String profileImage;
+    private String name;
     private String username;
-    private String id;
+    private String password;
+    private String profileImageUrl;
     private String school;
     private String major;
     private String company;
 
-    // 기본 생성자
-    public UserProfileResponse() {
-    }
+    public UserProfileResponse() {}
 
-    // 모든 필드를 포함하는 생성자
-    public UserProfileResponse(String profileImage, String username, String id, String school, String major, String company) {
-        this.profileImage = profileImage;
+    public UserProfileResponse(String name, String username, String password, String profileImageUrl, String school, String major, String company) {
+        this.name = name;
         this.username = username;
-        this.id = id;
+        this.password = password;
+        this.profileImageUrl = profileImageUrl;
         this.school = school;
         this.major = major;
         this.company = company;
     }
 
-    // Getter와 Setter
-    public String getProfileImage() {
-        return profileImage;
+    public String getName() {
+        return name;
     }
 
-    public void setProfileImage(String profileImage) {
-        this.profileImage = profileImage;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getUsername() {
@@ -39,12 +37,20 @@ public class UserProfileResponse {
         this.username = username;
     }
 
-    public String getId() {
-        return id;
+    public String getPassword() {
+        return password;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getProfileImageUrl() {
+        return profileImageUrl;
+    }
+
+    public void setProfileImageUrl(String profileImageUrl) {
+        this.profileImageUrl = profileImageUrl;
     }
 
     public String getSchool() {

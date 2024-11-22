@@ -54,8 +54,8 @@ public class ProfileGraduatesEditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mypage_profile_graduates_edit);
 
-        String username = TokenManager.getUsername();
-        String id = TokenManager.getId();
+        String username = TokenManager.getName();
+        String id = TokenManager.getUsername();
         String school = TokenManager.getSchool();
         String major = TokenManager.getMajor();
         String profileImg = TokenManager.getProfileImage();
@@ -123,7 +123,7 @@ public class ProfileGraduatesEditActivity extends AppCompatActivity {
                     UserProfileResponse userProfileResponse = response.body();
                     String username = userProfileResponse.getUsername();
                     Log.d("username", username);
-                    String profileImg = userProfileResponse.getProfileImage();
+                    String profileImg = userProfileResponse.getProfileImageUrl();
                     TokenManager.setUsername(username);
                     TokenManager.setProfileImage(profileImg);
                     Toast.makeText(ProfileGraduatesEditActivity.this, "프로필이 성공적으로 업데이트되었습니다.", Toast.LENGTH_SHORT).show();

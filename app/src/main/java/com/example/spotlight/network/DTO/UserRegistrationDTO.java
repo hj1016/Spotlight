@@ -1,6 +1,6 @@
 package com.example.spotlight.network.DTO;
 
-public class UserRegistrationDto {
+public class UserRegistrationDTO {
 
     private String email;
     private String id;
@@ -13,11 +13,11 @@ public class UserRegistrationDto {
     private String certificate;
 
     // 기본 생성자
-    public UserRegistrationDto() {
+    public UserRegistrationDTO() {
     }
 
     // 생성자
-    public UserRegistrationDto(String email, String id, String password, String name, String role) {
+    public UserRegistrationDTO(String email, String id, String password, String name, String role) {
         this.email = email;
         this.id = id;
         this.password = password;

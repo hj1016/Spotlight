@@ -33,6 +33,7 @@ public class ProfileGraduatesActivity extends AppCompatActivity {
     private String major;
     private String profileImg;
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mypage_profile_graduates);
@@ -43,7 +44,7 @@ public class ProfileGraduatesActivity extends AppCompatActivity {
         textViewMajor = findViewById(R.id.profile_graduates_major_text);
         imageViewProfile = findViewById(R.id.profile_graduates_user_image);
 
-        String id = TokenManager.getId();
+        String id = TokenManager.getUsername();
         String school = TokenManager.getSchool();
         String major = TokenManager.getMajor();
         String profileImg = TokenManager.getProfileImage();
@@ -53,7 +54,8 @@ public class ProfileGraduatesActivity extends AppCompatActivity {
         textViewId.setText(id);
         textViewSchool.setText(school);
         textViewMajor.setText(major);
-        if(profileImg != null && !profileImg.isEmpty()) {
+
+        if (profileImg != null && !profileImg.isEmpty()) {
             RequestOptions requestOptions = new RequestOptions()
                     .override(100, 100)
                     .circleCrop();
@@ -63,11 +65,11 @@ public class ProfileGraduatesActivity extends AppCompatActivity {
                     .apply(requestOptions)
                     .into(imageViewProfile);
         }
-        //fetchDataFromApi();
 
+        // Uncomment the following if you want to fetch data via API instead of TokenManager
+        // fetchDataFromApi();
     }
 
-    // 참고할 부분 1) sharedPreferences을 감싼 TokenManager로 활용함
     public void onBackClicked(View view) {
         String userType = TokenManager.getRole();
         Intent intent = new Intent(this, MainActivity.class);
@@ -85,7 +87,6 @@ public class ProfileGraduatesActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    // 참고할 부분 2) Token을 header에 포함시켜 사용하는 api 호출
     private void fetchDataFromApi() {
         ApiService apiService = ApiClient.getClientWithToken().create(ApiService.class);
         Call<UserProfileResponse> call = apiService.getProfile();
@@ -94,18 +95,21 @@ public class ProfileGraduatesActivity extends AppCompatActivity {
             public void onResponse(Call<UserProfileResponse> call, Response<UserProfileResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     UserProfileResponse userProfileResponse = response.body();
-                    username = userProfileResponse.getUsername();
-                    id = userProfileResponse.getId();
+                    username = userProfileResponse.getName();
+                    id = userProfileResponse.getUsername();
                     school = userProfileResponse.getSchool();
                     major = userProfileResponse.getMajor();
-                    profileImg = userProfileResponse.getProfileImage();
+                    profileImg = userProfileResponse.getProfileImageUrl();
+
                     textViewUsername.setText(username);
                     textViewId.setText(id);
                     textViewSchool.setText(school);
                     textViewMajor.setText(major);
-                    if(profileImg != null && !profileImg.isEmpty()) {
+
+                    if (profileImg != null && !profileImg.isEmpty()) {
                         Glide.with(ProfileGraduatesActivity.this)
                                 .load(profileImg)
+                                .circleCrop()
                                 .into(imageViewProfile);
                     }
                 } else {

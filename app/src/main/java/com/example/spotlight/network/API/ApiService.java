@@ -23,96 +23,113 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiService {
-    // 회원가입 0
-    @POST("/api/v1/user/register")
-    Call<TokenResponse> registerUser(@Body UserRegistrationDto registrationDto);
 
-    // 아이디 중복 체크 0
-    @POST("/api/v1/user/existid")
+    // 회원가입
+    @POST("/api/user/register")
+    Call<UserResponse> registerUser(@Body UserRegistrationDTO registrationDto);
+
+    // 아이디 중복 체크
+    @POST("/api/user/existusername")
     Call<ExistIdResponse> existId(@Body ExistIdRequest existIdRequest);
 
-    // 비밀번호 확인 0
-    @POST("/api/v1/user/validate-password")
+    // 비밀번호 유효성 검사
+    @POST("/api/user/validate-password")
     Call<PasswordValidationResponseDTO> validatePassword(@Body PasswordValidationDTO passwordDTO);
 
-    // 이메일 전송 0
-    @POST("/api/v1/user/emailsending")
-    Call<EmailSendingResponse> emailSending(@Body EmailSendingRequest emailSendingRequest);
+    // 이메일 인증 코드 발송
+    @POST("/api/user/send-email-verification")
+    Call<String> emailSending(@Body EmailSendingRequest emailSendingRequest);
 
-    // 인증 코드 확인 0
-    @POST("/api/v1/user/verificationcode")
-    Call<TokenResponse> verificationCode(@Body EmailSendingRequest emailSendingRequest);
+    // 이메일 인증 코드 검증
+    @POST("/api/user/verify-email-verification")
+    Call<String> verificationCode(@Body EmailSendingRequest emailSendingRequest);
 
-    // 로그인 0
-    @POST("/api/v1/user/login")
+//    // 학생 재학증명서 업로드
+//    @Multipart
+//    @POST("/api/user/upload-student-certificate")
+//    Call<CertificateResponse> uploadStudentCertificate(
+//            @Header("Authorization") String token,
+//            @Part("file") MultipartBody.Part file,
+//            @Part("username") RequestBody username);
+//
+//    // 리크루터 재직증명서 업로드
+//    @Multipart
+//    @POST("/api/user/upload-recruiter-certificate")
+//    Call<CertificateResponse> uploadRecruiterCertificate(
+//            @Header("Authorization") String token,
+//            @Part("file") MultipartBody.Part file,
+//            @Part("username") RequestBody username);
+
+    // 로그인
+    @POST("/api/user/login")
     Call<LoginResponse> login(@Body LoginRequest loginRequest);
-    // 토큰 갱신 0
+    // 토큰 갱신
     @POST("/api/v1/user/refresh")
     Call<Map<String, String>> refreshAccessToken(@Body RefreshRequest tokenRequest);
 
-    // 프로필 조회 0
+    // 프로필 조회
     @GET("/api/v1/user/profile")
     Call<UserProfileResponse> getProfile();
 
-    // 프로필 수정 0
+    // 프로필 수정
     @POST("/api/v1/user/profile")
     @Multipart
     Call<UserProfileResponse> updateProfile(@PartMap Map<String, RequestBody> userProfileUpdateRequest, @Part MultipartBody.Part profileImage);
 
-    // 알림 목록 확인 0
+    // 알림 목록 확인
     @GET("/api/v1/notification")
     Call<List<NotificationResponse>> getNotifications();
 
-    // 알림 읽음 상태 업데이트 0
+    // 알림 읽음 상태 업데이트
     @PUT("/api/v1/notification/{notification_id}/status")
     Call<String> markAsRead(@Path("notification_id") int notificationId);
 
     // 팀원 수락/거절 -> 수락 시 수정 권한 및 팀원 추가 0
 
-    // 스크랩 피드 목록 확인 0
+    // 스크랩 피드 목록 확인
     @GET("/api/v1/user/scrap/feed")
     Call<List<Post>> getScrapFeeds();
 
     // 스크랩 피드 세부 확인
 
-    // 스크랩 인재 확인 0
+    // 스크랩 인재 확인
     @GET("/api/v1/user/scrap/students")
     Call<List<ScrapDTO>> getScrapStudents();
 
-    // 공고제안서 목록 조회 (학생) 0
+    // 공고제안서 목록 조회 (학생)
     @GET("/api/v1/proposal/student")
     Call<List<ProposalResponse>> getProposalsByStudent();
 
-    // 공고제안서 내용 조회 (학생) 0
+    // 공고제안서 내용 조회 (학생)
     @GET("/api/v1/proposal/student/{proposalId}")
     Call<ProposalResponse> getProposalDetailsForStudent(@Path("proposalId") int proposalId);
 
-    // 공고제안서 목록 조회 (리크루터) 0
+    // 공고제안서 목록 조회 (리크루터)
     @GET("/api/v1/proposal/recruiter")
     Call<List<ProposalResponse>> getProposalsByRecruiter();
 
-    // 공고제안서 내용 조회 (리크루터) 0
+    // 공고제안서 내용 조회 (리크루터)
     @GET("/api/v1/proposal/recruiter/{proposalId}")
     Call<ProposalResponse> getProposalDetailsForRecruiter(@Path("proposalId") int proposalId);
 
-    // 내가 올린 피드 목록 조회 0
+    // 내가 올린 피드 목록 조회
     @GET("/api/v1/user/feed")
     Call<List<Post>> getMyFeeds();
 
     // 내 피드 내용 조회
-    // 재직증명서 업로드 0
+    // 재직증명서 업로드
     @POST("/api/v1/user/certificate")
     @Multipart
     Call<CertificateResponse> uploadCertificate(@Part MultipartBody.Part certificate);
 
-    // 포트폴리오 사진 업로드 (학생) 0
+    // 포트폴리오 사진 업로드 (학생)
     @POST("/api/v1/user/portfolio")
     @Multipart
     Call<UploadPortfolioResponse> uploadPortfolio(@Part List<MultipartBody.Part> images);
 
-    // 포트폴리오 조회 (리크루터) 0
+    // 포트폴리오 조회 (리크루터)
     @GET("/api/v1/user/{userid}/portfolio")
-    Call<PortfolioResponse> getPortfolio(@Path("userid") Integer userId);
+    Call<PortfolioResponse> getPortfolio(@Path("userid") Long id);
 
 
     /*-------------------------- 피드 관련 API --------------------------*/

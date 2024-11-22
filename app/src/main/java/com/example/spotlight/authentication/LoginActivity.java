@@ -1,6 +1,5 @@
 package com.example.spotlight.authentication;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -10,12 +9,14 @@ import android.content.Intent;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.spotlight.R;
+import com.example.spotlight.main.MainActivity;
 import com.example.spotlight.network.API.ApiClient;
 import com.example.spotlight.network.API.ApiService;
+import com.example.spotlight.network.DTO.UserDTO;
 import com.example.spotlight.network.Request.LoginRequest;
 import com.example.spotlight.network.Response.LoginResponse;
 import com.example.spotlight.network.Util.TokenManager;
-import com.google.gson.Gson;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,7 +30,6 @@ public class LoginActivity extends AppCompatActivity {
     private ApiService apiService;
     private TokenManager tokenManager;
 
-    /*
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         LoginRequest loginRequest = new LoginRequest();
-        loginRequest.setId(username);
+        loginRequest.setUsername(username);
         loginRequest.setPassword(password);
 
         apiService.login(loginRequest).enqueue(new Callback<LoginResponse>() {
@@ -74,7 +74,8 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(LoginActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
                         Log.d("accessToken",loginResponse.getAccessToken());
                         TokenManager.setToken(loginResponse.getAccessToken());
-                        TokenManager.setUser(loginResponse.getUser());
+
+                        // 로그인 성공 후 MainActivity로 이동
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);
                         finish();
@@ -93,17 +94,8 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void saveToken(String token) {
-        SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("auth_token", token);
-        editor.apply();
-    }
-
     private void performSignUp() {
         Intent intent = new Intent(this, SignupStep1Activity.class);
         startActivity(intent);
     }
-
-     */
 }

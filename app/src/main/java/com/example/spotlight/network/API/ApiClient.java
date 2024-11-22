@@ -1,5 +1,4 @@
 package com.example.spotlight.network.API;
-import android.content.Context;
 
 import com.example.spotlight.network.Util.TokenManager;
 import retrofit2.Retrofit;
@@ -8,8 +7,7 @@ import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+
 import java.io.IOException;
 
 public class ApiClient {
@@ -60,7 +58,7 @@ public class ApiClient {
             OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
             retrofitWithoutToken = new Retrofit.Builder()
-                    .baseUrl(BASE_URL)  // Replace with your actual base URL
+                    .baseUrl(BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(httpClient.build())
                     .build();
