@@ -13,9 +13,6 @@ import com.example.spotlight.R;
 import com.example.spotlight.network.API.ApiClient;
 import com.example.spotlight.network.API.ApiService;
 import com.example.spotlight.network.Request.EmailSendingRequest;
-import com.example.spotlight.network.Response.EmailSendingResponse;
-import com.example.spotlight.network.Response.TokenResponse;
-import com.example.spotlight.network.Util.TokenManager;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -72,20 +69,18 @@ public class GraduateStep1Activity extends AppCompatActivity {
         request.setEmail(emailEditText.getText().toString().trim());
         request.setEmailCode(code);
 
-        apiService.verificationCode(request).enqueue(new Callback<TokenResponse>() {
+        apiService.verificationCode(request).enqueue(new Callback<String>() {
             @Override
-            public void onResponse(Call<TokenResponse> call, Response<TokenResponse> response) {
+            public void onResponse(Call<String> call, Response<String> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    TokenResponse tokenResponse = response.body();
-                    if (tokenResponse.isSuccess()) {
+                    String result = response.body();
+                    if ("success".equals(result)) {
                         Toast.makeText(GraduateStep1Activity.this, "인증 성공", Toast.LENGTH_SHORT).show();
-                        TokenManager.setToken(tokenResponse.getAccessToken());
-                        //TokenManager.setUser(tokenResponse.getUser());
                         Intent intent = new Intent(GraduateStep1Activity.this, MainActivity.class);
                         startActivity(intent);
                         finish();
                     } else {
-                        Toast.makeText(GraduateStep1Activity.this, "인증 실패: " + tokenResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(GraduateStep1Activity.this, "인증 실패: " + result, Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     Toast.makeText(GraduateStep1Activity.this, "인증 실패: " + response.message(), Toast.LENGTH_SHORT).show();
@@ -93,7 +88,7 @@ public class GraduateStep1Activity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<TokenResponse> call, Throwable t) {
+            public void onFailure(Call<String> call, Throwable t) {
                 Toast.makeText(GraduateStep1Activity.this, "인증 에러: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
@@ -116,15 +111,15 @@ public class GraduateStep1Activity extends AppCompatActivity {
         request.setId(id);
         request.setRole(role);
 
-        apiService.emailSending(request).enqueue(new Callback<EmailSendingResponse>() {
+        apiService.emailSending(request).enqueue(new Callback<String>() {
             @Override
-            public void onResponse(Call<EmailSendingResponse> call, Response<EmailSendingResponse> response) {
+            public void onResponse(Call<String> call, Response<String> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    EmailSendingResponse emailSendingResponse = response.body();
-                    if (emailSendingResponse.isSuccess()) {
+                    String result = response.body();
+                    if ("success".equals(result)) {
                         Toast.makeText(GraduateStep1Activity.this, "이메일 발송 성공", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(GraduateStep1Activity.this, "이메일 발송 실패", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(GraduateStep1Activity.this, "이메일 발송 실패: " + result, Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     Toast.makeText(GraduateStep1Activity.this, "이메일 발송 실패: " + response.message(), Toast.LENGTH_SHORT).show();
@@ -132,10 +127,9 @@ public class GraduateStep1Activity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<EmailSendingResponse> call, Throwable t) {
+            public void onFailure(Call<String> call, Throwable t) {
                 Toast.makeText(GraduateStep1Activity.this, "이메일 발송 에러: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 }
-
