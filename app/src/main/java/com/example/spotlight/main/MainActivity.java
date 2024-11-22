@@ -36,6 +36,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
+    private ImageView floatingButton;
     private BottomNavigationView bottomNavigationView;
     private EditText searchBarText;
     private boolean isScrapped = false;
@@ -45,6 +46,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setupBottomNavigationView();
+
+        // 플로팅 버튼 초기화
+        floatingButton = findViewById(R.id.floating_button);
+
+        // 플로팅 버튼 클릭 이벤트
+        floatingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // ChatbotActivity로 이동
+                Intent intent = new Intent(MainActivity.this, ChatbotActivity.class);
+                startActivity(intent);
+            }
+        });
 
         checkLoginStatus();
 

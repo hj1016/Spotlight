@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black">
+
+    <ImageView
+        android:id="@+id/chatbot_title"
+        android:layout_width="124dp"
+        android:layout_height="20dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="137dp"
+        android:src="@drawable/chatbot" />
+
+    <ScrollView
+        android:id="@+id/chatbot_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_below="@id/chatbot_title"
+        android:layout_above="@id/chatbot_input_layout"
+        android:layout_marginTop="16dp"
+        android:padding="8dp">
+
+        <LinearLayout
+            android:id="@+id/chatbot_message_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/chatbot_input_layout"
+        android:layout_width="match_parent"
+        android:layout_height="59dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/input_board"
+        android:padding="8dp">
+
+        <!-- 사용자 입력 필드 -->
+        <EditText
+            android:id="@+id/chatbot_user_input"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@id/chatbot_send_button"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
+            android:hint="채팅을 시작하세요..."
+            android:background="@android:color/transparent"
+            android:paddingStart="12dp"
+            android:padding="8dp"
+            android:textColor="@android:color/black"
+            android:textColorHint="@android:color/darker_gray" />
+
+        <!-- 전송 버튼 -->
+        <ImageButton
+            android:id="@+id/chatbot_send_button"
+            android:layout_width="53dp"
+            android:layout_height="48dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="-2dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="Send"
+            android:src="@drawable/send_button" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

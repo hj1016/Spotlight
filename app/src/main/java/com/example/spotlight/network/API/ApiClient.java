@@ -65,4 +65,13 @@ public class ApiClient {
         }
         return retrofitWithoutToken;
     }
+
+    public static ApiService getChatbotApiServiceWithToken() {
+        return getClientWithToken().create(ApiService.class);
+    }
+
+    public static ApiService getChatbotApiServiceWithoutToken() {
+        return getClientWithoutToken().create(ApiService.class);
+    }
+
 }
