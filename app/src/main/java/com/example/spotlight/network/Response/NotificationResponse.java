@@ -1,14 +1,16 @@
 package com.example.spotlight.network.Response;
 
 public class NotificationResponse {
-    private int notificationId;
+    private Long notificationId;
+    private Long userId;
     private String type;
     private String message;
     private String date;
     private String status;
 
-    public NotificationResponse(int notificationId, String type, String message, String date, String status) {
+    public NotificationResponse(Long notificationId, Long userId, String type, String message, String date, String status) {
         this.notificationId = notificationId;
+        this.userId = userId;
         this.type = type;
         this.message = message;
         this.date = date;
@@ -16,13 +18,17 @@ public class NotificationResponse {
     }
 
     // Getters and Setters
-    public int getNotificationId() {
+    public Long getNotificationId() {
         return notificationId;
     }
 
-    public void setNotificationId(int notificationId) {
+    public void setNotificationId(Long notificationId) {
         this.notificationId = notificationId;
     }
+
+    public Long getUserId() { return userId; }
+
+    public void setUserId(Long userId) { this.userId = userId; }
 
     public String getType() {
         return type;

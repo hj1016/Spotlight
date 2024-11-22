@@ -14,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.spotlight.R;
 import com.example.spotlight.network.API.ApiClient;
 import com.example.spotlight.network.API.ApiService;
-import com.example.spotlight.network.DTO.UserRegistrationDto;
+import com.example.spotlight.network.DTO.UserRegistrationDTO;
 import com.example.spotlight.network.Response.TokenResponse;
 import com.example.spotlight.network.Util.TokenManager;
 import com.google.gson.Gson;
@@ -74,7 +74,7 @@ public class SignupStep5Activity extends AppCompatActivity {
     }
 
     private void registerUser(String role) {
-        UserRegistrationDto registrationDto = new UserRegistrationDto(email, id, password, name, role);
+        UserRegistrationDTO registrationDto = new UserRegistrationDTO(email, id, password, name, role);
 
         /*
         apiService.registerUser(registrationDto).enqueue(new Callback<TokenResponse>() {

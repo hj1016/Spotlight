@@ -10,14 +10,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.spotlight.R;
-import com.example.spotlight.network.DTO.MemberDTO;
 
-import java.util.ArrayList;
-/*
+import java.util.List;
+
 public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MemberViewHolder> {
-    private final ArrayList<MemberDTO> memberList;
+    private final List<Member> memberList;
 
-    public MemberAdapter(ArrayList<MemberDTO> memberList) {
+    // 생성자
+    public MemberAdapter(List<Member> memberList) {
         this.memberList = memberList;
     }
 
@@ -30,10 +30,13 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MemberView
 
     @Override
     public void onBindViewHolder(@NonNull MemberViewHolder holder, int position) {
-        MemberDTO member = memberList.get(position);
+        // 현재 멤버 가져오기
+        Member member = memberList.get(position);
+
+        // 멤버 정보 설정
+        holder.memberImage.setImageResource(member.getImageResource());
         holder.memberName.setText(member.getName());
         holder.memberRole.setText(member.getRole());
-        holder.memberImage.setImageResource(R.drawable.member_image);
     }
 
     @Override
@@ -41,18 +44,18 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MemberView
         return memberList.size();
     }
 
+    // ViewHolder 클래스
     public static class MemberViewHolder extends RecyclerView.ViewHolder {
-        public ImageView memberImage;
-        public TextView memberName;
-        public TextView memberRole;
+        public ImageView memberImage; // 멤버 이미지
+        public TextView memberName;   // 멤버 이름
+        public TextView memberRole;   // 멤버 역할
 
         public MemberViewHolder(@NonNull View itemView) {
             super(itemView);
+            // View 객체 초기화
             memberImage = itemView.findViewById(R.id.member_image);
             memberName = itemView.findViewById(R.id.member_id);
             memberRole = itemView.findViewById(R.id.member_role);
         }
     }
 }
-
- */

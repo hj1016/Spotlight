@@ -54,8 +54,9 @@ public class MyPagePortfolioActivity extends AppCompatActivity {
 
         id = getIntent().getStringExtra("id");
         email = getIntent().getStringExtra("email");
+
         // 등록된 포트폴리오 이미지 적용
-        int userId = TokenManager.getUserId();
+        Long userId = TokenManager.getServerId();
 
         apiService.getPortfolio(userId).enqueue(new Callback<PortfolioResponse>() {
             @Override

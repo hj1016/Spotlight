@@ -11,8 +11,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.spotlight.R;
 import com.example.spotlight.network.API.ApiClient;
 import com.example.spotlight.network.API.ApiService;
-import com.example.spotlight.network.DTO.ExhibitionDTO;
+import com.example.spotlight.network.Request.ExhibitionRequest;
 import com.example.spotlight.network.Response.ExhibitionResponse;
+import com.example.spotlight.network.Util.TokenManager;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,6 +29,8 @@ public class NewPostingExhibitionActivity extends AppCompatActivity {
     private String schedule;
     private String time;
 
+    private Long feedId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,23 +43,18 @@ public class NewPostingExhibitionActivity extends AppCompatActivity {
         // 이전 페이지에서 전달된 내용 유지
         Intent intent = getIntent();
         if (intent != null) {
-            String title = intent.getStringExtra("title");
-            String description = intent.getStringExtra("description");
-            String hashtag = intent.getStringExtra("hashtag");
-            int bigCategoryPosition = intent.getIntExtra("bigCategoryPosition", 0);
-            int smallCategoryPosition = intent.getIntExtra("smallCategoryPosition", 0);
+            feedId = intent.getLongExtra("feedId", -1L);
+            if (feedId == -1L) {
+                Toast.makeText(this, "유효하지 않은 피드 ID입니다.", Toast.LENGTH_SHORT).show();
+                finish();
+            }
         }
     }
 
-    /*
     public void onBackClicked(View view) {
-        Intent intent = new Intent(this, NewPostingActivity.class);
-        startActivity(intent);
+        finish();
     }
 
-     */
-
-    /*
     public void onExhibitionInfoClicked(View view) {
         location = locationEditText.getText().toString();
         schedule = scheduleEditText.getText().toString();
@@ -68,63 +66,53 @@ public class NewPostingExhibitionActivity extends AppCompatActivity {
             return;
         }
 
-        Integer userId = TokenManager.getUserId();
-
+        Long userId = TokenManager.getServerId();
         if (userId == null) {
             Toast.makeText(this, "사용자 ID를 찾을 수 없습니다. 다시 로그인 해주세요.", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        ExhibitionDTO exhibitionDTO = new ExhibitionDTO(location, schedule, time, userId);
-        createExhibition(exhibitionDTO);
+        // ExhibitionRequest 생성 및 데이터 설정
+        ExhibitionRequest exhibitionRequest = new ExhibitionRequest();
+        exhibitionRequest.setLocation(location);
+        exhibitionRequest.setSchedule(schedule);
+        exhibitionRequest.setTime(time);
+        exhibitionRequest.setUserId(userId);
+        exhibitionRequest.setFeedId(feedId);
+
+        createExhibition(exhibitionRequest);
     }
 
-     */
-
-    private void createExhibition(ExhibitionDTO exhibitionDTO){
+    private void createExhibition(ExhibitionRequest exhibitionRequest) {
         ApiService apiService = ApiClient.getClientWithToken().create(ApiService.class);
-        Call<ExhibitionResponse> call = apiService.createExhibition(exhibitionDTO);
+        Call<ExhibitionResponse> call = apiService.createExhibition(exhibitionRequest);
         call.enqueue(new Callback<ExhibitionResponse>() {
             @Override
             public void onResponse(Call<ExhibitionResponse> call, Response<ExhibitionResponse> response) {
                 if (response.isSuccessful()) {
-                    // 서버에 전시 정보가 성공적으로 저장되었을 때
                     ExhibitionResponse exhibitionResponse = response.body();
 
                     if (exhibitionResponse != null && exhibitionResponse.isSuccess()) {
-                        // 전시 정보를 성공적으로 저장한 경우
                         Toast.makeText(NewPostingExhibitionActivity.this, "전시 정보가 성공적으로 저장되었습니다.", Toast.LENGTH_SHORT).show();
                         isExhibitionInfoSaved = true;
-                        // 결과 설정
                         setResult(RESULT_OK);
+                        finish();
                     } else {
-                        // 서버 응답이 실패한 경우
-                        Toast.makeText(NewPostingExhibitionActivity.this, "전시 정보 저장에 실패했습니다.", Toast.LENGTH_SHORT).show();
-                        setResult(RESULT_CANCELED); // 실패 시 RESULT_CANCELED 전달
+                        Toast.makeText(NewPostingExhibitionActivity.this, "전시 정보 저장에 실패했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    // 서버 응답이 실패한 경우
-                    Toast.makeText(NewPostingExhibitionActivity.this, "서버 응답이 실패했습니다.", Toast.LENGTH_SHORT).show();
-                    setResult(RESULT_CANCELED); // 실패 시 RESULT_CANCELED 전달
+                    Toast.makeText(NewPostingExhibitionActivity.this, "서버 응답이 실패했습니다. 관리자에게 문의하세요.", Toast.LENGTH_SHORT).show();
                 }
-                // 액티비티 종료
-                finish();
             }
 
             @Override
             public void onFailure(Call<ExhibitionResponse> call, Throwable t) {
-                // 네트워크 오류 등의 이유로 서버에 요청을 보낼 수 없는 경우
-                Toast.makeText(NewPostingExhibitionActivity.this, "서버에 요청을 보낼 수 없습니다.", Toast.LENGTH_SHORT).show();
-                setResult(RESULT_CANCELED); // 실패 시 RESULT_CANCELED 전달
-                // 액티비티 종료
-                finish();
+                Toast.makeText(NewPostingExhibitionActivity.this, "서버에 연결할 수 없습니다. 인터넷 상태를 확인하세요.", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    // 저장된 전시 정보 여부를 반환하는 메서드
     public boolean isExhibitionInfoSaved() {
         return isExhibitionInfoSaved;
     }
 }
-

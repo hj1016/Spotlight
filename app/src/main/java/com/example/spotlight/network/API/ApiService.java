@@ -136,7 +136,7 @@ public interface ApiService {
 
     // 게시물 등록
     @POST("/api/feeds")
-    Call<FeedResponse> createFeed(@Body FeedRequest feedRequest);
+    Call<FeedDTO> createFeed(@Body FeedRequest feedRequest);
 
     // 게시물 조회
     @GET("/api/feeds/{feedId}")
@@ -198,7 +198,7 @@ public interface ApiService {
 
     // 전시 등록
     @POST("api/exhibitions")
-    Call<ExhibitionResponse> createExhibition(@Body ExhibitionDTO exhibitionDTO);
+    Call<ExhibitionResponse> createExhibition(@Body ExhibitionRequest exhibitionRequest);
 
     /*-------------------------- 프로젝트 관련 API --------------------------*/
 

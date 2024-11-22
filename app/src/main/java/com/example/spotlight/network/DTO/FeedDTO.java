@@ -151,6 +151,7 @@ public class FeedDTO {
     public static class FeedCategoryDTO {
         private Long id;   // 카테고리 ID
         private String name; // 카테고리 이름
+        private  Long parentId; // 부모 카테고리 ID
 
         public FeedCategoryDTO() {}
 
@@ -169,6 +170,10 @@ public class FeedDTO {
         public void setName(String name) {
             this.name = name;
         }
+
+        public Long getParentId() { return parentId; }
+
+        public void setParentId(Long parentId){ this.parentId = parentId; }
     }
 
     public static class FeedUserDTO {

@@ -36,7 +36,7 @@ public class RecruiterProposeAdapter extends RecyclerView.Adapter<RecruiterPropo
         holder.role.setText(proposal.getJob());
         holder.proposeDate.setText(proposal.getDaysAgo());
         holder.projectName.setText(proposal.getProjectName());
-        Glide.with(context).load(proposal.getProfileImage()).circleCrop().into(holder.photo);
+        //Glide.with(context).load(proposal.getProfileImage()).circleCrop().into(holder.photo);
     }
 
     @Override

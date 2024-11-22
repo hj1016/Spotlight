@@ -69,7 +69,7 @@ public class AlarmActivity extends AppCompatActivity {
     }
 
     public void addNotification(NotificationResponse notificationResponse) {
-        int notificationId = notificationResponse.getNotificationId();
+        Long notificationId = notificationResponse.getNotificationId();
         String type = notificationResponse.getType();
         String message = notificationResponse.getMessage();
         String date = notificationResponse.getDate();
@@ -133,7 +133,7 @@ public class AlarmActivity extends AppCompatActivity {
         Intent intent;
         switch (type) {
             case "invited":
-                showAlertDialog();
+                showAcceptDialog(notificationResponse);
                 break;
             case "recruit":
                 intent = new Intent(AlarmActivity.this, GraduatesProposeActivity.class);
@@ -149,38 +149,59 @@ public class AlarmActivity extends AppCompatActivity {
         }
     }
 
-    private void showAlertDialog() {
+    private void acceptInvitation(Long projectRoleId, Long userId, AlertDialog dialog) {
+        Call<Void> call = apiService.acceptInvitation(projectRoleId, userId);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    // 성공 메시지 표시
+                    Toast.makeText(AlarmActivity.this, "초대가 수락되었습니다.", Toast.LENGTH_SHORT).show();
+                    dialog.dismiss(); // 다이얼로그 닫기
+                } else {
+                    // 실패 메시지 표시
+                    Toast.makeText(AlarmActivity.this, "초대 수락에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                // 서버 오류 메시지 표시
+                Toast.makeText(AlarmActivity.this, "서버 요청에 실패했습니다.", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void showAcceptDialog(NotificationResponse notificationResponse) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.dialog_ok, null);
         builder.setView(dialogView);
+
         AlertDialog dialog = builder.create();
 
-        TextView messageTextView = dialogView.findViewById(R.id.dialog_message);
-        ImageButton ok = dialogView.findViewById(R.id.dialog_invite_ok);
-        ImageButton no = dialogView.findViewById(R.id.dialog_invite_no);
+        ImageButton confirmButton = dialogView.findViewById(R.id.dialog_invite_ok);
+        ImageButton cancelButton = dialogView.findViewById(R.id.dialog_invite_no);
 
-        ok.setOnClickListener(new View.OnClickListener(){
+        confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 수락
-                Toast.makeText(AlarmActivity.this, "수락되었습니다.", Toast.LENGTH_SHORT).show();
-                dialog.dismiss();
+                // 초대 수락 API 호출
+                acceptInvitation(notificationResponse.getNotificationId(), notificationResponse.getUserId(), dialog);
             }
-
         });
 
-        no.setOnClickListener(new View.OnClickListener() {
+        cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Handle NO button click (e.g., show Toast)
-                Toast.makeText(AlarmActivity.this, "거절되었습니다.", Toast.LENGTH_SHORT).show();
-                dialog.dismiss();
+                dialog.dismiss(); // 다이얼로그 닫기
             }
         });
 
         dialog.show();
     }
+
+
 
     private int dpToPx(int dp) {
         float density = getResources().getDisplayMetrics().density;
@@ -256,6 +277,4 @@ public class AlarmActivity extends AppCompatActivity {
 
         dialog.show();
     }
-
-
 }
