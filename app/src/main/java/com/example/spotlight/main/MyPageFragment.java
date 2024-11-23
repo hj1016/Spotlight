@@ -45,10 +45,9 @@ public class MyPageFragment extends Fragment {
         view.findViewById(R.id.mypage_scrap_post).setOnClickListener(this::onScrapPostingClicked);
         view.findViewById(R.id.mypage_recruit_post).setOnClickListener(this::onProposeClicked);
 
-        Log.d("MyPageFagment", "loaded");
         ImageView imageViewProfile = view.findViewById(R.id.mypage_user_image);
         TextView username = view.findViewById(R.id.mypage_user_name);
-        String usernameStr = TokenManager.getUsername();
+        String usernameStr = TokenManager.getName();
         String profileImg = TokenManager.getProfileImage();
         username.setText(usernameStr);
         if(profileImg != null && !profileImg.isEmpty()) {
@@ -150,5 +149,3 @@ public class MyPageFragment extends Fragment {
         }
     }
 }
-
-

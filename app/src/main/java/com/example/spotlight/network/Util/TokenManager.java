@@ -2,6 +2,9 @@ package com.example.spotlight.network.Util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
+
+import org.json.JSONObject;
 
 public class TokenManager {
 
@@ -63,7 +66,20 @@ public class TokenManager {
     }
 
     public static String getRole() {
-        return sharedPreferences.getString(KEY_ROLE, "");
+        String token = getToken();
+        try {
+            String[] splitToken = token.split("\\.");
+            if (splitToken.length < 2) {
+                return "NORMAL";
+            }
+            String body = new String(android.util.Base64.decode(splitToken[1], android.util.Base64.DEFAULT));
+            JSONObject jsonObject = new JSONObject(body);
+            String role = jsonObject.getString("role");
+            return role;
+        } catch (Exception e) {
+            Log.e("TokenManager", "토큰에서 ROLE을 추출하는 데 실패했습니다.", e);
+            return "NORMAL";
+        }
     }
 
     public static String getProfileImage() {
