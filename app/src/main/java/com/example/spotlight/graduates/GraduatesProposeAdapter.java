@@ -35,12 +35,15 @@ public class GraduatesProposeAdapter extends RecyclerView.Adapter<GraduatesPropo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        /*
         ProposalResponse proposal = proposals.get(position);
         holder.companyName.setText(proposal.getCompany());
         holder.role.setText(proposal.getJob());
         holder.proposeDate.setText(proposal.getDaysAgo());
         // 이미지 설정 예시 (Glide 라이브러리 사용)
         Glide.with(context).load(proposal.getProfileImageUrl()).into(holder.photo);
+
+         */
     }
 
     @Override

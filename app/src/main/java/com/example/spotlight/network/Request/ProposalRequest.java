@@ -5,18 +5,16 @@ public class ProposalRequest {
     private String job;
     private String contact;
     private String description;
-    private Long recruiterId;
     private Long studentId;
 
     // 기본 생성자
     public ProposalRequest() {}
 
     // 필드 초기화 생성자
-    public ProposalRequest(String job, String contact, String description, Long recruiterId, Long studentId) {
+    public ProposalRequest(String job, String contact, String description, Long studentId) {
         this.job = job;
         this.contact = contact;
         this.description = description;
-        this.recruiterId = recruiterId;
         this.studentId = studentId;
     }
 
@@ -41,17 +39,7 @@ public class ProposalRequest {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Long getRecruiterId() {
-        return recruiterId;
-    }
-
-    public void setRecruiterId(Long recruiterId) {
-        this.recruiterId = recruiterId;
-    }
+    public void setDescription(String description) { this.description = description; }
 
     public Long getStudentId() {
         return studentId;

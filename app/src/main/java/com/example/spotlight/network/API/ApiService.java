@@ -224,11 +224,11 @@ public interface ApiService {
 
     // 새 제안서 생성
     @POST("api/proposals")
-    Call<ProposalResponse> createProposal(@Query("userId") Long userId, @Body ProposalDTO proposalDTO);
+    Call<ProposalResponse> createProposal(@Body ProposalRequest proposalRequest);
 
     // 기존 제안서 수정
     @PUT("api/proposals/{proposalId}")
-    Call<ProposalResponse> updateProposal(@Path("proposalId") Long proposalId, @Body ProposalDTO proposalDTO);
+    Call<ProposalResponse> updateProposal(@Path("proposalId") Long proposalId, @Body ProposalRequest proposalRequest);
 
     /*-------------------------- 해시태그 검색 관련 API --------------------------*/
 

@@ -30,6 +30,7 @@ public class RecruiterProposeAdapter extends RecyclerView.Adapter<RecruiterPropo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+        /*
         ProposalResponse proposal = proposals.get(position);
         holder.name.setText(proposal.getUsername());
         holder.companyName.setText(proposal.getCompany());
@@ -37,6 +38,8 @@ public class RecruiterProposeAdapter extends RecyclerView.Adapter<RecruiterPropo
         holder.proposeDate.setText(proposal.getDaysAgo());
         holder.projectName.setText(proposal.getProjectName());
         //Glide.with(context).load(proposal.getProfileImage()).circleCrop().into(holder.photo);
+
+         */
     }
 
     @Override
