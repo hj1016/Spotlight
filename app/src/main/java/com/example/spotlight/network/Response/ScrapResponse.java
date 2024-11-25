@@ -1,14 +1,13 @@
 package com.example.spotlight.network.Response;
 
-import com.google.gson.annotations.SerializedName;
-
 public class ScrapResponse {
-    @SerializedName("success")
     private boolean success;
-
-    @SerializedName("message")
     private String message;
+    private Long targetId;
+    private String targetType;
+    private int scrapCount;
 
+    // Getter 및 Setter
     public boolean isSuccess() {
         return success;
     }
@@ -23,5 +22,29 @@ public class ScrapResponse {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public Long getTargetId() {
+        return targetId;
+    }
+
+    public void setTargetId(Long targetId) {
+        this.targetId = targetId;
+    }
+
+    public String getTargetType() {
+        return targetType;
+    }
+
+    public void setTargetType(String targetType) {
+        this.targetType = targetType;
+    }
+
+    public int getScrapCount() {
+        return scrapCount;
+    }
+
+    public void setScrapCount(int scrapCount) {
+        this.scrapCount = scrapCount;
     }
 }

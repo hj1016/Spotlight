@@ -1,5 +1,7 @@
 package com.example.spotlight.network.API;
 
+import androidx.annotation.Nullable;
+
 import com.example.spotlight.posting.Post;
 import com.example.spotlight.network.DTO.*;
 import com.example.spotlight.network.Request.*;
@@ -170,21 +172,25 @@ public interface ApiService {
     @POST("/api/feeds/{feedId}/scrap")
     Call<ScrapResponse> scrapFeed(
             @Path("feedId") Long feedId,
-            @Query("stageId") Long stageId,
-            @Query("scrappedUserId") Long scrappedUserId
+            @Query("stageId") @Nullable Long stageId,
+            @Query("scrappedUserId") @Nullable Long scrappedUserId
     );
 
     // 피드 스크랩 취소
     @DELETE("/api/feeds/{feedId}/scrap")
-    Call<UnscrapResponse> unscrapFeed(
+    Call<ScrapResponse> unscrapFeed(
             @Path("feedId") Long feedId,
-            @Query("stageId") Long stageId,
-            @Query("scrappedUserId") Long scrappedUserId
+            @Query("stageId") @Nullable Long stageId,
+            @Query("scrappedUserId") @Nullable Long scrappedUserId
     );
 
     // 프로젝트 팀원 조회
     @GET("/api/feeds/{feedId}/team-members/{userId}")
     Call<MemberDTO> getProjectTeamMemberInfo(@Path("feedId") Long feedId, @Path("userId") Long userId);
+
+    // 학생 스크랩 상태 확인
+    @GET("/api/feeds/{feedId}/students/{studentId}/scrap/status")
+    Call<Boolean> checkStudentScrapStatus(@Path("feedId") Long feedId, @Path("studentId") Long studentId);
 
     // 학생 스크랩
     @POST("/api/feeds/{feedId}/students/{studentId}/scrap")
@@ -192,7 +198,7 @@ public interface ApiService {
 
     // 학생 스크랩 취소
     @DELETE("/api/feeds/{feedId}/students/{studentId}/scrap")
-    Call<UnscrapResponse> unscrapStudent(@Path("feedId") Long feedId, @Path("studentId") Long studentId);
+    Call<ScrapResponse> unscrapStudent(@Path("feedId") Long feedId, @Path("studentId") Long studentId);
 
     /*-------------------------- 전시 관련 API --------------------------*/
 

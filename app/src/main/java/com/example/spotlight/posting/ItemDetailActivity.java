@@ -21,11 +21,14 @@ import com.example.spotlight.common.ImageSliderAdapter;
 import com.example.spotlight.network.API.ApiClient;
 import com.example.spotlight.network.API.ApiService;
 import com.example.spotlight.network.Response.FeedResponse;
+import com.example.spotlight.network.Response.ScrapResponse;
+import com.example.spotlight.network.Util.TokenManager;
 import com.example.spotlight.search.SearchResultActivity;
 import com.google.android.flexbox.FlexboxLayout;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import retrofit2.Call;
@@ -59,6 +62,9 @@ public class ItemDetailActivity extends AppCompatActivity {
                 loadFeedDetail(feedId); // 게시물 세부 정보 로드
             }
         }
+
+        // 스크랩 버튼 클릭 리스너 설정
+        scrapButton.setOnClickListener(v -> toggleScrap());
     }
 
     private void initializeViews() {
@@ -223,71 +229,51 @@ public class ItemDetailActivity extends AppCompatActivity {
         toggleScrap();
     }
 
-
     public void toggleScrap() {
-        // 현재 스크랩 상태를 토글합니다.
-        isScrapped = !isScrapped;
-        scrapButton.setImageResource(isScrapped ? R.drawable.scrap_yes : R.drawable.scrap_no);
+        ApiService apiService = ApiClient.getClientWithToken().create(ApiService.class);
+        Call<ScrapResponse> call = isScrapped
+                ? apiService.unscrapFeed(feedId, null, null) // 스크랩 취소
+                : apiService.scrapFeed(feedId, null, null);  // 스크랩
 
-        // 스크랩 상태에 따라서 scrap 텍스트뷰의 값을 증가 또는 감소시킵니다.
-        int currentScrapCount = Integer.parseInt(scrap.getText().toString());
-        scrap.setText(String.valueOf(isScrapped ? currentScrapCount + 1 : currentScrapCount - 1));
+        call.enqueue(new Callback<ScrapResponse>() {
+            @Override
+            public void onResponse(Call<ScrapResponse> call, Response<ScrapResponse> response) {
+                scrapButton.setEnabled(true); // 요청 완료 후 버튼 활성화
 
-        /*
-        Intent intent = getIntent();
-        if (intent != null && intent.hasExtra("feedId")) {
-            int feedId = intent.getIntExtra("feedId", -1);
+                if (response.isSuccessful() && response.body() != null) {
+                    ScrapResponse scrapResponse = response.body();
+                    isScrapped = !isScrapped; // 스크랩 상태 토글
 
-            ApiService apiService = ApiClient.getClientWithToken().create(ApiService.class);
+                    // UI 업데이트
+                    scrapButton.setImageResource(isScrapped ? R.drawable.scrap_yes : R.drawable.scrap_no);
+                    scrap.setText(String.valueOf(scrapResponse.getScrapCount()));
 
-            if (isScrapped) {
-                Call<ScrapResponse> call = apiService.scrapFeed(feedId);
-                call.enqueue(new Callback<ScrapResponse>() {
-                    @Override
-                    public void onResponse(Call<ScrapResponse> call, Response<ScrapResponse> response) {
-                        if (response.isSuccessful() && response.body() != null) {
-                            scrapCount++;
-                            scrapButton.setImageResource(R.drawable.scrap_yes);
-                            scrapCountTextView.setText(String.valueOf(scrapCount));
-                            Toast.makeText(ItemDetailActivity.this, "게시물을 스크랩했습니다.", Toast.LENGTH_SHORT).show();
-                        } else {
-                            isScrapped = false; // 스크랩 상태 롤백
-                            Toast.makeText(ItemDetailActivity.this, "게시물 스크랩에 실패했습니다.", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<ScrapResponse> call, Throwable t) {
-                        isScrapped = false; // 스크랩 상태 롤백
-                        Toast.makeText(ItemDetailActivity.this, "네트워크 오류", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            } else {
-                Call<ScrapCancelResponse> call = apiService.cancelScrapFeed(feedId);
-                call.enqueue(new Callback<ScrapCancelResponse>() {
-                    @Override
-                    public void onResponse(Call<ScrapCancelResponse> call, Response<ScrapCancelResponse> response) {
-                        if (response.isSuccessful() && response.body() != null) {
-                            scrapCount--;
-                            scrapButton.setImageResource(R.drawable.scrap_no);
-                            scrapCountTextView.setText(String.valueOf(scrapCount));
-                            Toast.makeText(ItemDetailActivity.this, "게시물 스크랩을 취소했습니다.", Toast.LENGTH_SHORT).show();
-                        } else {
-                            isScrapped = true; // 스크랩 상태 롤백
-                            Toast.makeText(ItemDetailActivity.this, "게시물 스크랩 취소에 실패했습니다.", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<ScrapCancelResponse> call, Throwable t) {
-                        isScrapped = true; // 스크랩 상태 롤백
-                        Toast.makeText(ItemDetailActivity.this, "네트워크 오류", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                    Toast.makeText(ItemDetailActivity.this, scrapResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                } else {
+                    handleError(response.code());
+                }
             }
-        }
 
-         */
+            @Override
+            public void onFailure(Call<ScrapResponse> call, Throwable t) {
+                scrapButton.setEnabled(true);
+                Toast.makeText(ItemDetailActivity.this, "네트워크 오류가 발생했습니다.", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void handleError(int errorCode) {
+        switch (errorCode) {
+            case 400:
+                Toast.makeText(this, "이미 스크랩한 피드입니다.", Toast.LENGTH_SHORT).show();
+                break;
+            case 404:
+                Toast.makeText(this, "게시물을 찾을 수 없습니다.", Toast.LENGTH_SHORT).show();
+                break;
+            default:
+                Toast.makeText(this, "스크랩 상태를 변경하지 못했습니다.", Toast.LENGTH_SHORT).show();
+                break;
+        }
     }
 
     public void onHashtagClicked(View view) {
@@ -299,8 +285,7 @@ public class ItemDetailActivity extends AppCompatActivity {
     }
 
     public void onMemberClicked(View view) {
-        /*
-        String userType = sharedPreferences.getString("Type", "NORMAL");
+        String userType = TokenManager.getName();
         Intent intent;
         if (userType.equals("RECRUITER")) {
             intent = new Intent(this, ItemDetailMemberRecruiterActivity.class);
@@ -309,6 +294,5 @@ public class ItemDetailActivity extends AppCompatActivity {
         }
         startActivity(intent);
 
-         */
     }
 }

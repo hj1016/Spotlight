@@ -16,6 +16,7 @@ import com.example.spotlight.R;
 import com.example.spotlight.network.API.ApiClient;
 import com.example.spotlight.network.API.ApiService;
 import com.example.spotlight.network.DTO.MemberDTO;
+import com.example.spotlight.network.Response.ScrapResponse;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -32,8 +33,11 @@ public class ItemDetailMemberRecruiterActivity extends AppCompatActivity {
     private ImageView memberImageView;
     private LinearLayout projectContainer;
 
+    private ImageView scrapButton;
+    private boolean isScrapped = false;
+
     private Long feedId;
-    private Long userId;
+    private Long studentId;
 
     private FirebaseStorage firebaseStorage;
 
@@ -48,6 +52,9 @@ public class ItemDetailMemberRecruiterActivity extends AppCompatActivity {
         memberDepartmentTextView = findViewById(R.id.item_detail_member_recruiter_academic_ability_text);
         memberImageView = findViewById(R.id.item_detail_member_recruiter_image);
         projectContainer = findViewById(R.id.item_detail_member_recruiter_project_text_container);
+        scrapButton = findViewById(R.id.item_detail_member_recruiter_scrap_button);
+
+        firebaseStorage = FirebaseStorage.getInstance();
 
         // Firebase Storage 초기화
         firebaseStorage = FirebaseStorage.getInstance();
@@ -56,17 +63,20 @@ public class ItemDetailMemberRecruiterActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent != null) {
             feedId = intent.getLongExtra("feedId", -1L);
-            userId = intent.getLongExtra("userId", -1L);
+            studentId = getIntent().getLongExtra("studentId", -1L);
         }
 
-        if (feedId == -1L || userId == -1L) {
+        if (feedId == -1L || studentId == -1L) {
             Toast.makeText(this, "잘못된 요청입니다.", Toast.LENGTH_SHORT).show();
             finish();
             return;
         }
 
         // 멤버 세부 정보 가져오기
-        fetchMemberDetails(feedId, userId);
+        fetchMemberDetails(feedId, studentId);
+
+        // 스크랩 버튼 클릭 리스너 추가
+        scrapButton.setOnClickListener(v -> toggleScrap());
     }
 
     private void fetchMemberDetails(Long feedId, Long userId) {
@@ -114,6 +124,83 @@ public class ItemDetailMemberRecruiterActivity extends AppCompatActivity {
                 addProjectView(project);
             }
         }
+
+        // 스크랩 상태 초기화
+        checkScrapStatus();
+    }
+
+    private void checkScrapStatus() {
+        ApiService apiService = ApiClient.getClientWithToken().create(ApiService.class);
+
+        Call<Boolean> call = apiService.checkStudentScrapStatus(feedId, studentId);
+
+        call.enqueue(new Callback<Boolean>() {
+            @Override
+            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    isScrapped = response.body(); // 서버에서 스크랩 상태 반환
+                    updateScrapButton(); // 스크랩 버튼 UI 업데이트
+                } else {
+                    Toast.makeText(ItemDetailMemberRecruiterActivity.this, "스크랩 상태를 확인할 수 없습니다.", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Boolean> call, Throwable t) {
+                Toast.makeText(ItemDetailMemberRecruiterActivity.this, "네트워크 오류: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void toggleScrap() {
+        scrapButton.setEnabled(false); // 요청 중 버튼 비활성화
+
+        ApiService apiService = ApiClient.getClientWithToken().create(ApiService.class);
+        Call<ScrapResponse> call = isScrapped
+                ? apiService.unscrapStudent(feedId, studentId) // 스크랩 취소
+                : apiService.scrapStudent(feedId, studentId);  // 스크랩
+
+        call.enqueue(new Callback<ScrapResponse>() {
+            @Override
+            public void onResponse(Call<ScrapResponse> call, Response<ScrapResponse> response) {
+                scrapButton.setEnabled(true); // 요청 완료 후 버튼 활성화
+
+                if (response.isSuccessful() && response.body() != null) {
+                    ScrapResponse scrapResponse = response.body();
+                    isScrapped = !isScrapped; // 스크랩 상태 토글
+
+                    // UI 업데이트
+                    updateScrapButton();
+                    Toast.makeText(ItemDetailMemberRecruiterActivity.this, scrapResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                } else {
+                    handleError(response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ScrapResponse> call, Throwable t) {
+                scrapButton.setEnabled(true);
+                Toast.makeText(ItemDetailMemberRecruiterActivity.this, "네트워크 오류: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void handleError(int errorCode) {
+        switch (errorCode) {
+            case 400:
+                Toast.makeText(this, "이미 스크랩한 학생입니다.", Toast.LENGTH_SHORT).show();
+                break;
+            case 404:
+                Toast.makeText(this, "학생을 찾을 수 없습니다.", Toast.LENGTH_SHORT).show();
+                break;
+            default:
+                Toast.makeText(this, "스크랩 상태를 변경하지 못했습니다.", Toast.LENGTH_SHORT).show();
+                break;
+        }
+    }
+
+    private void updateScrapButton() {
+        scrapButton.setImageResource(isScrapped ? R.drawable.scrap_yes : R.drawable.scrap_no);
     }
 
     private void addProjectView(MemberDTO.ProjectInfoDTO project) {
