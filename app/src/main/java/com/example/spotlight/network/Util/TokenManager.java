@@ -161,4 +161,21 @@ public class TokenManager {
         editor.putString(KEY_COMPANY, company);
         editor.apply();
     }
+
+    public static void setTokenForKey(String key, String value) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(key, value);
+        editor.apply();
+    }
+
+    public static String getTokenForKey(String key) {
+        return sharedPreferences.getString(key, null);
+    }
+
+    public static void clearTokenForKey(String key) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.remove(key);
+        editor.apply();
+    }
+
 }

@@ -6,21 +6,22 @@ import java.util.Set;
 
 public class FeedDTO {
 
-    private Long feedId;
-    private String title;
-    private String thumbnailImage;
-    private List<String> feedImages;
-    private String content;
-    private Integer scrap;
-    private Integer hitsUser;
-    private Integer hitsRecruiter;
-    private Timestamp createdDate;
-    private Timestamp modifiedDate;
-    private FeedCategoryDTO category;
-    private FeedUserDTO user;
-    private FeedExhibitionDTO exhibition;
-    private FeedProjectDTO project;
-    private Set<FeedHashtagDTO> hashtags;
+    private Long feedId;                       // Feed ID
+    private String title;                      // Feed 제목
+    private String thumbnailImage;             // 썸네일 이미지
+    private List<String> feedImages;           // 피드 이미지 리스트
+    private String content;                    // 피드 내용
+    private Integer scrap;                     // 스크랩 수
+    private boolean isScrapped;                // 스크랩 여부
+    private Integer hitsUser;                  // 사용자 조회 수
+    private Integer hitsRecruiter;             // 채용자 조회 수
+    private Timestamp createdDate;             // 생성 날짜
+    private Timestamp modifiedDate;            // 수정 날짜
+    private FeedCategoryDTO category;          // 카테고리 정보
+    private FeedUserDTO user;                  // 사용자 정보
+    private FeedExhibitionDTO exhibition;      // 전시 정보
+    private FeedProjectDTO project;            // 프로젝트 정보
+    private Set<FeedHashtagDTO> hashtags;      // 해시태그 리스트
 
     // 기본 생성자
     public FeedDTO() {}
@@ -72,6 +73,14 @@ public class FeedDTO {
 
     public void setScrap(Integer scrap) {
         this.scrap = scrap;
+    }
+
+    public boolean isScrapped() {
+        return isScrapped;
+    }
+
+    public void setScrapped(boolean scrapped) {
+        isScrapped = scrapped;
     }
 
     public Integer getHitsUser() {
@@ -147,11 +156,10 @@ public class FeedDTO {
     }
 
     // 내부 클래스 정의
-
     public static class FeedCategoryDTO {
-        private Long id;   // 카테고리 ID
-        private String name; // 카테고리 이름
-        private  Long parentId; // 부모 카테고리 ID
+        private Long id;         // 카테고리 ID
+        private String name;     // 카테고리 이름
+        private Long parentId;   // 부모 카테고리 ID
 
         public FeedCategoryDTO() {}
 
@@ -171,14 +179,18 @@ public class FeedDTO {
             this.name = name;
         }
 
-        public Long getParentId() { return parentId; }
+        public Long getParentId() {
+            return parentId;
+        }
 
-        public void setParentId(Long parentId){ this.parentId = parentId; }
+        public void setParentId(Long parentId) {
+            this.parentId = parentId;
+        }
     }
 
     public static class FeedUserDTO {
-        private Long id;   // 사용자 ID
-        private String name; // 사용자 이름
+        private Long id;        // 사용자 ID
+        private String name;    // 사용자 이름
 
         public FeedUserDTO() {}
 
@@ -200,12 +212,12 @@ public class FeedDTO {
     }
 
     public static class FeedExhibitionDTO {
-        private Long exhibitionId; // 전시 ID
-        private String location;   // 전시 위치
-        private String schedule;   // 전시 일정
-        private String time;       // 전시 시간
-        private Long userId;       // 사용자 ID
-        private Long feedId;       // 피드 ID
+        private Long exhibitionId;  // 전시 ID
+        private String location;    // 전시 위치
+        private String schedule;    // 전시 일정
+        private String time;        // 전시 시간
+        private Long userId;        // 사용자 ID
+        private Long feedId;        // 피드 ID
 
         public FeedExhibitionDTO() {}
 
@@ -259,8 +271,8 @@ public class FeedDTO {
     }
 
     public static class FeedProjectDTO {
-        private Long id;          // 프로젝트 ID
-        private String name;      // 프로젝트 이름
+        private Long id;                       // 프로젝트 ID
+        private String name;                   // 프로젝트 이름
         private List<ProjectRoleDTO> projectRoles; // 프로젝트 역할 리스트
 
         public FeedProjectDTO() {}
@@ -291,8 +303,8 @@ public class FeedDTO {
     }
 
     public static class FeedHashtagDTO {
-        private Long id;       // 해시태그 ID
-        private String hashtag; // 해시태그 이름
+        private Long id;           // 해시태그 ID
+        private String hashtag;    // 해시태그 이름
 
         public FeedHashtagDTO() {}
 

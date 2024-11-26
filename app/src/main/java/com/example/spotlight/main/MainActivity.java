@@ -23,7 +23,6 @@ import com.example.spotlight.scrap.ScrapProjectActivity;
 import com.example.spotlight.scrap.ScrapStageActivity;
 import com.example.spotlight.search.SearchFragment;
 import com.example.spotlight.search.SearchResultActivity;
-import com.example.spotlight.search.SearchResultBrandingActivity;
 import com.example.spotlight.search.SearchSchoolActivity;
 import com.example.spotlight.stage.StageDetailActivity;
 import com.example.spotlight.stage.StageFragment;
@@ -316,7 +315,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onSearchButtonClicked(View view){
-        Intent intent = new Intent(this, SearchResultBrandingActivity.class);
+        Intent intent = new Intent(this, SearchResultActivity.class);
         startActivity(intent);
     }
 }

@@ -14,22 +14,36 @@
         android:layout_marginStart="16dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:clickable="true"
         app:srcCompat="@drawable/search_bar" />
 
 
+    <ImageView
+        android:id="@+id/search_button"
+        android:layout_width="48dp"
+        android:layout_height="39dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="16dp"
+        android:background="?android:selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="onSearchButtonClicked"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="45dp" />
 
     <EditText
         android:id="@+id/search_bar_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
+        android:layout_marginStart="52dp"
         android:layout_marginTop="12dp"
+        android:background="@android:color/transparent"
         android:hint="Search..."
         android:inputType="text"
         android:textColor="@color/black"
-        android:background="@android:color/transparent"
-        app:layout_constraintTop_toTopOf="@id/search_bar"
-        app:layout_constraintStart_toStartOf="@id/search_bar"/>
+        app:layout_constraintStart_toStartOf="@id/search_bar"
+        app:layout_constraintTop_toTopOf="@id/search_bar" />
 
     <TextView
         android:id="@+id/history_title"
@@ -96,7 +110,7 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginTop="44dp"
-        android:layout_marginEnd="11dp"
+        android:layout_marginEnd="24dp"
         android:clickable="true"
         android:onClick="onSearchSchoolClicked"
         app:layout_constraintEnd_toEndOf="parent"

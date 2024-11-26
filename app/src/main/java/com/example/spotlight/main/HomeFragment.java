@@ -17,11 +17,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.spotlight.ElectronicActivity;
 import com.example.spotlight.R;
 import com.example.spotlight.common.CustomExpandableListAdapter;
 import com.example.spotlight.common.VerticalSpaceItemDecoration;
-import com.example.spotlight.main.MainActivity;
 import com.example.spotlight.posting.Post;
 import com.example.spotlight.posting.PostAdapter;
 import com.google.android.material.navigation.NavigationView;
@@ -46,21 +44,6 @@ public class HomeFragment extends Fragment implements NavigationView.OnNavigatio
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        // Sample data
-        posts = new ArrayList<>();
-        posts.add(new Post(
-                R.drawable.team_image,             // teamImageUrl
-                "Title",                           // title
-                "Category",                        // category
-                R.drawable.post_box,              // imageUrl
-                "Content",                         // content
-                5,                                 // scrap
-                Arrays.asList("hashtag1", "hashtag2"), // hashtags
-                R.drawable.scrap_no,        // scrapImageUrl
-                false                            // isScrapped
-        ));
-
-
         postAdapter = new PostAdapter(getContext(), posts);
         recyclerView.setAdapter(postAdapter);
 
@@ -76,7 +59,6 @@ public class HomeFragment extends Fragment implements NavigationView.OnNavigatio
         recyclerView.addItemDecoration(new VerticalSpaceItemDecoration(0));
 
         posts = new ArrayList<>();
-        initializeData();
         postAdapter = new PostAdapter(getContext(), posts);
         recyclerView.setAdapter(postAdapter);
 
@@ -96,9 +78,9 @@ public class HomeFragment extends Fragment implements NavigationView.OnNavigatio
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
                 // String childName = getChildName(groupPosition, childPosition); // 자식의 이름 가져오기 예시 메서드
 
-                Intent intent = new Intent(getContext(), ElectronicActivity.class);
+                //Intent intent = new Intent(getContext(), ElectronicActivity.class);
                 // intent.putExtra("childName", childName);
-                startActivity(intent);
+                //startActivity(intent);
 
                 return true;
             }
@@ -108,19 +90,6 @@ public class HomeFragment extends Fragment implements NavigationView.OnNavigatio
     private void setupDrawerNavigation(View view) {
         ImageButton categoryButton = view.findViewById(R.id.category_button);
         categoryButton.setOnClickListener(v -> drawerLayout.openDrawer(GravityCompat.END));
-    }
-
-    private void initializeData() {
-        posts.add(new Post(R.drawable.a_e_s, "You little human", "사진/영상", R.drawable.image_ex1,
-                "On a blazingly sunny morning in March, the 22-year-old Italian tennis star Jannik Sinner could ...", 231, Arrays.asList("A.E.S", "Photo", "Photography"), R.drawable.scrap_no, false));
-        posts.add(new Post(R.drawable.icon2, "How to be free", "철학", R.drawable.philosophy,
-                "The dignity of human beings arises when they attribute meaning to their existence. Love, nature ...", 42, Arrays.asList("Philosophy", "Sartre"), R.drawable.scrap_no, false));
-        posts.add(new Post(R.drawable.icon1, "Hmm...", "시각 디자인", R.drawable.design,
-                " Look at her lips saying something. I can’t concentrate on what she’s saying. Start with a soft texture ...", 129, Arrays.asList("branding", "pakage", "sensuous"), R.drawable.scrap_no, false));
-        posts.add(new Post(R.drawable.team_image, "Spectroscopy", "전기/전자", R.drawable.electronics,
-                "We examine the basic principles of absorption spectroscopy and characteristics of absorption ...", 37, Arrays.asList("SNU", "Electronics", "Electrotechnics"), R.drawable.scrap_no, false));
-        posts.add(new Post(R.drawable.team_image, "Spectroscopy Report", "전기/전자", R.drawable.chemical,
-                "The absorption and radiation of light by the material is divided into spectra using a spectrometer ...", 29, Arrays.asList("Electronics", "SNU", "Experiment"), R.drawable.scrap_no, false));
     }
 
     private void setupExpandableListView() {

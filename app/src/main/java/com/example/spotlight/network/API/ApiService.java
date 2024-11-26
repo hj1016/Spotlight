@@ -152,18 +152,6 @@ public interface ApiService {
     @DELETE("/api/feeds/{feedId}")
     Call<DeleteResponse> deleteFeed(@Path("feedId") Long feedId);
 
-    // 해시태그를 통해 피드 검색
-    @GET("/api/feeds/search")
-    Call<List<FeedResponse>> searchFeedsByHashtag(@Query("hashtag") String hashtag);
-
-    // 해시태그 검색 이력 조회
-    @GET("/api/feeds/search/history")
-    Call<HashtagHistoryResponse> getFeedSearchHistory();
-
-    // 검색 기록 기반 해시태그로 피드 검색
-    @GET("/api/feeds/search/history/{hashtag}")
-    Call<List<FeedResponse>> searchFeedsByHistoryHashtag(@Path("hashtag") String hashtag);
-
     // 게시물 조회수 증가
     @POST("/api/feeds/{feedId}/hits")
     Call<FeedResponse> incrementFeedHits(@Path("feedId") Long feedId);
@@ -232,23 +220,27 @@ public interface ApiService {
 
     /*-------------------------- 해시태그 검색 관련 API --------------------------*/
 
-    // 해시태그를 통한 피드 검색
+    // 피드 속 해시태그를 통해 피드 검색
+    @GET("/api/feeds/search")
+    Call<List<FeedDTO>> searchFeedsByHashtag(@Query("hashtag") String hashtag);
+
+    // 해시태그 검색창을 통한 해시태그 검색
     @GET("api/search/feeds")
-    Call<List<FeedResponse>> searchFeedsWithHashtag(@Query("hashtag") String hashtag);
+    Call<List<FeedDTO>> searchFeedsWithHashtag(@Query("hashtag") String hashtag);
 
     // 검색 기록 조회
     @GET("api/search/history")
-    Call<HashtagHistoryResponse> getHashtagSearchHistory();
+    Call<List<String>> getHashtagSearchHistory();
 
     // 검색 이력 기반 피드 검색
     @GET("api/search/feeds/history")
-    Call<List<FeedResponse>> searchFeedsBySearchHistory(@Query("searchTerm") String searchTerm);
+    Call<List<FeedDTO>> searchFeedsBySearchHistory(@Query("searchTerm") String searchTerm);
 
     /*-------------------------- 학교/학과 검색 API --------------------------*/
 
     // 학교 또는 학과 검색
     @GET("api/search/schoolormajor")
-    Call<SearchResponse> searchFeedsBySchoolOrMajor(
+    Call<List<FeedDTO>> searchFeedsBySchoolOrMajor(
             @Query("school") String school,
             @Query("major") String major
     );

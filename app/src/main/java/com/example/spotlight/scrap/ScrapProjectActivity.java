@@ -31,12 +31,9 @@ public class ScrapProjectActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView_scrap_project);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-     // 데이터 목록 생성
+        // 데이터 목록 생성
         posts = new ArrayList<>();
 
-        // 데이터 직접 입력
-        posts.add(new Post(R.drawable.a_e_s, "You little human", "사진/영상", R.drawable.image_ex1,
-                "On a blazingly sunny morning in March, the 22-year-old Italian tennis star Jannik Sinner could ...", 232, Arrays.asList("A.E.S", "Photo", "Photography"), R.drawable.scrap_no, true));
         // 어댑터 생성 및 설정
         adapter = new PostAdapter(this, posts);  // ScrapProjectActivity 객체(this) 전달
         recyclerView.setAdapter(adapter);

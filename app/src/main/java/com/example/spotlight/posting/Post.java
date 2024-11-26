@@ -4,33 +4,41 @@ import java.io.Serializable;
 import java.util.List;
 
 public class Post implements Serializable {
-    private int teamImageUrl;
-    private String title;
-    private String category;
-    private int imageUrl;
-    private String content;
-    private int scrap;
-    private boolean isScrapped;
+    private Long feedId;              // 피드 ID
+    private String thumbnailImage;    // 썸네일 이미지 URL
+    private String title;             // 제목
+    private String category;          // 카테고리
+    private List<String> feedImages;  // 추가 이미지 URL 리스트
+    private String content;           // 내용
+    private int scrapCount;           // 스크랩 수
+    private boolean scrapped;         // 스크랩 여부
+    private List<String> hashtags;    // 해시태그 리스트
 
-    private int scrapImageUrl;
-    private List<String> hashtags;
+    // 기본 생성자
+    public Post() {}
 
-    // Constructor
-    public Post(int teamImageUrl, String title, String category, int imageUrl, String content, int scrap, List<String> hashtags, int scrapImageUrl, boolean isScrapped) {
-        this.teamImageUrl = teamImageUrl;
+    // 생성자
+    public Post(Long feedId, String thumbnailImage, String title, String category,
+                List<String> feedImages, String content, int scrapCount,
+                boolean scrapped, List<String> hashtags) {
+        this.feedId = feedId;
+        this.thumbnailImage = thumbnailImage;
         this.title = title;
         this.category = category;
-        this.imageUrl = imageUrl;
+        this.feedImages = feedImages;
         this.content = content;
-        this.scrap = scrap;
-        this.scrapImageUrl = scrapImageUrl;
+        this.scrapCount = scrapCount;
+        this.scrapped = scrapped;
         this.hashtags = hashtags;
-        this.isScrapped = isScrapped;
     }
 
     // Getters
-    public int getTeamImageUrl() {
-        return teamImageUrl;
+    public Long getFeedId() {
+        return feedId;
+    }
+
+    public String getThumbnailImage() {
+        return thumbnailImage;
     }
 
     public String getTitle() {
@@ -41,30 +49,60 @@ public class Post implements Serializable {
         return category;
     }
 
-    public int getImageUrl() {
-        return imageUrl;
+    public List<String> getFeedImages() {
+        return feedImages;
     }
 
     public String getContent() {
         return content;
     }
 
-    public int getScrap() {
-        return scrap;
+    public int getScrapCount() {
+        return scrapCount;
+    }
+
+    public boolean isScrapped() {
+        return scrapped;
     }
 
     public List<String> getHashtags() {
         return hashtags;
     }
 
-    public int getScrapImageUrl() {
-        return scrapImageUrl;
+    // Setters
+    public void setFeedId(Long feedId) {
+        this.feedId = feedId;
     }
 
-    public boolean isScrapped() {
-        return isScrapped;
+    public void setThumbnailImage(String thumbnailImage) {
+        this.thumbnailImage = thumbnailImage;
     }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public void setFeedImages(List<String> feedImages) {
+        this.feedImages = feedImages;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public void setScrapCount(int scrapCount) {
+        this.scrapCount = scrapCount;
+    }
+
     public void setScrapped(boolean scrapped) {
-        isScrapped = scrapped;
+        this.scrapped = scrapped;
+    }
+
+    public void setHashtags(List<String> hashtags) {
+        this.hashtags = hashtags;
     }
 }

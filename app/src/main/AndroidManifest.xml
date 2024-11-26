@@ -12,6 +12,7 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
+        android:enableOnBackInvokedCallback="true"
         android:icon="@drawable/spotlight_logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
@@ -40,7 +41,6 @@
         <activity android:name=".authentication.LoginActivity" />
         <activity android:name=".alarm.AlarmActivity" />
         <activity android:name=".alarm.AlarmGeneralActivity"/>
-        <activity android:name=".ElectronicActivity"/>
         <activity android:name=".main.ChatbotActivity" />
 
         <activity android:name=".recruiter.GeneralProposeManageActivity"/>
@@ -61,8 +61,8 @@
         <activity android:name=".posting.NewPostingActivity"/>
         <activity android:name=".posting.NewPostingExhibitionActivity"/>
         <activity android:name=".posting.NewPostingMemberActivity"/>
+        <activity android:name=".posting.PostingEditActivity"/>
 
-        <activity android:name=".PostingEditActivity"/>
         <activity android:name=".profile.ProfileGeneralActivity"/>
         <activity android:name=".profile.ProfileGeneralEditActivity"/>
         <activity android:name=".profile.ProfileGraduatesActivity"/>
@@ -83,7 +83,6 @@
         <activity android:name=".scrap.ScrapStageActivity"/>
         <activity android:name=".search.SearchActivity"/>
         <activity android:name=".search.SearchResultActivity"/>
-        <activity android:name=".search.SearchResultBrandingActivity" />
         <activity android:name=".search.SearchSchoolActivity"/>
 
         <activity android:name=".authentication.SignupStep1Activity" />
@@ -96,9 +95,6 @@
         <activity android:name=".profile.PsjPortfolioActivity" />
         <activity android:name=".stage.StageRecruiterProposeActivity" />
         <activity android:name=".stage.StageDetailActivity" android:exported="true"/>
-
-
-
 
 
     </application>

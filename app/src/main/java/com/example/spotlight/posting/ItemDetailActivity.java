@@ -23,12 +23,14 @@ import com.example.spotlight.network.API.ApiService;
 import com.example.spotlight.network.Response.FeedResponse;
 import com.example.spotlight.network.Response.ScrapResponse;
 import com.example.spotlight.network.Util.TokenManager;
+import com.example.spotlight.network.DTO.FeedDTO;
 import com.example.spotlight.search.SearchResultActivity;
 import com.google.android.flexbox.FlexboxLayout;
 
+import java.io.Serializable;
+
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import retrofit2.Call;
@@ -60,6 +62,9 @@ public class ItemDetailActivity extends AppCompatActivity {
             feedId = intent.getLongExtra("feedId", -1);
             if (feedId != -1) {
                 loadFeedDetail(feedId); // 게시물 세부 정보 로드
+            } else {
+                Toast.makeText(this, "잘못된 요청입니다.", Toast.LENGTH_SHORT).show();
+                finish();
             }
         }
 
@@ -278,11 +283,50 @@ public class ItemDetailActivity extends AppCompatActivity {
 
     public void onHashtagClicked(View view) {
         TextView textView = (TextView) view;
-        String hashtag = textView.getText().toString().substring(1); // Remove the '#' symbol
-        Intent intent = new Intent(ItemDetailActivity.this, SearchResultActivity.class);
-        intent.putExtra("hashtag", hashtag);
-        startActivity(intent);
+        String hashtag = textView.getText().toString().substring(1); // "#" 제거
+
+        searchByHashtag(hashtag); // 해시태그 검색 메서드 호출
     }
+
+    // 해시태그 검색
+    private void searchByHashtag(String hashtag) {
+        if (!isTokenValid()) return; // 유효한 토큰 여부 확인
+
+        ApiService apiService = ApiClient.getClientWithToken().create(ApiService.class);
+        Call<List<FeedDTO>> call = apiService.searchFeedsByHashtag(hashtag);
+
+        call.enqueue(new Callback<List<FeedDTO>>() {
+            @Override
+            public void onResponse(Call<List<FeedDTO>> call, Response<List<FeedDTO>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    // 검색 결과가 성공적으로 반환된 경우
+                    Intent intent = new Intent(ItemDetailActivity.this, SearchResultActivity.class);
+                    intent.putExtra("searchResults", (Serializable) response.body());
+                    intent.putExtra("hashtag", hashtag);
+                    startActivity(intent);
+                } else {
+                    // 검색 결과가 없는 경우
+                    Toast.makeText(ItemDetailActivity.this, "검색 결과가 없습니다.", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<FeedDTO>> call, Throwable t) {
+                // 네트워크 오류 발생 시 처리
+                Toast.makeText(ItemDetailActivity.this, "네트워크 오류가 발생했습니다.", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private boolean isTokenValid() {
+        String accessToken = TokenManager.getToken(); // TokenManager를 사용해 토큰 가져오기
+        if (accessToken == null || accessToken.isEmpty()) {
+            Toast.makeText(this, "로그인이 필요합니다.", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
+
 
     public void onMemberClicked(View view) {
         String userType = TokenManager.getName();
