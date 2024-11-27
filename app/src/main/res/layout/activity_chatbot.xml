@@ -4,31 +4,26 @@
     android:layout_height="match_parent"
     android:background="@android:color/black">
 
+    <!-- 챗봇 제목 -->
     <ImageView
         android:id="@+id/chatbot_title"
         android:layout_width="124dp"
         android:layout_height="20dp"
-        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-        android:layout_marginEnd="137dp"
         android:src="@drawable/chatbot" />
 
-    <ScrollView
-        android:id="@+id/chatbot_scroll_view"
+    <!-- 메시지를 표시하는 RecyclerView -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:layout_below="@id/chatbot_title"
         android:layout_above="@id/chatbot_input_layout"
         android:layout_marginTop="16dp"
-        android:padding="8dp">
+        android:padding="8dp" />
 
-        <LinearLayout
-            android:id="@+id/chatbot_message_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
-    </ScrollView>
-
+    <!-- 입력 레이아웃 -->
     <RelativeLayout
         android:id="@+id/chatbot_input_layout"
         android:layout_width="match_parent"
@@ -57,16 +52,13 @@
         <!-- 전송 버튼 -->
         <ImageButton
             android:id="@+id/chatbot_send_button"
-            android:layout_width="53dp"
+            android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="-2dp"
             android:background="@android:color/transparent"
             android:contentDescription="Send"
             android:src="@drawable/send_button" />
-
     </RelativeLayout>
 
 </RelativeLayout>

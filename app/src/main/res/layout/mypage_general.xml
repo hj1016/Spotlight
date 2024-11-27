@@ -232,15 +232,15 @@
         android:id="@+id/mypage_logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="12dp"
+        android:clickable="true"
         android:fontFamily="@font/pretendard_bold"
+        android:onClick="onLogoutClicked"
         android:text="Logout"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mypage_recruit_post"
-        android:clickable="true"
-        android:onClick="onLogoutClicked"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mypage_recruit_post" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

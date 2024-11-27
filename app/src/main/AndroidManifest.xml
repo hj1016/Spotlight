@@ -41,7 +41,7 @@
         <activity android:name=".authentication.LoginActivity" />
         <activity android:name=".alarm.AlarmActivity" />
         <activity android:name=".alarm.AlarmGeneralActivity"/>
-        <activity android:name=".main.ChatbotActivity" />
+        <activity android:name=".chatbot.ChatbotActivity" />
 
         <activity android:name=".recruiter.GeneralProposeManageActivity"/>
         <activity android:name=".authentication.GraduateStep1Activity" />

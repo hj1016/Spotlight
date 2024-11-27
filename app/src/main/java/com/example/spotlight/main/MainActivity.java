@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.example.spotlight.chatbot.ChatbotActivity;
 import com.example.spotlight.posting.ItemDetailMemberGeneralActivity;
 import com.example.spotlight.posting.ItemDetailMemberRecruiterActivity;
 import com.example.spotlight.posting.ManagePostingActivity;
