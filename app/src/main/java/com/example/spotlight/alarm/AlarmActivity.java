@@ -20,7 +20,9 @@ import android.widget.Toast;
 import com.example.spotlight.graduates.GraduatesProposeActivity;
 import com.example.spotlight.R;
 import com.example.spotlight.network.API.*;
+import com.example.spotlight.network.Response.NotificationListResponse;
 import com.example.spotlight.network.Response.NotificationResponse;
+import com.example.spotlight.network.Util.TokenManager;
 
 import java.util.List;
 
@@ -45,25 +47,24 @@ public class AlarmActivity extends AppCompatActivity {
         typeface1 = ResourcesCompat.getFont(this, R.font.pretendard_bold);
         typeface2 = ResourcesCompat.getFont(this, R.font.pretendard_regular);
 
-        apiService = ApiClient.getClientWithToken().create(ApiService.class);
+        apiService = ApiClient.getClient().create(ApiService.class);
 
-        Call<List<NotificationResponse>> call = apiService.getNotifications();
-        call.enqueue(new Callback<List<NotificationResponse>>() {
+        Call<NotificationListResponse> call = apiService.getNotifications();
+        call.enqueue(new Callback<NotificationListResponse>() {
             @Override
-            public void onResponse(Call<List<NotificationResponse>> call, Response<List<NotificationResponse>> response) {
+            public void onResponse(Call<NotificationListResponse> call, Response<NotificationListResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    List<NotificationResponse> notificationList = response.body();
+                    List<NotificationResponse> notificationList = response.body().getNotifications();
                     for (NotificationResponse notificationResponse : notificationList) {
                         addNotification(notificationResponse);
                     }
                 } else {
-                // 실패한 경우 처리
-                Toast.makeText(AlarmActivity.this, "알림 목록을 가져오지 못했습니다.", Toast.LENGTH_SHORT).show();
-            }
+                    Toast.makeText(AlarmActivity.this, "토큰: " + TokenManager.getToken(), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(AlarmActivity.this, "알림 목록을 가져오지 못했습니다. 응답 코드: " + response.code(), Toast.LENGTH_SHORT).show();
+                }
             }
             @Override
-            public void onFailure(Call<List<NotificationResponse>> call, Throwable t) {
-
+            public void onFailure(Call<NotificationListResponse> call, Throwable t) {
             }
         });
     }
@@ -128,6 +129,7 @@ public class AlarmActivity extends AppCompatActivity {
             }
         });
     }
+
     private void handleNotificationClick(NotificationResponse notificationResponse) {
         String type = notificationResponse.getType();
         Intent intent;
@@ -200,8 +202,6 @@ public class AlarmActivity extends AppCompatActivity {
 
         dialog.show();
     }
-
-
 
     private int dpToPx(int dp) {
         float density = getResources().getDisplayMetrics().density;

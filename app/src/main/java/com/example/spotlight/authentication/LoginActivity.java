@@ -74,6 +74,11 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(LoginActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
                         Log.d("accessToken",loginResponse.getAccessToken());
                         TokenManager.setToken(loginResponse.getAccessToken());
+                        TokenManager.setName(loginResponse.getName());
+                        TokenManager.setUsername(loginResponse.getUsername());
+                        TokenManager.setProfileImage(loginResponse.getProfileImage());
+                        TokenManager.setServerId(loginResponse.getId());
+                        TokenManager.setRole(loginResponse.getRole());
 
                         // 로그인 성공 후 MainActivity로 이동
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);

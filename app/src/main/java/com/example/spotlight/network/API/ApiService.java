@@ -70,23 +70,23 @@ public interface ApiService {
     Call<Map<String, String>> refreshAccessToken(@Body RefreshRequest tokenRequest);
 
     // 프로필 조회
-    @GET("/api/v1/user/profile")
+    @GET("/api/user/profile")
     Call<UserProfileResponse> getProfile();
 
     // 프로필 수정
-    @POST("/api/v1/user/profile")
+    @PUT("/api/user/profile")
     @Multipart
     Call<UserProfileResponse> updateProfile(@PartMap Map<String, RequestBody> userProfileUpdateRequest, @Part MultipartBody.Part profileImage);
 
     // 알림 목록 확인
-    @GET("/api/v1/notification")
-    Call<List<NotificationResponse>> getNotifications();
+    @GET("/api/notification")
+    Call<NotificationListResponse> getNotifications();
 
     // 알림 읽음 상태 업데이트
-    @PUT("/api/v1/notification/{notification_id}/status")
+    @PUT("/api/notification/{notification_id}/status")
     Call<String> markAsRead(@Path("notification_id") int notificationId);
 
-    // 팀원 수락/거절 -> 수락 시 수정 권한 및 팀원 추가 0
+    // 팀원 수락/거절 -> 수락 시 수정 권한 및 팀원 추가
 
     // 스크랩 피드 목록 확인
     @GET("/api/v1/user/scrap/feed")
@@ -98,21 +98,19 @@ public interface ApiService {
     @GET("/api/v1/user/scrap/students")
     Call<List<ScrapDTO>> getScrapStudents();
 
-    // 공고제안서 목록 조회 (학생)
-    @GET("/api/v1/proposal/student")
+    // 공고 제안서 목록 조회 (학생)
+    @GET("/api/proposals/list/student")
     Call<List<ProposalResponse>> getProposalsByStudent();
 
-    // 공고제안서 내용 조회 (학생)
-    @GET("/api/v1/proposal/student/{proposalId}")
-    Call<ProposalResponse> getProposalDetailsForStudent(@Path("proposalId") int proposalId);
-
-    // 공고제안서 목록 조회 (리크루터)
-    @GET("/api/v1/proposal/recruiter")
+    // 공고 제안서 목록 조회 (리크루터)
+    @GET("/api/proposals/list/recruiter")
     Call<List<ProposalResponse>> getProposalsByRecruiter();
 
-    // 공고제안서 내용 조회 (리크루터)
-    @GET("/api/v1/proposal/recruiter/{proposalId}")
-    Call<ProposalResponse> getProposalDetailsForRecruiter(@Path("proposalId") int proposalId);
+    // 공고 제안서 세부 내용 조회
+    @GET("/api/proposals/details")
+    Call<ProposalResponse> getProposalDetails(
+            @Query("proposalId") Long proposalId,
+            @Query("isStudent") boolean isStudent);
 
     // 내가 올린 피드 목록 조회
     @GET("/api/v1/user/feed")
@@ -125,13 +123,13 @@ public interface ApiService {
     Call<CertificateResponse> uploadCertificate(@Part MultipartBody.Part certificate);
 
     // 포트폴리오 사진 업로드 (학생)
-    @POST("/api/v1/user/portfolio")
+    @POST("/api/user/portfolio")
     @Multipart
     Call<UploadPortfolioResponse> uploadPortfolio(@Part List<MultipartBody.Part> images);
 
     // 포트폴리오 조회 (리크루터)
-    @GET("/api/v1/user/{userid}/portfolio")
-    Call<PortfolioResponse> getPortfolio(@Path("userid") Long id);
+    @GET("/api/user/{id}/portfolio")
+    Call<PortfolioResponse> getPortfolio(@Path("id") Long id);
 
 
     /*-------------------------- 피드 관련 API --------------------------*/

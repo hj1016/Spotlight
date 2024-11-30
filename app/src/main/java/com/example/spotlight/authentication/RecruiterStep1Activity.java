@@ -1,24 +1,10 @@
 package com.example.spotlight.authentication;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.spotlight.network.API.ApiClient;
 import com.example.spotlight.network.API.ApiService;
-import com.example.spotlight.network.Request.EmailSendingRequest;
-import com.example.spotlight.network.Response.EmailSendingResponse;
-import com.example.spotlight.network.Response.TokenResponse;
-import com.example.spotlight.network.Util.TokenManager;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class RecruiterStep1Activity extends AppCompatActivity {
     private EditText companyEditText;

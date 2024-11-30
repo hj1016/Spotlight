@@ -1,6 +1,7 @@
 package com.example.spotlight.network.Response;
 
 public class UserProfileResponse {
+    private boolean success;
     private String name;
     private String username;
     private String password;
@@ -19,6 +20,14 @@ public class UserProfileResponse {
         this.school = school;
         this.major = major;
         this.company = company;
+    }
+
+    public boolean isSuccess() {
+        return success;
+    }
+
+    public void setSuccess(boolean success) {
+        this.success = success;
     }
 
     public String getName() {
@@ -75,5 +84,16 @@ public class UserProfileResponse {
 
     public void setCompany(String company) {
         this.company = company;
+    }
+
+    @Override
+    public String toString() {
+        return "UserProfileResponse{" +
+                "name='" + name + '\'' +
+                ", username='" + username + '\'' +
+                ", school='" + school + '\'' +
+                ", major='" + major + '\'' +
+                ", profileImageUrl='" + profileImageUrl + '\'' +
+                '}';
     }
 }

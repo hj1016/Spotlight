@@ -19,7 +19,6 @@ public class TokenManager {
     private static final String KEY_MAJOR = "major";
     private static final String KEY_COMPANY = "company";
     private static final String KEY_TOKEN = "access_token";
-
     private static SharedPreferences sharedPreferences;
 
     public static void init(Context context) {

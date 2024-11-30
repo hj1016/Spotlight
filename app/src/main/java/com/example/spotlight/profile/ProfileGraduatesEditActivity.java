@@ -32,6 +32,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import com.bumptech.glide.Glide;
+import com.example.spotlight.network.Util.FileUtils;
 import com.example.spotlight.network.Util.TokenManager;
 
 import java.io.File;
@@ -54,7 +55,7 @@ public class ProfileGraduatesEditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mypage_profile_graduates_edit);
 
-        String username = TokenManager.getName();
+        String name = TokenManager.getName();
         String id = TokenManager.getUsername();
         String school = TokenManager.getSchool();
         String major = TokenManager.getMajor();
@@ -66,18 +67,18 @@ public class ProfileGraduatesEditActivity extends AppCompatActivity {
         textViewMajor = findViewById(R.id.profile_graduates_edit_major_text);
         imageViewProfile = findViewById(R.id.profile_graduates_edit_user_image);
 
-        editTextUsername.setText(username);
+        editTextUsername.setText(name);
         textViewId.setText(id);
         textViewSchool.setText(school);
         textViewMajor.setText(major);
+
         if(profileImg != null && !profileImg.isEmpty()) {
             Glide.with(this)
                     .load(profileImg)
                     .circleCrop()
                     .into(imageViewProfile);
         }
-        apiService = ApiClient.getClientWithToken().create(ApiService.class);
-
+//        apiService = ApiClient.getClient().create(ApiService.class);
         checkStoragePermission();
     }
 
@@ -104,16 +105,25 @@ public class ProfileGraduatesEditActivity extends AppCompatActivity {
     }
 
     public void onGraduatesEditCompleteClicked(View view) {
-        String username = editTextUsername.getText().toString();
-        uploadImageAndData(username, imageUri);
+        String name = editTextUsername.getText().toString();
+        Log.d("NAME", name);
+        uploadImageAndData(name, imageUri);
     }
 
-    private void uploadImageAndData(String username, Uri imageUri) {
+    private void uploadImageAndData(String name, Uri imageUri) {
+        Log.d("Name", name);
+
         File file = new File(getPathFromUri(imageUri));
+        Log.d("FILE", file.toString());
         RequestBody requestFile = RequestBody.create(MediaType.parse(getContentResolver().getType(imageUri)), file);
+        Log.d("REQUEST BODY", requestFile.toString());
         MultipartBody.Part body = MultipartBody.Part.createFormData("profileImage", file.getName(), requestFile);
+        Log.d("PART BODY", body.toString());
         Map<String, RequestBody> userProfileUpdateRequest = new HashMap<>();
-        userProfileUpdateRequest.put("username", RequestBody.create(MediaType.parse("text/plain"), username));
+        Log.d("MAP", userProfileUpdateRequest.toString());
+        userProfileUpdateRequest.put("name", RequestBody.create(MediaType.parse("text/plain"), name));
+        Log.d("HERE", "PASS");
+
         Call<UserProfileResponse> call = apiService.updateProfile(userProfileUpdateRequest, body);
         call.enqueue(new Callback<UserProfileResponse>() {
             @Override
@@ -121,10 +131,10 @@ public class ProfileGraduatesEditActivity extends AppCompatActivity {
                 Log.d("uploadImageAndData", "44");
                 if (response.isSuccessful()) {
                     UserProfileResponse userProfileResponse = response.body();
-                    String username = userProfileResponse.getUsername();
-                    Log.d("username", username);
+                    String name = userProfileResponse.getName();
+                    Log.d("name", name);
                     String profileImg = userProfileResponse.getProfileImageUrl();
-                    TokenManager.setUsername(username);
+                    TokenManager.setName(name);
                     TokenManager.setProfileImage(profileImg);
                     Toast.makeText(ProfileGraduatesEditActivity.this, "프로필이 성공적으로 업데이트되었습니다.", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(ProfileGraduatesEditActivity.this, ProfileGraduatesActivity.class);

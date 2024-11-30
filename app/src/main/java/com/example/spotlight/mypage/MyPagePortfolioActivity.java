@@ -38,7 +38,6 @@ public class MyPagePortfolioActivity extends AppCompatActivity {
     private ImageButton imageButton;
     private List<Uri> imageUris = new ArrayList<>();
     private ApiService apiService;
-    private String id;
     private String role = "STUDENT";
     private String email;
     private GridLayout imageGrid;
@@ -52,13 +51,13 @@ public class MyPagePortfolioActivity extends AppCompatActivity {
         imageButton = findViewById(R.id.mypage_portfolio_selec_image_plus);
         apiService = ApiClient.getClientWithToken().create(ApiService.class);
 
-        id = getIntent().getStringExtra("id");
+        Long id = getIntent().getLongExtra("id", 0);
         email = getIntent().getStringExtra("email");
 
         // 등록된 포트폴리오 이미지 적용
         Long userId = TokenManager.getServerId();
 
-        apiService.getPortfolio(userId).enqueue(new Callback<PortfolioResponse>() {
+        apiService.getPortfolio(id).enqueue(new Callback<PortfolioResponse>() {
             @Override
             public void onResponse(Call<PortfolioResponse> call, Response<PortfolioResponse> response) {
                 if (response.isSuccessful()) {
@@ -72,7 +71,7 @@ public class MyPagePortfolioActivity extends AppCompatActivity {
                     }
                     runOnUiThread(() -> updateGridLayout());
                 } else {
-                    Toast.makeText(MyPagePortfolioActivity.this, "등록된 포트폴리오가 없습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MyPagePortfolioActivity.this, "포트폴리오를 가져올 수 없습니다.", Toast.LENGTH_SHORT).show();
                 }
             }
             @Override

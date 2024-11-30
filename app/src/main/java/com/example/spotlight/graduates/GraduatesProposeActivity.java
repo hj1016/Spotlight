@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.example.spotlight.network.Util.TokenManager;
 import com.example.spotlight.posting.ItemDetailMemberRecruiterActivity;
 import com.example.spotlight.R;
 import com.example.spotlight.network.API.*;
@@ -37,7 +38,7 @@ public class GraduatesProposeActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView_graduates_propose_manage);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        apiService = ApiClient.getClientWithToken().create(ApiService.class);
+        apiService = ApiClient.getClient().create(ApiService.class);
 
         Call<List<ProposalResponse>> call = apiService.getProposalsByStudent();
         call.enqueue(new Callback<List<ProposalResponse>>() {

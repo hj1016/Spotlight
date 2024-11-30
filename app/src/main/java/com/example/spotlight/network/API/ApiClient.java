@@ -1,5 +1,6 @@
 package com.example.spotlight.network.API;
 
+import com.example.spotlight.network.Util.TokenInterceptor;
 import com.example.spotlight.network.Util.TokenManager;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -22,8 +23,13 @@ public class ApiClient {
     private static Retrofit retrofitWithoutToken = null;
     public static Retrofit getClient() {
         if (retrofit == null) {
+            OkHttpClient client = new OkHttpClient.Builder()
+                    .addInterceptor(new TokenInterceptor())
+                    .build();
+
             retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
+                    .client(client)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }

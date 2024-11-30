@@ -3,6 +3,7 @@ package com.example.spotlight.profile;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -44,30 +45,7 @@ public class ProfileGraduatesActivity extends AppCompatActivity {
         textViewMajor = findViewById(R.id.profile_graduates_major_text);
         imageViewProfile = findViewById(R.id.profile_graduates_user_image);
 
-        String id = TokenManager.getUsername();
-        String school = TokenManager.getSchool();
-        String major = TokenManager.getMajor();
-        String profileImg = TokenManager.getProfileImage();
-        String username = TokenManager.getUsername();
-
-        textViewUsername.setText(username);
-        textViewId.setText(id);
-        textViewSchool.setText(school);
-        textViewMajor.setText(major);
-
-        if (profileImg != null && !profileImg.isEmpty()) {
-            RequestOptions requestOptions = new RequestOptions()
-                    .override(100, 100)
-                    .circleCrop();
-
-            Glide.with(ProfileGraduatesActivity.this)
-                    .load(profileImg)
-                    .apply(requestOptions)
-                    .into(imageViewProfile);
-        }
-
-        // Uncomment the following if you want to fetch data via API instead of TokenManager
-        // fetchDataFromApi();
+        fetchDataFromApi();
     }
 
     public void onBackClicked(View view) {
@@ -88,18 +66,29 @@ public class ProfileGraduatesActivity extends AppCompatActivity {
     }
 
     private void fetchDataFromApi() {
-        ApiService apiService = ApiClient.getClientWithToken().create(ApiService.class);
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
         Call<UserProfileResponse> call = apiService.getProfile();
         call.enqueue(new Callback<UserProfileResponse>() {
             @Override
             public void onResponse(Call<UserProfileResponse> call, Response<UserProfileResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     UserProfileResponse userProfileResponse = response.body();
+
+                    Log.d("userProfileReponse string", userProfileResponse.toString());
                     username = userProfileResponse.getName();
                     id = userProfileResponse.getUsername();
                     school = userProfileResponse.getSchool();
                     major = userProfileResponse.getMajor();
                     profileImg = userProfileResponse.getProfileImageUrl();
+
+                    TokenManager.setName(username);
+                    TokenManager.setUsername(id);
+                    TokenManager.setSchool(school);
+                    TokenManager.setMajor(major);
+                    if (profileImg == null) {
+                        profileImg = "";
+                    }
+                    TokenManager.setProfileImage(profileImg);
 
                     textViewUsername.setText(username);
                     textViewId.setText(id);
@@ -113,6 +102,7 @@ public class ProfileGraduatesActivity extends AppCompatActivity {
                                 .into(imageViewProfile);
                     }
                 } else {
+                    Log.d("response", response.toString());
                     Toast.makeText(ProfileGraduatesActivity.this, "데이터를 가져오는 데에 실패했습니다.", Toast.LENGTH_SHORT).show();
                 }
             }
