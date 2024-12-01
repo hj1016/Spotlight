@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.example.spotlight.network.Util.TokenManager;
 import com.example.spotlight.posting.ItemDetailMemberRecruiterActivity;
 import com.example.spotlight.R;
 import com.example.spotlight.network.API.*;
@@ -60,10 +59,20 @@ public class GraduatesProposeActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<ProposalResponse>> call, Throwable t) {
                 LoadingUtil.hideLoading();
+                if (t instanceof java.net.SocketTimeoutException) {
+                    showError("서버 응답이 지연되고 있습니다. 잠시 후 다시 시도해 주세요.");
+                } else {
+                    showError("네트워크 오류가 발생했습니다. 인터넷 연결을 확인해 주세요.");
+                }
                 Log.e("API_CALL_FAILURE", "API call failed: " + t.getMessage(), t);
             }
         });
     }
+
+    private void showError(String message) {
+        Toast.makeText(GraduatesProposeActivity.this, message, Toast.LENGTH_SHORT).show();
+    }
+
     public void onBackClicked(View view) {
         finish();
     }

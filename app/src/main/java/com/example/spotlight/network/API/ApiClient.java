@@ -2,12 +2,15 @@ package com.example.spotlight.network.API;
 
 import com.example.spotlight.network.Util.TokenInterceptor;
 import com.example.spotlight.network.Util.TokenManager;
+
+import okhttp3.internal.http2.Header;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
 
 import java.io.IOException;
 
@@ -21,10 +24,16 @@ public class ApiClient {
     private static Retrofit retrofit = null;
     private static Retrofit retrofitWithToken = null;
     private static Retrofit retrofitWithoutToken = null;
+
     public static Retrofit getClient() {
+
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
         if (retrofit == null) {
             OkHttpClient client = new OkHttpClient.Builder()
                     .addInterceptor(new TokenInterceptor())
+                    .addInterceptor(loggingInterceptor)
                     .build();
 
             retrofit = new Retrofit.Builder()

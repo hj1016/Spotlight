@@ -60,4 +60,6 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics")
     implementation ("com.auth0.android:jwtdecode:2.0.0")
     implementation ("jp.wasabeef:glide-transformations:4.3.0")
+    implementation ("com.squareup.okhttp3:okhttp:4.10.0")
+    implementation ("com.squareup.okhttp3:logging-interceptor:4.10.0")
 }

@@ -113,7 +113,7 @@ public interface ApiService {
             @Query("isStudent") boolean isStudent);
 
     // 내가 올린 피드 목록 조회
-    @GET("/api/v1/user/feed")
+    @GET("/api/feeds/my-feeds")
     Call<List<Post>> getMyFeeds();
 
     // 내 피드 내용 조회

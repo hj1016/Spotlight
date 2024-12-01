@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.spotlight.R;
 import com.example.spotlight.network.DTO.FeedDTO;
+import com.example.spotlight.network.DTO.FeedToPostConverter;
 import com.example.spotlight.posting.Post;
 import com.example.spotlight.posting.PostAdapter;
 
@@ -97,12 +98,16 @@ public class SearchResultActivity extends AppCompatActivity {
                     feed.getFeedId(),
                     feed.getThumbnailImage(),
                     feed.getTitle(),
-                    feed.getCategory().getName(),
-                    feed.getFeedImages(),
                     feed.getContent(),
                     feed.getScrap(),
+                    FeedToPostConverter.toCategory(feed.getCategory()),
+                    feed.getFeedImages(),
+                    FeedToPostConverter.toHashtagList(feed.getHashtags()),
                     feed.isScrapped(),
-                    convertHashtags(feed.getHashtags())
+                    feed.getCreatedDate(),
+                    feed.getModifiedDate(),
+                    FeedToPostConverter.toUser(feed.getUser()),
+                    FeedToPostConverter.toExhibition(feed.getExhibition())
             );
             postList.add(post);
         }

@@ -27,21 +27,6 @@ public class TokenManager {
         }
     }
 
-    public static void saveUserProfile(long serverId, String username, String name, String email, String role, String profileImg, String school, String major, String company, String token) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putLong(KEY_SERVER_ID, serverId);
-        editor.putString(KEY_USERNAME, username);
-        editor.putString(KEY_NAME, name);
-        editor.putString(KEY_EMAIL, email);
-        editor.putString(KEY_ROLE, role);
-        editor.putString(KEY_PROFILE_IMG, profileImg);
-        editor.putString(KEY_SCHOOL, school);
-        editor.putString(KEY_MAJOR, major);
-        editor.putString(KEY_COMPANY, company);
-        editor.putString(KEY_TOKEN, token);
-        editor.apply();
-    }
-
     public static void setToken(String token) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(KEY_TOKEN, token);
@@ -176,5 +161,4 @@ public class TokenManager {
         editor.remove(key);
         editor.apply();
     }
-
 }

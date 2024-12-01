@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.example.spotlight.R;
 import com.google.android.flexbox.FlexboxLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder> {
@@ -26,7 +27,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         this.context = context;
         this.posts = posts;
     }
-
     @Override
     public PostViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_post, parent, false);
@@ -40,13 +40,20 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         // 데이터를 ViewHolder에 바인딩
         Glide.with(context).load(post.getThumbnailImage()).into(holder.thumbnailImage);
         holder.title.setText(post.getTitle());
-        holder.category.setText(post.getCategory());
+        holder.category.setText(post.getCategory().getName());
         holder.content.setText(post.getContent());
         holder.scrap.setText(String.valueOf(post.getScrapCount()));
         holder.scrapButton.setImageResource(post.isScrapped() ? R.drawable.scrap_yes : R.drawable.scrap_no);
 
+        // hashtags라는 string으로 된 리스트 생성
+        List<Post.Hashtag> hashtags = post.getHashtags();
+        List<String> tags = new ArrayList<>();
+        for (Post.Hashtag hashtag : hashtags) {
+            tags.add(hashtag.getHashtag());
+        }
+
         // 해시태그 Flexbox에 추가
-        addHashtags(post.getHashtags(), holder.flexboxLayout);
+        addHashtags(tags, holder.flexboxLayout);
 
         // 스크랩 버튼 클릭 리스너
         holder.scrapButton.setOnClickListener(v -> holder.toggleScrap());
