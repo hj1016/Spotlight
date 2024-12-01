@@ -5,7 +5,7 @@ public class RecruiterDTO {
     private Long userId;          // 사용자 ID
     private String company;       // 회사 이름
     private String recruiterCertificate; // 재직 증명서 URL
-    private RecruiterUserDTO user;       // 사용자 정보
+    private UserDTO user;       // 사용자 정보
 
     // 기본 생성자
     public RecruiterDTO() {}
@@ -35,11 +35,11 @@ public class RecruiterDTO {
         this.recruiterCertificate = recruiterCertificate;
     }
 
-    public RecruiterUserDTO getUser() {
+    public UserDTO getUser() {
         return user;
     }
 
-    public void setUser(RecruiterUserDTO user) {
+    public void setUser(UserDTO user) {
         this.user = user;
     }
 

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide; // 이미지 로딩을 위한 Glide 라이브러리
 import com.example.spotlight.R;
+import com.example.spotlight.network.DTO.ProposalDTO;
 import com.example.spotlight.network.Response.ProposalResponse;
 
 import java.util.List;
@@ -35,15 +36,26 @@ public class GraduatesProposeAdapter extends RecyclerView.Adapter<GraduatesPropo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        /*
         ProposalResponse proposal = proposals.get(position);
-        holder.companyName.setText(proposal.getCompany());
-        holder.role.setText(proposal.getJob());
-        holder.proposeDate.setText(proposal.getDaysAgo());
-        // 이미지 설정 예시 (Glide 라이브러리 사용)
-        Glide.with(context).load(proposal.getProfileImageUrl()).into(holder.photo);
 
-         */
+        ProposalDTO.ProposalRecruiterDTO recruiter = proposal.getRecruiter();
+        String companyName = recruiter != null ? recruiter.getCompany() : "회사 정보 없음";
+        String profileImgUrl = recruiter != null ? recruiter.getProfileImage() : "";
+
+        holder.companyName.setText(companyName);
+        holder.role.setText(proposal.getJob());
+        holder.proposeDate.setText(proposal.getFormattedDate());
+
+        if (profileImgUrl != null) {
+            Glide.with(context)
+                    .load(profileImgUrl)
+                    .into(holder.photo);  // ImageView에 프로필 이미지 로딩
+        } else {
+            // 프로필 이미지가 없는 경우 기본 이미지 로딩
+            Glide.with(context)
+                    .load(R.drawable.image_basic)
+                    .into(holder.photo);
+        }
     }
 
     @Override
@@ -64,4 +76,3 @@ public class GraduatesProposeAdapter extends RecyclerView.Adapter<GraduatesPropo
         }
     }
 }
-

@@ -13,10 +13,6 @@ public class ProposalDTO {
     private ProposalRecruiterDTO recruiter;
     private ProposalStudentDTO student;
 
-    // 기본 생성자
-    public ProposalDTO() {}
-
-    // Getter와 Setter
     public Long getProposalId() {
         return proposalId;
     }
@@ -87,11 +83,17 @@ public class ProposalDTO {
         private String company;    // 회사 이름
         private String certification; // 인증 정보
         private String username;   // 사용자 이름
+        private String profileImage;
 
         // 기본 생성자
-        public ProposalRecruiterDTO() {}
+        public ProposalRecruiterDTO(RecruiterDTO recruiter) {
+            this.userId = recruiter.getUserId();
+            this.company = recruiter.getCompany();
+            this.certification = recruiter.getRecruiterCertificate();
+            this.username = recruiter.getUser() != null ? recruiter.getUser().getUsername() : null;
+            this.profileImage = recruiter.getUser().getProfileImage();
+        }
 
-        // Getter와 Setter
         public Long getUserId() {
             return userId;
         }
@@ -123,6 +125,14 @@ public class ProposalDTO {
         public void setUsername(String username) {
             this.username = username;
         }
+
+        public String getProfileImage() {
+            return profileImage;
+        }
+
+        public void setProfileImage(String profileImage) {
+            this.profileImage = profileImage;
+        }
     }
 
     // 학생 정보 내부 클래스
@@ -131,11 +141,16 @@ public class ProposalDTO {
         private String major;         // 전공
         private String portfolioImage; // 포트폴리오 이미지 URL
         private String school;        // 학교 이름
+        private String profileImage;
 
         // 기본 생성자
-        public ProposalStudentDTO() {}
-
-        // Getter와 Setter
+        public ProposalStudentDTO(StudentDTO student) {
+            this.userId = student.getUserId();
+            this.major = student.getMajor();
+            this.portfolioImage = student.getPortfolioImage();
+            this.school = student.getSchool();
+            this.profileImage = student.getUser().getProfileImage();
+        }
         public Long getUserId() {
             return userId;
         }
@@ -166,6 +181,14 @@ public class ProposalDTO {
 
         public void setSchool(String school) {
             this.school = school;
+        }
+
+        public String getProfileImage() {
+            return profileImage;
+        }
+
+        public void setProfileImage(String profileImage) {
+            this.profileImage = profileImage;
         }
     }
 }

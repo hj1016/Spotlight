@@ -11,7 +11,7 @@ public class StudentDTO {
     private String major;         // 전공
     private String portfolioImage; // 포트폴리오 이미지 URL
     private String studentCertificate; // 재학 증명서 URL
-    private StudentUserDTO user;      // 사용자 정보
+    private UserDTO user;      // 사용자 정보
     private List<StudentProposalDTO> proposals; // 제안서 목록
     private Set<StudentProjectRoleDTO> projectRoles; // 프로젝트 역할 목록
 
@@ -60,11 +60,11 @@ public class StudentDTO {
         this.studentCertificate = studentCertificate;
     }
 
-    public StudentUserDTO getUser() {
+    public UserDTO getUser() {
         return user;
     }
 
-    public void setUser(StudentUserDTO user) {
+    public void setUser(UserDTO user) {
         this.user = user;
     }
 
