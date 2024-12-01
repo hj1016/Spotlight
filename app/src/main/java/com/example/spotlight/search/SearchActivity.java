@@ -64,7 +64,7 @@ public class SearchActivity extends AppCompatActivity {
     private void searchFeedsWithHashtag(String hashtag) {
         if (!isTokenValid()) return;
 
-        ApiService apiService = ApiClient.getClientWithToken().create(ApiService.class);
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
         Call<List<FeedDTO>> call = apiService.searchFeedsWithHashtag(hashtag);
 
         call.enqueue(new Callback<List<FeedDTO>>() {
@@ -92,7 +92,7 @@ public class SearchActivity extends AppCompatActivity {
     private void loadSearchHistory() {
         if (!isTokenValid()) return;
 
-        ApiService apiService = ApiClient.getClientWithToken().create(ApiService.class);
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
         Call<List<String>> call = apiService.getHashtagSearchHistory();
 
         call.enqueue(new Callback<List<String>>() {
@@ -171,7 +171,7 @@ public class SearchActivity extends AppCompatActivity {
     private void searchBySearchHistory(String searchTerm) {
         if (!isTokenValid()) return;
 
-        ApiService apiService = ApiClient.getClientWithToken().create(ApiService.class);
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
         Call<List<FeedDTO>> call = apiService.searchFeedsBySearchHistory(searchTerm);
 
         call.enqueue(new Callback<List<FeedDTO>>() {

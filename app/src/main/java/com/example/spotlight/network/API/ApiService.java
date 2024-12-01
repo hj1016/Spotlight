@@ -150,6 +150,13 @@ public interface ApiService {
     @DELETE("/api/feeds/{feedId}")
     Call<DeleteResponse> deleteFeed(@Path("feedId") Long feedId);
 
+    // 게시물 전체 목록 조회
+    @GET("/api/feeds")
+    Call<PageResponse<Post>> getAllFeeds(
+            @Query("page") int page,
+            @Query("size") int size
+    );
+
     // 게시물 조회수 증가
     @POST("/api/feeds/{feedId}/hits")
     Call<FeedResponse> incrementFeedHits(@Path("feedId") Long feedId);

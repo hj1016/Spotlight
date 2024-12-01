@@ -60,12 +60,15 @@ public class ItemDetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra("feedId")) {
             feedId = intent.getLongExtra("feedId", -1);
-            if (feedId != -1) {
-                loadFeedDetail(feedId); // 게시물 세부 정보 로드
-            } else {
+            if (feedId == -1) {
                 Toast.makeText(this, "잘못된 요청입니다.", Toast.LENGTH_SHORT).show();
                 finish();
+            } else {
+                loadFeedDetail(feedId); // 게시물 세부 정보 로드
             }
+        } else {
+            Toast.makeText(this, "feedId가 전달되지 않았습니다.", Toast.LENGTH_SHORT).show();
+            finish();
         }
 
         // 스크랩 버튼 클릭 리스너 설정
@@ -94,7 +97,7 @@ public class ItemDetailActivity extends AppCompatActivity {
 
     private void loadFeedDetail(Long feedId) {
         // API 호출하여 게시물 세부 정보 가져오기
-        ApiService apiService = ApiClient.getClientWithToken().create(ApiService.class);
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
         Call<FeedResponse> call = apiService.getFeed(feedId);
 
         call.enqueue(new Callback<FeedResponse>() {
@@ -110,7 +113,10 @@ public class ItemDetailActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<FeedResponse> call, Throwable t) {
-                Toast.makeText(ItemDetailActivity.this, "네트워크 오류 발생", Toast.LENGTH_SHORT).show();
+                String errorMessage = (t instanceof java.net.SocketTimeoutException)
+                        ? "서버 응답 시간이 초과되었습니다. 다시 시도해주세요."
+                        : "네트워크 오류가 발생했습니다. 연결 상태를 확인하세요.";
+                Toast.makeText(ItemDetailActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -234,8 +240,9 @@ public class ItemDetailActivity extends AppCompatActivity {
         toggleScrap();
     }
 
-    public void toggleScrap() {
-        ApiService apiService = ApiClient.getClientWithToken().create(ApiService.class);
+    private void toggleScrap() {
+        scrapButton.setEnabled(false); // 버튼 비활성화
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
         Call<ScrapResponse> call = isScrapped
                 ? apiService.unscrapFeed(feedId, null, null) // 스크랩 취소
                 : apiService.scrapFeed(feedId, null, null);  // 스크랩
@@ -243,16 +250,12 @@ public class ItemDetailActivity extends AppCompatActivity {
         call.enqueue(new Callback<ScrapResponse>() {
             @Override
             public void onResponse(Call<ScrapResponse> call, Response<ScrapResponse> response) {
-                scrapButton.setEnabled(true); // 요청 완료 후 버튼 활성화
-
+                scrapButton.setEnabled(true); // 버튼 다시 활성화
                 if (response.isSuccessful() && response.body() != null) {
                     ScrapResponse scrapResponse = response.body();
-                    isScrapped = !isScrapped; // 스크랩 상태 토글
-
-                    // UI 업데이트
+                    isScrapped = !isScrapped; // 상태 토글
                     scrapButton.setImageResource(isScrapped ? R.drawable.scrap_yes : R.drawable.scrap_no);
                     scrap.setText(String.valueOf(scrapResponse.getScrapCount()));
-
                     Toast.makeText(ItemDetailActivity.this, scrapResponse.getMessage(), Toast.LENGTH_SHORT).show();
                 } else {
                     handleError(response.code());
@@ -261,7 +264,7 @@ public class ItemDetailActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ScrapResponse> call, Throwable t) {
-                scrapButton.setEnabled(true);
+                scrapButton.setEnabled(true); // 요청 실패 시 버튼 활성화
                 Toast.makeText(ItemDetailActivity.this, "네트워크 오류가 발생했습니다.", Toast.LENGTH_SHORT).show();
             }
         });
@@ -292,7 +295,7 @@ public class ItemDetailActivity extends AppCompatActivity {
     private void searchByHashtag(String hashtag) {
         if (!isTokenValid()) return; // 유효한 토큰 여부 확인
 
-        ApiService apiService = ApiClient.getClientWithToken().create(ApiService.class);
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
         Call<List<FeedDTO>> call = apiService.searchFeedsByHashtag(hashtag);
 
         call.enqueue(new Callback<List<FeedDTO>>() {

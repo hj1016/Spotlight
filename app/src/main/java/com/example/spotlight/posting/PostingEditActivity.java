@@ -42,7 +42,7 @@ public class PostingEditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.posting_edit);
 
-        apiService = ApiClient.getClientWithToken().create(ApiService.class);
+        apiService = ApiClient.getClient().create(ApiService.class);
         setupRecyclerView();
     }
 

@@ -75,7 +75,7 @@ public class ItemDetailMemberGeneralActivity extends AppCompatActivity {
     }
 
     private void fetchMemberDetails(Long feedId, Long userId) {
-        ApiService apiService = ApiClient.getClientWithToken().create(ApiService.class);
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
         Call<MemberDTO> call = apiService.getProjectTeamMemberInfo(feedId, userId);
 
         call.enqueue(new Callback<MemberDTO>() {

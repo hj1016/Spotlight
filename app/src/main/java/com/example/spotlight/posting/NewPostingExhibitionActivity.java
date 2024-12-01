@@ -84,7 +84,7 @@ public class NewPostingExhibitionActivity extends AppCompatActivity {
     }
 
     private void createExhibition(ExhibitionRequest exhibitionRequest) {
-        ApiService apiService = ApiClient.getClientWithToken().create(ApiService.class);
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
         Call<ExhibitionResponse> call = apiService.createExhibition(exhibitionRequest);
         call.enqueue(new Callback<ExhibitionResponse>() {
             @Override

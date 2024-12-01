@@ -1,13 +1,17 @@
 package com.example.spotlight.main;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,6 +24,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.spotlight.R;
 import com.example.spotlight.common.CustomExpandableListAdapter;
 import com.example.spotlight.common.VerticalSpaceItemDecoration;
+import com.example.spotlight.network.API.ApiClient;
+import com.example.spotlight.network.API.ApiService;
+import com.example.spotlight.network.Response.PageResponse;
 import com.example.spotlight.posting.Post;
 import com.example.spotlight.posting.PostAdapter;
 import com.google.android.material.navigation.NavigationView;
@@ -28,6 +35,10 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class HomeFragment extends Fragment implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawerLayout;
     private ExpandableListView expandableListView;
@@ -35,6 +46,9 @@ public class HomeFragment extends Fragment implements NavigationView.OnNavigatio
     private RecyclerView recyclerView;
     private PostAdapter postAdapter;
     private List<Post> posts;
+    private int currentPage = 0;
+    private boolean isLoading = false;
+    private int totalPages = 1;
 
     @Nullable
     @Override
@@ -44,10 +58,75 @@ public class HomeFragment extends Fragment implements NavigationView.OnNavigatio
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        posts = new ArrayList<>();
         postAdapter = new PostAdapter(getContext(), posts);
         recyclerView.setAdapter(postAdapter);
 
+        // 첫 번째 페이지 데이터를 가져옵니다.
+        fetchFeeds(currentPage);
+
+        // 스크롤 리스너 추가
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                if (layoutManager != null && !isLoading && layoutManager.findLastVisibleItemPosition() == posts.size() - 1) {
+                    // 스크롤이 끝에 도달했을 때 다음 페이지 로드
+                    if (currentPage < totalPages - 1) {
+                        fetchFeeds(currentPage + 1);
+                    }
+                }
+            }
+        });
+
         return view;
+    }
+
+    private void fetchFeeds(int page) {
+        if (!isNetworkAvailable()) {
+            if (getContext() != null) {
+                Toast.makeText(getContext(), "No internet connection", Toast.LENGTH_SHORT).show();
+            }
+            return;
+        }
+
+        isLoading = true;
+
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        Call<PageResponse<Post>> call = apiService.getAllFeeds(page, 10);
+
+        call.enqueue(new Callback<PageResponse<Post>>() {
+            @Override
+            public void onResponse(Call<PageResponse<Post>> call, Response<PageResponse<Post>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    PageResponse<Post> pageResponse = response.body();
+                    posts.addAll(pageResponse.getContent());
+                    postAdapter.notifyDataSetChanged();
+
+                    currentPage = pageResponse.getNumber();
+                    totalPages = pageResponse.getTotalPages();
+                } else if (getContext() != null) {
+                    Toast.makeText(getContext(), "Failed to load feeds", Toast.LENGTH_SHORT).show();
+                }
+                isLoading = false;
+            }
+
+            @Override
+            public void onFailure(Call<PageResponse<Post>> call, Throwable t) {
+                Log.e("HomeFragment", "Error fetching feeds", t);
+                if (getContext() != null) {
+                    Toast.makeText(getContext(), "An error occurred", Toast.LENGTH_SHORT).show();
+                }
+                isLoading = false;
+            }
+        });
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager cm = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
     }
 
     @Override

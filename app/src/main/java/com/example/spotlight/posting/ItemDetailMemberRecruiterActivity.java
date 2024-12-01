@@ -80,7 +80,7 @@ public class ItemDetailMemberRecruiterActivity extends AppCompatActivity {
     }
 
     private void fetchMemberDetails(Long feedId, Long userId) {
-        ApiService apiService = ApiClient.getClientWithToken().create(ApiService.class);
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
         Call<MemberDTO> call = apiService.getProjectTeamMemberInfo(feedId, userId);
 
         call.enqueue(new Callback<MemberDTO>() {
@@ -130,7 +130,7 @@ public class ItemDetailMemberRecruiterActivity extends AppCompatActivity {
     }
 
     private void checkScrapStatus() {
-        ApiService apiService = ApiClient.getClientWithToken().create(ApiService.class);
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
 
         Call<Boolean> call = apiService.checkStudentScrapStatus(feedId, studentId);
 
@@ -155,7 +155,7 @@ public class ItemDetailMemberRecruiterActivity extends AppCompatActivity {
     private void toggleScrap() {
         scrapButton.setEnabled(false); // 요청 중 버튼 비활성화
 
-        ApiService apiService = ApiClient.getClientWithToken().create(ApiService.class);
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
         Call<ScrapResponse> call = isScrapped
                 ? apiService.unscrapStudent(feedId, studentId) // 스크랩 취소
                 : apiService.scrapStudent(feedId, studentId);  // 스크랩

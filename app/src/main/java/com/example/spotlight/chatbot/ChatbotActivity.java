@@ -47,7 +47,7 @@ public class ChatbotActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
         // Retrofit 초기화
-        apiService = ApiClient.getClientWithToken().create(ApiService.class);
+        apiService = ApiClient.getClient().create(ApiService.class);
 
         // 초기 메시지 표시
         showInitialChatbotMessage();

@@ -89,7 +89,7 @@ public class NewPostingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_posting);
 
-        apiService = ApiClient.getClientWithToken().create(ApiService.class);
+        apiService = ApiClient.getClient().create(ApiService.class);
 
         bigCategorySpinner = findViewById(R.id.big_category_spinner);
         smallCategorySpinner = findViewById(R.id.small_category_spinner);

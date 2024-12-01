@@ -46,7 +46,7 @@ public class SearchSchoolActivity extends AppCompatActivity {
     }
 
     private void searchFeedsBySchoolOrMajor(String school, String major) {
-        ApiService apiService = ApiClient.getClientWithToken().create(ApiService.class);
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
         Call<List<FeedDTO>> call = apiService.searchFeedsBySchoolOrMajor(school, major);
 
         call.enqueue(new Callback<List<FeedDTO>>() {

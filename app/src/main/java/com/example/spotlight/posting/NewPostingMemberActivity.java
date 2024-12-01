@@ -60,7 +60,7 @@ public class NewPostingMemberActivity extends AppCompatActivity {
     }
 
     private void inviteMember(Long projectId, String username, String role) {
-        ApiService apiService = ApiClient.getClientWithToken().create(ApiService.class);
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
 
         Call<InvitationResponse> call = apiService.inviteTeamMember(projectId, username, role);
         call.enqueue(new Callback<InvitationResponse>() {
