@@ -23,15 +23,16 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:padding="8dp"
-            android:src="@drawable/member_image" />
+            android:src="@drawable/member_image"
+            android:onClick="onMemberClicked"/>
 
         <TextView
-            android:id="@+id/member_id"
+            android:id="@+id/member_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:fontFamily="@font/pretendard_regular"
-            android:text="Member_ID"
+            android:text="Name"
             android:textColor="#a6a6a6"
             android:textSize="15dp" />
 

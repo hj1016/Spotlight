@@ -2,6 +2,7 @@ package com.example.spotlight.posting;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
     public PostAdapter(Context context, List<Post> posts) {
         this.context = context;
         this.posts = posts;
+
+        Log.d("PostAdapter", "Context: " + context);
     }
     @Override
     public PostViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -36,6 +39,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
     @Override
     public void onBindViewHolder(PostViewHolder holder, int position) {
         Post post = posts.get(position);
+
+        // 아이템 클릭 이벤트로 상세 화면으로 이동
+        holder.itemView.setOnClickListener(v -> {
+            Log.d("PostAdapter", "Item clicked: " + post.getFeedId());
+            Intent intent = new Intent(context, ItemDetailActivity.class);
+            intent.putExtra("feedId", post.getFeedId());
+            context.startActivity(intent);
+        });
 
         // 데이터를 ViewHolder에 바인딩
         Glide.with(context).load(post.getThumbnailImage()).into(holder.thumbnailImage);
@@ -57,13 +68,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
 
         // 스크랩 버튼 클릭 리스너
         holder.scrapButton.setOnClickListener(v -> holder.toggleScrap());
-
-        // 아이템 클릭 이벤트로 상세 화면으로 이동
-        holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(context, ItemDetailActivity.class);
-            intent.putExtra("feedId", post.getFeedId());
-            context.startActivity(intent);
-        });
     }
 
     @Override

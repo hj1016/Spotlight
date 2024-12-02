@@ -177,7 +177,7 @@ public class NewPostingActivity extends AppCompatActivity {
     private void setupRecyclerView() {
         memberList = new ArrayList<>();
 
-        memberAdapter = new MemberAdapter(new ArrayList<>());
+        memberAdapter = new MemberAdapter(new ArrayList<>(), new FeedDTO());
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         recyclerView.setAdapter(memberAdapter);
     }
@@ -229,13 +229,15 @@ public class NewPostingActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK && data != null) {
             if (requestCode == REQUEST_CODE_MEMBER_INVITE) {
                 // 멤버 초대 결과 처리
-                String memberId = data.getStringExtra("memberId");
+                String name = data.getStringExtra("name");
                 String role = data.getStringExtra("role");
-                if (memberId != null && !memberId.isEmpty()) {
-                    // 멤버 리스트에 추가
-                    memberList.add(new Member(R.drawable.member_image, memberId, role));
+                int defaultImageResource = R.drawable.member_image; // 기본 이미지 리소스
+
+                if (name != null && role != null) {
+                    memberList.add(new Member(defaultImageResource, name, role));
                     memberAdapter.notifyDataSetChanged();
                 }
+
             } else if (requestCode == REQUEST_CODE_EXHIBITION_INFO) {
                 // 전시 정보 결과 처리
                 exhibitionId = data.getLongExtra("exhibitionId", -1L); // 전시 ID 가져오기

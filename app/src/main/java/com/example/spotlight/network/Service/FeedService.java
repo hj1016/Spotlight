@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import com.example.spotlight.R;
 import com.example.spotlight.network.API.ApiService;
+import com.example.spotlight.network.DTO.FeedDTO;
 import com.example.spotlight.network.Response.FeedResponse;
 import com.example.spotlight.network.Util.TokenManager;
 
@@ -26,19 +27,17 @@ public class FeedService {
 
         incrementFeedHits(feedId, new IncrementHitsCallback() {
             @Override
-            public void onSuccess(FeedResponse.Post post) {
+            public void onSuccess(int updatedHitsUser, int updatedHitsRecruiter) {
                 if ("NORMAL".equals(userType) || "STUDENT".equals(userType)) {
                     // NORMAL 또는 STUDENT 조회수 업데이트
-                    int userHits = post.getHitsUser();
                     ((TextView) generalView.findViewById(R.id.item_detail_general_view))
-                            .setText(String.valueOf(userHits));
-                    Log.d("FeedService", "User/Student Hits Updated: " + userHits);
+                            .setText(String.valueOf(updatedHitsUser));
+                    Log.d("FeedService", "User/Student Hits Updated: " + updatedHitsUser);
                 } else if ("RECRUITER".equals(userType)) {
                     // RECRUITER 조회수 업데이트
-                    int recruiterHits = post.getHitsRecruiter();
                     ((TextView) recruiterView.findViewById(R.id.item_detail_recruiter_view))
-                            .setText(String.valueOf(recruiterHits));
-                    Log.d("FeedService", "Recruiter Hits Updated: " + recruiterHits);
+                            .setText(String.valueOf(updatedHitsRecruiter));
+                    Log.d("FeedService", "Recruiter Hits Updated: " + updatedHitsRecruiter);
                 }
             }
 
@@ -51,14 +50,18 @@ public class FeedService {
 
     // 조회수 증가 API 호출
     public void incrementFeedHits(int feedId, IncrementHitsCallback callback) {
-        Call<FeedResponse> call = apiService.incrementFeedHits((long) feedId);
+        Call<FeedDTO> call = apiService.incrementFeedHits((long) feedId);
 
-        call.enqueue(new Callback<FeedResponse>() {
+        call.enqueue(new Callback<FeedDTO>() {
             @Override
-            public void onResponse(Call<FeedResponse> call, Response<FeedResponse> response) {
+            public void onResponse(Call<FeedDTO> call, Response<FeedDTO> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    FeedResponse.Post post = response.body().getPost();
-                    callback.onSuccess(post);
+                    // 조회수 정보만 업데이트
+                    int updatedHitsUser = response.body().getHitsUser();
+                    int updatedHitsRecruiter = response.body().getHitsRecruiter();
+
+                    // Callback으로 조회수 정보 전달
+                    callback.onSuccess(updatedHitsUser, updatedHitsRecruiter);
                 } else {
                     String errorMessage = "Server response error: " + response.code();
                     callback.onError(errorMessage);
@@ -66,7 +69,7 @@ public class FeedService {
             }
 
             @Override
-            public void onFailure(Call<FeedResponse> call, Throwable t) {
+            public void onFailure(Call<FeedDTO> call, Throwable t) {
                 String errorMessage = "Network error: " + t.getMessage();
                 callback.onError(errorMessage);
             }
@@ -74,8 +77,8 @@ public class FeedService {
     }
 
     public interface IncrementHitsCallback {
-        void onSuccess(FeedResponse.Post post);
-
+        void onSuccess(int updatedHitsUser, int updatedHitsRecruiter);
         void onError(String errorMessage);
     }
+
 }

@@ -127,11 +127,11 @@ public interface ApiService {
 
     // 게시물 조회
     @GET("/api/feeds/{feedId}")
-    Call<FeedResponse> getFeed(@Path("feedId") Long feedId);
+    Call<FeedDTO> getFeed(@Path("feedId") Long feedId);
 
     // 게시물 수정
     @PUT("/api/feeds/{feedId}")
-    Call<FeedResponse> updateFeed(@Path("feedId") Long feedId, @Body FeedRequest feedRequest);
+    Call<FeedDTO> updateFeed(@Path("feedId") Long feedId, @Body FeedRequest feedRequest);
 
     // 게시물 삭제
     @DELETE("/api/feeds/{feedId}")
@@ -146,7 +146,7 @@ public interface ApiService {
 
     // 게시물 조회수 증가
     @POST("/api/feeds/{feedId}/hits")
-    Call<FeedResponse> incrementFeedHits(@Path("feedId") Long feedId);
+    Call<FeedDTO> incrementFeedHits(@Path("feedId") Long feedId);
 
     // 피드 스크랩
     @POST("/api/feeds/{feedId}/scrap")

@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.spotlight.R;
 import com.example.spotlight.network.API.ApiClient;
 import com.example.spotlight.network.API.ApiService;
+import com.example.spotlight.network.DTO.FeedDTO;
 import com.example.spotlight.network.Request.FeedRequest;
 import com.example.spotlight.network.Response.DeleteResponse;
 import com.example.spotlight.network.Response.FeedResponse;
@@ -80,10 +81,10 @@ public class PostingEditActivity extends AppCompatActivity {
         feedRequest.setHashtags(hashtagSet);
 
         // 게시물 수정 요청
-        Call<FeedResponse> call = apiService.updateFeed(feedId, feedRequest);
-        call.enqueue(new Callback<FeedResponse>() {
+        Call<FeedDTO> call = apiService.updateFeed(feedId, feedRequest);
+        call.enqueue(new Callback<FeedDTO>() {
             @Override
-            public void onResponse(Call<FeedResponse> call, Response<FeedResponse> response) {
+            public void onResponse(Call<FeedDTO> call, Response<FeedDTO> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     Toast.makeText(PostingEditActivity.this, "게시물이 성공적으로 수정되었습니다!", Toast.LENGTH_SHORT).show();
                     finish();
@@ -93,7 +94,7 @@ public class PostingEditActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<FeedResponse> call, Throwable t) {
+            public void onFailure(Call<FeedDTO> call, Throwable t) {
                 Toast.makeText(PostingEditActivity.this, "오류가 발생했습니다: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
@@ -139,7 +140,7 @@ public class PostingEditActivity extends AppCompatActivity {
     private void setupRecyclerView() {
         memberList = new ArrayList<>();
 
-        adapter = new MemberAdapter(new ArrayList<>());
+        adapter = new MemberAdapter(new ArrayList<>(), new FeedDTO());
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         recyclerView.setAdapter(adapter);
     }

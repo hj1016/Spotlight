@@ -67,6 +67,13 @@ public class ItemDetailMemberGeneralActivity extends AppCompatActivity {
         if (intent != null) {
             feedId = intent.getLongExtra("feedId", -1L);
             userId = intent.getLongExtra("userId", -1L);
+
+            if (feedId == -1L || userId == -1L) {
+                Toast.makeText(this, "잘못된 요청입니다.", Toast.LENGTH_SHORT).show();
+                finish();
+            } else {
+                Log.d("Intent Data", "FeedId: " + feedId + ", UserId: " + userId);
+            }
         }
     }
 

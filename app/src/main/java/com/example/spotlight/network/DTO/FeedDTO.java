@@ -1,5 +1,7 @@
 package com.example.spotlight.network.DTO;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Set;
@@ -20,6 +22,8 @@ public class FeedDTO {
     private FeedCategoryDTO category;          // 카테고리 정보
     private FeedUserDTO user;                  // 사용자 정보
     private FeedExhibitionDTO exhibition;      // 전시 정보
+
+    @SerializedName("project")
     private FeedProjectDTO project;            // 프로젝트 정보
     private Set<FeedHashtagDTO> hashtags;      // 해시태그 리스트
 
@@ -299,6 +303,36 @@ public class FeedDTO {
 
         public void setProjectRoles(List<ProjectRoleDTO> projectRoles) {
             this.projectRoles = projectRoles;
+        }
+
+        public static class ProjectRoleDTO {
+            private Long id; // 역할 ID
+            private Long userId; // 사용자 ID
+            private String role; // 역할 이름
+
+            public Long getId() {
+                return id;
+            }
+
+            public void setId(Long id) {
+                this.id = id;
+            }
+
+            public Long getUserId() {
+                return userId;
+            }
+
+            public void setUserId(Long userId) {
+                this.userId = userId;
+            }
+
+            public String getRole() {
+                return role;
+            }
+
+            public void setRole(String role) {
+                this.role = role;
+            }
         }
     }
 
