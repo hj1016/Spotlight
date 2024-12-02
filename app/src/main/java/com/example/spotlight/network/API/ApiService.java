@@ -46,22 +46,6 @@ public interface ApiService {
     @POST("/api/user/verify-email-verification")
     Call<String> verificationCode(@Body EmailSendingRequest emailSendingRequest);
 
-//    // 학생 재학증명서 업로드
-//    @Multipart
-//    @POST("/api/user/upload-student-certificate")
-//    Call<CertificateResponse> uploadStudentCertificate(
-//            @Header("Authorization") String token,
-//            @Part("file") MultipartBody.Part file,
-//            @Part("username") RequestBody username);
-//
-//    // 리크루터 재직증명서 업로드
-//    @Multipart
-//    @POST("/api/user/upload-recruiter-certificate")
-//    Call<CertificateResponse> uploadRecruiterCertificate(
-//            @Header("Authorization") String token,
-//            @Part("file") MultipartBody.Part file,
-//            @Part("username") RequestBody username);
-
     // 로그인
     @POST("/api/user/login")
     Call<LoginResponse> login(@Body LoginRequest loginRequest);
@@ -117,8 +101,11 @@ public interface ApiService {
     Call<List<Post>> getMyFeeds();
 
     // 내 피드 내용 조회
-    // 재직증명서 업로드
-    @POST("/api/v1/user/certificate")
+
+    // 재학증명서 업로드 (학생)
+
+    // 재직증명서 업로드 (리크루터)
+    @POST("/api/user/upload-recruiter-certificate")
     @Multipart
     Call<CertificateResponse> uploadCertificate(@Part MultipartBody.Part certificate);
 

@@ -25,6 +25,7 @@ import com.example.spotlight.network.Util.*;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -38,8 +39,6 @@ public class MyPagePortfolioActivity extends AppCompatActivity {
     private ImageButton imageButton;
     private List<Uri> imageUris = new ArrayList<>();
     private ApiService apiService;
-    private String role = "STUDENT";
-    private String email;
     private GridLayout imageGrid;
 
     @Override
@@ -49,21 +48,18 @@ public class MyPagePortfolioActivity extends AppCompatActivity {
 
         imageGrid = findViewById(R.id.image_grid);
         imageButton = findViewById(R.id.mypage_portfolio_selec_image_plus);
-        apiService = ApiClient.getClientWithToken().create(ApiService.class);
+        apiService = ApiClient.getClient().create(ApiService.class);
 
-        Long id = getIntent().getLongExtra("id", 0);
-        email = getIntent().getStringExtra("email");
-
-        // 등록된 포트폴리오 이미지 적용
-        Long userId = TokenManager.getServerId();
+        Long id = TokenManager.getServerId();
 
         apiService.getPortfolio(id).enqueue(new Callback<PortfolioResponse>() {
             @Override
             public void onResponse(Call<PortfolioResponse> call, Response<PortfolioResponse> response) {
                 if (response.isSuccessful()) {
                     PortfolioResponse portfolioResponse = response.body();
-                    List<String> imageUrls = portfolioResponse.getPortfolioImages();
-                    if(imageUrls!=null && !imageUrls.isEmpty()) {
+                    assert portfolioResponse != null;
+                    List<String> imageUrls = portfolioResponse.getPortfolioList();
+                    if (imageUrls != null && !imageUrls.isEmpty()) {
                         imageUrls.forEach(url -> {
                             Uri uri = Uri.parse(url);
                             imageUris.add(uri);
@@ -74,6 +70,7 @@ public class MyPagePortfolioActivity extends AppCompatActivity {
                     Toast.makeText(MyPagePortfolioActivity.this, "포트폴리오를 가져올 수 없습니다.", Toast.LENGTH_SHORT).show();
                 }
             }
+
             @Override
             public void onFailure(Call<PortfolioResponse> call, Throwable t) {
                 Toast.makeText(MyPagePortfolioActivity.this, "포트폴리오 불러오기 실패: " + t.getMessage(), Toast.LENGTH_SHORT).show();
@@ -88,23 +85,25 @@ public class MyPagePortfolioActivity extends AppCompatActivity {
         });
 
     }
+
     private void updateGridLayout() {
-        // 추가 버튼외 그리드 아이템 삭제
+        // 추가 버튼 외 그리드 아이템 삭제
         int len = imageGrid.getChildCount();
-        Log.d("GetChildCount",String.valueOf(len));
-        if (len > 1) imageGrid.removeViews(1,len-1);
+        if (len > 1) imageGrid.removeViews(1, len - 1);
 
         // 이미지뷰 그리드 추가
         for (Uri imageUri : imageUris) {
-            Log.d("imageUri-path", imageUri.getPath());
+            Log.d("imageUri-path", Objects.requireNonNull(imageUri.getPath()));
             ImageView imageView = new ImageView(this);
             GridLayout.LayoutParams layoutParams = new GridLayout.LayoutParams();
             layoutParams.width = 280;
-            layoutParams.height= 280;
-            layoutParams.setMargins(30,60,30,60);
+            layoutParams.height = 280;
+            layoutParams.setMargins(30, 60, 30, 60);
 
             imageView.setLayoutParams(layoutParams);
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
+            // Glide로 이미지를 로드하여 표시
             Glide.with(this).load(imageUri).into(imageView);
 
             imageGrid.addView(imageView);
@@ -140,6 +139,7 @@ public class MyPagePortfolioActivity extends AppCompatActivity {
                 List<Uri> imageUris = new ArrayList<>();
                 for (int i = 0; i < count; i++) {
                     Uri imageUri = data.getClipData().getItemAt(i).getUri();
+                    Log.d("ImagePicker", "Selected image URI: " + imageUri.toString());
                     imageUris.add(imageUri);
                 }
                 uploadImagesToServer(imageUris);

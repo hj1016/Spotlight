@@ -1,24 +1,19 @@
 package com.example.spotlight.network.Response;
 
+import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class PortfolioResponse {
+    @SerializedName("success")
     private boolean success;
+
+    @SerializedName("message")
     private String message;
-    private List<String> portfolioImages;
 
-    // 기본 생성자
-    public PortfolioResponse() {
-    }
+    @SerializedName("portfolioList")
+    private List<String> portfolioList;
 
-    // 모든 필드를 포함하는 생성자
-    public PortfolioResponse(boolean success, String message, List<String> portfolioImages) {
-        this.success = success;
-        this.message = message;
-        this.portfolioImages = portfolioImages;
-    }
-
-    // Getter와 Setter
+    // Getter and Setter
     public boolean isSuccess() {
         return success;
     }
@@ -35,11 +30,11 @@ public class PortfolioResponse {
         this.message = message;
     }
 
-    public List<String> getPortfolioImages() {
-        return portfolioImages;
+    public List<String> getPortfolioList() {
+        return portfolioList;
     }
 
-    public void setPortfolioImages(List<String> portfolioImages) {
-        this.portfolioImages = portfolioImages;
+    public void setPortfolioList(List<String> portfolioList) {
+        this.portfolioList = portfolioList;
     }
 }
