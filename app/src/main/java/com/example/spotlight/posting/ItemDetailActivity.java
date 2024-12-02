@@ -154,7 +154,7 @@ public class ItemDetailActivity extends AppCompatActivity {
 
         // 스크랩 설정
         scrap.setText(String.valueOf(feed.getScrap()));
-        isScrapped = feed.getScrap() > 0; // 기본적으로 스크랩 상태로 설정
+        isScrapped = feed.getScrap() < 0;
         scrapButton.setImageResource(isScrapped ? R.drawable.scrap_yes : R.drawable.scrap_no);
 
         // 팀 이미지 설정
@@ -175,32 +175,28 @@ public class ItemDetailActivity extends AppCompatActivity {
         if (feed.getProject() != null && feed.getProject().getProjectRoles() != null) {
             for (FeedDTO.FeedProjectDTO.ProjectRoleDTO role : feed.getProject().getProjectRoles()) {
                 members.add(new Member(
-                        R.drawable.member_image, // 기본 이미지
-                        role.getUserId().toString(), // 팀원 이름
+                        R.drawable.member_image,
+                        role.getUserId().toString(),
                         role.getRole() // 팀원 역할
                 ));
             }
-        } else {
-            // 프로젝트가 없을 경우 작성자 정보만 추가
-            FeedDTO.FeedUserDTO user = feed.getUser();
+        }
+
+        if (feed.getProject() == null || feed.getProject().getProjectRoles() == null || feed.getProject().getProjectRoles().isEmpty()) {
+            Log.d("populateFeedData", "No project roles found");
             members.add(new Member(
-                    R.drawable.member_image, // 기본 이미지
-                    user.getName(),
+                    R.drawable.member_image,
+                    feed.getUser().getName(),
                     "작성자"
             ));
         }
 
-        // RecyclerView에 어댑터 설정
+        // RecyclerView 어댑터 연결
         memberAdapter = new MemberAdapter(members, feed);
-        recyclerView.setAdapter(memberAdapter);
+        recyclerView.setAdapter(memberAdapter); // 어댑터 설정
+        memberAdapter.notifyDataSetChanged(); // 데이터 변경 알림
 
-        if (feed != null) {
-            MemberAdapter adapter = new MemberAdapter(members, feed);
-            recyclerView.setAdapter(adapter);
-            adapter.notifyDataSetChanged();
-        } else {
-            Log.e("Adapter Error", "FeedDTO is null");
-        }
+        Log.d("populateFeedData", "RecyclerView adapter set with member count: " + members.size());
 
         // 전시 정보 설정
         if (feed.getExhibition() != null) {

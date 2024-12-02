@@ -106,8 +106,10 @@ public class ItemDetailMemberRecruiterActivity extends AppCompatActivity {
     private void updateMemberDetails(MemberDTO member) {
         // 멤버 이름, 학과 정보 설정
         memberNameTextView.setText(member.getName());
-        memberRoleTextView.setText(member.getMajor());
         memberDepartmentTextView.setText(member.getSchool() + " " + member.getMajor());
+
+        String category = member.getProjects().get(0).getCategory();
+        memberRoleTextView.setText(category);
 
         // 멤버 이미지 로드
         if (member.getProjects() != null && !member.getProjects().isEmpty()) {

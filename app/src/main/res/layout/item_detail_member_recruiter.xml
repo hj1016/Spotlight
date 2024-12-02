@@ -1,24 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF">
 
+    <!-- 상단 Toolbar -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_item_detail_member_recruiter"
         android:layout_width="match_parent"
         android:layout_height="90dp"
         android:background="@color/white"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-
-
+    <!-- 뒤로가기 버튼 -->
     <ImageView
         android:id="@+id/item_detail_member_recruiter_back"
         android:layout_width="19dp"
@@ -29,28 +26,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:clickable="true"
-        android:onClick="onBackClicked"/>
+        android:onClick="onBackClicked" />
 
+    <!-- 스크롤 가능한 콘텐츠 -->
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_item_detail_member_recruiter"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/toolbar_item_detail_member_recruiter"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_item_detail_member_recruiter">
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="20dp">
+            android:padding="16dp">
 
+            <!-- 프로필 섹션 -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
 
                 <ImageView
                     android:id="@+id/item_detail_member_recruiter_image"
@@ -58,83 +56,69 @@
                     android:layout_height="56dp"
                     app:srcCompat="@drawable/team_image" />
 
-
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1">
 
                     <TextView
                         android:id="@+id/item_detail_member_recruiter_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="5dp"
-                        android:text="김학생"
                         android:fontFamily="@font/pretendard_semibold"
-                        android:textColor="@color/black"
-                        android:textSize="18sp"/>
+                        android:textSize="18sp"
+                        android:textColor="@color/black" />
 
                     <TextView
                         android:id="@+id/item_detail_member_recruiter_role"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:text="사진/영상"
                         android:fontFamily="@font/pretendard_semibold"
-                        android:textColor="#a6a6a6"
-                        android:textSize="15sp"/>
-
-
+                        android:textSize="15sp"
+                        android:textColor="#a6a6a6" />
                 </LinearLayout>
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-
-                    <ImageView
-                        android:id="@+id/item_detail_member_recruiter_scrap_button"
-                        android:layout_width="24dp"
-                        android:layout_height="32dp"
-                        android:layout_weight="1"
-                        android:layout_marginTop="10dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:src="@drawable/scrap_no"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:onClick="toggleScrap"/>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
+                <!-- 스크랩 버튼 -->
+                <ImageView
+                    android:id="@+id/item_detail_member_recruiter_scrap_button"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginStart="8dp"
+                    android:src="@drawable/scrap_no"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:onClick="toggleScrap" />
             </LinearLayout>
 
+            <!-- 학력 섹션 -->
             <TextView
                 android:id="@+id/item_detail_member_recruiter_academic_ability"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="20dp"
                 android:text="학력"
                 android:fontFamily="@font/pretendard_bold"
-                android:textColor="@color/black"
-                android:textSize="18sp"/>
+                android:textSize="18sp"
+                android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/item_detail_member_recruiter_academic_ability_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="스포대학교 트라이트학과"
                 android:fontFamily="@font/pretendard_regular"
-                android:textColor="@color/black"
-                android:textSize="18sp"/>
+                android:textSize="16sp"
+                android:textColor="@color/black" />
 
+            <!-- 포트폴리오 확인 -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="30dp">
+                android:layout_marginTop="20dp"
+                android:gravity="space_between">
 
                 <TextView
                     android:id="@+id/item_detail_member_recruiter_portfolio"
@@ -142,32 +126,25 @@
                     android:layout_height="wrap_content"
                     android:text="포트폴리오 확인하기"
                     android:fontFamily="@font/pretendard_bold"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp"
+                    android:textColor="@color/black" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:id="@+id/item_detail_member_recruiter_portfolio_go"
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/scrap_go"
-                        android:layout_marginStart="200dp"/>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-
+                <ImageView
+                    android:id="@+id/item_detail_member_recruiter_portfolio_go"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    app:srcCompat="@drawable/scrap_go"
+                    android:clickable="true"
+                    android:focusable="true" />
             </LinearLayout>
 
+            <!-- 제안 보내기 -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                android:gravity="space_between">
 
                 <TextView
                     android:id="@+id/item_detail_member_recruiter_propose"
@@ -175,97 +152,36 @@
                     android:layout_height="wrap_content"
                     android:text="제안 보내기"
                     android:fontFamily="@font/pretendard_bold"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp"
+                    android:textColor="@color/black" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:id="@+id/item_detail_member_recruiter_propose_go"
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/scrap_go"
-                        android:layout_marginStart="200dp"/>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-
+                <ImageView
+                    android:id="@+id/item_detail_member_recruiter_propose_go"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    app:srcCompat="@drawable/scrap_go"
+                    android:clickable="true"
+                    android:focusable="true" />
             </LinearLayout>
 
+            <!-- 참여한 프로젝트 -->
             <TextView
                 android:id="@+id/item_detail_member_recruiter_project_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="30dp"
                 android:text="참여한 프로젝트"
                 android:fontFamily="@font/pretendard_bold"
-                android:textColor="@color/black"
-                android:textSize="18sp"/>
+                android:textSize="18sp"
+                android:textColor="@color/black" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <!-- 프로젝트 목록 컨테이너 -->
+            <LinearLayout
+                android:id="@+id/item_detail_member_recruiter_project_container"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageButton
-                    android:id="@+id/item_detail_member_recruiter_project_box"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:padding="0dp"
-                    android:scaleType="fitXY"
-                    app:srcCompat="@drawable/project_box"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
-
-                <ImageView
-                    android:id="@+id/item_detail_member_recruiter_project_photo"
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
-                    app:srcCompat="@drawable/team_image"
-                    app:layout_constraintTop_toTopOf="@id/item_detail_member_recruiter_project_box"
-                    app:layout_constraintStart_toStartOf="@id/item_detail_member_recruiter_project_box"
-                    android:layout_marginTop="45dp"
-                    android:layout_marginStart="36dp"/>
-
-                <LinearLayout
-                    android:id="@+id/item_detail_member_recruiter_project_text_container"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintStart_toEndOf="@id/item_detail_member_recruiter_project_photo"
-                    app:layout_constraintTop_toTopOf="@id/item_detail_member_recruiter_project_photo"
-                    app:layout_constraintBottom_toBottomOf="@id/item_detail_member_recruiter_project_photo"
-                    android:layout_marginStart="10dp">
-
-                    <TextView
-                        android:id="@+id/item_detail_member_recruiter_project_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="You little human"
-                        android:fontFamily="@font/pretendard_semibold"
-                        android:textSize="18sp"
-                        android:textColor="@color/black"/>
-
-                    <TextView
-                        android:id="@+id/item_detail_member_recruiter_project_category"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="사진/영상"
-                        android:fontFamily="@font/pretendard_semibold"
-                        android:textSize="15sp"
-                        android:textColor="#a6a6a6" />
-                </LinearLayout>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="10dp" />
         </LinearLayout>
     </ScrollView>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

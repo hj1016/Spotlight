@@ -107,8 +107,10 @@ public class ItemDetailMemberGeneralActivity extends AppCompatActivity {
     private void updateMemberDetails(MemberDTO member) {
         // 이름, 역할 및 학과 정보 설정
         memberNameTextView.setText(member.getName());
-        memberRoleTextView.setText(member.getMajor());
         memberDepartmentTextView.setText(member.getSchool() + " " + member.getMajor());
+
+        String category = member.getProjects().get(0).getCategory(); // 첫 번째 프로젝트의 category 가져오기
+        memberRoleTextView.setText(category); // TextView에 category 값 설정
 
         // 멤버 이미지 설정 (멤버의 첫 번째 프로젝트의 썸네일을 사용)
         if (member.getProjects() != null && !member.getProjects().isEmpty()) {

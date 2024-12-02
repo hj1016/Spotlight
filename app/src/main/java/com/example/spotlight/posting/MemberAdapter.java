@@ -39,37 +39,31 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MemberView
 
     @Override
     public void onBindViewHolder(@NonNull MemberViewHolder holder, int position) {
-        // FeedDTO의 ProjectRoleDTO 가져오기
         FeedDTO.FeedProjectDTO.ProjectRoleDTO roleDTO = feedDTO.getProject().getProjectRoles().get(position);
-        Log.d("AdapterData", "ProjectRoleDTO: " + roleDTO);
 
-        // UI에 데이터 설정
+        if (roleDTO == null || roleDTO.getUserId() == null || feedDTO.getFeedId() == null) {
+            Log.e("Adapter Error", "Invalid data in roleDTO or feedDTO");
+            Toast.makeText(holder.itemView.getContext(), "Invalid member data", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         holder.memberName.setText(roleDTO.getUserId().toString());
         holder.memberRole.setText(roleDTO.getRole());
-        holder.memberImage.setImageResource(R.drawable.member_image); // 기본 이미지
+        holder.memberImage.setImageResource(R.drawable.member_image);
 
-        // 클릭 이벤트
         holder.itemView.setOnClickListener(v -> {
             String userType = TokenManager.getRole();
-            Long userId = roleDTO.getUserId();
-            Long feedId = feedDTO.getFeedId();
-
-            if (userId == null || feedId == null || feedId == -1L) {
-                Log.e("Intent Data Error", "Invalid data: userId or feedId is null/invalid");
-                Toast.makeText(v.getContext(), "Invalid data for navigation", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
             Intent intent;
+
             if ("RECRUITER".equals(userType)) {
                 intent = new Intent(v.getContext(), ItemDetailMemberRecruiterActivity.class);
-                intent.putExtra("studentId", userId);
+                intent.putExtra("studentId", roleDTO.getUserId());
             } else {
                 intent = new Intent(v.getContext(), ItemDetailMemberGeneralActivity.class);
-                intent.putExtra("userId", userId);
+                intent.putExtra("userId", roleDTO.getUserId());
             }
 
-            intent.putExtra("feedId", feedId);
+            intent.putExtra("feedId", feedDTO.getFeedId());
             v.getContext().startActivity(intent);
         });
     }
