@@ -2,6 +2,7 @@ package com.example.spotlight.chatbot;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
@@ -107,5 +108,9 @@ public class ChatbotActivity extends AppCompatActivity {
                 addChatbotMessage("서버 연결에 실패했습니다.");
             }
         });
+    }
+
+    public void onBackClicked(View view) {
+        finish();
     }
 }

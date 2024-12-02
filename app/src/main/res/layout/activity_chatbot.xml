@@ -4,6 +4,18 @@
     android:layout_height="match_parent"
     android:background="@android:color/black">
 
+    <!-- 뒤로 가기 버튼 -->
+    <ImageView
+        android:id="@+id/chatbot_back_button"
+        android:layout_width="19dp"
+        android:layout_height="19dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/white_back"
+        android:clickable="true"
+        android:contentDescription="Back"
+        android:onClick="onBackClicked" />
+
     <!-- 챗봇 제목 -->
     <ImageView
         android:id="@+id/chatbot_title"
