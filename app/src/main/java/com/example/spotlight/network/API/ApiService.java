@@ -16,6 +16,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -73,14 +74,12 @@ public interface ApiService {
     // 팀원 수락/거절 -> 수락 시 수정 권한 및 팀원 추가
 
     // 스크랩 피드 목록 확인
-    @GET("/api/v1/user/scrap/feed")
-    Call<List<Post>> getScrapFeeds();
-
+    @GET("/api/feeds/scrapped")
+    Call<List<Post>> getScrappedFeeds();
     // 스크랩 피드 세부 확인
-
     // 스크랩 인재 확인
-    @GET("/api/v1/user/scrap/students")
-    Call<List<ScrapDTO>> getScrapStudents();
+//    @GET("/api/students/scrapped")
+//    Call<List<StudentDTO>> getScrappedStudents(@Query("userId") Long userId);
 
     // 공고 제안서 목록 조회 (학생)
     @GET("/api/proposals/list/student")

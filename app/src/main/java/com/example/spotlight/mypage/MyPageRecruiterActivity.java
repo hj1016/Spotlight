@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.view.View;
 
 import com.example.spotlight.R;
+import com.example.spotlight.scrap.ScrapGraduatesActivity;
 import com.example.spotlight.scrap.ScrapProjectActivity;
 import com.example.spotlight.profile.ProfileRecruiterActivity;
 import com.example.spotlight.recruiter.RecruiterProposeManageActivity;
@@ -38,13 +39,13 @@ public class MyPageRecruiterActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    /*
+
     public void onScrapGraduatesClicked(View view) {
         Intent intent = new Intent(this, ScrapGraduatesActivity.class);
         startActivity(intent);
     }
 
-     */
+
 
     public void onProposeClicked(View view) {
         Intent intent = new Intent(this, RecruiterProposeManageActivity.class);

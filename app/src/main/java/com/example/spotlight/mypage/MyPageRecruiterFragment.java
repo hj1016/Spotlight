@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.spotlight.R;
 import com.example.spotlight.network.Util.TokenManager;
+import com.example.spotlight.scrap.ScrapGraduatesActivity;
 import com.example.spotlight.scrap.ScrapProjectActivity;
 import com.example.spotlight.profile.ProfileRecruiterActivity;
 import com.example.spotlight.recruiter.RecruiterProposeManageActivity;
@@ -35,7 +36,7 @@ public class MyPageRecruiterFragment extends Fragment {
 
         view.findViewById(R.id.mypage_recruiter_profile).setOnClickListener(this::onProfileClicked);
         view.findViewById(R.id.mypage_recruiter_scrap_post).setOnClickListener(this::onScrapPostingClicked);
-//        view.findViewById(R.id.mypage_recruiter_scrap_person).setOnClickListener(this::onScrapGraduatesClicked);
+        view.findViewById(R.id.mypage_recruiter_scrap_person).setOnClickListener(this::onScrapGraduatesClicked);
         view.findViewById(R.id.mypage_recruiter_recruit_post).setOnClickListener(this::onProposeClicked);
 
         Log.d("MyPageRecruiterFagment", "loaded");
@@ -69,15 +70,12 @@ public class MyPageRecruiterFragment extends Fragment {
         }
     }
 
-    /*
     private void onScrapGraduatesClicked(View view) {
         if (getActivity() != null) {
             Intent intent = new Intent(getActivity(), ScrapGraduatesActivity.class);
             startActivity(intent);
         }
     }
-
-     */
 
     private void onProposeClicked(View view) {
         if (getActivity() != null) {
