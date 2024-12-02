@@ -13,7 +13,7 @@ public class Post implements Serializable {
     private String thumbnailImage;
     private String title;
     private String content;
-    private int scrapCount;
+    private Integer scrap;
     private Category category;
     private List<String> feedImages;
     private List<Hashtag> hashtags;
@@ -28,14 +28,14 @@ public class Post implements Serializable {
 
     // 생성자
     public Post(Long feedId, String thumbnailImage, String title, String content,
-                int scrapCount, Category category, List<String> feedImages,
+                Integer scrap, Category category, List<String> feedImages,
                 List<Hashtag> hashtags, boolean scrapped, Timestamp createdDate, Timestamp modifiedDate,
                 User user, Exhibition exhibition) {
         this.feedId = feedId;
         this.thumbnailImage = thumbnailImage;
         this.title = title;
         this.content = content;
-        this.scrapCount = scrapCount;
+        this.scrap = scrap;
         this.category = category;
         this.feedImages = feedImages;
         this.hashtags = hashtags;
@@ -51,7 +51,9 @@ public class Post implements Serializable {
     public String getThumbnailImage() { return thumbnailImage; }
     public String getTitle() { return title; }
     public String getContent() { return content; }
-    public int getScrapCount() { return scrapCount; }
+
+    public Integer getScrap() { return scrap; }
+
     public Category getCategory() { return category; }
     public List<String> getFeedImages() { return feedImages; }
     public List<Hashtag> getHashtags() { return hashtags; }
@@ -71,7 +73,8 @@ public class Post implements Serializable {
     public void setThumbnailImage(String thumbnailImage) { this.thumbnailImage = thumbnailImage; }
     public void setTitle(String title) { this.title = title; }
     public void setContent(String content) { this.content = content; }
-    public void setScrapCount(int scrapCount) { this.scrapCount = scrapCount; }
+
+    public void setScrap(Integer scrap) { this.scrap = scrap; }
 
     public void setCategory(Category category) { this.category = category; }
 

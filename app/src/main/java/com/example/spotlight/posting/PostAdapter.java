@@ -53,7 +53,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         holder.title.setText(post.getTitle());
         holder.category.setText(post.getCategory().getName());
         holder.content.setText(post.getContent());
-        holder.scrap.setText(String.valueOf(post.getScrapCount()));
+        holder.scrap.setText(String.valueOf(post.getScrap()));
         holder.scrapButton.setImageResource(post.isScrapped() ? R.drawable.scrap_yes : R.drawable.scrap_no);
 
         // hashtags라는 string으로 된 리스트 생성
