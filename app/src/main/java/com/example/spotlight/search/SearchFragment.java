@@ -17,4 +17,3 @@ public class SearchFragment extends Fragment {
         return inflater.inflate(R.layout.search_main, container, false);
     }
 }
-
