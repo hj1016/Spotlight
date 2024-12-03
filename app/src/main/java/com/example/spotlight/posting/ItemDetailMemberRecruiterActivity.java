@@ -51,7 +51,7 @@ public class ItemDetailMemberRecruiterActivity extends AppCompatActivity {
         memberRoleTextView = findViewById(R.id.item_detail_member_recruiter_role);
         memberDepartmentTextView = findViewById(R.id.item_detail_member_recruiter_academic_ability_text);
         memberImageView = findViewById(R.id.item_detail_member_recruiter_image);
-        projectContainer = findViewById(R.id.item_detail_member_recruiter_project_text_container);
+        projectContainer = findViewById(R.id.item_detail_member_recruiter_project_container);
         scrapButton = findViewById(R.id.item_detail_member_recruiter_scrap_button);
 
         firebaseStorage = FirebaseStorage.getInstance();

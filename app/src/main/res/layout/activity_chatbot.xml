@@ -17,15 +17,18 @@
         android:onClick="onBackClicked" />
 
     <!-- 챗봇 제목 -->
+
+    <!-- 메시지를 표시하는 RecyclerView -->
+
     <ImageView
         android:id="@+id/chatbot_title"
         android:layout_width="124dp"
         android:layout_height="20dp"
-        android:layout_centerHorizontal="true"
+        android:layout_alignParentEnd="true"
         android:layout_marginTop="30dp"
+        android:layout_marginEnd="132dp"
         android:src="@drawable/chatbot" />
 
-    <!-- 메시지를 표시하는 RecyclerView -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
