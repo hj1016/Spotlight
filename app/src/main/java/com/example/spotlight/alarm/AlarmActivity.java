@@ -120,7 +120,7 @@ public class AlarmActivity extends AppCompatActivity {
         dynamicLayout.addView(imageView);
         dynamicLayout.addView(textLayout);
 
-        parentLayout.addView(dynamicLayout);
+        parentLayout.addView(dynamicLayout, 0);
 
         dynamicLayout.setOnClickListener(new View.OnClickListener() {
             @Override

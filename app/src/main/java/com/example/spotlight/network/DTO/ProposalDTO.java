@@ -1,16 +1,31 @@
 package com.example.spotlight.network.DTO;
 
-import java.time.LocalDateTime;
+import com.google.gson.annotations.SerializedName;
 
 public class ProposalDTO {
 
+    @SerializedName("proposalId")
     private Long proposalId;
+
+    @SerializedName("job")
     private String job;
+
+    @SerializedName("contact")
     private String contact;
+
+    @SerializedName("description")
     private String description;
-    private LocalDateTime createdDate;
+
+    @SerializedName("createdDate")
+    private String createdDate;
+
+    @SerializedName("status")
     private String status;
+
+    @SerializedName("recruiter")
     private ProposalRecruiterDTO recruiter;
+
+    @SerializedName("student")
     private ProposalStudentDTO student;
 
     public Long getProposalId() {
@@ -45,11 +60,11 @@ public class ProposalDTO {
         this.description = description;
     }
 
-    public LocalDateTime getCreatedDate() {
+    public String getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(LocalDateTime createdDate) {
+    public void setCreatedDate(String createdDate) {
         this.createdDate = createdDate;
     }
 
@@ -77,22 +92,22 @@ public class ProposalDTO {
         this.student = student;
     }
 
-    // 리크루터 정보 내부 클래스
     public static class ProposalRecruiterDTO {
-        private Long userId;       // 리크루터 ID
-        private String company;    // 회사 이름
-        private String certification; // 인증 정보
-        private String username;   // 사용자 이름
-        private String profileImage;
 
-        // 기본 생성자
-        public ProposalRecruiterDTO(RecruiterDTO recruiter) {
-            this.userId = recruiter.getUserId();
-            this.company = recruiter.getCompany();
-            this.certification = recruiter.getRecruiterCertificate();
-            this.username = recruiter.getUser() != null ? recruiter.getUser().getUsername() : null;
-            this.profileImage = recruiter.getUser().getProfileImage();
-        }
+        @SerializedName("userId")
+        private Long userId;
+
+        @SerializedName("company")
+        private String company;
+
+        @SerializedName("certification")
+        private String certification;
+
+        @SerializedName("username")
+        private String username;  // 아이디
+
+        @SerializedName("profileImage")
+        private String profileImage;
 
         public Long getUserId() {
             return userId;
@@ -135,22 +150,26 @@ public class ProposalDTO {
         }
     }
 
-    // 학생 정보 내부 클래스
     public static class ProposalStudentDTO {
-        private Long userId;          // 학생 ID
-        private String major;         // 전공
-        private String portfolioImage; // 포트폴리오 이미지 URL
-        private String school;        // 학교 이름
+
+        @SerializedName("userId")
+        private Long userId;
+
+        @SerializedName("major")
+        private String major;
+
+        @SerializedName("portfolioImage")
+        private String portfolioImage;
+
+        @SerializedName("school")
+        private String school;
+
+        @SerializedName("profileImage")
         private String profileImage;
 
-        // 기본 생성자
-        public ProposalStudentDTO(StudentDTO student) {
-            this.userId = student.getUserId();
-            this.major = student.getMajor();
-            this.portfolioImage = student.getPortfolioImage();
-            this.school = student.getSchool();
-            this.profileImage = student.getUser().getProfileImage();
-        }
+        @SerializedName("name")
+        private String name;
+
         public Long getUserId() {
             return userId;
         }
@@ -189,6 +208,14 @@ public class ProposalDTO {
 
         public void setProfileImage(String profileImage) {
             this.profileImage = profileImage;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
         }
     }
 }

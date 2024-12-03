@@ -16,8 +16,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:clickable="true"
-        android:onClick="onReceivedProposeClicked"/>
+        android:clickable="false"/> <!-- clickable 속성 제거 -->
 
     <ImageView
         android:id="@+id/item_graduates_propose_photo"
@@ -64,7 +63,5 @@
         android:textSize="24sp"
         app:layout_constraintTop_toBottomOf="@id/item_graduates_propose_company"
         app:layout_constraintStart_toStartOf="@id/item_graduates_propose_photo"/>
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

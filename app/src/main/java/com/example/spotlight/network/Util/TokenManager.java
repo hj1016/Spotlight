@@ -161,4 +161,15 @@ public class TokenManager {
         editor.remove(key);
         editor.apply();
     }
+
+    public static void setScrapStatus(long feedId, boolean isScrapped) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("scrap_" + feedId, isScrapped);
+        editor.apply();
+    }
+
+    public static boolean getScrapStatus(long feedId) {
+        return sharedPreferences.getBoolean("scrap_" + feedId, false);
+    }
+
 }

@@ -38,7 +38,6 @@
         android:layout_marginLeft="280dp"
         app:layout_constraintStart_toEndOf="@+id/item_detail_back"
         app:layout_constraintTop_toTopOf="@+id/item_detail_back"
-        app:srcCompat="@drawable/stage_scrap_no"
         android:clickable="true"
         android:focusable="true"
         android:onClick="toggleScrap"/>
@@ -50,7 +49,6 @@
         android:layout_marginTop="5dp"
         android:layout_marginLeft="5dp"
         android:fontFamily="@font/pretendard_semibold"
-        android:text="231"
         android:textColor="#A6A6A6"
         android:textSize="15sp"
         app:layout_constraintStart_toEndOf="@+id/item_scrap_no"
@@ -82,8 +80,7 @@
                 <ImageView
                     android:id="@+id/item_detail_team_image"
                     android:layout_width="56dp"
-                    android:layout_height="56dp"
-                    app:srcCompat="@drawable/a_e_s" />
+                    android:layout_height="56dp" />
 
 
                 <LinearLayout
@@ -130,7 +127,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/pretendard_semibold"
-                            android:text="viewer"
                             android:textColor="#a6a6a6"
                             android:textSize="15sp" />
 
@@ -157,7 +153,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/pretendard_semibold"
-                            android:text="recruiter"
                             android:textColor="#a6a6a6"
                             android:textSize="15sp" />
 
@@ -232,7 +227,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:fontFamily="@font/pretendard_bold"
-                android:text="팀원 정보"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
 
@@ -258,7 +252,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:fontFamily="@font/pretendard_bold"
-                android:text="전시 정보"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
 
@@ -285,7 +278,6 @@
                     android:layout_marginStart="25dp"
                     android:layout_marginTop="28dp"
                     android:fontFamily="@font/pretendard_semibold"
-                    android:text="서울여자대학교 조형예술관 B1"
                     android:textColor="@color/black"
                     android:textSize="15sp"
                     app:layout_constraintStart_toStartOf="@+id/item_detail_exhibition_box"
@@ -297,7 +289,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/pretendard_regular"
-                    android:text="2024.04.01~2024.04.08"
                     android:textColor="@color/black"
                     android:textSize="15sp"
                     app:layout_constraintStart_toStartOf="@id/item_detail_exhibition_location"
@@ -309,7 +300,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="20dp"
                     android:fontFamily="@font/pretendard_regular"
-                    android:text="10:00~16:00"
                     android:textColor="@color/black"
                     android:textSize="15sp"
                     app:layout_constraintEnd_toEndOf="@id/item_detail_exhibition_box"

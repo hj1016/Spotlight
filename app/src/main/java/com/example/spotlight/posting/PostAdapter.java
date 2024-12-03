@@ -19,6 +19,7 @@ import com.example.spotlight.R;
 import com.example.spotlight.network.API.ApiClient;
 import com.example.spotlight.network.API.ApiService;
 import com.example.spotlight.network.Response.ScrapResponse;
+import com.example.spotlight.network.Util.TokenManager;
 import com.google.android.flexbox.FlexboxLayout;
 
 import java.util.ArrayList;
@@ -59,6 +60,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
 
         // 데이터를 ViewHolder에 바인딩
         Glide.with(context).load(post.getThumbnailImage()).into(holder.thumbnailImage);
+        Glide.with(context).load(post.getFeedImages()).into(holder.image);
         holder.title.setText(post.getTitle());
         holder.category.setText(post.getCategory().getName());
         holder.content.setText(post.getContent());
@@ -123,7 +125,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
 
     // ViewHolder 클래스
     public static class PostViewHolder extends RecyclerView.ViewHolder {
-        public ImageView thumbnailImage, scrapButton;
+        public ImageView thumbnailImage, scrapButton, image;
         public TextView title, category, content, scrap;
         public FlexboxLayout flexboxLayout;
         private boolean isScrapped = false;
@@ -135,6 +137,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             scrapButton = itemView.findViewById(R.id.scrap_selection);
             title = itemView.findViewById(R.id.title);
             category = itemView.findViewById(R.id.category);
+            image = itemView.findViewById(R.id.image);
             content = itemView.findViewById(R.id.content);
             scrap = itemView.findViewById(R.id.scrap);
             flexboxLayout = itemView.findViewById(R.id.main_flexbox_hashtags);
@@ -143,6 +146,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
 
     private void toggleScrap(PostViewHolder holder, Post post) {
         boolean isCurrentlyScrapped = post.isScrapped();
+        TokenManager.setScrapStatus(post.getFeedId(), !isCurrentlyScrapped);
 
         ApiService apiService = ApiClient.getClient().create(ApiService.class);
         Call<ScrapResponse> call = isCurrentlyScrapped
@@ -156,6 +160,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
                     ScrapResponse scrapResponse = response.body();
                     post.setScrapped(!isCurrentlyScrapped); // 상태 업데이트
                     post.setScrap(scrapResponse.getScrapCount());
+                    notifyItemChanged(holder.getAdapterPosition());
                     holder.scrapButton.setImageResource(post.isScrapped() ? R.drawable.scrap_yes : R.drawable.scrap_no);
                     holder.scrap.setText(String.valueOf(post.getScrap()));
                 }

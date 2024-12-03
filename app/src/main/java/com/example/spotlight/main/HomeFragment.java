@@ -1,5 +1,6 @@
 package com.example.spotlight.main;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -27,6 +28,7 @@ import com.example.spotlight.common.VerticalSpaceItemDecoration;
 import com.example.spotlight.network.API.ApiClient;
 import com.example.spotlight.network.API.ApiService;
 import com.example.spotlight.network.Response.PageResponse;
+import com.example.spotlight.network.Util.TokenManager;
 import com.example.spotlight.posting.Post;
 import com.example.spotlight.posting.PostAdapter;
 import com.google.android.material.navigation.NavigationView;
@@ -245,5 +247,19 @@ public class HomeFragment extends Fragment implements NavigationView.OnNavigatio
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         drawerLayout.closeDrawer(GravityCompat.END);
         return true;
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        for (Post post : posts) {
+            boolean isScrapped = TokenManager.getScrapStatus(post.getFeedId());
+            post.setScrapped(isScrapped);
+        }
+
+        // 어댑터를 새로 고쳐서 UI를 갱신
+        postAdapter.notifyDataSetChanged();
     }
 }

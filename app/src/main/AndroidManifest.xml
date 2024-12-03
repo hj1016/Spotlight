@@ -46,6 +46,7 @@
         <activity android:name=".recruiter.GeneralProposeManageActivity"/>
         <activity android:name=".authentication.GraduateStep1Activity" />
         <activity android:name=".graduates.GraduatesProposeActivity" />
+        <activity android:name=".proposal.ProposalDetailsActivity" />
 
         <activity android:name=".posting.ItemDetailActivity" />
         <activity android:name=".posting.ItemDetailMemberGeneralActivity"/>

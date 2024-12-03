@@ -57,8 +57,14 @@ public class MyPagePortfolioActivity extends AppCompatActivity {
             public void onResponse(Call<PortfolioResponse> call, Response<PortfolioResponse> response) {
                 if (response.isSuccessful()) {
                     PortfolioResponse portfolioResponse = response.body();
+                    Log.d("API Response", "PortfolioResponse: " + portfolioResponse.toString());
                     assert portfolioResponse != null;
                     List<String> imageUrls = portfolioResponse.getPortfolioList();
+                    if (imageUrls == null || imageUrls.isEmpty()) {
+                        Toast.makeText(MyPagePortfolioActivity.this, "포트폴리오가 없습니다.", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
                     if (imageUrls != null && !imageUrls.isEmpty()) {
                         imageUrls.forEach(url -> {
                             Uri uri = Uri.parse(url);
@@ -107,7 +113,7 @@ public class MyPagePortfolioActivity extends AppCompatActivity {
             Glide.with(this).load(imageUri).into(imageView);
 
             imageGrid.addView(imageView);
-            Log.d("GridLayout", "Image added with URI: " + imageUri.toString());
+            Log.d("GridLayout", "Image added with URI: " + imageUri);
         }
 
         // 레이아웃 무효화 및 재요청

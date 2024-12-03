@@ -75,7 +75,7 @@ public interface ApiService {
 
     // 스크랩 피드 목록 확인
     @GET("/api/feeds/scrapped")
-    Call<List<Post>> getScrappedFeeds();
+    Call<List<FeedDTO>> getScrappedFeeds();
     // 스크랩 피드 세부 확인
     // 스크랩 인재 확인
 //    @GET("/api/students/scrapped")
@@ -95,11 +95,9 @@ public interface ApiService {
             @Query("proposalId") Long proposalId,
             @Query("isStudent") boolean isStudent);
 
-    // 내가 올린 피드 목록 조회
+    // 내가 올린 피드 조회
     @GET("/api/feeds/my-feeds")
     Call<List<Post>> getMyFeeds();
-
-    // 내 피드 내용 조회
 
     // 재학증명서 업로드 (학생)
 

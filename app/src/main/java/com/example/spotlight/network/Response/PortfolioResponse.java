@@ -37,4 +37,11 @@ public class PortfolioResponse {
     public void setPortfolioList(List<String> portfolioList) {
         this.portfolioList = portfolioList;
     }
+
+    @Override
+    public String toString() {
+        return "PortfolioResponse{" +
+                "portfolioList=" + portfolioList +
+                '}';
+    }
 }

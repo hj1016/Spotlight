@@ -15,7 +15,6 @@ import com.example.spotlight.R;
 import com.example.spotlight.network.API.*;
 import com.example.spotlight.network.Response.ProposalResponse;
 import com.example.spotlight.network.Util.LoadingUtil;
-import com.example.spotlight.network.Util.Utils;
 
 import java.util.List;
 
@@ -44,10 +43,14 @@ public class GraduatesProposeActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<ProposalResponse>> call, Response<List<ProposalResponse>> response) {
                 if (response.isSuccessful()) {
-                    Utils.showJson(response.body());
                     List<ProposalResponse> proposals = response.body();
 
-                    // RecyclerView에 데이터 설정
+                    if (proposals != null && !proposals.isEmpty()) {
+                        Log.d("GraduatesProposeActivity", "Proposals size: " + proposals.size());
+                    } else {
+                        Log.d("GraduatesProposeActivity", "No proposals available or null data.");
+                    }
+
                     adapter = new GraduatesProposeAdapter(GraduatesProposeActivity.this, proposals);
                     recyclerView.setAdapter(adapter);
                     LoadingUtil.hideLoading();
@@ -56,6 +59,7 @@ public class GraduatesProposeActivity extends AppCompatActivity {
                     Toast.makeText(GraduatesProposeActivity.this, "데이터 가져오기 실패", Toast.LENGTH_SHORT).show();
                 }
             }
+
             @Override
             public void onFailure(Call<List<ProposalResponse>> call, Throwable t) {
                 LoadingUtil.hideLoading();
