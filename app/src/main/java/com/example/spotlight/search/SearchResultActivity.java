@@ -77,9 +77,9 @@ public class SearchResultActivity extends AppCompatActivity {
 
     private void setSearchResultTitle(String hashtag, String searchTerm, String school, String major) {
         if (hashtag != null) {
-            searchResultTitle.setText(hashtag);
+            searchResultTitle.setText("#" + hashtag);
         } else if (searchTerm != null) {
-            searchResultTitle.setText("검색어: " + searchTerm);
+            searchResultTitle.setText("#" + searchTerm);
         } else if (school != null && major != null) {
             searchResultTitle.setText(school + " " + major);
         } else if (school != null) {

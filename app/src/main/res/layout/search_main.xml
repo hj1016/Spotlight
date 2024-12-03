@@ -17,29 +17,26 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/search_bar" />
 
-
     <ImageView
         android:id="@+id/search_button"
         android:layout_width="29dp"
         android:layout_height="26dp"
-        android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
         android:layout_marginStart="312dp"
-        android:background="?android:selectableItemBackground"
-        android:clickable="true"
         android:color="@color/white"
+        android:clickable="true"
         android:focusable="true"
         android:onClick="onSearchButtonClicked"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/search_button"
-        tools:layout_editor_absoluteY="47dp" />
+        app:layout_constraintTop_toTopOf="@id/search_bar"
+        app:layout_constraintBottom_toBottomOf="@id/search_bar"
+        app:srcCompat="@drawable/search_button" />
 
     <EditText
         android:id="@+id/search_bar_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="11dp"
         android:background="@android:color/transparent"
         android:hint="Search..."
         android:inputType="text"
@@ -86,21 +83,19 @@
                 android:id="@+id/history_text1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/pretendard_bold"
-                android:text="#데이터분석"
-                android:textSize="20sp"
+                android:layout_weight="1"
                 android:clickable="true"
-                android:layout_weight="1"/>
+                android:fontFamily="@font/pretendard_bold"
+                android:textSize="20sp" />
 
-            <!-- 검색 아이콘 이미지뷰 -->
             <ImageView
                 android:id="@+id/search_go1"
                 android:layout_width="25dp"
                 android:layout_height="22dp"
                 android:layout_marginStart="1dp"
                 android:src="@drawable/search_go"
-                android:clickable="true"
-                android:onClick="onSearchButtonClicked" />
+                android:clickable="true"/>
+                <!--android:onClick="onSearchButtonClicked" /> -->
 
         </LinearLayout>
 

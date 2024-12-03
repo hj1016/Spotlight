@@ -81,7 +81,6 @@
         <activity android:name=".scrap.FakeScrapGraduatesActivity"/>
         <activity android:name=".scrap.ScrapProjectActivity"/>
         <activity android:name=".scrap.ScrapStageActivity"/>
-        <activity android:name=".search.SearchActivity"/>
         <activity android:name=".search.SearchResultActivity"/>
         <activity android:name=".search.SearchSchoolActivity"/>
 
