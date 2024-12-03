@@ -7,6 +7,29 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class FeedToPostConverter {
+
+    public static Post convertToPost(FeedDTO feedDTO) {
+        if (feedDTO == null) {
+            return null;
+        }
+
+        return new Post(
+                feedDTO.getFeedId(),
+                feedDTO.getThumbnailImage(),
+                feedDTO.getTitle(),
+                feedDTO.getContent(),
+                feedDTO.getScrap(),
+                toCategory(feedDTO.getCategory()),
+                feedDTO.getFeedImages(),
+                toHashtagList(feedDTO.getHashtags()),
+                feedDTO.isScrapped(),
+                feedDTO.getCreatedDate(),
+                feedDTO.getModifiedDate(),
+                toUser(feedDTO.getUser()),
+                toExhibition(feedDTO.getExhibition())
+        );
+    }
+
     // Category
     public static Post.Category toCategory(FeedDTO.FeedCategoryDTO categoryDTO) {
         if (categoryDTO == null) {

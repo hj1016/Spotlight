@@ -24,6 +24,7 @@ import com.example.spotlight.R;
 import com.example.spotlight.common.ImageSliderAdapter;
 import com.example.spotlight.network.API.ApiClient;
 import com.example.spotlight.network.API.ApiService;
+import com.example.spotlight.network.DTO.FeedToPostConverter;
 import com.example.spotlight.network.DTO.ProjectRoleDTO;
 import com.example.spotlight.network.Response.FeedResponse;
 import com.example.spotlight.network.Response.ScrapResponse;
@@ -54,6 +55,7 @@ public class ItemDetailActivity extends AppCompatActivity {
     private FlexboxLayout flexboxLayout;
     private RecyclerView recyclerView;
     private MemberAdapter memberAdapter;
+    private Post post;
     private Long feedId;
 
     @Override
@@ -110,9 +112,10 @@ public class ItemDetailActivity extends AppCompatActivity {
     }
 
     private void loadFeedDetail(Long feedId) {
-        // API 호출하여 게시물 세부 정보 가져오기
+        Long userId = TokenManager.getServerId();
+
         ApiService apiService = ApiClient.getClient().create(ApiService.class);
-        Call<FeedDTO> call = apiService.getFeed(feedId);
+        Call<FeedDTO> call = apiService.getFeed(feedId, userId);
 
         call.enqueue(new Callback<FeedDTO>() {
             @Override
@@ -153,9 +156,9 @@ public class ItemDetailActivity extends AppCompatActivity {
         viewCountRecruiter.setText(String.valueOf(feed.getHitsRecruiter()));
 
         // 스크랩 설정
-        scrap.setText(String.valueOf(feed.getScrap()));
-        isScrapped = feed.getScrap() < 0;
+        isScrapped = feed.isScrapped();
         scrapButton.setImageResource(isScrapped ? R.drawable.scrap_yes : R.drawable.scrap_no);
+        scrap.setText(String.valueOf(feed.getScrap()));
 
         // 팀 이미지 설정
         Glide.with(this).load(feed.getThumbnailImage()).into(teamImage);
@@ -295,19 +298,20 @@ public class ItemDetailActivity extends AppCompatActivity {
     }
 
     private void toggleScrap() {
-        scrapButton.setEnabled(false); // 버튼 비활성화
+        scrapButton.setEnabled(false);
         ApiService apiService = ApiClient.getClient().create(ApiService.class);
         Call<ScrapResponse> call = isScrapped
-                ? apiService.unscrapFeed(feedId, null, null) // 스크랩 취소
-                : apiService.scrapFeed(feedId, null, null);  // 스크랩
+                ? apiService.unscrapFeed(feedId, null, null)
+                : apiService.scrapFeed(feedId, null, null);
 
         call.enqueue(new Callback<ScrapResponse>() {
             @Override
             public void onResponse(Call<ScrapResponse> call, Response<ScrapResponse> response) {
-                scrapButton.setEnabled(true); // 버튼 다시 활성화
+                scrapButton.setEnabled(true);
                 if (response.isSuccessful() && response.body() != null) {
                     ScrapResponse scrapResponse = response.body();
                     isScrapped = !isScrapped; // 상태 토글
+
                     scrapButton.setImageResource(isScrapped ? R.drawable.scrap_yes : R.drawable.scrap_no);
                     scrap.setText(String.valueOf(scrapResponse.getScrapCount()));
                     Toast.makeText(ItemDetailActivity.this, scrapResponse.getMessage(), Toast.LENGTH_SHORT).show();
@@ -318,13 +322,14 @@ public class ItemDetailActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ScrapResponse> call, Throwable t) {
-                scrapButton.setEnabled(true); // 요청 실패 시 버튼 활성화
+                scrapButton.setEnabled(true);
                 Toast.makeText(ItemDetailActivity.this, "네트워크 오류가 발생했습니다.", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void handleError(int errorCode) {
+        // 에러 메시지 표시
         switch (errorCode) {
             case 400:
                 Toast.makeText(this, "이미 스크랩한 피드입니다.", Toast.LENGTH_SHORT).show();
@@ -336,6 +341,10 @@ public class ItemDetailActivity extends AppCompatActivity {
                 Toast.makeText(this, "스크랩 상태를 변경하지 못했습니다.", Toast.LENGTH_SHORT).show();
                 break;
         }
+
+        // 상태 복구
+        isScrapped = !isScrapped;
+        scrapButton.setImageResource(isScrapped ? R.drawable.scrap_yes : R.drawable.scrap_no);
     }
 
     public void onHashtagClicked(View view) {

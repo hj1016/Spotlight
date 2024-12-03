@@ -126,7 +126,10 @@ public interface ApiService {
 
     // 게시물 조회
     @GET("/api/feeds/{feedId}")
-    Call<FeedDTO> getFeed(@Path("feedId") Long feedId);
+    Call<FeedDTO> getFeed(
+            @Path("feedId") Long feedId,
+            @Query("userId") Long userId
+    );
 
     // 게시물 수정
     @PUT("/api/feeds/{feedId}")

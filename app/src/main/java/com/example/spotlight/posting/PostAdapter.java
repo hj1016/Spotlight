@@ -9,15 +9,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.spotlight.R;
+import com.example.spotlight.network.API.ApiClient;
+import com.example.spotlight.network.API.ApiService;
+import com.example.spotlight.network.Response.ScrapResponse;
 import com.google.android.flexbox.FlexboxLayout;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder> {
     private Context context;
@@ -67,7 +76,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         addHashtags(tags, holder.flexboxLayout);
 
         // 스크랩 버튼 클릭 리스너
-        holder.scrapButton.setOnClickListener(v -> holder.toggleScrap());
+        holder.scrapButton.setOnClickListener(v -> toggleScrap(holder, post));
     }
 
     @Override
@@ -130,13 +139,32 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             scrap = itemView.findViewById(R.id.scrap);
             flexboxLayout = itemView.findViewById(R.id.main_flexbox_hashtags);
         }
+    }
 
-        public void toggleScrap() {
-            isScrapped = !isScrapped;
-            scrapButton.setImageResource(isScrapped ? R.drawable.scrap_yes : R.drawable.scrap_no);
+    private void toggleScrap(PostViewHolder holder, Post post) {
+        boolean isCurrentlyScrapped = post.isScrapped();
 
-            int currentScrapCount = Integer.parseInt(scrap.getText().toString());
-            scrap.setText(String.valueOf(isScrapped ? currentScrapCount + 1 : currentScrapCount - 1));
-        }
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        Call<ScrapResponse> call = isCurrentlyScrapped
+                ? apiService.unscrapFeed(post.getFeedId(), null, null)
+                : apiService.scrapFeed(post.getFeedId(), null, null);
+
+        call.enqueue(new Callback<ScrapResponse>() {
+            @Override
+            public void onResponse(Call<ScrapResponse> call, Response<ScrapResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    ScrapResponse scrapResponse = response.body();
+                    post.setScrapped(!isCurrentlyScrapped); // 상태 업데이트
+                    post.setScrap(scrapResponse.getScrapCount());
+                    holder.scrapButton.setImageResource(post.isScrapped() ? R.drawable.scrap_yes : R.drawable.scrap_no);
+                    holder.scrap.setText(String.valueOf(post.getScrap()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ScrapResponse> call, Throwable t) {
+                Toast.makeText(context, "스크랩 요청 중 오류가 발생했습니다.", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

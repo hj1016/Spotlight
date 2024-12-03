@@ -15,7 +15,7 @@ public class FeedDTO implements Serializable {
     private List<String> feedImages;
     private String content;
     private Integer scrap;
-    private boolean isScrapped;
+    private boolean scrapped;
     private Integer hitsUser;
     private Integer hitsRecruiter;
     private Timestamp createdDate;
@@ -79,11 +79,11 @@ public class FeedDTO implements Serializable {
     }
 
     public boolean isScrapped() {
-        return isScrapped;
+        return scrapped;
     }
 
     public void setScrapped(boolean scrapped) {
-        isScrapped = scrapped;
+        this.scrapped = scrapped;
     }
 
     public Integer getHitsUser() {
