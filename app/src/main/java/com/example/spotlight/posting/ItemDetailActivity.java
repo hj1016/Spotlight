@@ -106,6 +106,7 @@ public class ItemDetailActivity extends AppCompatActivity {
         // 이미지 슬라이더 초기화
         viewPagerImages = findViewById(R.id.viewPagerImages);
         adapter = new ImageSliderAdapter(Arrays.asList(
+                R.drawable.schoolmajorfeed, R.drawable.dandan
         ));
         viewPagerImages.setAdapter(adapter);
     }

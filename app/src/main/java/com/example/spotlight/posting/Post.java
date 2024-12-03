@@ -15,6 +15,7 @@ public class Post implements Serializable {
     private String content;
     private Integer scrap;
     private Category category;
+    private String feedImg;
     private List<String> feedImages;
     private List<Hashtag> hashtags;
     private boolean scrapped;
@@ -28,7 +29,7 @@ public class Post implements Serializable {
 
     // 생성자
     public Post(Long feedId, String thumbnailImage, String title, String content,
-                Integer scrap, Category category, List<String> feedImages,
+                Integer scrap, Category category, String feedImg, List<String> feedImages,
                 List<Hashtag> hashtags, boolean scrapped, Timestamp createdDate, Timestamp modifiedDate,
                 User user, Exhibition exhibition) {
         this.feedId = feedId;
@@ -37,6 +38,7 @@ public class Post implements Serializable {
         this.content = content;
         this.scrap = scrap;
         this.category = category;
+        this.feedImg = feedImg;
         this.feedImages = feedImages;
         this.hashtags = hashtags;
         this.scrapped = scrapped;
@@ -55,6 +57,15 @@ public class Post implements Serializable {
     public Integer getScrap() { return scrap; }
 
     public Category getCategory() { return category; }
+
+    public String getFeedImg() {
+        return feedImg;
+    }
+
+    public void setFeedImg(String feedImg) {
+        this.feedImg = feedImg;
+    }
+
     public List<String> getFeedImages() { return feedImages; }
     public List<Hashtag> getHashtags() { return hashtags; }
 

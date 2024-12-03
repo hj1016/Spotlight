@@ -20,6 +20,7 @@ public class FeedToPostConverter {
                 feedDTO.getContent(),
                 feedDTO.getScrap(),
                 toCategory(feedDTO.getCategory()),
+                feedDTO.getFeedImg(),
                 feedDTO.getFeedImages(),
                 toHashtagList(feedDTO.getHashtags()),
                 feedDTO.isScrapped(),

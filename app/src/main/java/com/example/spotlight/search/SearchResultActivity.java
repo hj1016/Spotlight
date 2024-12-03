@@ -101,6 +101,7 @@ public class SearchResultActivity extends AppCompatActivity {
                     feed.getContent(),
                     feed.getScrap(),
                     FeedToPostConverter.toCategory(feed.getCategory()),
+                    feed.getFeedImg(),
                     feed.getFeedImages(),
                     FeedToPostConverter.toHashtagList(feed.getHashtags()),
                     feed.isScrapped(),

@@ -60,7 +60,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
 
         // 데이터를 ViewHolder에 바인딩
         Glide.with(context).load(post.getThumbnailImage()).into(holder.thumbnailImage);
-        Glide.with(context).load(post.getFeedImages()).into(holder.image);
+        Glide.with(context)
+                .load(post.getFeedImg())
+                .placeholder(R.drawable.schoolmajorfeed)
+                .into(holder.image);
         holder.title.setText(post.getTitle());
         holder.category.setText(post.getCategory().getName());
         holder.content.setText(post.getContent());

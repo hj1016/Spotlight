@@ -198,7 +198,7 @@
                 android:textColor="@color/black"
                 android:textSize="15sp" />
 
-            //hashtag
+            <!-- hashtag -->
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -230,7 +230,7 @@
                 android:textColor="@color/black"
                 android:textSize="18sp" />
 
-            //team info
+            <!-- team info -->
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/team_member_recycler_view"

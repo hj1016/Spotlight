@@ -12,6 +12,7 @@ public class FeedDTO implements Serializable {
     private Long feedId;
     private String title;
     private String thumbnailImage;
+    private String feedImg;
     private List<String> feedImages;
     private String content;
     private Integer scrap;
@@ -52,6 +53,14 @@ public class FeedDTO implements Serializable {
 
     public void setThumbnailImage(String thumbnailImage) {
         this.thumbnailImage = thumbnailImage;
+    }
+
+    public String getFeedImg() {
+        return feedImg;
+    }
+
+    public void setFeedImg(String feedImg) {
+        this.feedImg = feedImg;
     }
 
     public List<String> getFeedImages() {

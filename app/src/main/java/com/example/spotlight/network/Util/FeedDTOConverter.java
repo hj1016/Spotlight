@@ -19,6 +19,7 @@ public class FeedDTOConverter {
             post.setContent(feedDTO.getContent());
             post.setScrap(feedDTO.getScrap());
             post.setCategory(convertCategory(feedDTO.getCategory()));
+            post.setFeedImg(feedDTO.getFeedImg());
             post.setFeedImages(feedDTO.getFeedImages());
             post.setHashtags(convertHashtags(feedDTO.getHashtags()));
             post.setScrapped(feedDTO.isScrapped());
