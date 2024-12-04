@@ -76,10 +76,10 @@ public interface ApiService {
     // 스크랩 피드 목록 확인
     @GET("/api/feeds/scrapped")
     Call<List<FeedDTO>> getScrappedFeeds();
-    // 스크랩 피드 세부 확인
+
     // 스크랩 인재 확인
-//    @GET("/api/students/scrapped")
-//    Call<List<StudentDTO>> getScrappedStudents(@Query("userId") Long userId);
+    @GET("/api/feeds/scrapped-students")
+    Call<List<StudentDTO>> getScrappedStudents();
 
     // 공고 제안서 목록 조회 (학생)
     @GET("/api/proposals/list/student")

@@ -27,14 +27,12 @@ public class ScrapGraduatesActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView_scrap_graduates);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // 더미 데이터 | 수정 예정
         List<Graduate> graduates = new ArrayList<>();
-        for (int i = 1; i <= 10; i++) {
-            Graduate graduate = new Graduate();
-            graduate.setName("Graduate " + i);
-            graduate.setFeedTitle("Project Role " + i);
-            graduates.add(graduate);
-        }
+        Graduate graduate = new Graduate();
+        graduate.setName("난학생");
+        graduate.setFeedTitle("DanDan");
+        graduate.setProfileImage("https://storage.googleapis.com/spotlight-c7eb0.appspot.com/user_documents%2Fe854b848-6b07-4dfe-93df-6ed0afb20b93_images.jpeg");
+        graduates.add(graduate);
 
         adapter = new GraduateAdapter(this, graduates, new GraduateAdapter.OnItemClickListener() {
             @Override

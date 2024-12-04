@@ -22,11 +22,12 @@
         android:id="@+id/scrap_graduates_photo"
         android:layout_width="56dp"
         android:layout_height="56dp"
-        app:srcCompat="@drawable/team_image"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="36dp"
+        app:srcCompat="@drawable/images"
         app:layout_constraintTop_toTopOf="@id/scrap_graduates_box"
         app:layout_constraintStart_toStartOf="@id/scrap_graduates_box"
-        android:layout_marginTop="24dp"
-        android:layout_marginStart="36dp"/>
+        android:scaleType="centerCrop"/>
 
     <LinearLayout
         android:id="@+id/scrap_graduates_text_container"
