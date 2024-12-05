@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/search_bar"
-        android:layout_width="275dp"
-        android:layout_height="46dp"
+        android:layout_width="259dp"
+        android:layout_height="47dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="35dp"
         android:clickable="true"
@@ -21,14 +21,15 @@
         android:id="@+id/search_button"
         android:layout_width="29dp"
         android:layout_height="26dp"
-        android:layout_marginStart="312dp"
-        android:color="@color/white"
+        android:layout_marginStart="296dp"
         android:clickable="true"
+        android:color="@color/white"
         android:focusable="true"
         android:onClick="onSearchButtonClicked"
+        app:layout_constraintBottom_toBottomOf="@id/search_bar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/search_bar"
-        app:layout_constraintBottom_toBottomOf="@id/search_bar"
+        app:layout_constraintVertical_bias="0.619"
         app:srcCompat="@drawable/search_button" />
 
     <EditText

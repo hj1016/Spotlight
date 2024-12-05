@@ -127,6 +127,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/pretendard_semibold"
+                            android:text="viewer"
                             android:textColor="#a6a6a6"
                             android:textSize="15sp" />
 
@@ -162,6 +163,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/pretendard_semibold"
+                            android:text="recruiter"
                             android:textColor="#a6a6a6"
                             android:textSize="15sp" />
 
@@ -227,6 +229,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:fontFamily="@font/pretendard_bold"
+                android:text="팀원 정보"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
 
@@ -252,6 +255,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:fontFamily="@font/pretendard_bold"
+                android:text="전시 정보"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
 
